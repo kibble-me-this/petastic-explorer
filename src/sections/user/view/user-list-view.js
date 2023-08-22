@@ -50,11 +50,12 @@ const apiUrl = 'https://jr4plu4hdb.execute-api.us-east-1.amazonaws.com/default/m
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Shelter' },
-  { id: 'phoneNumber', label: 'Pet Name', width: 180 },
-  { id: 'company', label: 'Pet Breed', width: 220 },
-  { id: 'role', label: 'Role', width: 180 },
-  { id: 'status', label: 'Status', width: 100 },
+  { id: 'name', label: 'Pet' },
+  { id: 'petBreed', label: 'Pet Breed', width: 220 },
+  { id: 'country', label: 'Country', width: 75 },
+  { id: 'state', label: 'State', width: 75 },
+  { id: 'city', label: 'City', width: 125 },
+  { id: 'near', label: 'Near', width: 125 },
   { id: '', width: 88 },
 ];
 
@@ -151,8 +152,9 @@ export default function UserListView() {
   const [responseData, setResponseData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [resultCount, setResultCount] = useState(0); // New state for result count
-  const pageSize = 20; // Number of items per page
+  // const [resultCount, setResultCount] = useState(0); // New state for result count
+  const pageSize = 25; // Number of items per page
+  const [totalCount, setTotalCount] = useState(0);
 
   const fetchPetData = useCallback(async () => {
     try {
@@ -162,12 +164,10 @@ export default function UserListView() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      // Retrieve the Total-Count header from the response
-      const totalCount = response.headers.get('Total-Count');
-      setResultCount(Number(totalCount)); // Update the result count state
 
       const data = await response.json();
       setPetData(data.pets);
+      setTotalCount(data.totalCount); // Update the totalCount state
       console.log(data.pets); // Add this line
     } catch (error) {
       console.error('Error fetching pet data:', error);
@@ -234,7 +234,7 @@ export default function UserListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && resultCount}
+                    {tab.value === 'all' && totalCount}
                     {tab.value === 'active' &&
                       _userList.filter((user) => user.status === 'active').length}
 
@@ -332,7 +332,7 @@ export default function UserListView() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={resultCount} // Use the resultCount state
+            count={totalCount} // Use the resultCount state
             page={currentPage - 1} // Update the page number to match 0-based indexing
             rowsPerPage={table.rowsPerPage}
             onPageChange={handlePageChange} // Pass the handler for page change

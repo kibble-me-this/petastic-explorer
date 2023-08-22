@@ -30,6 +30,10 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
     locationState,
     locationCity,
     petName,
+    petBreed,
+    petGender,
+    petLifeStage,
+    petAvatar,
   } = row;
 
   const confirm = useBoolean();
@@ -46,11 +50,11 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
         </TableCell>
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
           {/* You can customize the Avatar and ListItemText components here */}
-          <Avatar alt={shelterName} src={getAvatarUrl(shelterName)} sx={{ mr: 2 }} />
+          <Avatar alt={petName} src={petAvatar} sx={{ mr: 2 }} />
 
           <ListItemText
-            primary={shelterName}
-            secondary={`${locationCity}, ${locationState}`}
+            primary={petName}
+            secondary={`${petLifeStage}, ${petGender}`}
             primaryTypographyProps={{ typography: 'body2' }}
             secondaryTypographyProps={{
               component: 'span',
@@ -58,11 +62,14 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
             }}
           />
         </TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{petName}</TableCell>{' '}
-        {/* Add this line for the Pet Name column */}
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{shelterCity}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{shelterState}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{petBreed}</TableCell>{' '}
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{locationCountry}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
+          {shelterState}
+        </TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
+          {shelterCity}
+        </TableCell>
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Quick Edit" placement="top" arrow>
             <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
