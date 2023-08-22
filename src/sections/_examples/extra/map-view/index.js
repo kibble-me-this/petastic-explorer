@@ -66,6 +66,7 @@ export default function MapView() {
           bgcolor: (theme) => (theme.palette.mode === 'light' ? 'grey.200' : 'grey.800'),
         }}
       >
+        {/* 
         <Container>
           <CustomBreadcrumbs
             heading="Map"
@@ -82,10 +83,12 @@ export default function MapView() {
             ]}
           />
         </Container>
+        */}
       </Box>
 
       <Container sx={{ my: 10 }}>
         <Stack spacing={5}>
+          {/*
           <Card>
             <CardHeader title="Change Theme" />
             <CardContent>
@@ -103,7 +106,7 @@ export default function MapView() {
               </StyledMapContainer>
             </CardContent>
           </Card>
-
+          
           <Card>
             <CardHeader title="Draggable Markers" />
             <CardContent>
@@ -112,7 +115,7 @@ export default function MapView() {
               </StyledMapContainer>
             </CardContent>
           </Card>
-
+          
           <Card>
             <CardHeader title="Geojson Animation" />
             <CardContent>
@@ -121,16 +124,6 @@ export default function MapView() {
               </StyledMapContainer>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader title="Clusters" />
-            <CardContent>
-              <StyledMapContainer>
-                <MapClusters {...baseSettings} mapStyle={THEMES.light} />
-              </StyledMapContainer>
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader title="Interaction" />
             <CardContent>
@@ -154,15 +147,6 @@ export default function MapView() {
           </Card>
 
           <Card>
-            <CardHeader title="Highlight By Filter" />
-            <CardContent>
-              <StyledMapContainer>
-                <MapHighlightByFilter {...baseSettings} mapStyle={THEMES.light} />
-              </StyledMapContainer>
-            </CardContent>
-          </Card>
-
-          <Card>
             <CardHeader title="Heatmap" />
             <CardContent>
               <StyledMapContainer>
@@ -176,6 +160,23 @@ export default function MapView() {
             <CardContent>
               <StyledMapContainer>
                 <MapSideBySide {...baseSettings} />
+              </StyledMapContainer>
+            </CardContent>
+          </Card>
+          */}
+          <Card>
+            <CardHeader title="Highlight By Filter" />
+            <CardContent>
+              <StyledMapContainer>
+                <MapHighlightByFilter {...baseSettings} mapStyle={THEMES.light} />
+              </StyledMapContainer>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader title="Clusters" />
+            <CardContent>
+              <StyledMapContainer>
+                <MapClusters {...baseSettings} mapStyle={THEMES.light} />
               </StyledMapContainer>
             </CardContent>
           </Card>
