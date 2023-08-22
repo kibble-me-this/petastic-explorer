@@ -10,6 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 export default function TablePaginationCustom({
   dense,
   onChangeDense,
+  onChangePage, // Add this prop
   rowsPerPageOptions = [5, 10, 25],
   sx,
   ...other
@@ -19,6 +20,7 @@ export default function TablePaginationCustom({
       <TablePagination
         rowsPerPageOptions={rowsPerPageOptions}
         component="div"
+        onChangePage={onChangePage} // Pass the handler to the TablePagination
         {...other}
         sx={{
           borderTopColor: 'transparent',
@@ -46,6 +48,7 @@ export default function TablePaginationCustom({
 TablePaginationCustom.propTypes = {
   dense: PropTypes.bool,
   onChangeDense: PropTypes.func,
+  onChangePage: PropTypes.func, // Add this prop
   rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
   sx: PropTypes.object,
 };

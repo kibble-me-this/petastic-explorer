@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -12,6 +12,8 @@ import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
+import TextField from '@mui/material/TextField';
+
 // routes
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -43,13 +45,14 @@ import UserTableToolbar from '../user-table-toolbar';
 import UserTableFiltersResult from '../user-table-filters-result';
 
 // ----------------------------------------------------------------------
+const apiUrl = 'https://jr4plu4hdb.execute-api.us-east-1.amazonaws.com/default/mongo'; // Replace with your API endpoint
 
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name' },
-  { id: 'phoneNumber', label: 'Phone Number', width: 180 },
-  { id: 'company', label: 'Company', width: 220 },
+  { id: 'name', label: 'Shelter' },
+  { id: 'phoneNumber', label: 'Pet Name', width: 180 },
+  { id: 'company', label: 'Pet Breed', width: 220 },
   { id: 'role', label: 'Role', width: 180 },
   { id: 'status', label: 'Status', width: 100 },
   { id: '', width: 88 },
@@ -143,6 +146,42 @@ export default function UserListView() {
     setFilters(defaultFilters);
   }, []);
 
+  const [petData, setPetData] = useState([]);
+  const [petName, setPetName] = useState('');
+  const [responseData, setResponseData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [resultCount, setResultCount] = useState(0); // New state for result count
+  const pageSize = 20; // Number of items per page
+
+  const fetchPetData = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}`
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      // Retrieve the Total-Count header from the response
+      const totalCount = response.headers.get('Total-Count');
+      setResultCount(Number(totalCount)); // Update the result count state
+
+      const data = await response.json();
+      setPetData(data.pets);
+      console.log(data.pets); // Add this line
+    } catch (error) {
+      console.error('Error fetching pet data:', error);
+    }
+  }, [petName, currentPage, pageSize]);
+
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage + 1); // Add +1 to match the API's page numbering
+  };
+
+  useEffect(() => {
+    fetchPetData();
+  }, [fetchPetData, currentPage]);
+
   return (
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -195,7 +234,7 @@ export default function UserListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && _userList.length}
+                    {tab.value === 'all' && resultCount}
                     {tab.value === 'active' &&
                       _userList.filter((user) => user.status === 'active').length}
 
@@ -216,6 +255,9 @@ export default function UserListView() {
             onFilters={handleFilters}
             //
             roleOptions={_roles}
+            petName={petName} // Pass petName prop
+            setPetName={setPetName} // Pass setPetName prop
+            fetchPetData={fetchPetData} // Pass fetchPetData prop
           />
 
           {canReset && (
@@ -268,27 +310,21 @@ export default function UserListView() {
                 />
 
                 <TableBody>
-                  {dataFiltered
-                    .slice(
-                      table.page * table.rowsPerPage,
-                      table.page * table.rowsPerPage + table.rowsPerPage
-                    )
-                    .map((row) => (
-                      <UserTableRow
-                        key={row.id}
-                        row={row}
-                        selected={table.selected.includes(row.id)}
-                        onSelectRow={() => table.onSelectRow(row.id)}
-                        onDeleteRow={() => handleDeleteRow(row.id)}
-                        onEditRow={() => handleEditRow(row.id)}
-                      />
-                    ))}
-
+                  {console.log(petData.length)} {/* Add this line */}
+                  {petData.map((row) => (
+                    <UserTableRow
+                      key={row.id}
+                      row={row}
+                      selected={table.selected.includes(row.id)} // Update this based on your data structure
+                      onSelectRow={() => table.onSelectRow(row.id)} // Update this based on your data structure
+                      onDeleteRow={() => handleDeleteRow(row.id)} // Update this based on your data structure
+                      onEditRow={() => handleEditRow(row.id)} // Update this based on your data structure
+                    />
+                  ))}
                   <TableEmptyRows
                     height={denseHeight}
-                    emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
+                    emptyRows={emptyRows(table.page, table.rowsPerPage, petData.length)} // Update this
                   />
-
                   <TableNoData notFound={notFound} />
                 </TableBody>
               </Table>
@@ -296,12 +332,11 @@ export default function UserListView() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
-            page={table.page}
+            count={resultCount} // Use the resultCount state
+            page={currentPage - 1} // Update the page number to match 0-based indexing
             rowsPerPage={table.rowsPerPage}
-            onPageChange={table.onChangePage}
+            onPageChange={handlePageChange} // Pass the handler for page change
             onRowsPerPageChange={table.onChangeRowsPerPage}
-            //
             dense={table.dense}
             onChangeDense={table.onChangeDense}
           />
@@ -362,6 +397,8 @@ function applyFilter({ inputData, comparator, filters }) {
   if (role.length) {
     inputData = inputData.filter((user) => role.includes(user.role));
   }
+
+  console.log(inputData); // Add this line to log filtered data
 
   return inputData;
 }

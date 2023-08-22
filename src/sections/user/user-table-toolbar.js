@@ -22,6 +22,9 @@ export default function UserTableToolbar({
   onFilters,
   //
   roleOptions,
+  petName,
+  setPetName,
+  fetchPetData, // Pass the fetchPetData function from the parent component
 }) {
   const popover = usePopover();
 
@@ -41,6 +44,10 @@ export default function UserTableToolbar({
     },
     [onFilters]
   );
+
+  const handleSearchPet = () => {
+    fetchPetData(); // Call the fetchPetData function to search for pets
+  };
 
   return (
     <>
@@ -88,8 +95,8 @@ export default function UserTableToolbar({
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
             fullWidth
-            value={filters.name}
-            onChange={handleFilterName}
+            value={petName}
+            onChange={(event) => setPetName(event.target.value)}
             placeholder="Search..."
             InputProps={{
               startAdornment: (
@@ -147,4 +154,7 @@ UserTableToolbar.propTypes = {
   filters: PropTypes.object,
   onFilters: PropTypes.func,
   roleOptions: PropTypes.array,
+  petName: PropTypes.string, // Add prop type for petName
+  setPetName: PropTypes.func, // Add prop type for setPetName
+  fetchPetData: PropTypes.func, // Add prop type for fetchPetData
 };

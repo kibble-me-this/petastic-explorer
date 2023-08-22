@@ -22,7 +22,15 @@ import UserQuickEditForm from './user-quick-edit-form';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
-  const { name, avatarUrl, company, role, status, email, phoneNumber } = row;
+  const {
+    shelterName,
+    shelterCity,
+    shelterState,
+    locationCountry,
+    locationState,
+    locationCity,
+    petName,
+  } = row;
 
   const confirm = useBoolean();
 
@@ -36,13 +44,13 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
         <TableCell padding="checkbox">
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
-
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} />
+          {/* You can customize the Avatar and ListItemText components here */}
+          <Avatar alt={shelterName} src={getAvatarUrl(shelterName)} sx={{ mr: 2 }} />
 
           <ListItemText
-            primary={name}
-            secondary={email}
+            primary={shelterName}
+            secondary={`${locationCity}, ${locationState}`}
             primaryTypographyProps={{ typography: 'body2' }}
             secondaryTypographyProps={{
               component: 'span',
@@ -50,27 +58,11 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
             }}
           />
         </TableCell>
-
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
-
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{company}</TableCell>
-
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{role}</TableCell>
-
-        <TableCell>
-          <Label
-            variant="soft"
-            color={
-              (status === 'active' && 'success') ||
-              (status === 'pending' && 'warning') ||
-              (status === 'banned' && 'error') ||
-              'default'
-            }
-          >
-            {status}
-          </Label>
-        </TableCell>
-
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{petName}</TableCell>{' '}
+        {/* Add this line for the Pet Name column */}
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{shelterCity}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{shelterState}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{locationCountry}</TableCell>
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Quick Edit" placement="top" arrow>
             <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
@@ -136,3 +128,9 @@ UserTableRow.propTypes = {
   row: PropTypes.object,
   selected: PropTypes.bool,
 };
+
+// You can define a function to generate the avatar URL based on the shelterName
+function getAvatarUrl(shelterName) {
+  // Logic to generate the avatar URL
+  return `url_for_avatar/${shelterName}.jpg`;
+}
