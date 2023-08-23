@@ -9,10 +9,11 @@ export default function UserListPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard: User List</title>
+        <title> Dashboard: Pet Explorer</title>
       </Helmet>
+
       <UserListView />
-      <MapView /> {/* Add the MapView component */}
+      <MapView />
     </>
   );
 }

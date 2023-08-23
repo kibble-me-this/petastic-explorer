@@ -153,7 +153,7 @@ export default function UserListView() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   // const [resultCount, setResultCount] = useState(0); // New state for result count
-  const pageSize = 25; // Number of items per page
+  const pageSize = 10; // Number of items per page
   const [totalCount, setTotalCount] = useState(0);
 
   const fetchPetData = useCallback(async () => {
@@ -186,22 +186,8 @@ export default function UserListView() {
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="List"
-          links={[
-            { name: 'Dashboard', href: paths.dashboard.root },
-            { name: 'User', href: paths.dashboard.user.root },
-            { name: 'List' },
-          ]}
-          action={
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.user.new}
-              variant="contained"
-              startIcon={<Iconify icon="mingcute:add-line" />}
-            >
-              New User
-            </Button>
-          }
+          heading="Pet Explorer"
+          links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
           sx={{
             mb: { xs: 3, md: 5 },
           }}
