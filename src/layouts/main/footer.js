@@ -63,9 +63,7 @@ export default function Footer() {
         <Logo sx={{ mb: 1, mx: 'auto' }} />
 
         <Typography variant="caption" component="div">
-          © All rights reserved
-          <br /> made by
-          <Link href="https://minimals.cc/"> minimals.cc </Link>
+          © 2023. All rights reserved
         </Typography>
       </Container>
     </Box>
@@ -98,6 +96,7 @@ export default function Footer() {
           }}
         >
           <Grid xs={8} md={3}>
+            {/* 
             <Typography
               variant="body2"
               sx={{
@@ -130,8 +129,10 @@ export default function Footer() {
                 </IconButton>
               ))}
             </Stack>
+            */}
           </Grid>
 
+          {/* 
           <Grid xs={12} md={6}>
             <Stack spacing={5} direction={{ xs: 'column', md: 'row' }}>
               {LINKS.map((list) => (
@@ -160,10 +161,11 @@ export default function Footer() {
               ))}
             </Stack>
           </Grid>
+          */}
         </Grid>
 
         <Typography variant="body2" sx={{ mt: 10 }}>
-          © 2021. All rights reserved
+          © 2023. All rights reserved
         </Typography>
       </Container>
     </Box>

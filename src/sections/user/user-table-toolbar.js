@@ -69,7 +69,7 @@ export default function UserTableToolbar({
             width: { xs: 1, md: 200 },
           }}
         >
-          <InputLabel>Role</InputLabel>
+          <InputLabel>State</InputLabel>
 
           <Select
             multiple

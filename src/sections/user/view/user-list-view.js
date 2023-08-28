@@ -19,7 +19,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 // _mock
-import { _userList, _roles, USER_STATUS_OPTIONS } from 'src/_mock';
+import { _userList, _roles, _usaStates, USER_STATUS_OPTIONS } from 'src/_mock';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
@@ -186,7 +186,13 @@ export default function UserListView() {
 
   return (
     <>
-      <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+      <Container
+        maxWidth={settings.themeStretch ? false : 'lg'}
+        sx={{
+          marginTop: (theme) => theme.spacing(14), // Adjust the spacing value as needed
+        }}
+      >
+        {' '}
         <CustomBreadcrumbs
           heading="Explorer"
           links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
@@ -194,7 +200,6 @@ export default function UserListView() {
             mb: { xs: 3, md: 5 },
           }}
         />
-
         <Card>
           <Tabs
             value={filters.status}
@@ -243,7 +248,7 @@ export default function UserListView() {
             filters={filters}
             onFilters={handleFilters}
             //
-            roleOptions={_roles}
+            roleOptions={_usaStates.map((state) => state.abbreviation)}
             petName={petName} // Pass petName prop
             setPetName={setPetName} // Pass setPetName prop
             fetchPetData={fetchPetData} // Pass fetchPetData prop

@@ -45,7 +45,7 @@ export const mainRoutes = [
       { path: 'contact-us', element: <ContactPage /> },
       { path: 'faqs', element: <FaqsPage /> },
       {
-        path: 'user',
+        path: '/',
         children: [{ element: <UserListPage />, index: true }],
       },
       {

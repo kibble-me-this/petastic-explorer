@@ -8,8 +8,8 @@ import { _mock } from './_mock';
 export const USER_STATUS_OPTIONS = [
   { value: 'dog', label: 'Dog' },
   { value: 'cat', label: 'Cat' },
-  { value: 'banned', label: 'Banned' },
-  { value: 'rejected', label: 'Rejected' },
+  // { value: 'banned', label: 'Banned' },
+  // { value: 'rejected', label: 'Rejected' },
 ];
 
 export const _userAbout = {
