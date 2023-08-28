@@ -13,7 +13,9 @@ export default function UserListPage() {
       </Helmet>
 
       <UserListView />
+      {/* 
       <MapView />
+      */}
     </>
   );
 }

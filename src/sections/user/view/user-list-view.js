@@ -45,7 +45,9 @@ import UserTableToolbar from '../user-table-toolbar';
 import UserTableFiltersResult from '../user-table-filters-result';
 
 // ----------------------------------------------------------------------
-const apiUrl = 'https://jr4plu4hdb.execute-api.us-east-1.amazonaws.com/default/mongo'; // Replace with your API endpoint
+// const apiUrl = 'https://jr4plu4hdb.execute-api.us-east-1.amazonaws.com/default/mongo';
+const apiUrl =
+  'https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/pt-indxr-pets-api-dev';
 
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 
@@ -153,7 +155,7 @@ export default function UserListView() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   // const [resultCount, setResultCount] = useState(0); // New state for result count
-  const pageSize = 10; // Number of items per page
+  const pageSize = 25; // Number of items per page
   const [totalCount, setTotalCount] = useState(0);
 
   const fetchPetData = useCallback(async () => {
@@ -186,7 +188,7 @@ export default function UserListView() {
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Pet Explorer"
+          heading="Explorer"
           links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
           sx={{
             mb: { xs: 3, md: 5 },
@@ -208,6 +210,7 @@ export default function UserListView() {
                 iconPosition="end"
                 value={tab.value}
                 label={tab.label}
+                disabled={tab.value === 'disabledValue'}
                 icon={
                   <Label
                     variant={
@@ -221,7 +224,7 @@ export default function UserListView() {
                     }
                   >
                     {tab.value === 'all' && totalCount}
-                    {tab.value === 'active' &&
+                    {tab.value === '' &&
                       _userList.filter((user) => user.status === 'active').length}
 
                     {tab.value === 'pending' &&

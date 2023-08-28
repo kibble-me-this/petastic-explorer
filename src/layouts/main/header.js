@@ -83,6 +83,7 @@ export default function Header() {
             <Logo />
           </Badge>
 
+          {/* 
           <Box sx={{ flexGrow: 1 }} />
 
           {mdUp && <NavDesktop offsetTop={offsetTop} data={navConfig} />}
@@ -103,6 +104,7 @@ export default function Header() {
 
             {!mdUp && <NavMobile offsetTop={offsetTop} data={navConfig} />}
           </Stack>
+          */}
         </Container>
       </Toolbar>
 
