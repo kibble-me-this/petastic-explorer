@@ -119,6 +119,7 @@ export default function UserTableToolbar({
         arrow="right-top"
         sx={{ width: 140 }}
       >
+        {/* 
         <MenuItem
           onClick={() => {
             popover.onClose();
@@ -136,14 +137,14 @@ export default function UserTableToolbar({
           <Iconify icon="solar:import-bold" />
           Import
         </MenuItem>
-
+*/}
         <MenuItem
           onClick={() => {
             popover.onClose();
           }}
         >
           <Iconify icon="solar:export-bold" />
-          Export
+          Reset
         </MenuItem>
       </CustomPopover>
     </>

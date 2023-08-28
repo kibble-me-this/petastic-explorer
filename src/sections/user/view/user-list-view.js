@@ -80,7 +80,11 @@ export default function UserListView() {
 
   const [tableData, setTableData] = useState(_userList);
 
-  const [filters, setFilters] = useState(defaultFilters);
+  // const [filters, setFilters] = useState(defaultFilters);
+  const [filters, setFilters] = useState({
+    role: _usaStates.map((state) => state.abbreviation), // Set all options checked by default
+    // other filters...
+  });
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -261,7 +265,7 @@ export default function UserListView() {
               //
               onResetFilters={handleResetFilters}
               //
-              results={dataFiltered.length}
+              results={totalCount} // {dataFiltered.length}
               sx={{ p: 2.5, pt: 0 }}
             />
           )}

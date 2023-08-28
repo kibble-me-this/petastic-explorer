@@ -71,12 +71,13 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           {shelterCity}
         </TableCell>
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+          {/* 
           <Tooltip title="Quick Edit" placement="top" arrow>
             <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
               <Iconify icon="solar:pen-bold" />
             </IconButton>
           </Tooltip>
-
+          */}
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
@@ -101,7 +102,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           <Iconify icon="solar:trash-bin-trash-bold" />
           Delete
         </MenuItem>
-
+        {/* 
         <MenuItem
           onClick={() => {
             onEditRow();
@@ -111,6 +112,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           <Iconify icon="solar:pen-bold" />
           Edit
         </MenuItem>
+        */}
       </CustomPopover>
 
       <ConfirmDialog
