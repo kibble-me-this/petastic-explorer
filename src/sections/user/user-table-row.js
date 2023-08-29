@@ -18,7 +18,7 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 //
 import UserQuickEditForm from './user-quick-edit-form';
-
+import Logo from '../../components/logo_near';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
@@ -89,8 +89,8 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
       <CustomPopover
         open={popover.open}
         onClose={popover.onClose}
-        arrow="right-top"
-        sx={{ width: 140 }}
+        arrow="left-bottom"
+        sx={{ width: 50 }}
       >
         <MenuItem
           onClick={() => {
@@ -99,8 +99,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           }}
           sx={{ color: 'error.main' }}
         >
-          <Iconify icon="solar:trash-bin-trash-bold" />
-          Delete
+          <Logo width={16} height={16} />
         </MenuItem>
         {/* 
         <MenuItem
@@ -118,11 +117,11 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
-        title="Delete"
-        content="Are you sure want to delete?"
+        title="Open Near Explorer"
+        content="Are you sure want to go to Near Explorer?"
         action={
           <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
+            Yes
           </Button>
         }
       />

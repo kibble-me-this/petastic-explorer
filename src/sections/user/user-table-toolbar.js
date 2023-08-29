@@ -108,19 +108,21 @@ export default function UserTableToolbar({
             }}
           />
 
+          {/*
           <IconButton onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
+           */}
         </Stack>
       </Stack>
-
+      {/* 
       <CustomPopover
         open={popover.open}
         onClose={popover.onClose}
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        {/* 
+        
         <MenuItem
           onClick={() => {
             popover.onClose();
@@ -138,7 +140,7 @@ export default function UserTableToolbar({
           <Iconify icon="solar:import-bold" />
           Import
         </MenuItem>
-*/}
+
         <MenuItem
           onClick={() => {
             popover.onClose();
@@ -148,6 +150,7 @@ export default function UserTableToolbar({
           Reset
         </MenuItem>
       </CustomPopover>
+      */}
     </>
   );
 }

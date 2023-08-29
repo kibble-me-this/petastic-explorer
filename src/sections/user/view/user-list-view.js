@@ -57,7 +57,6 @@ const TABLE_HEAD = [
   { id: 'country', label: 'Country', width: 75 },
   { id: 'state', label: 'State', width: 75 },
   { id: 'city', label: 'City', width: 125 },
-  { id: 'near', label: 'Near', width: 125 },
   { id: '', width: 88 },
 ];
 
@@ -80,9 +79,9 @@ export default function UserListView() {
 
   const [tableData, setTableData] = useState(_userList);
 
-  // const [filters, setFilters] = useState(defaultFilters);
   const [filters, setFilters] = useState({
-    role: _usaStates.map((state) => state.abbreviation), // Set all options checked by default
+    role: [],
+    status: 'all', // Initialize the status filter as 'all'
     // other filters...
   });
 

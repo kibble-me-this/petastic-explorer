@@ -32,10 +32,14 @@ export default function UserTableFiltersResult({
   return (
     <Stack spacing={1.5} {...other}>
       <Box sx={{ typography: 'body2' }}>
-        <strong>{results}</strong>
-        <Box component="span" sx={{ color: 'text.secondary', ml: 0.25 }}>
-          results found
-        </Box>
+        {filters.status !== 'all' || filters.role.length > 0 ? ( // Check if any filters are applied
+          <>
+            <strong>{results}</strong>
+            <Box component="span" sx={{ color: 'text.secondary', ml: 0.25 }}>
+              results found
+            </Box>
+          </>
+        ) : null}
       </Box>
 
       <Stack flexGrow={1} spacing={1} direction="row" flexWrap="wrap" alignItems="center">
@@ -57,6 +61,9 @@ export default function UserTableFiltersResult({
           color="error"
           onClick={onResetFilters}
           startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
+          sx={{
+            display: filters.status !== 'all' || filters.role.length > 0 ? 'inline-block' : 'none',
+          }}
         >
           Clear
         </Button>
