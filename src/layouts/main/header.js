@@ -75,7 +75,7 @@ export default function Header() {
                 sx={{ ml: 1 }}
               >
                 <Label color="info" sx={{ textTransform: 'unset', height: 22, px: 0.5 }}>
-                  v5.4.0
+                  v0.4.0
                 </Label>
               </Link>
             }

@@ -37,10 +37,11 @@ export default function UserTableToolbar({
 
   const handleFilterRole = useCallback(
     (event) => {
-      onFilters(
-        'role',
-        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
-      );
+      // onFilters(
+      //   'role',
+      //  typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
+      // );
+      onFilters('role', event.target.value); // Pass the selected states as an array
     },
     [onFilters]
   );

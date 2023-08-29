@@ -161,11 +161,14 @@ export default function UserListView() {
   // const [resultCount, setResultCount] = useState(0); // New state for result count
   const pageSize = 25; // Number of items per page
   const [totalCount, setTotalCount] = useState(0);
+  const [country, setCountry] = useState('US');
 
   const fetchPetData = useCallback(async () => {
     try {
       const response = await fetch(
-        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}`
+        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=US&states=${filters.role.join(
+          ','
+        )}`
       );
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -178,7 +181,7 @@ export default function UserListView() {
     } catch (error) {
       console.error('Error fetching pet data:', error);
     }
-  }, [petName, currentPage, pageSize]);
+  }, [petName, currentPage, pageSize, filters.role]);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage + 1); // Add +1 to match the API's page numbering
