@@ -65,10 +65,10 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{petBreed}</TableCell>{' '}
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{locationCountry}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
-          {shelterState}
+          {locationState}
         </TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
-          {shelterCity}
+          {locationCity}
         </TableCell>
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           {/* 

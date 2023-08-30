@@ -13,6 +13,8 @@ import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
 import TextField from '@mui/material/TextField';
+import Skeleton from '@mui/material/Skeleton';
+
 
 // routes
 import { paths } from 'src/routes/paths';
@@ -161,8 +163,12 @@ export default function UserListView() {
   const pageSize = 25; // Number of items per page
   const [totalCount, setTotalCount] = useState(0);
   const [country, setCountry] = useState('US');
+  const [loading, setLoading] = useState(true);
+
 
   const fetchPetData = useCallback(async () => {
+    setLoading(true); // Set loading to true before fetching data
+
     try {
       const response = await fetch(
         `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=US&states=${filters.role.join(
@@ -177,8 +183,10 @@ export default function UserListView() {
       setPetData(data.pets);
       setTotalCount(data.totalCount); // Update the totalCount state
       console.log(data.pets); // Add this line
+      setLoading(false); // Set loading to false after data is fetched
     } catch (error) {
       console.error('Error fetching pet data:', error);
+      setLoading(false); // Set loading to false if there's an error
     }
   }, [petName, currentPage, pageSize, filters.role]);
 
@@ -206,7 +214,10 @@ export default function UserListView() {
             mb: { xs: 3, md: 5 },
           }}
         />
+
         <Card>
+
+
           <Tabs
             value={filters.status}
             onChange={handleFilterStatus}
@@ -223,6 +234,9 @@ export default function UserListView() {
                 label={tab.label}
                 disabled={tab.value === 'disabledValue'}
                 icon={
+                  tab.value === 'all' && loading ? (
+                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={100} />
+                  ) : (
                   <Label
                     variant={
                       ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
@@ -245,10 +259,12 @@ export default function UserListView() {
                     {tab.value === 'rejected' &&
                       _userList.filter((user) => user.status === 'rejected').length}
                   </Label>
+                   )
                 }
               />
             ))}
           </Tabs>
+           
 
           <UserTableToolbar
             filters={filters}
@@ -291,44 +307,52 @@ export default function UserListView() {
                 </Tooltip>
               }
             />
+            
 
             <Scrollbar>
-              <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-                <TableHeadCustom
-                  order={table.order}
-                  orderBy={table.orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={tableData.length}
-                  numSelected={table.selected.length}
-                  onSort={table.onSort}
-                  onSelectAllRows={(checked) =>
-                    table.onSelectAllRows(
-                      checked,
-                      tableData.map((row) => row.id)
-                    )
-                  }
-                />
-
-                <TableBody>
-                  {console.log(petData.length)} {/* Add this line */}
-                  {petData.map((row) => (
-                    <UserTableRow
-                      key={row.id}
-                      row={row}
-                      selected={table.selected.includes(row.id)} // Update this based on your data structure
-                      onSelectRow={() => table.onSelectRow(row.id)} // Update this based on your data structure
-                      onDeleteRow={() => handleDeleteRow(row.id)} // Update this based on your data structure
-                      onEditRow={() => handleEditRow(row.id)} // Update this based on your data structure
-                    />
-                  ))}
-                  <TableEmptyRows
-                    height={denseHeight}
-                    emptyRows={emptyRows(table.page, table.rowsPerPage, petData.length)} // Update this
+              <div style={{ height: '100%', width: '100%' }}>
+                {loading ? (
+                <Skeleton variant="text" sx={{ fontSize: '1rem', width: '100%' }} />
+                ) : (
+                <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+                  <TableHeadCustom
+                    order={table.order}
+                    orderBy={table.orderBy}
+                    headLabel={TABLE_HEAD}
+                    rowCount={tableData.length}
+                    numSelected={table.selected.length}
+                    onSort={table.onSort}
+                    onSelectAllRows={(checked) =>
+                      table.onSelectAllRows(
+                        checked,
+                        tableData.map((row) => row.id)
+                      )
+                    }
                   />
-                  <TableNoData notFound={notFound} />
-                </TableBody>
-              </Table>
+
+                  <TableBody>
+                    {console.log(petData.length)} {/* Add this line */}
+                    {petData.map((row) => (
+                      <UserTableRow
+                        key={row.id}
+                        row={row}
+                        selected={table.selected.includes(row.id)} // Update this based on your data structure
+                        onSelectRow={() => table.onSelectRow(row.id)} // Update this based on your data structure
+                        onDeleteRow={() => handleDeleteRow(row.id)} // Update this based on your data structure
+                        onEditRow={() => handleEditRow(row.id)} // Update this based on your data structure
+                      />
+                    ))}
+                    <TableEmptyRows
+                      height={denseHeight}
+                      emptyRows={emptyRows(table.page, table.rowsPerPage, petData.length)} // Update this
+                    />
+                    <TableNoData notFound={notFound} />
+                  </TableBody>
+                </Table>
+                )}
+              </div>
             </Scrollbar>
+            
           </TableContainer>
 
           <TablePaginationCustom
@@ -341,6 +365,7 @@ export default function UserListView() {
             onChangeDense={table.onChangeDense}
           />
         </Card>
+       
       </Container>
 
       <ConfirmDialog
