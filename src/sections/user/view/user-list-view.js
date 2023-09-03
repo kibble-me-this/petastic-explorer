@@ -146,9 +146,15 @@ export default function UserListView() {
   const handleFilterStatus = useCallback(
     (event, newValue) => {
       handleFilters('status', newValue);
+      if (newValue === 'dog') {
+        setPetType('dog');
+      } else if (newValue === 'cat') {
+        setPetType('cat');
+      }
     },
     [handleFilters]
   );
+  
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
@@ -162,7 +168,10 @@ export default function UserListView() {
   // const [resultCount, setResultCount] = useState(0); // New state for result count
   const pageSize = 25; // Number of items per page
   const [totalCount, setTotalCount] = useState(0);
+
   const [country, setCountry] = useState('US');
+  const [petType, setPetType] = useState('');
+
   const [loading, setLoading] = useState(true);
 
 
@@ -171,10 +180,9 @@ export default function UserListView() {
 
     try {
       const response = await fetch(
-        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=US&states=${filters.role.join(
-          ','
-        )}`
+        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=US&states=${filters.role.join(',')}&type=${petType}`
       );
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -188,7 +196,7 @@ export default function UserListView() {
       console.error('Error fetching pet data:', error);
       setLoading(false); // Set loading to false if there's an error
     }
-  }, [petName, currentPage, pageSize, filters.role]);
+  }, [petName, currentPage, pageSize, filters.role, petType]);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage + 1); // Add +1 to match the API's page numbering
