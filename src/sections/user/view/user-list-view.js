@@ -272,7 +272,8 @@ export default function UserListView() {
                 label={tab.label}
                 disabled={tab.value === 'disabledValue'}
                 icon={
-                  tab.value === 'all' && loading ? (
+                  (tab.value === 'all' || tab.value === 'dog' || tab.value === 'cat') && loading ? (
+
                     <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={100} />
                   ) : (
                   <Label

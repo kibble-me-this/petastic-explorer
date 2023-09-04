@@ -95,10 +95,11 @@ export default function UserTableToolbar({
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
+            disabled  // Add this prop to disable the TextField
             fullWidth
             value={petName}
             onChange={(event) => setPetName(event.target.value)}
-            placeholder="Search..."
+            placeholder="Search by Pet Name (Coming soon...)"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
