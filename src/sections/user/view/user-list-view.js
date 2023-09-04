@@ -286,16 +286,11 @@ export default function UserListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && totalMaxPets}
-                    {tab.value === '' &&
-                      _userList.filter((user) => user.status === 'active').length}
-
-                    {tab.value === 'pending' &&
-                      _userList.filter((user) => user.status === 'pending').length}
-                    {tab.value === 'banned' &&
-                      _userList.filter((user) => user.status === 'banned').length}
-                    {tab.value === 'rejected' &&
-                      _userList.filter((user) => user.status === 'rejected').length}
+                    {tab.value === 'all' && totalMaxPets || tab.value === 'dog' && totalMaxDogs || tab.value === 'cat' && totalMaxCats}
+                    {tab.value === '' && _userList.filter((user) => user.status === 'active').length}
+                    {tab.value === 'pending' && _userList.filter((user) => user.status === 'pending').length}
+                    {tab.value === 'banned' && _userList.filter((user) => user.status === 'banned').length}
+                    {tab.value === 'rejected' && _userList.filter((user) => user.status === 'rejected').length}
                   </Label>
                    )
                 }
