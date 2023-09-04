@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import { useEffect, useState, useCallback } from 'react';
 // @mui
-import { alpha } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
@@ -31,6 +31,8 @@ import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+import { bgGradient } from 'src/theme/css';
+
 import {
   useTable,
   getComparator,
@@ -47,13 +49,27 @@ import UserTableToolbar from '../user-table-toolbar';
 import UserTableFiltersResult from '../user-table-filters-result';
 
 // ----------------------------------------------------------------------
-// const apiUrl = 'https://jr4plu4hdb.execute-api.us-east-1.amazonaws.com/default/mongo';
+
+const StyledRoot = styled('div')(({ theme }) => ({
+  ...bgGradient({
+    color: alpha(theme.palette.background.default, 0),
+    imgUrl: '/assets/background/overlay_3.jpg',
+  }),
+  position: 'relative',
+  overflow: 'hidden',
+  // [theme.breakpoints.up('md')]: {
+  //   height: `calc(100vh - ${HEADER.H_MAIN_DESKTOP}px)`,
+  // },
+}));
+
+// ----------------------------------------------------------------------
 const apiUrl =
   'https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/pt-indxr-pets-api-dev';
 
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
+  { id: 'project', label: 'Project' },
   { id: 'name', label: 'Pet' },
   { id: 'petBreed', label: 'Pet Breed', width: 220 },
   { id: 'country', label: 'Country', width: 75 },
@@ -167,7 +183,13 @@ export default function UserListView() {
   const [totalPages, setTotalPages] = useState(1);
   // const [resultCount, setResultCount] = useState(0); // New state for result count
   const pageSize = 25; // Number of items per page
+  
   const [totalCount, setTotalCount] = useState(0);
+  const [totalDogs, setTotalDogs] = useState(0);
+  const [totalCats, setTotalCats] = useState(0);
+  const [totalMaxPets, setTotalMaxPets] = useState(0);
+  const [totalMaxDogs, setTotalMaxDogs] = useState(0);
+  const [totalMaxCats, setTotalMaxCats] = useState(0);
 
   const [country, setCountry] = useState('US');
   const [petType, setPetType] = useState('');
@@ -189,8 +211,14 @@ export default function UserListView() {
 
       const data = await response.json();
       setPetData(data.pets);
-      setTotalCount(data.totalCount); // Update the totalCount state
-      console.log(data.pets); // Add this line
+      setTotalCount(data.totalCount); 
+      setTotalDogs(data.totalDogs); 
+      setTotalCats(data.totalCats); 
+      setTotalMaxPets(data.totalMaxPets); 
+      setTotalMaxDogs(data.totalMaxDogs); 
+      setTotalMaxCats(data.totalMaxCats); 
+
+      console.log(data.pets);
       setLoading(false); // Set loading to false after data is fetched
     } catch (error) {
       console.error('Error fetching pet data:', error);
@@ -207,7 +235,9 @@ export default function UserListView() {
   }, [fetchPetData, currentPage]);
 
   return (
-    <>
+    <>    
+    <StyledRoot>
+
       <Container
         maxWidth={settings.themeStretch ? false : 'lg'}
         sx={{
@@ -256,7 +286,7 @@ export default function UserListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && totalCount}
+                    {tab.value === 'all' && totalMaxPets}
                     {tab.value === '' &&
                       _userList.filter((user) => user.status === 'active').length}
 
@@ -398,6 +428,7 @@ export default function UserListView() {
           </Button>
         }
       />
+      </StyledRoot>
     </>
   );
 }
