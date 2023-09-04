@@ -74,7 +74,7 @@ export default function Header() {
                 underline="none"
                 sx={{ ml: 1 }}
               >
-                <Label color="info" sx={{ textTransform: 'unset', height: 22, px: 0.5 }}>
+                <Label color="info" sx={{ marginLeft: '16px', textTransform: 'unset', height: 22, px: 0.5 }}>
                   v0.4.0
                 </Label>
               </Link>
