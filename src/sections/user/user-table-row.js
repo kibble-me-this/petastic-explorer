@@ -19,6 +19,8 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 //
 import UserQuickEditForm from './user-quick-edit-form';
 import Logo from '../../components/logo_near';
+import LogoPetastic from '../../components/logo_petastic';
+
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
@@ -46,7 +48,8 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
     <>
       <TableRow hover selected={selected}>
         <TableCell padding="checkbox">
-          <Checkbox checked={selected} onClick={onSelectRow} />
+          <LogoPetastic width={16} height={16} />
+
         </TableCell>
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
           {/* You can customize the Avatar and ListItemText components here */}

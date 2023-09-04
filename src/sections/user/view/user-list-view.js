@@ -70,7 +70,7 @@ const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
   { id: 'project', label: 'Project' },
-  { id: 'name', label: 'Pet' },
+  { id: 'name', label: 'Pet', width: 75 },
   { id: 'petBreed', label: 'Pet Breed', width: 220 },
   { id: 'country', label: 'Country', width: 75 },
   { id: 'state', label: 'State', width: 75 },
