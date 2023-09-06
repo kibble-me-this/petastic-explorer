@@ -70,8 +70,8 @@ function Logo({ single = false, sx }) {
     singleLogo = singleLogoPetastic;
     fullLogo = fullLogoPetastic;
   } else {
-    singleLogo = singleLogoPetastic;
-    fullLogo = fullLogoPetastic;
+    singleLogo = singleLogoAnymal;
+    fullLogo = fullLogoAnymal;
   }
 
   return (
