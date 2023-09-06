@@ -14,7 +14,8 @@ import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
 import TextField from '@mui/material/TextField';
 import Skeleton from '@mui/material/Skeleton';
-
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
 
 // routes
 import { paths } from 'src/routes/paths';
@@ -170,7 +171,6 @@ export default function UserListView() {
     },
     [handleFilters]
   );
-  
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
@@ -183,7 +183,7 @@ export default function UserListView() {
   const [totalPages, setTotalPages] = useState(1);
   // const [resultCount, setResultCount] = useState(0); // New state for result count
   const pageSize = 25; // Number of items per page
-  
+
   const [totalCount, setTotalCount] = useState(0);
   const [totalDogs, setTotalDogs] = useState(0);
   const [totalCats, setTotalCats] = useState(0);
@@ -196,13 +196,14 @@ export default function UserListView() {
 
   const [loading, setLoading] = useState(true);
 
-
   const fetchPetData = useCallback(async () => {
     setLoading(true); // Set loading to true before fetching data
 
     try {
       const response = await fetch(
-        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=US&states=${filters.role.join(',')}&type=${petType}`
+        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=US&states=${filters.role.join(
+          ','
+        )}&type=${petType}`
       );
 
       if (!response.ok) {
@@ -211,12 +212,12 @@ export default function UserListView() {
 
       const data = await response.json();
       setPetData(data.pets);
-      setTotalCount(data.totalCount); 
-      setTotalDogs(data.totalDogs); 
-      setTotalCats(data.totalCats); 
-      setTotalMaxPets(data.totalMaxPets); 
-      setTotalMaxDogs(data.totalMaxDogs); 
-      setTotalMaxCats(data.totalMaxCats); 
+      setTotalCount(data.totalCount);
+      setTotalDogs(data.totalDogs);
+      setTotalCats(data.totalCats);
+      setTotalMaxPets(data.totalMaxPets);
+      setTotalMaxDogs(data.totalMaxDogs);
+      setTotalMaxCats(data.totalMaxCats);
 
       console.log(data.pets);
       setLoading(false); // Set loading to false after data is fetched
@@ -235,196 +236,213 @@ export default function UserListView() {
   }, [fetchPetData, currentPage]);
 
   return (
-    <>    
-    <StyledRoot>
-
-      <Container
-        maxWidth={settings.themeStretch ? false : 'lg'}
-        sx={{
-          marginTop: (theme) => theme.spacing(14), // Adjust the spacing value as needed
-        }}
-      >
-        {' '}
-        <CustomBreadcrumbs
-          heading="Explorer"
-          links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
+    <>
+      <StyledRoot>
+        <Container
+          maxWidth={settings.themeStretch ? false : 'lg'}
           sx={{
-            mb: { xs: 3, md: 5 },
+            marginTop: (theme) => theme.spacing(14), // Adjust the spacing value as needed
           }}
-        />
-
-        <Card>
-
-
-          <Tabs
-            value={filters.status}
-            onChange={handleFilterStatus}
+        >
+          {' '}
+          <CustomBreadcrumbs
+            heading="Explorer"
+            links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
             sx={{
-              px: 2.5,
-              boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
+              mb: { xs: 3, md: 5 },
             }}
-          >
-            {STATUS_OPTIONS.map((tab) => (
-              <Tab
-                key={tab.value}
-                iconPosition="end"
-                value={tab.value}
-                label={tab.label}
-                disabled={tab.value === 'disabledValue'}
-                icon={
-                  (tab.value === 'all' || tab.value === 'dog' || tab.value === 'cat') && loading ? (
-
-                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={100} />
-                  ) : (
-                  <Label
-                    variant={
-                      ((tab.value === 'all' || tab.value === filters.status) && 'filled') || 'soft'
-                    }
-                    color={
-                      (tab.value === 'active' && 'success') ||
-                      (tab.value === 'pending' && 'warning') ||
-                      (tab.value === 'banned' && 'error') ||
-                      'default'
-                    }
-                  >
-                    {tab.value === 'all' && totalMaxPets || tab.value === 'dog' && totalMaxDogs || tab.value === 'cat' && totalMaxCats}
-                    {tab.value === '' && _userList.filter((user) => user.status === 'active').length}
-                    {tab.value === 'pending' && _userList.filter((user) => user.status === 'pending').length}
-                    {tab.value === 'banned' && _userList.filter((user) => user.status === 'banned').length}
-                    {tab.value === 'rejected' && _userList.filter((user) => user.status === 'rejected').length}
-                  </Label>
-                   )
-                }
-              />
-            ))}
-          </Tabs>
-           
-
-          <UserTableToolbar
-            filters={filters}
-            onFilters={handleFilters}
-            //
-            roleOptions={_usaStates.map((state) => state.abbreviation)}
-            petName={petName} // Pass petName prop
-            setPetName={setPetName} // Pass setPetName prop
-            fetchPetData={fetchPetData} // Pass fetchPetData prop
           />
+          <Card>
+            <Tabs
+              value={filters.status}
+              onChange={handleFilterStatus}
+              sx={{
+                px: 2.5,
+                boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
+              }}
+            >
+              {STATUS_OPTIONS.map((tab) => (
+                <Tab
+                  key={tab.value}
+                  iconPosition="end"
+                  value={tab.value}
+                  label={tab.label}
+                  disabled={tab.value === 'disabledValue'}
+                  icon={
+                    (tab.value === 'all' || tab.value === 'dog' || tab.value === 'cat') &&
+                    loading ? (
+                      <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={100} />
+                    ) : (
+                      <Label
+                        variant={
+                          ((tab.value === 'all' || tab.value === filters.status) && 'filled') ||
+                          'soft'
+                        }
+                        color={
+                          (tab.value === 'active' && 'success') ||
+                          (tab.value === 'pending' && 'warning') ||
+                          (tab.value === 'banned' && 'error') ||
+                          'default'
+                        }
+                      >
+                        {(tab.value === 'all' && totalMaxPets) ||
+                          (tab.value === 'dog' && totalMaxDogs) ||
+                          (tab.value === 'cat' && totalMaxCats)}
+                        {tab.value === '' &&
+                          _userList.filter((user) => user.status === 'active').length}
+                        {tab.value === 'pending' &&
+                          _userList.filter((user) => user.status === 'pending').length}
+                        {tab.value === 'banned' &&
+                          _userList.filter((user) => user.status === 'banned').length}
+                        {tab.value === 'rejected' &&
+                          _userList.filter((user) => user.status === 'rejected').length}
+                      </Label>
+                    )
+                  }
+                />
+              ))}
+            </Tabs>
 
-          {canReset && (
-            <UserTableFiltersResult
+            <UserTableToolbar
               filters={filters}
               onFilters={handleFilters}
               //
-              onResetFilters={handleResetFilters}
-              //
-              results={totalCount} // {dataFiltered.length}
-              sx={{ p: 2.5, pt: 0 }}
+              roleOptions={_usaStates.map((state) => state.abbreviation)}
+              petName={petName} // Pass petName prop
+              setPetName={setPetName} // Pass setPetName prop
+              fetchPetData={fetchPetData} // Pass fetchPetData prop
             />
-          )}
 
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
-            <TableSelectedAction
-              dense={table.dense}
-              numSelected={table.selected.length}
-              rowCount={tableData.length}
-              onSelectAllRows={(checked) =>
-                table.onSelectAllRows(
-                  checked,
-                  tableData.map((row) => row.id)
-                )
-              }
-              action={
-                <Tooltip title="Delete">
-                  <IconButton color="primary" onClick={confirm.onTrue}>
-                    <Iconify icon="solar:trash-bin-trash-bold" />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-            
+            {canReset && (
+              <UserTableFiltersResult
+                filters={filters}
+                onFilters={handleFilters}
+                //
+                onResetFilters={handleResetFilters}
+                //
+                results={totalCount} // {dataFiltered.length}
+                sx={{ p: 2.5, pt: 0 }}
+              />
+            )}
 
-            <Scrollbar>
-              <div style={{ height: '100%', width: '100%' }}>
+            <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+              <TableSelectedAction
+                dense={table.dense}
+                numSelected={table.selected.length}
+                rowCount={tableData.length}
+                onSelectAllRows={(checked) =>
+                  table.onSelectAllRows(
+                    checked,
+                    tableData.map((row) => row.id)
+                  )
+                }
+                action={
+                  <Tooltip title="Delete">
+                    <IconButton color="primary" onClick={confirm.onTrue}>
+                      <Iconify icon="solar:trash-bin-trash-bold" />
+                    </IconButton>
+                  </Tooltip>
+                }
+              />
 
-                
-                <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-                  <TableHeadCustom
-                    order={table.order}
-                    orderBy={table.orderBy}
-                    headLabel={TABLE_HEAD}
-                    rowCount={tableData.length}
-                    numSelected={table.selected.length}
-                    onSort={table.onSort}
-                    onSelectAllRows={(checked) =>
-                      table.onSelectAllRows(
-                        checked,
-                        tableData.map((row) => row.id)
-                      )
-                    }
-                  />
-
-                  <TableBody>
-                    {console.log(petData.length)} {/* Add this line */}
-                    {petData.map((row) => (
-                      <UserTableRow
-                        key={row.id}
-                        row={row}
-                        selected={table.selected.includes(row.id)} // Update this based on your data structure
-                        loading={loading} // Pass the actual loading state
-                        onSelectRow={() => table.onSelectRow(row.id)} // Update this based on your data structure
-                        onDeleteRow={() => handleDeleteRow(row.id)} // Update this based on your data structure
-                        onEditRow={() => handleEditRow(row.id)} // Update this based on your data structure
-                      />
-
-                    ))}
-                    <TableEmptyRows
-                      height={denseHeight}
-                      emptyRows={emptyRows(table.page, table.rowsPerPage, petData.length)} // Update this
+              <Scrollbar>
+                <div style={{ height: '100%', width: '100%' }}>
+                  <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+                    <TableHeadCustom
+                      order={table.order}
+                      orderBy={table.orderBy}
+                      headLabel={TABLE_HEAD}
+                      rowCount={tableData.length}
+                      numSelected={table.selected.length}
+                      onSort={table.onSort}
+                      onSelectAllRows={(checked) =>
+                        table.onSelectAllRows(
+                          checked,
+                          tableData.map((row) => row.id)
+                        )
+                      }
                     />
-                    <TableNoData notFound={notFound} />
-                  </TableBody>
-                </Table>
-                
-              </div>
-            </Scrollbar>
-            
-          </TableContainer>
 
-          <TablePaginationCustom
-            count={totalCount} // Use the resultCount state
-            page={currentPage - 1} // Update the page number to match 0-based indexing
-            rowsPerPage={table.rowsPerPage}
-            onPageChange={handlePageChange} // Pass the handler for page change
-            onRowsPerPageChange={table.onChangeRowsPerPage}
-            dense={table.dense}
-            onChangeDense={table.onChangeDense}
-          />
-        </Card>
-       
-      </Container>
+                    <TableBody>
+                      {petData.length === 0
+                        ? // Render 25 skeleton rows when petData is empty (initial load)
+                          Array.from({ length: 25 }, (_, index) => (
+                            <TableRow hover key={index}>
+                              <TableCell padding="checkbox">
+                                <Skeleton variant="circular" width={16} height={16} />
+                              </TableCell>
+                              <TableCell>
+                                <Skeleton variant="rectangular" width={100} height={16} />
+                              </TableCell>
+                              <TableCell>
+                                <Skeleton variant="rectangular" width={100} height={16} />
+                              </TableCell>
+                              <TableCell>
+                                <Skeleton variant="rectangular" width={100} height={16} />
+                              </TableCell>
+                              <TableCell>
+                                <Skeleton variant="rectangular" width={100} height={16} />
+                              </TableCell>
+                              <TableCell>
+                                <Skeleton variant="rectangular" width={100} height={16} />
+                              </TableCell>
+                              <TableCell align="right" sx={{ px: 1 }}>
+                                <Skeleton variant="rectangular" width={40} height={16} />
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        : // Map through petData to render actual rows
+                          petData.map((row) => (
+                            <UserTableRow
+                              key={row.id}
+                              row={row}
+                              selected={table.selected.includes(row.id)}
+                              loading={loading}
+                              onSelectRow={() => table.onSelectRow(row.id)}
+                              onDeleteRow={() => handleDeleteRow(row.id)}
+                              onEditRow={() => handleEditRow(row.id)}
+                            />
+                          ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </Scrollbar>
+            </TableContainer>
 
-      <ConfirmDialog
-        open={confirm.value}
-        onClose={confirm.onFalse}
-        title="Delete"
-        content={
-          <>
-            Are you sure want to delete <strong> {table.selected.length} </strong> items?
-          </>
-        }
-        action={
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => {
-              handleDeleteRows();
-              confirm.onFalse();
-            }}
-          >
-            Delete
-          </Button>
-        }
-      />
+            <TablePaginationCustom
+              count={totalCount} // Use the resultCount state
+              page={currentPage - 1} // Update the page number to match 0-based indexing
+              rowsPerPage={table.rowsPerPage}
+              onPageChange={handlePageChange} // Pass the handler for page change
+              onRowsPerPageChange={table.onChangeRowsPerPage}
+              dense={table.dense}
+              onChangeDense={table.onChangeDense}
+            />
+          </Card>
+        </Container>
+
+        <ConfirmDialog
+          open={confirm.value}
+          onClose={confirm.onFalse}
+          title="Delete"
+          content={
+            <>
+              Are you sure want to delete <strong> {table.selected.length} </strong> items?
+            </>
+          }
+          action={
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                handleDeleteRows();
+                confirm.onFalse();
+              }}
+            >
+              Delete
+            </Button>
+          }
+        />
       </StyledRoot>
     </>
   );
