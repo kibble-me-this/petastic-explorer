@@ -345,9 +345,8 @@ export default function UserListView() {
 
             <Scrollbar>
               <div style={{ height: '100%', width: '100%' }}>
-                {loading ? (
-                <Skeleton variant="text" sx={{ fontSize: '1rem', width: '100%' }} />
-                ) : (
+
+                
                 <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
                   <TableHeadCustom
                     order={table.order}
@@ -371,10 +370,12 @@ export default function UserListView() {
                         key={row.id}
                         row={row}
                         selected={table.selected.includes(row.id)} // Update this based on your data structure
+                        loading={loading} // Pass the actual loading state
                         onSelectRow={() => table.onSelectRow(row.id)} // Update this based on your data structure
                         onDeleteRow={() => handleDeleteRow(row.id)} // Update this based on your data structure
                         onEditRow={() => handleEditRow(row.id)} // Update this based on your data structure
                       />
+
                     ))}
                     <TableEmptyRows
                       height={denseHeight}
@@ -383,7 +384,7 @@ export default function UserListView() {
                     <TableNoData notFound={notFound} />
                   </TableBody>
                 </Table>
-                )}
+                
               </div>
             </Scrollbar>
             

@@ -9,6 +9,8 @@ import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
+import Skeleton from '@mui/material/Skeleton';
+
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
@@ -23,7 +25,7 @@ import LogoPetastic from '../../components/logo_petastic';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
+export default function UserTableRow({ row, selected, loading={loading}, onEditRow, onSelectRow, onDeleteRow }) {
   const {
     shelterName,
     shelterCity,
@@ -46,10 +48,35 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
 
   return (
     <>
+      {loading ? (
+        <TableRow hover>
+
+          <TableCell padding="checkbox">
+            <Skeleton variant="circular" width={16} height={16} />
+          </TableCell>
+          <TableCell>
+            <Skeleton variant="rectangular" width={100} height={16} />
+          </TableCell>
+          <TableCell>
+            <Skeleton variant="rectangular" width={100} height={16} />
+          </TableCell>
+          <TableCell>
+            <Skeleton variant="rectangular" width={100} height={16} />
+          </TableCell>
+          <TableCell>
+            <Skeleton variant="rectangular" width={100} height={16} />
+          </TableCell>
+          <TableCell>
+            <Skeleton variant="rectangular" width={100} height={16} />
+          </TableCell>
+          <TableCell align="right" sx={{ px: 1 }}>
+            <Skeleton variant="rectangular" width={40} height={16} />
+          </TableCell>
+        </TableRow>
+      ) : (
       <TableRow hover selected={selected}>
         <TableCell padding="checkbox">
           <LogoPetastic width={16} height={16} />
-
         </TableCell>
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
           {/* You can customize the Avatar and ListItemText components here */}
@@ -67,12 +94,8 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
         </TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{petBreed}</TableCell>{' '}
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{locationCountry}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
-          {locationState}
-        </TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
-          {locationCity}
-        </TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>{locationState}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>{locationCity}</TableCell>
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           {/* 
           <Tooltip title="Quick Edit" placement="top" arrow>
@@ -86,6 +109,8 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           </IconButton>
         </TableCell>
       </TableRow>
+)}
+
 
       <UserQuickEditForm currentUser={row} open={quickEdit.value} onClose={quickEdit.onFalse} />
 
@@ -138,6 +163,7 @@ UserTableRow.propTypes = {
   onSelectRow: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 // You can define a function to generate the avatar URL based on the shelterName
