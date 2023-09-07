@@ -56,7 +56,7 @@ export default function Footer() {
         py: 5,
         textAlign: 'center',
         position: 'relative',
-        bgcolor: 'background.default',
+        background: 'rgba(0, 0, 0, 0)', // This makes the box fully transparent
       }}
     >
       <Container>

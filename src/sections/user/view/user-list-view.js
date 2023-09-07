@@ -58,6 +58,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
   }),
   position: 'relative',
   overflow: 'hidden',
+
   // [theme.breakpoints.up('md')]: {
   //   height: `calc(100vh - ${HEADER.H_MAIN_DESKTOP}px)`,
   // },
@@ -272,7 +273,11 @@ export default function UserListView() {
               mb: { xs: 3, md: 5 },
             }}
           />
-          <Card>
+          <Card
+            sx={{
+              mb: 10,
+            }}
+          >
             <Tabs
               value={filters.status}
               onChange={handleFilterStatus}
