@@ -24,6 +24,8 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // ----------------------------------------------------------------------
 
+import { useEffect } from 'react';
+
 // routes
 import Router from 'src/routes/sections';
 // theme
@@ -61,6 +63,32 @@ export default function App() {
   console.info(`%c${charAt}`, 'color: #5BE49B');
 
   useScrollToTop();
+
+  // Define the favicon URLs for different domains
+  const defaultFavicon = '/favicon/favicon.ico'; // Replace with the default favicon URL
+  const anymalFavicon = '/favicon/favicon.ico'; // Replace with the favicon URL for anymal.com
+  const petasticFavicon = '/favicon/petastic-favicon.ico'; // Replace with the favicon URL for petastic.com
+
+  // Determine the current domain
+  const currentDomain = window.location.hostname;
+
+  // Set the default favicon URL
+  let faviconUrl = defaultFavicon;
+
+  // Conditionally update the favicon URL based on the current domain
+  if (currentDomain === 'explorer.petastic.com') {
+    faviconUrl = petasticFavicon;
+  } else if (currentDomain === 'explorer.anymal.com') {
+    faviconUrl = anymalFavicon;
+  }
+
+  // Update the favicon in the document head
+  useEffect(() => {
+    const faviconElement = document.querySelector('link[rel="icon"]');
+    if (faviconElement) {
+      faviconElement.href = faviconUrl;
+    }
+  }, [faviconUrl]);
 
   return (
     <AuthProvider>
