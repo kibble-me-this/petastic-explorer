@@ -54,7 +54,7 @@ import UserTableFiltersResult from '../user-table-filters-result';
 const StyledRoot = styled('div')(({ theme }) => ({
   ...bgGradient({
     color: alpha(theme.palette.background.default, 0),
-    imgUrl: '/assets/background/overlay_3.jpg',
+    imgUrl: '/assets/background/overlay_4.jpg',
   }),
   position: 'relative',
   overflow: 'hidden',
@@ -196,6 +196,22 @@ export default function UserListView() {
 
   const [loading, setLoading] = useState(true);
 
+  const [backgroundImage, setBackgroundImage] = useState('/assets/background/overlay_3.jpg');
+
+  useEffect(() => {
+    // Get the current domain from window.location
+    const currentDomain = window.location.hostname;
+
+    // Define the domains for which you want to use a different background image
+    const domainsWithCustomBackground = ['explorer.petastic.com'];
+
+    // Check if the current domain is in the list of domains with custom backgrounds
+    if (domainsWithCustomBackground.includes(currentDomain)) {
+      // Set the custom background image URL
+      setBackgroundImage('/assets/background/overlay_4.jpg');
+    }
+  }, []);
+
   const fetchPetData = useCallback(async () => {
     setLoading(true); // Set loading to true before fetching data
 
@@ -237,7 +253,11 @@ export default function UserListView() {
 
   return (
     <>
-      <StyledRoot>
+      <StyledRoot
+        style={{
+          backgroundImage: `url(${backgroundImage})`, // Set the background image dynamically
+        }}
+      >
         <Container
           maxWidth={settings.themeStretch ? false : 'lg'}
           sx={{
