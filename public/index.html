@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="theme-color" content="#000000" />
@@ -8,10 +7,10 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
   <!-- Favicon -->
-  <link rel="icon" href="%PUBLIC_URL%/favicon/favicon.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/favicon/apple-touch-icon.png">
+  <link rel="icon" id="favicon" href="">
+  <link rel="icon" type="image/png" sizes="16x16" id="favicon-16" href="">
+  <link rel="icon" type="image/png" sizes="32x32" id="favicon-32" href="">
+  <link rel="apple-touch-icon" sizes="180x180" id="apple-touch-icon" href="">
 
   <!-- Using Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,17 +19,122 @@
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@900&display=swap" rel="stylesheet" />
 
-  <title>Explorer</title>
+  <title id="title">Explorer</title>
 
-  <meta name="description"
-    content="Petastic is a decentralized network purpose-built to identify, track, and manage the lives of all pets on earth." />
-  <meta name="keywords" content="animals, pets, web3, crypto" />
-  <meta name="author" content="Petatic" />
+  <meta name="description" id="description" content="" />
+  <meta name="keywords" id="keywords" content="" />
+  <meta name="author" id="author" content="" />
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-</body>
+  <script>
+    // Define the favicon URLs for different domains and sizes
+    const faviconSizes = {
+      default: {
+        'favicon.ico': '/favicon/anymal-favicon.ico',
+        'favicon-16x16.png': '/favicon/anymal-favicon-16x16.png',
+        'favicon-32x32.png': '/favicon/anymal-favicon-32x32.png',
+        'apple-touch-icon.png': '/favicon/anymal-apple-touch-icon.png',
+        'android-chrome-192x192.png': '/favicon/anymal-android-chrome-192x192.png',
+        'android-chrome-512x512.png': '/favicon/anymal-android-chrome-512x512.png',
+      },
+      anymal: {
+        // Replace with the favicon URLs for anymal.com and their respective sizes
+        'favicon.ico': '/favicon/anymal-favicon.ico',
+        'favicon-16x16.png': '/favicon/anymal-favicon-16x16.png',
+        'favicon-32x32.png': '/favicon/anymal-favicon-32x32.png',
+        'apple-touch-icon.png': '/favicon/anymal-apple-touch-icon.png',
+        'android-chrome-192x192.png': '/favicon/anymal-android-chrome-192x192.png',
+        'android-chrome-512x512.png': '/favicon/anymal-android-chrome-512x512.png',
+      },
+      petastic: {
+        // Replace with the favicon URLs for petastic.com and their respective sizes
+        'favicon.ico': '/favicon/petastic-favicon.ico',
+        'favicon-16x16.png': '/favicon/petastic-favicon-16x16.png',
+        'favicon-32x32.png': '/favicon/petastic-favicon-32x32.png',
+        'apple-touch-icon.png': '/favicon/petastic-apple-touch-icon.png',
+        'android-chrome-192x192.png': '/favicon/petastic-android-chrome-192x192.png',
+        'android-chrome-512x512.png': '/favicon/petastic-android-chrome-512x512.png',
+      },
+    };
 
+    // Determine the current domain
+    const currentDomain = window.location.hostname;
+
+    // Set the default favicon URLs and meta tags
+    let faviconUrls = faviconSizes.default;
+    let metaTags = {
+      title: 'Explorer',
+      description:
+        'Petastic is a decentralized network purpose-built to identify, track, and manage the lives of all pets on earth.',
+      keywords: 'animals, pets, web3, crypto',
+      author: 'Petatic',
+    };
+
+    // Conditionally update the favicon URLs and meta tags based on the current domain
+    if (currentDomain === 'explorer.petastic.com') {
+      faviconUrls = faviconSizes.petastic;
+      metaTags = {
+        title: 'Petastic Explorer',
+        description:
+          "Petastic is the world's first open pet database to house billions of pets worldwide, simplifying pet care for parents and empowering brands to directly engage with their ideal pet customers.",
+        keywords: 'pets, web3, crypto',
+        author: 'Petastic',
+      };
+    } else if (currentDomain === 'explorer.anymal.foundation') {
+      faviconUrls = faviconSizes.anymal;
+      metaTags = {
+        title: 'Anymal Explorer',
+        description:
+          'Anymal Protocol is a decentralized network purpose-built to identify, track, and manage the lives of all animals on earth.',
+        keywords: 'animals, pets, web3, crypto',
+        author: 'Anymal Foundation',
+      };
+    }
+
+    // Update the favicon links and meta tags in the document head
+    const faviconElement = document.querySelector('#favicon');
+    const favicon16Element = document.querySelector('#favicon-16');
+    const favicon32Element = document.querySelector('#favicon-32');
+    const appleTouchIconElement = document.querySelector('#apple-touch-icon');
+    const titleElement = document.querySelector('#title');
+    const descriptionElement = document.querySelector('#description');
+    const keywordsElement = document.querySelector('#keywords');
+    const authorElement = document.querySelector('#author');
+
+    if (faviconElement) {
+      faviconElement.href = faviconUrls['favicon.ico'];
+    }
+
+    if (favicon16Element) {
+      favicon16Element.href = faviconUrls['favicon-16x16.png'];
+    }
+
+    if (favicon32Element) {
+      favicon32Element.href = faviconUrls['favicon-32x32.png'];
+    }
+
+    if (appleTouchIconElement) {
+      appleTouchIconElement.href = faviconUrls['apple-touch-icon.png'];
+    }
+
+    if (titleElement) {
+      titleElement.textContent = metaTags.title;
+    }
+
+    if (descriptionElement) {
+      descriptionElement.content = metaTags.description;
+    }
+
+    if (keywordsElement) {
+      keywordsElement.content = metaTags.keywords;
+    }
+
+    if (authorElement) {
+      authorElement.content = metaTags.author;
+    }
+  </script>
+</body>
 </html>
