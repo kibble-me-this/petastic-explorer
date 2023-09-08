@@ -11,7 +11,7 @@ import { MaintenanceIllustration } from 'src/assets/illustrations';
 
 export default function MaintenanceView() {
   return (
-    <Stack sx={{ alignItems: 'center' }}>
+    <Stack sx={{ alignItems: 'center', mt: 50 }}>
       <Typography variant="h3" sx={{ mb: 2 }}>
         Website currently under maintenance
       </Typography>
@@ -22,9 +22,11 @@ export default function MaintenanceView() {
 
       <MaintenanceIllustration sx={{ my: 10, height: 240 }} />
 
+      {/** 
       <Button component={RouterLink} href="/" size="large" variant="contained">
         Go to Home
       </Button>
+      */}
     </Stack>
   );
 }
