@@ -9,7 +9,7 @@ export default function UserListPage() {
   return (
     <>
       <Helmet>
-        <title>Pet Explorer</title>
+        <title>Explorer</title>
       </Helmet>
 
       <UserListView />

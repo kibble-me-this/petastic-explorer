@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import Skeleton from '@mui/material/Skeleton';
+
 // utils
 import { fNumber, fPercent } from 'src/utils/format-number';
 // components
@@ -13,7 +15,7 @@ import Chart from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-export default function AppWidgetSummary({ title, percent, total, chart, sx, ...other }) {
+export default function AppWidgetSummary({ title, percent, total, chart, loading, sx, ...other }) {
   const theme = useTheme();
 
   const {
@@ -79,17 +81,34 @@ export default function AppWidgetSummary({ title, percent, total, chart, sx, ...
             }}
           />
 
-          <Typography component="div" variant="subtitle2">
-            {percent > 0 && '+'}
-
-            {fPercent(percent)}
-          </Typography>
+          {loading ? ( // Check if data is loading
+            <Skeleton variant="text" width={80} height={16} /> // Display Skeleton while loading
+          ) : (
+            <Typography component="div" variant="subtitle2">
+              {percent > 0 && '+'}
+              {fPercent(percent)}
+            </Typography>
+          )}
         </Stack>
 
-        <Typography variant="h3">{fNumber(total)}</Typography>
+        {loading ? ( // Check if data is loading
+          <Skeleton variant="text" width={100} height={36} /> // Display Skeleton while loading
+        ) : (
+          <Typography variant="h3">{fNumber(total)}</Typography>
+        )}
       </Box>
 
-      <Chart type="bar" series={[{ data: series }]} options={chartOptions} width={60} height={36} />
+      {loading ? ( // Check if data is loading
+        <Skeleton variant="rectangular" width={60} height={36} /> // Display Skeleton while loading
+      ) : (
+        <Chart
+          type="bar"
+          series={[{ data: series }]}
+          options={chartOptions}
+          width={60}
+          height={36}
+        />
+      )}
     </Card>
   );
 }
@@ -100,4 +119,5 @@ AppWidgetSummary.propTypes = {
   sx: PropTypes.object,
   title: PropTypes.string,
   total: PropTypes.number,
+  loading: PropTypes.bool,
 };
