@@ -25,7 +25,14 @@ import LogoPetastic from '../../components/logo_petastic';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableRow({ row, selected, loading={loading}, onEditRow, onSelectRow, onDeleteRow }) {
+export default function UserTableRow({
+  row,
+  selected,
+  loading = { loading },
+  onEditRow,
+  onSelectRow,
+  onDeleteRow,
+}) {
   const {
     shelterName,
     shelterCity,
@@ -50,7 +57,6 @@ export default function UserTableRow({ row, selected, loading={loading}, onEditR
     <>
       {loading ? (
         <TableRow hover>
-
           <TableCell padding="checkbox">
             <Skeleton variant="circular" width={16} height={16} />
           </TableCell>
@@ -74,43 +80,46 @@ export default function UserTableRow({ row, selected, loading={loading}, onEditR
           </TableCell>
         </TableRow>
       ) : (
-      <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
-          <LogoPetastic width={16} height={16} />
-        </TableCell>
-        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* You can customize the Avatar and ListItemText components here */}
-          <Avatar alt={petName} src={petAvatar} sx={{ mr: 2 }} />
+        <TableRow hover selected={selected}>
+          <TableCell padding="checkbox">
+            <LogoPetastic width={16} height={16} />
+          </TableCell>
+          <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+            {/* You can customize the Avatar and ListItemText components here */}
+            <Avatar alt={petName} src={petAvatar} sx={{ mr: 2 }} />
 
-          <ListItemText
-            primary={petName}
-            secondary={`${petLifeStage}, ${petGender}`}
-            primaryTypographyProps={{ typography: 'body2' }}
-            secondaryTypographyProps={{
-              component: 'span',
-              color: 'text.disabled',
-            }}
-          />
-        </TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{petBreed}</TableCell>{' '}
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{locationCountry}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>{locationState}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>{locationCity}</TableCell>
-        <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-          {/* 
+            <ListItemText
+              primary={petName}
+              secondary={`${petLifeStage}, ${petGender}`}
+              primaryTypographyProps={{ typography: 'body2' }}
+              secondaryTypographyProps={{
+                component: 'span',
+                color: 'text.disabled',
+              }}
+            />
+          </TableCell>
+          <TableCell sx={{ whiteSpace: 'nowrap' }}>{petBreed}</TableCell>{' '}
+          <TableCell sx={{ whiteSpace: 'nowrap' }}>{locationCountry}</TableCell>
+          <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
+            {locationState}
+          </TableCell>
+          <TableCell sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
+            {locationCity}
+          </TableCell>
+          <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+            {/* 
           <Tooltip title="Quick Edit" placement="top" arrow>
             <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
               <Iconify icon="solar:pen-bold" />
             </IconButton>
           </Tooltip>
           */}
-          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
-        </TableCell>
-      </TableRow>
-)}
-
+            <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+              <Iconify icon="eva:more-vertical-fill" />
+            </IconButton>
+          </TableCell>
+        </TableRow>
+      )}
 
       <UserQuickEditForm currentUser={row} open={quickEdit.value} onClose={quickEdit.onFalse} />
 

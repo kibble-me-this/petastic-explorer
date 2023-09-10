@@ -256,6 +256,8 @@ export default function UserListView() {
       }
 
       const data = await response.json();
+      console.log('API response data:', data);
+
       setPetData(data.pets);
       setTotalCount(data.totalCount);
       setTotalDogs(data.totalDogs);
@@ -264,7 +266,7 @@ export default function UserListView() {
       setTotalMaxDogs(data.totalMaxDogs);
       setTotalMaxCats(data.totalMaxCats);
 
-      console.log(data.pets);
+      console.log('Pet data:', data.pets);
       setLoading(false); // Set loading to false after data is fetched
     } catch (error) {
       console.error('Error fetching pet data:', error);
