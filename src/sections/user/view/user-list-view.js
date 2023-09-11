@@ -246,7 +246,7 @@ export default function UserListView() {
 
     try {
       const response = await fetch(
-        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=US&states=${filters.role.join(
+        `${apiUrl}?name=${petName}&page=${currentPage}&pageSize=${pageSize}&country=us&states=${filters.role.join(
           ','
         )}&type=${petType}`
       );
@@ -324,7 +324,7 @@ export default function UserListView() {
 */}
             <Grid xs={12} md={4}>
               <AppWidgetSummary
-                title="Total Pets Monthly"
+                title="Total Pets"
                 percent={61.6}
                 total={totalMaxPets}
                 chart={{
@@ -337,7 +337,7 @@ export default function UserListView() {
 
             <Grid xs={12} md={4}>
               <AppWidgetSummary
-                title="Total Dogs Monthly"
+                title="Total Dogs"
                 percent={38.2}
                 total={totalMaxDogs}
                 chart={{
@@ -351,7 +351,7 @@ export default function UserListView() {
 
             <Grid xs={12} md={4}>
               <AppWidgetSummary
-                title="Total Cats Monthly"
+                title="Total Cats"
                 percent={190.3}
                 total={totalMaxCats}
                 chart={{
