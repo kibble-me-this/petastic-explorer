@@ -56,9 +56,9 @@ export default function HomeView() {
           bgcolor: 'background.default',
         }}
       >
-        <HomeHugePackElements />
+        {' '}
         <HomeMinimal />
-
+        <HomeHugePackElements />
         <HomeAdvertisement />
         {/** 
          

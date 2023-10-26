@@ -63,7 +63,7 @@ export default function Footer() {
         <Logo sx={{ mb: 1, mx: 'auto' }} />
 
         <Typography variant="caption" component="div">
-          © 2023. All rights reserved
+          © Petastic Inc / Made with sunshine in California
         </Typography>
       </Container>
     </Box>
@@ -103,8 +103,9 @@ export default function Footer() {
                 mx: { xs: 'auto', md: 'unset' },
               }}
             >
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+              Petastic © is the world&apos;s only open pet database designed to house billions of
+              pets worldwide, simplifying pet care for all and delivering personalized products and
+              services to our beloved furbabies.
             </Typography>
 
             <Stack
@@ -161,7 +162,7 @@ export default function Footer() {
         </Grid>
 
         <Typography variant="body2" sx={{ mt: 10 }}>
-          © 2023. All rights reserved
+          © Petastic Inc / Made with sunshine in California
         </Typography>
       </Container>
     </Box>

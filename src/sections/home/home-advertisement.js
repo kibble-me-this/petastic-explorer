@@ -35,14 +35,13 @@ export default function HomeAdvertisement() {
         variants={varFade().inDown}
         sx={{ color: 'common.main', mb: 3, typography: 'h2' }}
       >
-        Get started with
-        <br /> Minimal kit today
+        The Pet&apos;s Network
       </Box>
 
       <m.div variants={varFade().in}>
         <Typography variant="h4" sx={{ mb: 4, color: alpha(theme.palette.text.secondary, 0.7) }}>
-          Parent purrfectly with the magical <br />
-          superpawers of blockchain and pet care AI.
+          Petastic is a decentralized network purpose-built to <br />
+          identify, track, and manage the lives of all pets on earth.
         </Typography>
       </m.div>
 

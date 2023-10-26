@@ -459,7 +459,8 @@ export default function HomeHero() {
 
       <m.div variants={varFade().in}>
         <Typography variant="h3" sx={{ color: alpha(theme.palette.text.secondary, 0.7) }}>
-          Parent purrfectly with the magical superpawers of blockchain and pet care AI.
+          Parent purrfectly with the magical superpawers <br />
+          of blockchain and pet care trained AI.
         </Typography>
       </m.div>
 

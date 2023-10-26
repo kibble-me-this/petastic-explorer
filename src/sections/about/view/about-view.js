@@ -9,15 +9,9 @@ import AboutTestimonials from '../about-testimonials';
 export default function AboutView() {
   return (
     <>
-      <AboutHero />
-
       <AboutWhat />
 
-      <AboutVision />
-
       <AboutTeam />
-
-      <AboutTestimonials />
     </>
   );
 }

@@ -96,14 +96,15 @@ export default function HomeHugePackElements() {
     >
       <m.div variants={varFade().inUp}>
         <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
-          Interface Starter Kit
+          Introducing Petastic
         </Typography>
       </m.div>
 
       <m.div variants={varFade().inUp}>
         <Typography variant="h2" sx={{ my: 3 }}>
-          Huge pack <br />
-          of elements
+          Pet care,
+          <br />
+          purrsonalized.
         </Typography>
       </m.div>
 
@@ -114,8 +115,8 @@ export default function HomeHugePackElements() {
             color: 'text.secondary',
           }}
         >
-          We collected most popular elements. Menu, sliders, buttons, inputs etc. are all here. Just
-          dive in!
+          Petastic simplifies pet care for you. Conveniently store your pet&apos;s records and
+          explore tailored products and services specific to their exact needs. Give it a whirl!
         </Typography>
       </m.div>
 
