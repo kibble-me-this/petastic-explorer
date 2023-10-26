@@ -32,6 +32,34 @@ export const paper = ({ theme, bgcolor, dropdown }) => ({
 
 // ----------------------------------------------------------------------
 
+export const blueButton = (theme) => ({
+  backgroundColor: theme.palette.primary.main,
+  borderRadius: 16,
+  color: theme.palette.primary.contrastText,
+  padding: theme.spacing(1, 3), // Adjust padding values as needed
+  maxWidth: '100%', // Add this line to limit the button's width
+  whiteSpace: 'nowrap', // Prevent text from wrapping to a new line
+  overflow: 'hidden', // Hide any overflow text
+  textOverflow: 'ellipsis', // Show an ellipsis (...) if the text overflows
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.primary.main, 0.8),
+  },
+});
+
+export const outlineButton = (theme) => ({
+  variant: 'outlined',
+  size: 'large',
+  color: 'primary',
+  padding: theme.spacing(1, 3), // Adjust padding values as needed
+  maxWidth: '100%', // Add this line to limit the button's width
+  whiteSpace: 'nowrap', // Prevent text from wrapping to a new line
+  overflow: 'hidden', // Hide any overflow text
+  borderRadius: 16,
+  textOverflow: 'ellipsis', // Show an ellipsis (...) if the text overflows
+});
+
+// ----------------------------------------------------------------------
+
 export const menuItem = (theme) => ({
   ...theme.typography.body2,
   padding: theme.spacing(0.75, 1),

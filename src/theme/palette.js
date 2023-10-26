@@ -18,20 +18,20 @@ const GREY = {
 };
 
 const PRIMARY = {
-  lighter: '#C8FAD6',
-  light: '#5BE49B',
-  main: '#00A76F',
-  dark: '#007867',
-  darker: '#004B50',
+  lighter: '#FEE9D1',
+  light: '#FDAB76',
+  main: '#345BFF',
+  dark: '#B3200E',
+  darker: '#770508',
   contrastText: '#FFFFFF',
 };
 
 const SECONDARY = {
-  lighter: '#EFD6FF',
-  light: '#C684FF',
-  main: '#8E33FF',
-  dark: '#5119B7',
-  darker: '#27097A',
+  lighter: '#E6DBFE',
+  light: '#B195FE',
+  main: '#754FFE',
+  dark: '#4027B6',
+  darker: '#1C0F79',
   contrastText: '#FFFFFF',
 };
 
@@ -45,12 +45,12 @@ const INFO = {
 };
 
 const SUCCESS = {
-  lighter: '#D3FCD2',
-  light: '#77ED8B',
-  main: '#22C55E',
-  dark: '#118D57',
-  darker: '#065E49',
-  contrastText: '#ffffff',
+  lighter: '#D8FBDE',
+  light: '#86E8AB',
+  main: '#36B37E',
+  dark: '#1B806A',
+  darker: '#0A5554',
+  contrastText: '#FFFFFF',
 };
 
 const WARNING = {
@@ -75,6 +75,7 @@ const COMMON = {
   common: {
     black: '#000000',
     white: '#FFFFFF',
+    dark: '#343A40',
   },
   primary: PRIMARY,
   secondary: SECONDARY,
@@ -101,12 +102,12 @@ export function palette(mode) {
     mode: 'light',
     text: {
       primary: GREY[800],
-      secondary: GREY[600],
+      secondary: '#343A40',
       disabled: GREY[500],
     },
     background: {
       paper: '#FFFFFF',
-      default: '#FFFFFF',
+      default: '#FFEEEB',
       neutral: GREY[200],
     },
     action: {

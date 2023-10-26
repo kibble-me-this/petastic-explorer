@@ -7,6 +7,7 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -15,21 +16,27 @@ import { paths } from 'src/routes/paths';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // theme
-import { textGradient, bgGradient, bgBlur } from 'src/theme/css';
+import { textGradient, bgGradient, bgBlur, blueButton } from 'src/theme/css';
+import { fShortenNumber } from 'src/utils/format-number';
 // layouts
 import { HEADER } from 'src/layouts/config-layout';
 // components
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import { MotionContainer, varFade } from 'src/components/animate';
+import HomeHeroIllustration from 'src/assets/illustrations/home-hero-illustration';
 
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
-  ...bgGradient({
-    color: alpha(theme.palette.background.default, theme.palette.mode === 'light' ? 0.9 : 0.94),
-    imgUrl: '/assets/background/overlay_3.jpg',
-  }),
+  // ...bgGradient({
+  //  color: alpha(theme.palette.background.default, theme.palette.mode === 'light' ? 0.9 : 0.94),
+  //  imgUrl: `url('${process.env.PUBLIC_URL}/assets/background/hero.jpg')`,
+  // }),
+
+  backgroundImage: `url('${process.env.PUBLIC_URL}/assets/background/hero.jpg')`,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover', // or 'contain' depending on your preference
   width: '100%',
   height: '100vh',
   position: 'relative',
@@ -161,7 +168,7 @@ export default function HomeHero() {
 
   const hide = percent > 120;
 
-  const renderDescription = (
+  const _renderDescription = (
     <Stack
       alignItems="center"
       justifyContent="center"
@@ -294,7 +301,7 @@ export default function HomeHero() {
     </Stack>
   );
 
-  const renderSlides = (
+  const _renderSlides = (
     <Stack
       direction="row"
       alignItems="flex-start"
@@ -375,6 +382,28 @@ export default function HomeHero() {
     </Stack>
   );
 
+  const renderSlides = (
+    <m.div variants={varFade().in}>
+      <Stack
+        alignContent="center"
+        justifyContent="center"
+        alignItems={{ xs: 'center', md: 'flex-start' }}
+        sx={{
+          position: 'absolute',
+          height: 1,
+          pb: 15,
+          textAlign: { xs: 'center', md: 'left' },
+          opacity: opacity > 0 ? opacity : 0,
+          mt: {
+            md: `-${HEADER.H_DESKTOP + percent * 2.5}px`,
+          },
+        }}
+      >
+        <HomeHeroIllustration />
+      </Stack>
+    </m.div>
+  );
+
   const renderPolygons = (
     <>
       <StyledPolygon />
@@ -391,6 +420,96 @@ export default function HomeHero() {
     </>
   );
 
+  const renderBtn = (
+    <Button
+      color="inherit"
+      size="large"
+      variant="contained"
+      target="_blank"
+      rel="noopener"
+      href={paths.zoneUI}
+      endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
+    >
+      Join The Alpha Test
+    </Button>
+  );
+
+  const renderDescription = (
+    <Stack
+      spacing={5}
+      alignContent="center"
+      justifyContent="center"
+      alignItems={{ xs: 'center', md: 'flex-start' }}
+      sx={{
+        height: 1,
+        py: 15,
+        textAlign: { xs: 'center', md: 'left' },
+        opacity: opacity > 0 ? opacity : 0,
+        pb: -5,
+        mt: {
+          md: `-${HEADER.H_DESKTOP + percent * 2.5}px`,
+        },
+      }}
+    >
+      <m.div variants={varFade().in}>
+        <Typography variant="h1" sx={{ color: theme.palette.text.secondary }}>
+          One Place, <br /> Everything Pet
+        </Typography>
+      </m.div>
+
+      <m.div variants={varFade().in}>
+        <Typography variant="h3" sx={{ color: alpha(theme.palette.text.secondary, 0.7) }}>
+          Parent purrfectly with the magical superpawers of blockchain and pet care AI.
+        </Typography>
+      </m.div>
+
+      <m.div variants={varFade().in}>
+        <Button
+          sx={blueButton}
+          size="large"
+          variant="contained"
+          target="_blank"
+          rel="noopener"
+          href={paths.myPetsRegister}
+          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
+        >
+          join the alpha test
+        </Button>
+      </m.div>
+      <m.div variants={varFade().in}>
+        <Stack spacing={2}>
+          <Typography variant="overline">REGISTERED PETS</Typography>
+
+          <Stack
+            spacing={{ xs: 2, md: 3 }}
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem sx={{ borderStyle: 'solid' }} />}
+          >
+            <Stack
+              spacing={0.5}
+              sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
+            >
+              <Typography variant="h4">{fShortenNumber(200000)}+</Typography>
+              <Typography variant="caption" sx={{ opacity: 0.48 }}>
+                DOGS
+              </Typography>
+            </Stack>
+
+            <Stack
+              spacing={0.5}
+              sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
+            >
+              <Typography variant="h4">{fShortenNumber(100000)}+</Typography>
+              <Typography variant="caption" sx={{ opacity: 0.48 }}>
+                CATS
+              </Typography>
+            </Stack>
+          </Stack>
+        </Stack>
+      </m.div>
+    </Stack>
+  );
+
   return (
     <>
       <StyledRoot
@@ -404,15 +523,21 @@ export default function HomeHero() {
         <StyledWrapper>
           <Container component={MotionContainer} sx={{ height: 1 }}>
             <Grid container columnSpacing={{ md: 10 }} sx={{ height: 1 }}>
-              <Grid xs={12} md={6}>
-                {renderDescription}
-              </Grid>
+              <Stack direction="row" sx={{ width: '100%' }}>
+                <Grid xs={12} md={6}>
+                  {renderDescription}
+                </Grid>
 
-              {mdUp && <Grid md={6}>{renderSlides}</Grid>}
+                {mdUp && (
+                  <Grid xs={12} md={6} lg={6}>
+                    {renderSlides}
+                  </Grid>
+                )}
+              </Stack>
             </Grid>
           </Container>
 
-          {renderEllipses}
+          {/* renderEllipses */}
         </StyledWrapper>
       </StyledRoot>
 

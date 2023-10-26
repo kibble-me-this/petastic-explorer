@@ -43,6 +43,9 @@ import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { MotionViewport, varFade } from 'src/components/animate';
 
+import { ChatView } from 'src/sections/chat/view';
+import { outlineButton } from 'src/theme/css';
+
 // ----------------------------------------------------------------------
 
 export default function HomeHugePackElements() {
@@ -76,8 +79,9 @@ export default function HomeHugePackElements() {
         rel="noopener"
         href={paths.components}
         endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
+        sx={outlineButton}
       >
-        View All Components
+        Join the Alpha Test
       </Button>
     </m.div>
   );
@@ -119,17 +123,20 @@ export default function HomeHugePackElements() {
     </Stack>
   );
 
-  const renderContent = (
+  const _renderContent = (
     <Stack
       component={Paper}
       variant="outlined"
       alignItems="center"
       spacing={{ xs: 3, md: 5 }}
       sx={{
-        borderRadius: 2,
+        // borderRadius: 2,
         bgcolor: 'unset',
-        borderStyle: 'dashed',
+        border: 'none', // Specify the border style here
         p: { xs: 3, md: 5 },
+        backgroundImage: 'url("/assets/background/fetch.svg")', // Use the correct relative path to your SVG
+        backgroundSize: '100% 100%', // Make the background image cover the entire Stack
+        backgroundRepeat: 'no-repeat', //
       }}
     >
       {/* Row 1 */}
@@ -446,6 +453,14 @@ export default function HomeHugePackElements() {
     </Stack>
   );
 
+  const renderContent = (
+    <>
+      <Box>
+        <ChatView sx={{ m: 1 }} />
+      </Box>
+    </>
+  );
+
   return (
     <Container
       component={MotionViewport}
@@ -454,12 +469,11 @@ export default function HomeHugePackElements() {
       }}
     >
       <Grid container direction={{ xs: 'column', md: 'row-reverse' }} spacing={5}>
-        <Grid xs={12} md={5}>
-          {renderDescription}
-        </Grid>
-
         <Grid xs={12} md={7}>
           {renderContent}
+        </Grid>
+        <Grid xs={12} md={5}>
+          {renderDescription}
         </Grid>
 
         {!mdUp && (

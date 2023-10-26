@@ -28,7 +28,7 @@ import ChatNavSearchResults from './chat-nav-search-results';
 
 const NAV_WIDTH = 320;
 
-const NAV_COLLAPSE_WIDTH = 96;
+const NAV_COLLAPSE_WIDTH = 72;
 
 export default function ChatNav({ loading, contacts, conversations, selectedConversationId }) {
   const theme = useTheme();

@@ -50,15 +50,16 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
   const renderBody = (
     <Stack
       sx={{
-        p: 1.5,
+        p: 2,
         minWidth: 48,
         maxWidth: 320,
-        borderRadius: 1,
+        borderRadius: 2.5,
         typography: 'body2',
-        bgcolor: 'background.neutral',
+        bgcolor: '#345BFF',
+        color: 'white',
         ...(me && {
           color: 'grey.800',
-          bgcolor: 'primary.lighter',
+          bgcolor: '#F2E1DE',
         }),
         ...(hasImage && {
           p: 0,

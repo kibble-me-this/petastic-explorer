@@ -69,7 +69,7 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
 
   const renderSingle = (
     <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-      <Avatar alt={name} src={avatarUrl} sx={{ width: 48, height: 48 }} />
+      <Avatar alt={name} src={avatarUrl} sx={{ width: 32, height: 32 }} />
     </Badge>
   );
 

@@ -1,12 +1,13 @@
 import { m } from 'framer-motion';
 // @mui
-import { useTheme } from '@mui/material/styles';
+import { styled, alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 // theme
-import { bgGradient } from 'src/theme/css';
+import { bgGradient, outlineButton } from 'src/theme/css';
 // routes
 import { paths } from 'src/routes/paths';
 // components
@@ -25,16 +26,25 @@ export default function HomeAdvertisement() {
           xs: 'center',
           md: 'left',
         },
+        width: 1, // Make the Box expand to full width
+        ml: 12, // Add a margin of 8 units to the left
       }}
     >
       <Box
         component={m.div}
         variants={varFade().inDown}
-        sx={{ color: 'common.white', mb: 5, typography: 'h2' }}
+        sx={{ color: 'common.main', mb: 3, typography: 'h2' }}
       >
         Get started with
         <br /> Minimal kit today
       </Box>
+
+      <m.div variants={varFade().in}>
+        <Typography variant="h4" sx={{ mb: 4, color: alpha(theme.palette.text.secondary, 0.7) }}>
+          Parent purrfectly with the magical <br />
+          superpawers of blockchain and pet care AI.
+        </Typography>
+      </m.div>
 
       <Stack
         direction={{ xs: 'column', md: 'row' }}
@@ -43,36 +53,16 @@ export default function HomeAdvertisement() {
       >
         <m.div variants={varFade().inRight}>
           <Button
-            color="inherit"
             size="large"
-            variant="contained"
-            target="_blank"
-            rel="noopener"
-            href={paths.minimalUI}
-            sx={{
-              color: 'grey.800',
-              bgcolor: 'common.white',
-            }}
-          >
-            Purchase Now
-          </Button>
-        </m.div>
-
-        <m.div variants={varFade().inRight}>
-          <Button
             color="inherit"
-            size="large"
             variant="outlined"
             target="_blank"
             rel="noopener"
-            href={paths.freeUI}
-            endIcon={<Iconify icon="eva:external-link-fill" width={16} sx={{ mr: 0.5 }} />}
-            sx={{
-              color: 'common.white',
-              '&:hover': { borderColor: 'currentColor' },
-            }}
+            href={paths.components}
+            endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
+            sx={outlineButton}
           >
-            Get Free Version
+            The Pet&apos;s Network
           </Button>
         </m.div>
       </Stack>
@@ -80,16 +70,33 @@ export default function HomeAdvertisement() {
   );
 
   const renderImg = (
-    <Stack component={m.div} variants={varFade().inUp} alignItems="center">
+    <Stack
+      component={m.div}
+      variants={varFade().inUp}
+      alignItems="center"
+      sx={{
+        width: '100%', // Ensure the Stack takes up the entire width
+        position: 'relative', // Add position property
+      }}
+    >
       <Box
         component={m.img}
         animate={{
-          y: [-20, 0, -20],
+          y: [-5, 0, -5],
         }}
         transition={{ duration: 4, repeat: Infinity }}
-        alt="rocket"
-        src="/assets/images/home/rocket.webp"
-        sx={{ maxWidth: 460 }}
+        alt="coins"
+        src="/assets/background/explorer_coins.png"
+        sx={{
+          // Keep the original size of the image
+          maxWidth: '100%',
+          height: 'auto',
+          position: 'absolute', // Add position property
+          // right: '-120px', // Align to the right
+          bottom: '-210px',
+          // marginRight: '-100px', // Use negative margin to adjust positioning
+          // marginBottom: '-100px', // Use negative margin to adjust positioning
+        }}
       />
     </Stack>
   );
@@ -99,19 +106,18 @@ export default function HomeAdvertisement() {
       <Stack
         alignItems="center"
         direction={{ xs: 'column', md: 'row' }}
+        height="458px"
         sx={{
-          ...bgGradient({
-            direction: '135deg',
-            startColor: theme.palette.primary.main,
-            endColor: theme.palette.primary.dark,
-          }),
+          mb: 16,
+          backgroundImage: 'url(/assets/background/explorer.svg)',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
           borderRadius: 2,
           pb: { xs: 5, md: 0 },
         }}
       >
-        {renderImg}
-
         {renderDescription}
+        {renderImg}
       </Stack>
     </Container>
   );

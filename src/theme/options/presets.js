@@ -50,34 +50,4 @@ export const primaryPresets = [
     darker: '#200A69',
     contrastText: '#FFFFFF',
   },
-  // BLUE
-  {
-    name: 'blue',
-    lighter: '#D1E9FC',
-    light: '#76B0F1',
-    main: '#2065D1',
-    dark: '#103996',
-    darker: '#061B64',
-    contrastText: '#FFFFFF',
-  },
-  // ORANGE
-  {
-    name: 'orange',
-    lighter: '#FEF4D4',
-    light: '#FED680',
-    main: '#fda92d',
-    dark: '#B66816',
-    darker: '#793908',
-    contrastText: palette.grey[800],
-  },
-  // RED
-  {
-    name: 'red',
-    lighter: '#FFE3D5',
-    light: '#FFC1AC',
-    main: '#FF3030',
-    dark: '#B71833',
-    darker: '#7A0930',
-    contrastText: '#FFFFFF',
-  },
 ];

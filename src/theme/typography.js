@@ -22,8 +22,8 @@ export function responsiveFontSizes({ sm, md, lg }) {
   };
 }
 
-const primaryFont = 'Public Sans, sans-serif'; // Google Font
-// const secondaryFont = 'CircularStd, sans-serif'; // Local Font
+const primaryFont = 'Public Sans, sans-serif';
+const secondaryFont = 'Urbanist, sans-serif';
 
 // ----------------------------------------------------------------------
 
@@ -35,38 +35,44 @@ export const typography = {
   fontWeightBold: 700,
   h1: {
     fontWeight: 800,
-    lineHeight: 80 / 64,
+    lineHeight: 'normal',
     fontSize: pxToRem(40),
+    fontFamily: secondaryFont,
     ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
   },
   h2: {
-    fontWeight: 800,
+    fontWeight: 700,
     lineHeight: 64 / 48,
     fontSize: pxToRem(32),
-    ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
+    fontFamily: secondaryFont,
+    ...responsiveFontSizes({ sm: 24, md: 32, lg: 32 }),
   },
   h3: {
-    fontWeight: 700,
+    fontWeight: 400,
     lineHeight: 1.5,
     fontSize: pxToRem(24),
-    ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
-  },
-  h4: {
-    fontWeight: 700,
-    lineHeight: 1.5,
-    fontSize: pxToRem(20),
+    fontFamily: secondaryFont,
     ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 }),
   },
+  h4: {
+    fontWeight: 400,
+    lineHeight: 1.5,
+    fontSize: pxToRem(24),
+    fontFamily: secondaryFont,
+    ...responsiveFontSizes({ sm: 12, md: 16, lg: 16 }),
+  },
   h5: {
-    fontWeight: 700,
+    fontWeight: 600,
     lineHeight: 1.5,
     fontSize: pxToRem(18),
+    fontFamily: secondaryFont,
     ...responsiveFontSizes({ sm: 19, md: 20, lg: 20 }),
   },
   h6: {
-    fontWeight: 700,
+    fontWeight: 600,
     lineHeight: 28 / 18,
     fontSize: pxToRem(17),
+    fontFamily: secondaryFont,
     ...responsiveFontSizes({ sm: 18, md: 18, lg: 18 }),
   },
   subtitle1: {
@@ -98,9 +104,9 @@ export const typography = {
     textTransform: 'uppercase',
   },
   button: {
-    fontWeight: 700,
+    fontWeight: 600,
     lineHeight: 24 / 14,
     fontSize: pxToRem(14),
-    textTransform: 'unset',
+    textTransform: 'capitalize',
   },
 };

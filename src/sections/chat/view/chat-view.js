@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 // routes
 import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
@@ -46,11 +46,11 @@ export default function ChatView() {
     ? conversation.participants.filter((participant) => participant.id !== user.id)
     : [];
 
-  useEffect(() => {
-    if (conversationError || !selectedConversationId) {
-      router.push(paths.dashboard.chat);
-    }
-  }, [conversationError, router, selectedConversationId]);
+  // useEffect(() => {
+  //   if (conversationError || !selectedConversationId) {
+  //     router.push(paths.dashboard.chat);
+  //   }
+  // }, [conversationError, router, selectedConversationId]);
 
   const handleAddRecipients = useCallback((selected) => {
     setRecipients(selected);
@@ -104,39 +104,56 @@ export default function ChatView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
-      <Typography
-        variant="h4"
+      <Stack
+        component={Paper}
+        variant="outlined"
+        alignItems="center"
+        // spacing={{ xs: 3, md: 5 }}
         sx={{
-          mb: { xs: 3, md: 5 },
+          // borderRadius: 2,
+          bgcolor: 'unset',
+          border: 'none', // Specify the border style here
+          p: { xs: 3, md: 12 },
+          backgroundImage: 'url(/assets/background/fetch.svg)',
+          backgroundSize: '100% 100%', // Make the background image cover the entire Stack
+          backgroundRepeat: 'no-repeat', //
         }}
       >
-        Chat
-      </Typography>
-
-      <Stack component={Card} direction="row" sx={{ height: '72vh' }}>
-        {renderNav}
-
+        {' '}
         <Stack
+          component={Card}
+          direction="row"
           sx={{
-            width: 1,
-            height: 1,
-            overflow: 'hidden',
+            backgroundImage: 'url(/assets/background/overlay_4.jpg)',
+            // width: '28vh',
+            // height: '60vh',
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Add your desired shadow settings here
           }}
         >
-          {renderHead}
+          {renderNav}
 
           <Stack
-            direction="row"
             sx={{
               width: 1,
               height: 1,
               overflow: 'hidden',
-              borderTop: (theme) => `solid 1px ${theme.palette.divider}`,
             }}
           >
-            {renderMessages}
+            {renderHead}
 
-            {details && <ChatRoom conversation={conversation} participants={participants} />}
+            <Stack
+              direction="row"
+              sx={{
+                width: 1,
+                height: 1,
+                overflow: 'hidden',
+                borderTop: (theme) => `solid 1px ${theme.palette.divider}`,
+              }}
+            >
+              {renderMessages}
+
+              {details && <ChatRoom conversation={conversation} participants={participants} />}
+            </Stack>
           </Stack>
         </Stack>
       </Stack>

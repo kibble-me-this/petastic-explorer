@@ -27,12 +27,12 @@ export default function HomeColorPresets() {
     <Stack spacing={3} sx={{ textAlign: 'center' }}>
       <m.div variants={varFade().inDown}>
         <Typography component="div" variant="overline" sx={{ color: 'text.disabled' }}>
-          choose your style
+          Pawrenting Superpawers
         </Typography>
       </m.div>
 
       <m.div variants={varFade().inDown}>
-        <Typography variant="h2"> Color Presets </Typography>
+        <Typography variant="h2"> Every Pet Is Unique </Typography>
       </m.div>
 
       <m.div variants={varFade().inDown}>
@@ -127,12 +127,10 @@ export default function HomeColorPresets() {
                 borderRadius: '50%',
                 position: 'absolute',
                 color: 'common.white',
-                ...(index === 0 && { bottom: 0 }),
-                ...(index === 1 && { left: 19 }),
-                ...(index === 2 && { right: 19 }),
-                ...(index === 3 && { top: 0, left: 0 }),
-                ...(index === 4 && { top: 0 }),
-                ...(index === 5 && { top: 0, right: 0 }),
+
+                ...(index === 0 && { top: 0, left: 10 }),
+                ...(index === 1 && { top: 0 }),
+                ...(index === 2 && { top: 0, right: 10 }),
               }}
             >
               {selected && <Iconify icon="eva:color-picker-fill" width={16} />}
