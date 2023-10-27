@@ -30,7 +30,7 @@ export const paths = {
   components: '/components',
   explorer: 'https://explorer.petastic.com/',
   petsSignIn: 'https://my.petastic.com/login',
-
+  petsSignUp: 'https://my.petastic.com/register',
   docs: 'https://docs.minimals.cc',
   changelog: 'https://docs.minimals.cc/changelog',
   zoneUI: 'https://mui.com/store/items/zone-landing-page/',

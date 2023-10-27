@@ -61,7 +61,7 @@ export default function HomeAdvertisement() {
             variant="outlined"
             target="_blank"
             rel="noopener"
-            href={paths.components}
+            href={paths.explorer}
             endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
             sx={outlineButton}
           >
