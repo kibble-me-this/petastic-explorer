@@ -137,6 +137,7 @@ export default function ChatMessageInput({
           height: 56,
           flexShrink: 0,
           borderTop: (theme) => `solid 1px ${theme.palette.divider}`,
+          backgroundColor: '#F2E1DE', // Add your desired background color here
         }}
       />
 

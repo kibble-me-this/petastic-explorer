@@ -88,6 +88,7 @@ export default function ChatView() {
         width: 1,
         height: 1,
         overflow: 'hidden',
+        backgroundImage: 'url(/assets/background/chat_bg.svg)',
       }}
     >
       <ChatMessageList messages={conversation?.messages} participants={participants} />
@@ -124,7 +125,7 @@ export default function ChatView() {
           component={Card}
           direction="row"
           sx={{
-            backgroundImage: 'url(/assets/background/overlay_4.jpg)',
+            backgroundColor: '#F2E1DE',
             width: '400px',
             height: '750px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Add your desired shadow settings here
@@ -148,6 +149,7 @@ export default function ChatView() {
                 height: 1,
                 overflow: 'hidden',
                 borderTop: (theme) => `solid 1px ${theme.palette.divider}`,
+                // backgroundImage: 'url(/assets/background/chat_bg.svg)',
               }}
             >
               {renderMessages}
