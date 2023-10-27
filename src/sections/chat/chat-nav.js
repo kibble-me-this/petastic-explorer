@@ -229,8 +229,8 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
     <>
       {/* !mdUp && renderToggleBtn */}
 
-      {/* !mdUp ? ( */}
-      {!mdUp ? (
+      {/* mdUp ? ( */}
+      {true ? (
         <Stack
           sx={{
             height: 1,

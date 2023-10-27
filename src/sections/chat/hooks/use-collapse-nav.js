@@ -17,7 +17,7 @@ export default function useCollapseNav() {
   }, []);
 
   const onOpenMobile = useCallback(() => {
-    setOpenMobile(true);
+    setOpenMobile(false);
   }, []);
 
   const onCloseMobile = useCallback(() => {

@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+// hooks
+import { useResponsive } from 'src/hooks/use-responsive';
 // theme
 import { bgGradient, outlineButton } from 'src/theme/css';
 // routes
@@ -18,6 +20,8 @@ import { MotionViewport, varFade } from 'src/components/animate';
 
 export default function HomeAdvertisement() {
   const theme = useTheme();
+
+  const mdUp = useResponsive('up', 'md');
 
   const renderDescription = (
     <Box
@@ -108,15 +112,16 @@ export default function HomeAdvertisement() {
         height="458px"
         sx={{
           mb: 16,
-          backgroundImage: 'url(/assets/background/explorer.svg)',
-          backgroundRepeat: 'no-repeat',
+          backgroundImage: mdUp
+            ? 'url(/assets/background/explorer.svg)' // Use this image for md and up
+            : 'url(/assets/background/explorer_pets_xs.svg)', // Use this image for xs and sm          backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           borderRadius: 2,
           pb: { xs: 5, md: 0 },
         }}
       >
-        {renderDescription}
-        {renderImg}
+        {mdUp && renderDescription}
+        {mdUp && renderImg}
       </Stack>
     </Container>
   );
