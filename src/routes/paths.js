@@ -30,7 +30,7 @@ export const paths = {
   components: '/components',
   explorer: 'https://explorer.petastic.com/',
   petsSignIn: 'https://my.petastic.com/login',
-  petsSignUp: 'https://my.petastic.com/register',
+
   docs: 'https://docs.minimals.cc',
   changelog: 'https://docs.minimals.cc/changelog',
   zoneUI: 'https://mui.com/store/items/zone-landing-page/',
@@ -96,7 +96,7 @@ export const paths = {
   dashboard: {
     root: ROOTS.DASHBOARD,
     mail: `${ROOTS.DASHBOARD}/mail`,
-    chat: `${ROOTS.DASHBOARD}/chat`,
+    chat: `/`,
     blank: `${ROOTS.DASHBOARD}/blank`,
     kanban: `${ROOTS.DASHBOARD}/kanban`,
     calendar: `${ROOTS.DASHBOARD}/calendar`,

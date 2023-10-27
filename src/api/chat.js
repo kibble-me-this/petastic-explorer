@@ -943,31 +943,36 @@ export async function createConversation(conversationData) {
 export async function clickConversation(conversationId) {
   const URL = endpoints.chat;
 
-  /**
-   * Work on server
-   */
-  // await axios.get(URL, { params: { conversationId, endpoint: 'mark-as-seen' } });
+  try {
+    // Fetch and assign data to currentData
+    const response = await axios.get(URL, { params: { conversationId, endpoint: 'mark-as-seen' } });
+    const fetchedData = response.data; // Adjust this based on your actual response structure
 
-  /**
-   * Work in local
-   */
-  mutate(
-    [
-      URL,
-      {
-        params: { endpoint: 'conversations' },
-      },
-    ],
-    (currentData) => {
-      const conversations = currentData.conversations.map((conversation) =>
-        conversation.id === conversationId ? { ...conversation, unreadCount: 0 } : conversation
+    // Ensure fetchedData is defined and contains 'conversations' property
+    if (fetchedData && fetchedData.conversations) {
+      mutate(
+        [
+          URL,
+          {
+            params: { endpoint: 'conversations' },
+          },
+        ],
+        (currentData) => {
+          const conversations = currentData.conversations.map((conversation) =>
+            conversation.id === conversationId ? { ...conversation, unreadCount: 0 } : conversation
+          );
+
+          return {
+            ...currentData,
+            conversations,
+          };
+        },
+        false
       );
-
-      return {
-        ...currentData,
-        conversations,
-      };
-    },
-    false
-  );
+    } else {
+      console.error('Invalid data structure:', fetchedData);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 }
