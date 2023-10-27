@@ -192,7 +192,15 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
           </>
         )}
 
+        {/** 
         <IconButton onClick={handleToggleNav}>
+          <Iconify
+            icon={collapseDesktop ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-back-fill'}
+          />
+        </IconButton>
+        */}
+
+        <IconButton>
           <Iconify
             icon={collapseDesktop ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-back-fill'}
           />
@@ -219,9 +227,10 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
 
   return (
     <>
-      {!mdUp && renderToggleBtn}
+      {/* !mdUp && renderToggleBtn */}
 
-      {mdUp ? (
+      {/* !mdUp ? ( */}
+      {!mdUp ? (
         <Stack
           sx={{
             height: 1,
@@ -240,7 +249,7 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
         </Stack>
       ) : (
         <Drawer
-          open={openMobile}
+          // open={openMobile}
           onClose={onCloseMobile}
           slotProps={{
             backdrop: { invisible: true },

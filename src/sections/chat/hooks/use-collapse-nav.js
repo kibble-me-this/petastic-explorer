@@ -12,7 +12,8 @@ export default function useCollapseNav() {
   }, []);
 
   const onCloseDesktop = useCallback(() => {
-    setCollapseDesktop(false);
+    // setCollapseDesktop(false);
+    setCollapseDesktop(true);
   }, []);
 
   const onOpenMobile = useCallback(() => {

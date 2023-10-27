@@ -113,7 +113,7 @@ export default function ChatView() {
           // borderRadius: 2,
           bgcolor: 'unset',
           border: 'none', // Specify the border style here
-          p: { xs: 3, md: 12 },
+          p: { xs: 4, md: 12 },
           backgroundImage: 'url(/assets/background/fetch.svg)',
           backgroundSize: '100% 100%', // Make the background image cover the entire Stack
           backgroundRepeat: 'no-repeat', //
@@ -126,7 +126,7 @@ export default function ChatView() {
           sx={{
             backgroundImage: 'url(/assets/background/overlay_4.jpg)',
             width: '400px',
-            height: '700px',
+            height: '750px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Add your desired shadow settings here
           }}
         >
@@ -152,7 +152,7 @@ export default function ChatView() {
             >
               {renderMessages}
 
-              {details && <ChatRoom conversation={conversation} participants={participants} />}
+              {/* details && <ChatRoom conversation={conversation} participants={participants} /> */}
             </Stack>
           </Stack>
         </Stack>
