@@ -125,8 +125,8 @@ export default function ChatView() {
           direction="row"
           sx={{
             backgroundImage: 'url(/assets/background/overlay_4.jpg)',
-            // width: '28vh',
-            // height: '60vh',
+            width: '400px',
+            height: '700px',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Add your desired shadow settings here
           }}
         >

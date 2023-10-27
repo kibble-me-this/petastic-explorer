@@ -97,7 +97,7 @@ export const navConfig = [
   {
     title: 'Pet Explorer',
     icon: <Iconify icon="solar:notebook-bold-duotone" />,
-    path: paths.docs,
+    path: paths.explorer,
   },
   // { title: 'Blog', path: paths.petasticExplorer },
   // { title: 'About Us', path: paths.petasticExplorer },

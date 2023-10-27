@@ -459,8 +459,7 @@ export default function HomeHero() {
 
       <m.div variants={varFade().in}>
         <Typography variant="h3" sx={{ color: alpha(theme.palette.text.secondary, 0.7) }}>
-          Parent purrfectly with the magical superpawers <br />
-          of blockchain and pet care trained AI.
+          Parent purrfectly with the magical superpawers of blockchain and pet care trained AI.
         </Typography>
       </m.div>
 
@@ -471,7 +470,7 @@ export default function HomeHero() {
           variant="contained"
           target="_blank"
           rel="noopener"
-          href={paths.myPetsRegister}
+          href={paths.petsSignUp}
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
         >
           join the alpha test

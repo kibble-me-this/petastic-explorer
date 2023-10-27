@@ -13,17 +13,14 @@ import FaqsCategory from '../faqs-category';
 export default function FaqsView() {
   return (
     <>
-      <FaqsHero />
-
       <Container
         sx={{
           pb: 10,
           pt: { xs: 10, md: 15 },
           position: 'relative',
+          maxWidth: 'none', // Add this line
         }}
       >
-        <FaqsCategory />
-
         <Typography
           variant="h3"
           sx={{
@@ -32,18 +29,16 @@ export default function FaqsView() {
         >
           Frequently asked questions
         </Typography>
-
         <Box
           gap={10}
-          display="grid"
+          // display="grid"
           gridTemplateColumns={{
             xs: 'repeat(1, 1fr)',
             md: 'repeat(2, 1fr)',
           }}
+          sx={{ width: '100%' }} // Add this line
         >
           <FaqsList />
-
-          <FaqsForm />
         </Box>
       </Container>
     </>

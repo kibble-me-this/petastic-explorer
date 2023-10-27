@@ -24,21 +24,11 @@ const LINKS = [
   {
     headline: 'Minimal',
     children: [
+      { name: 'Blog', href: paths.post.root },
       { name: 'About us', href: paths.about },
-      { name: 'Contact us', href: paths.contact },
-      { name: 'FAQs', href: paths.faqs },
-    ],
-  },
-  {
-    headline: 'Legal',
-    children: [
       { name: 'Terms and Condition', href: '#' },
       { name: 'Privacy Policy', href: '#' },
     ],
-  },
-  {
-    headline: 'Contact',
-    children: [{ name: 'support@minimals.cc', href: '#' }],
   },
 ];
 
@@ -63,7 +53,7 @@ export default function Footer() {
         <Logo sx={{ mb: 1, mx: 'auto' }} />
 
         <Typography variant="caption" component="div">
-          © Petastic Inc / Made with sunshine in California
+          © Petastic Inc / Made with sunshine in California and Florida
         </Typography>
       </Container>
     </Box>
@@ -86,8 +76,6 @@ export default function Footer() {
           textAlign: { xs: 'center', md: 'unset' },
         }}
       >
-        <Logo sx={{ mb: 3 }} />
-
         <Grid
           container
           justifyContent={{
@@ -96,10 +84,42 @@ export default function Footer() {
           }}
         >
           <Grid xs={8} md={3}>
+            <Logo sx={{ mb: 3 }} />
+          </Grid>
+
+          <Grid xs={12} md={5}>
+            <Stack spacing={5} direction={{ xs: 'column', md: 'row' }}>
+              {LINKS.map((list) => (
+                <Stack
+                  key={list.headline}
+                  spacing={2}
+                  alignItems={{ xs: 'center', md: 'flex-start' }}
+                  sx={{ width: 1 }}
+                >
+                  {list.children.map((link) => (
+                    <Link
+                      key={link.name}
+                      component={RouterLink}
+                      href={link.href}
+                      color="inherit"
+                      variant="body2"
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </Stack>
+              ))}
+            </Stack>
+          </Grid>
+
+          <Grid xs={8} md={4}>
+            <Typography component="div" variant="overline">
+              Your pet is unique and we understand that.{' '}
+            </Typography>
             <Typography
               variant="body2"
               sx={{
-                maxWidth: 270,
+                // maxWidth: 270,
                 mx: { xs: 'auto', md: 'unset' },
               }}
             >
@@ -130,39 +150,10 @@ export default function Footer() {
               ))}
             </Stack>
           </Grid>
-
-          <Grid xs={12} md={6}>
-            <Stack spacing={5} direction={{ xs: 'column', md: 'row' }}>
-              {LINKS.map((list) => (
-                <Stack
-                  key={list.headline}
-                  spacing={2}
-                  alignItems={{ xs: 'center', md: 'flex-start' }}
-                  sx={{ width: 1 }}
-                >
-                  <Typography component="div" variant="overline">
-                    {list.headline}
-                  </Typography>
-
-                  {list.children.map((link) => (
-                    <Link
-                      key={link.name}
-                      component={RouterLink}
-                      href={link.href}
-                      color="inherit"
-                      variant="body2"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </Stack>
-              ))}
-            </Stack>
-          </Grid>
         </Grid>
 
-        <Typography variant="body2" sx={{ mt: 10 }}>
-          © Petastic Inc / Made with sunshine in California
+        <Typography variant="body2" sx={{ mt: 10, textAlign: 'center' }}>
+          © Petastic Inc / Made with sunshine in California and Florida
         </Typography>
       </Container>
     </Box>

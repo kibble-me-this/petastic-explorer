@@ -14,19 +14,21 @@ import { MotionViewport, varFade } from 'src/components/animate';
 const CARDS = [
   {
     icon: ' /assets/icons/home/ic_make_brand.svg',
-    title: 'Branding',
-    description: 'Consistent design makes it easy to brand your own.',
+    title: 'Organized',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet odio a ligula lacinia ullamcorper. Integer eget vestibulum ex, id condimentum sem. ',
   },
   {
     icon: ' /assets/icons/home/ic_design.svg',
-    title: 'UI & UX Design',
+    title: 'Personalized',
     description:
-      'The kit is built on the principles of the atomic design system. It helps you to create projects fastest and easily customized packages for your projects.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet odio a ligula lacinia ullamcorper. Integer eget vestibulum ex, id condimentum sem. ',
   },
   {
     icon: ' /assets/icons/home/ic_development.svg',
-    title: 'Development',
-    description: 'Easy to customize and extend, saving you time and money.',
+    title: 'Paid',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet odio a ligula lacinia ullamcorper. Integer eget vestibulum ex, id condimentum sem. ',
   },
 ];
 
