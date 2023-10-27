@@ -110,28 +110,28 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
     [handleClickAwaySearch, router]
   );
 
-  const renderToggleBtn = (
-    <IconButton
-      onClick={onOpenMobile}
-      sx={{
-        left: 0,
-        top: 84,
-        zIndex: 9,
-        width: 32,
-        height: 32,
-        position: 'absolute',
-        borderRadius: `0 12px 12px 0`,
-        bgcolor: theme.palette.primary.main,
-        boxShadow: theme.customShadows.primary,
-        color: theme.palette.primary.contrastText,
-        '&:hover': {
-          bgcolor: theme.palette.primary.darker,
-        },
-      }}
-    >
-      <Iconify width={16} icon="solar:users-group-rounded-bold" />
-    </IconButton>
-  );
+  // const renderToggleBtn = (
+  //   <IconButton
+  //     onClick={onOpenMobile}
+  //     sx={{
+  //       left: 0,
+  //       top: 84,
+  //       zIndex: 9,
+  //       width: 32,
+  //       height: 32,
+  //       position: 'absolute',
+  //       borderRadius: `0 12px 12px 0`,
+  //       bgcolor: theme.palette.primary.main,
+  //       boxShadow: theme.customShadows.primary,
+  //       color: theme.palette.primary.contrastText,
+  //       '&:hover': {
+  //         bgcolor: theme.palette.primary.darker,
+  //       },
+  //     }}
+  //   >
+  //     <Iconify width={16} icon="solar:users-group-rounded-bold" />
+  //   </IconButton>
+  // );
 
   const renderSkeleton = (
     <>

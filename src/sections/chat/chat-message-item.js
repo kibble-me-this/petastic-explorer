@@ -33,14 +33,15 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
       noWrap
       variant="caption"
       sx={{
-        mb: 1,
+        // mb: 1,
         color: 'text.disabled',
         ...(!me && {
           mr: 'auto',
         }),
       }}
     >
-      {!me && `${firstName},`} &nbsp;
+      {/* !me && `${firstName},` */}
+      {`${firstName},`} &nbsp;
       {formatDistanceToNowStrict(new Date(createdAt), {
         addSuffix: true,
       })}
@@ -57,9 +58,12 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         typography: 'body2',
         bgcolor: '#345BFF',
         color: 'white',
+        display: 'flex',
+        alignItems: 'left',
+        justifyContent: 'flex-start', // Add this line
         ...(me && {
           color: 'grey.800',
-          bgcolor: '#F2E1DE',
+          bgcolor: 'rgba(0, 0, 0, 0.10)',
         }),
         ...(hasImage && {
           p: 0,
@@ -67,6 +71,15 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         }),
       }}
     >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+        <Avatar
+          alt={firstName}
+          src={avatarUrl}
+          sx={{ width: 16, height: 16, mr: 1, alignSelf: 'center' }}
+        />
+        {renderInfo}
+      </div>
+
       {hasImage ? (
         <Box
           component="img"
@@ -83,7 +96,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
           }}
         />
       ) : (
-        body
+        <Box sx={{ paddingTop: 1.5 }}>{body}</Box> // Add padding-top here
       )}
     </Stack>
   );
@@ -122,10 +135,10 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
 
   return (
     <Stack direction="row" justifyContent={me ? 'flex-end' : 'unset'} sx={{ mb: 5 }}>
-      {!me && <Avatar alt={firstName} src={avatarUrl} sx={{ width: 32, height: 32, mr: 2 }} />}
+      {/* !me && <Avatar alt={firstName} src={avatarUrl} sx={{ width: 32, height: 32, mr: 2 }} /> */}
 
       <Stack alignItems="flex-end">
-        {renderInfo}
+        {/* renderInfo */}
 
         <Stack
           direction="row"
