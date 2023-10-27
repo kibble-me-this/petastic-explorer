@@ -16,7 +16,7 @@ import { useGetMessage } from './hooks';
 // ----------------------------------------------------------------------
 
 export default function ChatMessageItem({ message, participants, onOpenLightbox }) {
-  const { user } = useMockedUser();
+  const { user, fetchai } = useMockedUser();
 
   const { me, senderDetails, hasImage } = useGetMessage({
     message,
@@ -28,20 +28,43 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
 
   const { body, createdAt } = message;
 
+  let avatarSrc;
+  let avatarName;
+
+  if (me) {
+    avatarSrc = user.photoURL;
+  } else if (!hasImage) {
+    avatarSrc = fetchai.photoURL;
+  } else {
+    avatarSrc = fetchai.photoDarkURL;
+  }
+
+  if (me) {
+    avatarName = user.displayName;
+  } else if (!hasImage) {
+    avatarName = fetchai.displayName;
+  } else {
+    avatarName = fetchai.displayName;
+  }
+
   const renderInfo = (
     <Typography
       noWrap
       variant="caption"
       sx={{
         // mb: 1,
-        color: 'text.disabled',
-        ...(!me && {
+        color: me ? 'black' : 'white',
+        fontWeight: '500', // Add this line for bold text
+        textTransform: 'uppercase', // Add this line for uppercase text
+        ...(hasImage && {
           mr: 'auto',
+          mb: 1,
+          color: 'black',
         }),
       }}
     >
       {/* !me && `${firstName},` */}
-      {`${firstName},`} &nbsp;
+      {`${avatarName},`} &nbsp;
       {formatDistanceToNowStrict(new Date(createdAt), {
         addSuffix: true,
       })}
@@ -66,7 +89,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
           bgcolor: 'rgba(0, 0, 0, 0.10)',
         }),
         ...(hasImage && {
-          p: 0,
+          p: 2,
           bgcolor: 'transparent',
         }),
       }}
@@ -74,7 +97,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
         <Avatar
           alt={firstName}
-          src={avatarUrl}
+          src={avatarSrc}
           sx={{ width: 16, height: 16, mr: 1, alignSelf: 'center' }}
         />
         {renderInfo}
