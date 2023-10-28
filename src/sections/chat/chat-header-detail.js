@@ -16,6 +16,19 @@ import Iconify from 'src/components/iconify';
 export default function ChatHeaderDetail({ participants }) {
   const group = participants.length > 1;
 
+  console.log('participants:', participants);
+
+  if (participants[0].name === 'Lucian Obrien') {
+    participants[0].name = 'Grilli';
+    participants[0].status = 'Shih Tzu';
+  } else if (participants[0].name === 'Deja Brady') {
+    participants[0].name = 'Skril Lux';
+    participants[0].status = 'Persian';
+  } else if (participants[0].name === 'Harrison Stein') {
+    participants[0].name = 'Bed Again';
+    participants[0].status = 'French Bullog';
+  }
+
   const singleParticipant = participants[0];
 
   const renderGroup = (

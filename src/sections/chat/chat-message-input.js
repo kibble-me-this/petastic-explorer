@@ -112,13 +112,13 @@ export default function ChatMessageInput({
         value={message}
         onKeyUp={handleSendMessage}
         onChange={handleChangeMessage}
-        placeholder="Type a message"
+        placeholder="Blow your mind..."
         disabled={disabled}
-        startAdornment={
-          <IconButton>
-            <Iconify icon="eva:smiling-face-fill" />
-          </IconButton>
-        }
+        // startAdornment={
+        //   <IconButton>
+        //     <Iconify icon="eva:smiling-face-fill" />
+        //   </IconButton>
+        // }
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
             <IconButton onClick={handleAttach}>
@@ -127,9 +127,11 @@ export default function ChatMessageInput({
             <IconButton onClick={handleAttach}>
               <Iconify icon="eva:attach-2-fill" />
             </IconButton>
+            {/** 
             <IconButton>
               <Iconify icon="solar:microphone-bold" />
             </IconButton>
+            */}
           </Stack>
         }
         sx={{
