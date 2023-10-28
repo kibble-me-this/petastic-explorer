@@ -19,14 +19,20 @@ export default function ChatHeaderDetail({ participants }) {
   console.log('participants:', participants);
 
   if (participants[0].name === 'Lucian Obrien') {
-    participants[0].name = 'Grilli';
+    participants[0].name = 'Grilli • 3yo';
     participants[0].status = 'Shih Tzu';
+    participants[0].email = 'Kibble Balance';
+    participants[0].role = '$100 • 1600';
   } else if (participants[0].name === 'Deja Brady') {
-    participants[0].name = 'Skril Lux';
+    participants[0].name = 'Skril • 5yo';
     participants[0].status = 'Persian';
+    participants[0].email = 'Kibble Balance';
+    participants[0].role = '$100 • 1600';
   } else if (participants[0].name === 'Harrison Stein') {
-    participants[0].name = 'Bed Again';
+    participants[0].name = 'Bed Again • 4yo';
     participants[0].status = 'French Bullog';
+    participants[0].email = 'Kibble Balance';
+    participants[0].role = '$100 • 1600';
   }
 
   const singleParticipant = participants[0];
@@ -48,16 +54,13 @@ export default function ChatHeaderDetail({ participants }) {
   );
 
   const renderSingle = (
-    <Stack flexGrow={1} direction="row" alignItems="center" spacing={2}>
-      {/** 
-      <Badge
-        variant={singleParticipant.status}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Avatar src={singleParticipant.avatarUrl} alt={singleParticipant.name} />
-      </Badge>
-      */}
-
+    <Stack
+      flexGrow={1}
+      direction="row"
+      alignItems="center"
+      justifyContent="space-between" // This will space the items apart horizontally
+      spacing={2}
+    >
       <ListItemText
         primary={singleParticipant.name}
         secondary={
@@ -65,12 +68,46 @@ export default function ChatHeaderDetail({ participants }) {
             ? fToNow(singleParticipant.lastActivity)
             : singleParticipant.status
         }
+        primaryTypographyProps={{
+          style: {
+            fontWeight: 'bold', // Set the font weight to normal (not bold)
+            fontSize: '12px',
+          },
+        }}
         secondaryTypographyProps={{
           component: 'span',
           ...(singleParticipant.status !== 'offline' && {
             textTransform: 'capitalize',
           }),
+          style: {
+            fontSize: '12px',
+          },
         }}
+      />
+      <ListItemText
+        primary={singleParticipant.email}
+        primaryTypographyProps={{
+          style: {
+            fontWeight: 'normal', // Set the font weight to normal (not bold)
+            fontSize: '12px',
+          },
+        }}
+        secondary={
+          singleParticipant.role === 'offline'
+            ? fToNow(singleParticipant.lastActivity)
+            : singleParticipant.role
+        }
+        secondaryTypographyProps={{
+          component: 'span',
+          ...(singleParticipant.role !== 'offline' && {
+            textTransform: 'capitalize',
+          }),
+          style: {
+            fontWeight: 'normal', // Set the font weight to normal (not bold)
+            fontSize: '12px',
+          },
+        }}
+        style={{ textAlign: 'right' }}
       />
     </Stack>
   );
@@ -79,7 +116,7 @@ export default function ChatHeaderDetail({ participants }) {
     <>
       {group ? renderGroup : renderSingle}
 
-      <Stack flexGrow={1} />
+      <Stack flexGrow={0.2} />
 
       {/** 
       <IconButton>
@@ -88,10 +125,11 @@ export default function ChatHeaderDetail({ participants }) {
       <IconButton>
         <Iconify icon="solar:videocamera-record-bold" />
       </IconButton>
-*/}
+
       <IconButton>
         <Iconify icon="eva:more-vertical-fill" />
       </IconButton>
+      */}
     </>
   );
 }
