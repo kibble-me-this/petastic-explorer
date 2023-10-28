@@ -29,7 +29,7 @@ export default function ChatHeaderDetail({ participants }) {
       }}
     >
       {participants.map((participant) => (
-        <Avatar key={participant.id} alt={participant.name} src={participant.avatarUrl} />
+        <Avatar key={participant.id} alt={participant.name} src={participant} />
       ))}
     </AvatarGroup>
   );
