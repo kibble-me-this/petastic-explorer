@@ -54,7 +54,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
       sx={{
         // mb: 1,
         color: me ? 'black' : 'white',
-        fontWeight: '500', // Add this line for bold text
+        fontWeight: '400', // Add this line for bold text
         textTransform: 'uppercase', // Add this line for uppercase text
         ...(hasImage && {
           mr: 'auto',
@@ -98,7 +98,17 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         <Avatar
           alt={firstName}
           src={avatarSrc}
-          sx={{ width: 16, height: 16, mr: 1, alignSelf: 'center' }}
+          sx={{
+            width: 16,
+            height: 16,
+            mr: 1,
+            alignSelf: 'center',
+            ...(hasImage && {
+              // mr: 'auto',
+              mb: 1,
+              color: 'black',
+            }),
+          }}
         />
         {renderInfo}
       </div>

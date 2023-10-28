@@ -36,12 +36,14 @@ export default function ChatHeaderDetail({ participants }) {
 
   const renderSingle = (
     <Stack flexGrow={1} direction="row" alignItems="center" spacing={2}>
+      {/** 
       <Badge
         variant={singleParticipant.status}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         <Avatar src={singleParticipant.avatarUrl} alt={singleParticipant.name} />
       </Badge>
+      */}
 
       <ListItemText
         primary={singleParticipant.name}
@@ -66,12 +68,14 @@ export default function ChatHeaderDetail({ participants }) {
 
       <Stack flexGrow={1} />
 
+      {/** 
       <IconButton>
         <Iconify icon="solar:phone-bold" />
       </IconButton>
       <IconButton>
         <Iconify icon="solar:videocamera-record-bold" />
       </IconButton>
+*/}
       <IconButton>
         <Iconify icon="eva:more-vertical-fill" />
       </IconButton>
