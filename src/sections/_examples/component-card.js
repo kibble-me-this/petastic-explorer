@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import { m } from 'framer-motion';
 // @mui
@@ -14,16 +16,28 @@ import { varHover, varTranHover } from 'src/components/animate';
 
 export default function ComponentCard({ item }) {
   const { name, icon, href } = item;
+  const location = useLocation();
+
+  // Extract the current query parameters from the location object
+  const queryParams = new URLSearchParams(location.search);
+
+  // Construct the 'to' prop with the current pathname and query parameters
+  const to = {
+    pathname: location.pathname,
+    search: queryParams.toString(), // Convert query parameters back to a string
+  };
 
   return (
     <Paper
       component={RouterLink}
-      href={href}
+      // href={href}
+      to={to}
       variant="outlined"
       sx={{
         overflow: 'hidden',
         textDecoration: 'none',
         borderColor: (theme) => alpha(theme.palette.grey[500], 0.08),
+        // cursor: 'default', // Add this to change cursor to default (non-clickable)
       }}
     >
       <CardActionArea

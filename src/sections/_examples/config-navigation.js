@@ -8,7 +8,7 @@ const getHref = (category, name) => `/components/${category}/${paramCase(name)}`
 export const foundationNav = ['Feature', 'Feature', 'Feature', 'Feature', 'Feature', 'Feature'].map(
   (name) => ({
     name,
-    href: getHref('foundation', name),
+    // href: getHref('foundation', name),
     icon: `/assets/icons/components/ic_${snakeCase(name)}.svg`,
   })
 );
