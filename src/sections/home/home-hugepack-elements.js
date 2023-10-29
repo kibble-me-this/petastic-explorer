@@ -46,6 +46,9 @@ import { MotionViewport, varFade } from 'src/components/animate';
 import { ChatView } from 'src/sections/chat/view';
 import { outlineButton } from 'src/theme/css';
 
+import ComponentCard from '../_examples/component-card';
+import { foundationNav, muiNav, extraNav } from '../_examples/config-navigation';
+
 // ----------------------------------------------------------------------
 
 export default function HomeHugePackElements() {
@@ -70,7 +73,7 @@ export default function HomeHugePackElements() {
   }, []);
 
   const viewAllBtn = (
-    <m.div variants={varFade().inUp}>
+    <m.div variants={varFade().inUp} style={{ marginTop: '20px' }}>
       <Button
         size="large"
         color="inherit"
@@ -81,7 +84,7 @@ export default function HomeHugePackElements() {
         endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
         sx={outlineButton}
       >
-        Join the Alpha Test
+        Join the Alpha
       </Button>
     </m.div>
   );
@@ -91,7 +94,7 @@ export default function HomeHugePackElements() {
       sx={{
         textAlign: { xs: 'center', md: 'unset' },
         pl: { md: 5 },
-        pt: { md: 15 },
+        pt: { md: 2 },
       }}
     >
       <m.div variants={varFade().inUp}>
@@ -119,6 +122,24 @@ export default function HomeHugePackElements() {
           explore tailored products and services specific to their exact needs. Give it a whirl!
         </Typography>
       </m.div>
+
+      <Stack spacing={1}>
+        <Stack spacing={1}>
+          <Typography variant="h5">Components</Typography>
+
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Feature 1, Feature 2, Feature 3...
+          </Typography>
+        </Stack>
+
+        <Grid container spacing={3}>
+          {foundationNav.map((item) => (
+            <Grid item xs={12} md={4} key={item.name}>
+              <ComponentCard item={item} />
+            </Grid>
+          ))}
+        </Grid>
+      </Stack>
 
       {mdUp && viewAllBtn}
     </Stack>
