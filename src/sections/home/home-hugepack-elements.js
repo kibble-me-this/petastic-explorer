@@ -89,6 +89,26 @@ export default function HomeHugePackElements() {
     </m.div>
   );
 
+  const renderFeatures = (
+    <Stack spacing={1}>
+      <Stack spacing={1}>
+        <Typography variant="h5">Components</Typography>
+
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Feature 1, Feature 2, Feature 3...
+        </Typography>
+      </Stack>
+
+      <Grid container spacing={3}>
+        {foundationNav.map((item) => (
+          <Grid item xs={12} md={4} key={item.name}>
+            <ComponentCard item={item} />
+          </Grid>
+        ))}
+      </Grid>
+    </Stack>
+  );
+
   const renderDescription = (
     <Stack
       sx={{
@@ -123,355 +143,9 @@ export default function HomeHugePackElements() {
         </Typography>
       </m.div>
 
-      <Stack spacing={1}>
-        <Stack spacing={1}>
-          <Typography variant="h5">Components</Typography>
-
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Feature 1, Feature 2, Feature 3...
-          </Typography>
-        </Stack>
-
-        <Grid container spacing={3}>
-          {foundationNav.map((item) => (
-            <Grid item xs={12} md={4} key={item.name}>
-              <ComponentCard item={item} />
-            </Grid>
-          ))}
-        </Grid>
-      </Stack>
+      {mdUp && renderFeatures}
 
       {mdUp && viewAllBtn}
-    </Stack>
-  );
-
-  const _renderContent = (
-    <Stack
-      component={Paper}
-      variant="outlined"
-      alignItems="center"
-      spacing={{ xs: 3, md: 5 }}
-      sx={{
-        // borderRadius: 2,
-        bgcolor: 'unset',
-        border: 'none', // Specify the border style here
-        p: { xs: 3, md: 5 },
-        backgroundImage: 'url("/assets/background/fetch.svg")', // Use the correct relative path to your SVG
-        backgroundSize: '100% 100%', // Make the background image cover the entire Stack
-        backgroundRepeat: 'no-repeat', //
-      }}
-    >
-      {/* Row 1 */}
-      <Stack
-        direction="row"
-        flexWrap="wrap"
-        alignItems="center"
-        justifyContent="center"
-        spacing={{ xs: 3, md: 4 }}
-        sx={{ width: 1 }}
-      >
-        <m.div variants={varFade().in}>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Iconify icon="solar:cart-plus-bold" />}
-          >
-            Add To Cart
-          </Button>
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <Button
-            variant="soft"
-            color="primary"
-            startIcon={<Iconify icon="eva:cloud-upload-fill" />}
-          >
-            Upload
-          </Button>
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <Fab color="info" size="medium">
-            <Iconify icon="eva:search-fill" />
-          </Fab>
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <CircularProgress color="error" />
-        </m.div>
-      </Stack>
-
-      {/* Row 2 */}
-      <Stack
-        direction="row"
-        flexWrap="wrap"
-        alignItems="center"
-        justifyContent="center"
-        spacing={{ xs: 3, md: 4 }}
-        sx={{ width: 1 }}
-      >
-        <m.div variants={varFade().in}>
-          <Tabs
-            value={currentTab}
-            onChange={handleChangeTab}
-            sx={{
-              boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
-            }}
-          >
-            {['Angular', 'React', 'Vue'].map((tab) => (
-              <Tab
-                key={tab}
-                value={tab}
-                label={tab}
-                sx={{
-                  '&:not(:last-of-type)': { mr: 3 },
-                }}
-              />
-            ))}
-          </Tabs>
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <ToggleButtonGroup
-            size="small"
-            color="secondary"
-            value={app}
-            exclusive
-            onChange={(event, newValue) => {
-              if (newValue !== null) {
-                setApp(newValue);
-              }
-            }}
-            aria-label="app"
-          >
-            {['chat', 'mail', 'bell'].map((item) => (
-              <ToggleButton key={item} value={item} aria-label={item} disabled={item === 'bell'}>
-                {item === 'chat' && <Iconify icon="solar:chat-round-dots-bold" />}
-                {item === 'mail' && <Iconify icon="fluent:mail-24-filled" />}
-                {item === 'bell' && <Iconify icon="solar:bell-bing-bold" />}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <Chip
-            color="error"
-            variant="soft"
-            onDelete={() => {}}
-            avatar={<Avatar alt={_mock.fullName(2)} src={_mock.image.avatar(2)} />}
-            label="Chip"
-          />
-        </m.div>
-      </Stack>
-
-      {/* Row 3 */}
-      <Stack
-        direction="row"
-        flexWrap="wrap"
-        alignItems="center"
-        justifyContent="center"
-        spacing={{ xs: 3, md: 4 }}
-        sx={{ width: 1 }}
-      >
-        <m.div variants={varFade().in}>
-          <Badge variant="online" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-            <Avatar src={_mock.image.avatar(19)} alt={_mock.fullName(19)} />
-          </Badge>
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <AvatarGroup>
-            {[...Array(8)].map((_, index) => (
-              <Avatar key={index} src={_mock.image.avatar(index)} />
-            ))}
-          </AvatarGroup>
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <Rating
-            value={rating}
-            onChange={(event, newValue) => {
-              setRating(newValue);
-            }}
-          />
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <Label variant="filled" startIcon={<Iconify icon="fluent:mail-24-filled" />}>
-            Label
-          </Label>
-        </m.div>
-      </Stack>
-
-      {/* Row 4 */}
-      <Stack
-        spacing={{ xs: 3, md: 4 }}
-        sx={{
-          width: 1,
-          gap: 3,
-          display: 'grid',
-          gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' },
-        }}
-      >
-        <m.div variants={varFade().in}>
-          <Slider
-            valueLabelDisplay="on"
-            value={slider}
-            onChange={(event, newValue) => {
-              setSlider(newValue);
-            }}
-          />
-        </m.div>
-
-        <m.div variants={varFade().in}>
-          <Alert severity="success" onClose={() => {}}>
-            <AlertTitle>Success</AlertTitle>
-            This is a success alert — <strong>check it out!</strong>
-          </Alert>
-        </m.div>
-      </Stack>
-
-      {mdUp && (
-        <>
-          {/* Row 5 */}
-          <Stack
-            direction="row"
-            flexWrap="wrap"
-            alignItems="center"
-            justifyContent="center"
-            spacing={{ xs: 3, md: 4 }}
-            sx={{ width: 1 }}
-          >
-            <m.div variants={varFade().in}>
-              <FormControlLabel control={<Switch defaultChecked />} label="Switch" sx={{ m: 0 }} />
-            </m.div>
-
-            <m.div variants={varFade().in}>
-              <FormControlLabel
-                control={<Radio color="error" defaultChecked />}
-                label="Radio Button"
-                sx={{ m: 0 }}
-              />
-            </m.div>
-
-            <m.div variants={varFade().in}>
-              <FormControlLabel
-                control={<Checkbox color="info" defaultChecked />}
-                label="Checkbox"
-                sx={{ m: 0 }}
-              />
-            </m.div>
-
-            <m.div variants={varFade().in}>
-              <FormControlLabel
-                control={<Checkbox color="warning" indeterminate />}
-                label="Indeterminate"
-                sx={{ m: 0 }}
-              />
-            </m.div>
-          </Stack>
-
-          {/* Row 6 */}
-          <Stack spacing={3} direction="row" justifyContent="center" sx={{ width: 1 }}>
-            <m.div variants={varFade().in}>
-              <Paper
-                sx={{
-                  width: 320,
-                  borderRadius: 2,
-                  boxShadow: (theme) => theme.customShadows.z20,
-                }}
-              >
-                <CardHeader
-                  title="Jayvion Simon"
-                  subheader="California, United States"
-                  avatar={
-                    <Badge
-                      variant="online"
-                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    >
-                      <Avatar
-                        alt={_mock.fullName(0)}
-                        src={_mock.image.avatar(0)}
-                        sx={{
-                          width: 48,
-                          height: 48,
-                        }}
-                      />
-                    </Badge>
-                  }
-                  titleTypographyProps={{
-                    typography: 'subtitle2',
-                    sx: { mb: 0.25 },
-                  }}
-                  subheaderTypographyProps={{ typography: 'caption' }}
-                  sx={{ p: 2 }}
-                />
-                <Box sx={{ px: 1 }}>
-                  <Image
-                    alt="cover-url"
-                    src={_mock.image.cover(12)}
-                    ratio="16/9"
-                    sx={{
-                      borderRadius: 1.5,
-                    }}
-                  />
-                </Box>
-
-                <Typography variant="body2" sx={{ color: 'text.secondary', pt: 2, px: 2 }}>
-                  Phasellus dolor. Fusce egestas elit eget lorem. Quisque id odio.
-                </Typography>
-
-                <Stack direction="row" sx={{ px: 2, py: 1 }}>
-                  <Checkbox
-                    defaultChecked
-                    color="error"
-                    size="small"
-                    icon={<Iconify icon="solar:heart-bold" />}
-                    checkedIcon={<Iconify icon="solar:heart-bold" />}
-                  />
-
-                  <Box sx={{ flexGrow: 1 }} />
-
-                  <IconButton>
-                    <Iconify icon="solar:share-bold" />
-                  </IconButton>
-
-                  <IconButton>
-                    <Iconify icon="eva:message-circle-fill" />
-                  </IconButton>
-                </Stack>
-              </Paper>
-            </m.div>
-
-            <Stack spacing={3} sx={{ width: 1 }}>
-              <m.div variants={varFade().in}>
-                <TextField fullWidth label="Text Field" value="Value" />
-              </m.div>
-
-              <m.div variants={varFade().in}>
-                <TextField
-                  select
-                  fullWidth
-                  label="Select"
-                  value={select}
-                  onChange={handleChangeSelect}
-                >
-                  {['Option 1', 'Option 2', 'Option 3', 'Option 4'].map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </m.div>
-
-              <m.div variants={varFade().in}>
-                <TextField fullWidth multiline rows={3} label="Textarea" />
-              </m.div>
-            </Stack>
-          </Stack>
-        </>
-      )}
     </Stack>
   );
 
@@ -479,6 +153,15 @@ export default function HomeHugePackElements() {
     <>
       <Box>
         <ChatView sx={{ m: 1 }} />
+        <Stack
+          sx={{
+            textAlign: { xs: 'center', md: 'unset' },
+            pl: { md: 5 },
+            pt: { md: 2 },
+          }}
+        >
+          {!mdUp && renderFeatures}
+        </Stack>
       </Box>
     </>
   );
@@ -491,15 +174,30 @@ export default function HomeHugePackElements() {
       }}
     >
       <Grid container direction={{ xs: 'column', md: 'row-reverse' }} spacing={5}>
-        <Grid xs={12} md={7}>
-          {renderContent}
-        </Grid>
-        <Grid xs={12} md={5}>
-          {renderDescription}
-        </Grid>
+        {mdUp ? ( // For desktop layout
+          <>
+            <Grid item xs={12} md={7}>
+              {renderContent}
+            </Grid>
+            <Grid item xs={12} md={5}>
+              {renderDescription}
+            </Grid>
+          </>
+        ) : (
+          // For mobile layout
+          <>
+            {' '}
+            <Grid item xs={12}>
+              {renderDescription}
+            </Grid>
+            <Grid item xs={12}>
+              {renderContent}
+            </Grid>
+          </>
+        )}
 
         {!mdUp && (
-          <Grid xs={12} sx={{ textAlign: 'center' }}>
+          <Grid item xs={12} sx={{ textAlign: 'center' }}>
             {viewAllBtn}
           </Grid>
         )}
