@@ -30,6 +30,7 @@ export default function ChatMessageInput({
   //
   disabled,
   selectedConversationId,
+  // isAiLoading, // Add the loading prop to the propTypes
 }) {
   const router = useRouter();
 
@@ -97,33 +98,33 @@ export default function ChatMessageInput({
     }
   }, []);
 
-  const handleChangeMessage = useCallback((event) => {
-    setMessage(event.target.value);
-  }, []);
+  // const handleChangeMessage = useCallback((event) => {
+  //   setMessage(event.target.value);
+  // }, []);
 
-  const handleSendMessage = useCallback(
-    async (event) => {
-      try {
-        if (event.key === 'Enter') {
-          if (message) {
-            if (selectedConversationId) {
-              await sendMessage(selectedConversationId, messageData);
-            } else {
-              const res = await createConversation(conversationData);
+  // const handleSendMessage = useCallback(
+  //   async (event) => {
+  //     try {
+  //       if (event.key === 'Enter') {
+  //         if (message) {
+  //           if (selectedConversationId) {
+  //             await sendMessage(selectedConversationId, messageData);
+  //           } else {
+  //             const res = await createConversation(conversationData);
 
-              router.push(`${paths.dashboard.chat}?id=${res.conversation.id}`);
+  //             router.push(`${paths.dashboard.chat}?id=${res.conversation.id}`);
 
-              onAddRecipients([]);
-            }
-          }
-          setMessage('');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [conversationData, message, messageData, onAddRecipients, router, selectedConversationId]
-  );
+  //             onAddRecipients([]);
+  //           }
+  //         }
+  //         setMessage('');
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   },
+  //   [conversationData, message, messageData, onAddRecipients, router, selectedConversationId]
+  // );
 
   // New state to store user's input for OpenAI
   const [openaiMessage, setOpenaiMessage] = useState('');
@@ -218,7 +219,14 @@ export default function ChatMessageInput({
         setAiIsLoading(false);
       }
     },
-    [openaiMessage, setConversationData, user]
+    [
+      openaiMessage,
+      setConversationData,
+      user,
+      conversationData,
+      myContact.id,
+      selectedConversationId,
+    ]
   );
 
   return (
@@ -307,5 +315,5 @@ ChatMessageInput.propTypes = {
   onAddRecipients: PropTypes.func,
   recipients: PropTypes.array,
   selectedConversationId: PropTypes.string,
-  isAiLoading: PropTypes.bool,
+  // isAiLoading: PropTypes.bool,
 };
