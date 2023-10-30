@@ -143,8 +143,6 @@ export default function HomeHugePackElements() {
         </Typography>
       </m.div>
 
-      {mdUp && renderFeatures}
-
       {mdUp && viewAllBtn}
     </Stack>
   );
@@ -153,15 +151,6 @@ export default function HomeHugePackElements() {
     <>
       <Box>
         <ChatView sx={{ m: 1 }} />
-        <Stack
-          sx={{
-            textAlign: { xs: 'center', md: 'unset' },
-            pl: { md: 5 },
-            pt: { md: 2 },
-          }}
-        >
-          {!mdUp && renderFeatures}
-        </Stack>
       </Box>
     </>
   );
@@ -187,19 +176,14 @@ export default function HomeHugePackElements() {
           // For mobile layout
           <>
             {' '}
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ textAlign: 'center' }}>
               {renderDescription}
+              {viewAllBtn}
             </Grid>
             <Grid item xs={12}>
               {renderContent}
             </Grid>
           </>
-        )}
-
-        {!mdUp && (
-          <Grid item xs={12} sx={{ textAlign: 'center' }}>
-            {viewAllBtn}
-          </Grid>
         )}
       </Grid>
     </Container>

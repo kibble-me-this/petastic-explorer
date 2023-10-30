@@ -26,32 +26,56 @@ export default function HomeAdvertisement() {
   const renderDescription = (
     <Box
       sx={{
-        textAlign: {
-          xs: 'center',
-          md: 'left',
-        },
-        width: 1, // Make the Box expand to full width
-        ml: 12, // Add a margin of 8 units to the left
+        textAlign: mdUp ? 'left' : 'center',
+        width: 1,
+        ml: mdUp ? 12 : 0,
       }}
     >
-      <Box
-        component={m.div}
-        variants={varFade().inDown}
-        sx={{ color: 'common.main', mb: 3, typography: 'h2' }}
-      >
-        The Pet&apos;s Network
-      </Box>
-
-      <m.div variants={varFade().in}>
-        <Typography variant="h4" sx={{ mb: 4, color: alpha(theme.palette.text.secondary, 0.7) }}>
-          Petastic is a decentralized network purpose-built to <br />
-          identify, track, and manage the lives of all pets on earth.
-        </Typography>
-      </m.div>
+      {mdUp ? (
+        <m.div variants={varFade().in}>
+          <Box
+            component={m.div}
+            variants={varFade().inDown}
+            sx={{ color: 'common.main', mb: 3, typography: 'h2' }}
+          >
+            The Pet&apos;s Network
+          </Box>
+          <Typography
+            variant="body1"
+            sx={{ mb: 4, color: alpha(theme.palette.text.secondary, 0.7) }}
+          >
+            Petastic is a decentralized network purpose-built to <br />
+            identify, track, and manage the lives of all pets on earth.
+          </Typography>
+        </m.div>
+      ) : (
+        <m.div variants={varFade().in}>
+          <Box
+            sx={{
+              mt: -10, // Shift the Box up by 20px
+            }}
+          >
+            <Box
+              component={m.div}
+              variants={varFade().inDown}
+              sx={{ color: 'common.main', mb: 3, typography: 'h3', fontWeight: 'bold' }}
+            >
+              The Pet&apos;s Network
+            </Box>
+            <Typography
+              variant="body1"
+              sx={{ mb: 48, color: alpha(theme.palette.text.secondary, 0.7) }}
+            >
+              Petastic is a decentralized network purpose-built to identify, track, and manage the
+              lives of all pets on earth.
+            </Typography>
+          </Box>
+        </m.div>
+      )}
 
       <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        justifyContent={{ xs: 'center', md: 'flex-start' }}
+        direction={mdUp ? 'row' : 'column'}
+        justifyContent={mdUp ? 'flex-start' : 'center'}
         spacing={2}
       >
         <m.div variants={varFade().inRight}>
@@ -111,16 +135,16 @@ export default function HomeAdvertisement() {
         direction={{ xs: 'column', md: 'row' }}
         height="458px"
         sx={{
-          mb: 16,
+          my: 16,
           backgroundImage: mdUp
             ? 'url(/assets/background/explorer.svg)' // Use this image for md and up
-            : 'url(/assets/background/explorer_pets_xs.svg)', // Use this image for xs and sm          backgroundRepeat: 'no-repeat',
+            : 'url(/assets/background/explorer_pets_xs.png)', // Use this image for xs and sm          backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           borderRadius: 2,
           pb: { xs: 5, md: 0 },
         }}
       >
-        {mdUp && renderDescription}
+        {renderDescription}
         {mdUp && renderImg}
       </Stack>
     </Container>
