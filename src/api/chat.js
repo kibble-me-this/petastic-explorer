@@ -437,80 +437,6 @@ const localConversations = [
   },
 ];
 
-const mockData = [
-  {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-    participants: [
-      {
-        status: 'online',
-        id: '8864c717-587d-472a-929a-8e5f298024da-0',
-        role: 'admin',
-        email: 'demo@minimals.cc',
-        name: 'Jaydon Frankie',
-        lastActivity: '2023-10-23T14:45:15.279Z',
-        address: '90210 Broadway Blvd',
-        avatarUrl: 'https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_25.jpg',
-        phoneNumber: '+40 777666555',
-      },
-      {
-        status: 'online',
-        id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-        role: 'Data Analyst',
-        email: 'ashlynn_ohara62@gmail.com',
-        name: 'PetasticAI',
-        lastActivity: '2023-10-22T13:45:15.279Z',
-        address: '1147 Rohan Drive Suite 819 - Burlington, VT / 82021',
-        avatarUrl: `${process.env.PUBLIC_URL}/assets/logo.svg`, // Modify the path accordingly
-        phoneNumber: '904-966-2836',
-      },
-    ],
-    type: 'ONE_TO_ONE',
-    unreadCount: 0,
-    messages: [
-      {
-        id: 'ff7ff1e9-a946-4484-8536-3360bb553c3f',
-        body: 'She eagerly opened the gift, her eyes sparkling with excitement.',
-        contentType: 'text',
-        attachments: [
-          {
-            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1',
-            name: 'cover-2.jpg',
-            path: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
-            preview: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
-            size: 48000000,
-            createdAt: '2023-10-23T14:38:44.497Z',
-            modifiedAt: '2023-10-23T14:38:44.497Z',
-            type: 'jpg',
-          },
-        ],
-        createdAt: '2023-10-23T04:45:15.280Z',
-        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-      },
-      {
-        id: '0acc8a11-3719-4119-a184-eec898e3e80f',
-        body: 'The old oak tree stood tall and majestic, its branches swaying gently in the breeze.',
-        contentType: 'text',
-        attachments: [
-          {
-            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-            name: 'design-suriname-2015.mp3',
-            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/design_suriname_2015.mp3',
-            preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/design_suriname_2015.mp3',
-            size: 24000000,
-            createdAt: '2023-10-22T13:38:44.497Z',
-            modifiedAt: '2023-10-22T13:38:44.497Z',
-            type: 'mp3',
-          },
-        ],
-        createdAt: '2023-10-23T12:45:15.280Z',
-        senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
-      },
-      // Add more messages here if needed...
-    ],
-  },
-  // Add more conversation entries here...
-];
-
 export function useGetContacts() {
   // Uncomment this section to fetch data using SWR
   // const URL = [endpoints.chat, { params: { endpoint: 'contacts' } }];
@@ -815,21 +741,26 @@ export function useGetConversations() {
 // ----------------------------------------------------------------------
 
 export function useGetConversation(conversationId) {
-  const URL = conversationId
-    ? [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }]
-    : null;
+  // Comment out the API call
+  // const URL = conversationId
+  //   ? [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }]
+  //   : null;
+  // const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
 
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
+  // Use local data instead of API data
+  const localConversation = localConversations.find(
+    (conversation) => conversation.id === conversationId
+  );
 
-  // Move this useMemo hook to the top level
+  // Create memoizedValue based on local data
   const memoizedValue = useMemo(
     () => ({
-      conversation: data?.conversation,
-      conversationLoading: isLoading,
-      conversationError: error,
-      conversationValidating: isValidating,
+      conversation: localConversation || null,
+      conversationLoading: false, // No loading with local data
+      conversationError: null, // No error with local data
+      conversationValidating: false, // Not validating with local data
     }),
-    [data?.conversation, error, isLoading, isValidating]
+    [localConversation]
   );
 
   // Check if conversationId matches a specific ID you want to override
