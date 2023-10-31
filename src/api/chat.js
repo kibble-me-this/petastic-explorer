@@ -741,26 +741,21 @@ export function useGetConversations() {
 // ----------------------------------------------------------------------
 
 export function useGetConversation(conversationId) {
-  // Comment out the API call
-  // const URL = conversationId
-  //   ? [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }]
-  //   : null;
-  // const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
+  const URL = conversationId
+    ? [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }]
+    : null;
 
-  // Use local data instead of API data
-  const localConversation = localConversations.find(
-    (conversation) => conversation.id === conversationId
-  );
+  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
 
-  // Create memoizedValue based on local data
+  // Move this useMemo hook to the top level
   const memoizedValue = useMemo(
     () => ({
-      conversation: localConversation || null,
-      conversationLoading: false, // No loading with local data
-      conversationError: null, // No error with local data
-      conversationValidating: false, // Not validating with local data
+      conversation: data?.conversation,
+      conversationLoading: isLoading,
+      conversationError: error,
+      conversationValidating: isValidating,
     }),
-    [localConversation]
+    [data?.conversation, error, isLoading, isValidating]
   );
 
   // Check if conversationId matches a specific ID you want to override
