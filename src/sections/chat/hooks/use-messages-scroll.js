@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export default function useMessagesScroll(messages) {
   const messagesEndRef = useRef(null);
   const [websiteScrollTop, setWebsiteScrollTop] = useState(0);
-  const scrollSpeedFactor = 0.5; // Adjust the scroll speed factor as needed
+  const scrollSpeedFactor = 0.3; // Adjust the scroll speed factor as needed
 
   const scrollMessagesToStart = useCallback(() => {
     if (messagesEndRef.current) {

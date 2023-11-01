@@ -84,7 +84,7 @@ export default function HomeHugePackElements() {
         endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
         sx={outlineButton}
       >
-        Join the Alpha
+        Join the Alpha Test
       </Button>
     </m.div>
   );
@@ -115,6 +115,10 @@ export default function HomeHugePackElements() {
         textAlign: { xs: 'center', md: 'unset' },
         pl: { md: 5 },
         pt: { md: 2 },
+        height: '100%', // Set the height to 100%
+        display: 'flex', // Use flexbox
+        flexDirection: 'column', // Stack the items vertically
+        justifyContent: 'center', // Center vertically
       }}
     >
       <m.div variants={varFade().inUp}>
