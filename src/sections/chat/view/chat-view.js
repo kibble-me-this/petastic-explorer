@@ -1,4 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // @mui
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -25,6 +27,7 @@ import ChatHeaderCompose from '../chat-header-compose';
 
 export default function ChatView() {
   const router = useRouter();
+  const navigate = useNavigate();
 
   const { user } = useMockedUser();
 
@@ -45,6 +48,11 @@ export default function ChatView() {
   const participants = conversation
     ? conversation.participants.filter((participant) => participant.id !== user.id)
     : [];
+
+  useEffect(() => {
+    // Navigate to the desired URL when the component loads
+    navigate('/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4');
+  }, [navigate]);
 
   // useEffect(() => {
   //   if (conversationError || !selectedConversationId) {
