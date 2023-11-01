@@ -59,15 +59,15 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         ...(hasImage && {
           mr: 'auto',
           mb: 1,
-          color: 'black',
+          color: 'grey.700',
         }),
       }}
     >
       {/* !me && `${firstName},` */}
-      {`${avatarName},`} &nbsp;
-      {formatDistanceToNowStrict(new Date(createdAt), {
+      {`${avatarName}`} &nbsp;
+      {/* formatDistanceToNowStrict(new Date(createdAt), {
         addSuffix: true,
-      })}
+    }) */}
     </Typography>
   );
 
@@ -89,7 +89,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
           bgcolor: 'rgba(0, 0, 0, 0.10)',
         }),
         ...(hasImage && {
-          p: 2,
+          p: 0,
           bgcolor: 'transparent',
         }),
       }}
@@ -118,9 +118,9 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
           component="img"
           alt="attachment"
           src={body}
-          onClick={() => onOpenLightbox(body)}
+          // onClick={() => onOpenLightbox(body)}
           sx={{
-            minHeight: 220,
+            // minHeight: 220,
             borderRadius: 1.5,
             cursor: 'pointer',
             '&:hover': {

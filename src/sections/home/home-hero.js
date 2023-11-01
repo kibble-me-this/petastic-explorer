@@ -489,7 +489,7 @@ export default function HomeHero() {
               spacing={0.5}
               sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
             >
-              <Typography variant="h4">{fShortenNumber(200000)}+</Typography>
+              <Typography variant="h4">{fShortenNumber(247000)}+</Typography>
               <Typography variant="caption" sx={{ opacity: 0.48 }}>
                 DOGS
               </Typography>
@@ -499,7 +499,7 @@ export default function HomeHero() {
               spacing={0.5}
               sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
             >
-              <Typography variant="h4">{fShortenNumber(100000)}+</Typography>
+              <Typography variant="h4">{fShortenNumber(172000)}+</Typography>
               <Typography variant="caption" sx={{ opacity: 0.48 }}>
                 CATS
               </Typography>

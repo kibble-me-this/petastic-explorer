@@ -18,21 +18,21 @@ const grayscaleCss = {
 const CARDS = [
   {
     icon: ' /assets/icons/home/ic_passport.svg',
-    tech: 'BLOCKCHAIN',
+    tech: 'BUILT ON BLOCKCHAIN',
     title: "Your Pet's Diary",
     description:
       "We assist you in storing your pet's vital information, including medical records, vaccinations, and reminders, in one secure digital location you solely own, eliminating paper records.",
   },
   {
     icon: ' /assets/icons/home/ic_development.svg',
-    tech: 'ARTIFICIAL INTELLIGENCE',
+    tech: 'POWERED BY AI',
     title: 'Personal Pet Concierge',
     description:
       "Unlock your pet's data with Petastic and gain superpawers through our AI pet concierge. It guides you, addressing both your pet's and your needs, for simplified pet care.",
   },
   {
     icon: ' /assets/icons/home/ic_coin.svg',
-    tech: 'PLAY-TO-EARN',
+    tech: 'LOVED BY YOU',
     title: 'Infinite Rewards',
     description:
       'By actively engaging with your Pet Concierge, contribute to the global pet ecosystem, earn rewards, and help enhance the system, benefiting fellow pet parents in the community.',
@@ -89,15 +89,15 @@ export default function HomeMinimal() {
                 bgcolor: 'background.default',
                 p: (theme) => theme.spacing(10, 5),
                 position: 'relative',
-                ...(index === 1 && {
-                  boxShadow: (theme) => ({
-                    md: `-40px 40px 80px ${
-                      theme.palette.mode === 'light'
-                        ? alpha(theme.palette.grey[500], 0.16)
-                        : alpha(theme.palette.common.black, 0.4)
-                    }`,
-                  }),
-                }),
+                // ...(index === 1 && {
+                //   boxShadow: (theme) => ({
+                //     md: `-40px 40px 80px ${
+                //       theme.palette.mode === 'light'
+                //         ? alpha(theme.palette.grey[500], 0.16)
+                //         : alpha(theme.palette.common.black, 0.4)
+                //     }`,
+                //   }),
+                // }),
               }}
             >
               {/* Container for the pink circle and icon */}

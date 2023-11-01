@@ -24,10 +24,10 @@ const LINKS = [
   {
     headline: 'Minimal',
     children: [
-      { name: 'Blog', href: '#' }, // href: paths.post.root },
-      { name: 'About us', href: '#' }, // href: paths.about },
-      { name: 'Terms and Condition', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
+      { name: 'Blog', style: { pointerEvents: 'none' } },
+      { name: 'About us', style: { pointerEvents: 'none' } },
+      { name: 'Terms and Condition', style: { pointerEvents: 'none' } },
+      { name: 'Privacy Policy', style: { pointerEvents: 'none' } },
     ],
   },
 ];
@@ -127,7 +127,7 @@ export default function Footer() {
               pets worldwide, simplifying pet care for all and delivering personalized products and
               services to our beloved furbabies.
             </Typography>
-
+            {/** 
             <Stack
               direction="row"
               justifyContent={{ xs: 'center', md: 'flex-start' }}
@@ -149,6 +149,7 @@ export default function Footer() {
                 </IconButton>
               ))}
             </Stack>
+            */}
           </Grid>
         </Grid>
 
