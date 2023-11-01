@@ -127,7 +127,7 @@ export default function ChatMessageInput({
   // );
 
   // New state to store user's input for OpenAI
-  const [openaiMessage, setOpenaiMessage] = useState('hey there');
+  const [openaiMessage, setOpenaiMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSendMessage = useCallback(async () => {
@@ -162,14 +162,14 @@ export default function ChatMessageInput({
     handleSendMessage(); // Simulate sending the message
   }, [handleSendMessage]);
 
-  useEffect(() => {
-    // Simulate pressing the "Enter" key after a 5-second timer
-    const timer = setTimeout(simulateEnterKeyPress, 5000);
+  // useEffect(() => {
+  //   // Simulate pressing the "Enter" key after a 5-second timer
+  //   const timer = setTimeout(simulateEnterKeyPress, 5000);
 
-    return () => {
-      clearTimeout(timer); // Clear the timer if the component unmounts before the timer expires
-    };
-  }, [simulateEnterKeyPress]);
+  //   return () => {
+  //     clearTimeout(timer); // Clear the timer if the component unmounts before the timer expires
+  //   };
+  // }, [simulateEnterKeyPress]);
 
   // Function to handle user input for OpenAI
   const handleOpenaiMessageChange = useCallback((event) => {
@@ -316,13 +316,8 @@ export default function ChatMessageInput({
         value={openaiMessage}
         onKeyUp={handleSendOpenaiMessage}
         onChange={handleOpenaiMessageChange}
-        placeholder="Ask me anything..."
+        placeholder="Ask me pet things..."
         disabled={disabled}
-        startAdornment={
-          <IconButton>
-            <Iconify icon="eva:smiling-face-fill" />
-          </IconButton>
-        }
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
             <IconButton onClick={handleAttach}>
@@ -330,9 +325,6 @@ export default function ChatMessageInput({
             </IconButton>
             <IconButton onClick={handleAttach}>
               <Iconify icon="eva:attach-2-fill" />
-            </IconButton>
-            <IconButton>
-              <Iconify icon="solar:microphone-bold" />
             </IconButton>
           </Stack>
         }

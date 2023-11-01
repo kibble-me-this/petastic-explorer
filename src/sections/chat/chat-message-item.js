@@ -167,7 +167,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
   );
 
   return (
-    <Stack direction="row" justifyContent={me ? 'flex-end' : 'unset'} sx={{ mb: 5 }}>
+    <Stack direction="row" justifyContent={me ? 'flex-end' : 'unset'} sx={{ mb: 2 }}>
       {/* !me && <Avatar alt={firstName} src={avatarUrl} sx={{ width: 32, height: 32, mr: 2 }} /> */}
 
       <Stack alignItems="flex-end">
@@ -186,7 +186,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
           }}
         >
           {renderBody}
-          {renderActions}
+          {/* renderActions */}
         </Stack>
       </Stack>
     </Stack>

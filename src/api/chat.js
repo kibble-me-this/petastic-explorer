@@ -15,6 +15,145 @@ const options = {
 // Define your local conversations data
 const localConversations = [
   {
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+    participants: [
+      {
+        status: 'online',
+        id: '8864c717-587d-472a-929a-8e5f298024da-0',
+        role: 'admin',
+        email: 'demo@minimals.cc',
+        name: 'Jaydon Frankie',
+        lastActivity: '2023-10-23T14:45:15.279Z',
+        address: '90210 Broadway Blvd',
+        avatarUrl: 'https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_25.jpg',
+        phoneNumber: '+40 777666555',
+      },
+      {
+        status: 'online',
+        id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        role: 'UX/UI Designer',
+        email: 'violet.ratke86@yahoo.com',
+        name: 'Harrison Stein',
+        lastActivity: '2023-10-20T11:45:15.279Z',
+        address: '110 Lamar Station Apt. 730 - Hagerstown, OK / 49808',
+        avatarUrl: `${process.env.PUBLIC_URL}/assets/images/avatars/frenchie.jpg`,
+        phoneNumber: '692-767-2903',
+      },
+    ],
+    type: 'ONE_TO_ONE',
+    unreadCount: 0,
+    messages: [
+      {
+        id: '9574ce4a-27ab-4eec-9dd2-ea369f418722',
+        body: 'Hi there Jacki. I’m signing in Fred to Petastic, please give me a minute.',
+        contentType: 'text',
+        attachments: [
+          {
+            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1',
+            name: 'cover-2.jpg',
+            path: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
+            preview: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
+            size: 48000000,
+            createdAt: '2023-10-23T14:38:44.497Z',
+            modifiedAt: '2023-10-23T14:38:44.497Z',
+            type: 'jpg',
+          },
+        ],
+        createdAt: '2023-10-23T06:45:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      },
+      {
+        id: '7ed017d0-ea7c-4545-bed3-1776e482ea60',
+        body: '/assets/images/chat/dog_fred.jpg',
+        contentType: 'image',
+        createdAt: '2023-10-23T14:37:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      },
+
+      {
+        id: '3148665b-1aa3-40f1-b4a0-ee579ce42282',
+        body: 'All set! Fred is now signed in. What can i help you with today?',
+        contentType: 'text',
+        attachments: [
+          {
+            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
+            name: 'design-suriname-2015.mp3',
+            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/design_suriname_2015.mp3',
+            preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/design_suriname_2015.mp3',
+            size: 24000000,
+            createdAt: '2023-10-22T13:38:44.497Z',
+            modifiedAt: '2023-10-22T13:38:44.497Z',
+            type: 'mp3',
+          },
+        ],
+        createdAt: '2023-10-23T08:45:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      },
+      {
+        id: 'db582097-c706-47e9-86b0-01d27187bae3',
+        body: 'He carefully crafted a beautiful sculpture out of clay, his hands skillfully shaping the intricate details.',
+        contentType: 'text',
+        attachments: [],
+        createdAt: '2023-10-23T10:15:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      },
+      {
+        id: '356342c6-49be-4d7f-be93-78e89f1f5d97',
+        body: 'The concert was a mesmerizing experience, with the music filling the venue and the crowd cheering in delight.',
+        contentType: 'text',
+        attachments: [
+          {
+            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b3',
+            name: 'expertise-2015-conakry-sao-tome-and-principe-gender.mp4',
+            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/expertise_2015_conakry_sao-tome-and-principe_gender.mp4',
+            preview:
+              'https://www.cloud.com/s/c218bo6kjuqyv66/expertise_2015_conakry_sao-tome-and-principe_gender.mp4',
+            size: 16000000,
+            createdAt: '2023-10-21T12:38:44.497Z',
+            modifiedAt: '2023-10-21T12:38:44.497Z',
+            type: 'mp4',
+          },
+          {
+            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+            name: 'money-popup-crack.pdf',
+            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
+            preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
+            size: 12000000,
+            createdAt: '2023-10-20T11:38:44.497Z',
+            modifiedAt: '2023-10-20T11:38:44.497Z',
+            type: 'pdf',
+          },
+        ],
+        createdAt: '2023-10-23T12:30:15.280Z',
+        senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
+      },
+      {
+        id: '09c442f5-bb73-477b-adbe-9b52b631189c',
+        body: 'The waves crashed against the shore, creating a soothing symphony of sound.',
+        contentType: 'text',
+        attachments: [],
+        createdAt: '2023-10-23T13:30:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      },
+      {
+        id: '1a65bff1-5000-46aa-8aaf-3cd1bcf3d2d1',
+        body: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_9.jpg',
+        contentType: 'image',
+        attachments: [],
+        createdAt: '2023-10-23T13:45:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      },
+      {
+        id: '27b23e33-3fc7-4a1b-8317-e8c0a1df621c',
+        body: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_10.jpg',
+        contentType: 'image',
+        attachments: [],
+        createdAt: '2023-10-23T13:45:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      },
+    ],
+  },
+  {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
     participants: [
       {
@@ -29,11 +168,11 @@ const localConversations = [
         phoneNumber: '+40 777666555',
       },
       {
-        status: 'online',
+        status: 'Shih Tzu',
         id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-        role: 'Data Analyst',
-        email: 'ashlynn_ohara62@gmail.com',
-        name: 'Hello Obrien',
+        role: '$100 • 1600',
+        email: 'Kibble Balance',
+        name: 'Gigi • 3yo ',
         lastActivity: '2023-10-22T13:45:15.279Z',
         address: '1147 Rohan Drive Suite 819 - Burlington, VT / 82021',
         avatarUrl: `${process.env.PUBLIC_URL}/assets/images/avatars/shihtzu.jpg`,
@@ -44,8 +183,16 @@ const localConversations = [
     unreadCount: 0,
     messages: [
       {
+        id: '7ed017d0-ea7c-4545-bed3-1776e482ea60',
+        body: '/assets/images/chat/dog_gigi.jpg',
+        contentType: 'image',
+
+        createdAt: '2023-10-23T14:37:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
+      },
+      {
         id: 'ff7ff1e9-a946-4484-8536-3360bb553c3f',
-        body: 'She eagerly opened the gift, her eyes sparkling with excitement.',
+        body: ' eagerly opened the gift, her eyes sparkling with excitement.',
         contentType: 'text',
         attachments: [
           {
@@ -81,26 +228,7 @@ const localConversations = [
         createdAt: '2023-10-23T12:45:15.280Z',
         senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
       },
-      {
-        id: '7ed017d0-ea7c-4545-bed3-1776e482ea60',
-        body: 'The aroma of freshly brewed coffee filled the air, awakening my senses.',
-        contentType: 'text',
-        attachments: [
-          {
-            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b3',
-            name: 'expertise-2015-conakry-sao-tome-and-principe-gender.mp4',
-            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/expertise_2015_conakry_sao-tome-and-principe_gender.mp4',
-            preview:
-              'https://www.cloud.com/s/c218bo6kjuqyv66/expertise_2015_conakry_sao-tome-and-principe_gender.mp4',
-            size: 16000000,
-            createdAt: '2023-10-21T12:38:44.497Z',
-            modifiedAt: '2023-10-21T12:38:44.497Z',
-            type: 'mp4',
-          },
-        ],
-        createdAt: '2023-10-23T14:37:15.280Z',
-        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-      },
+
       {
         id: '71b164de-772f-42e8-964d-b72fce43037f',
         body: 'The children giggled with joy as they ran through the sprinklers on a hot summer day.',
@@ -232,11 +360,11 @@ const localConversations = [
         phoneNumber: '+40 777666555',
       },
       {
-        status: 'offline',
+        status: 'Persian',
         id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b3',
-        role: 'Legal Counsel',
-        email: 'milo.farrell@hotmail.com',
-        name: 'Karma',
+        role: '$100 • 1600',
+        email: 'Kibble Balance',
+        name: 'Karma • 3yo',
         lastActivity: '2023-10-21T12:45:15.279Z',
         address: '18605 Thompson Circle Apt. 086 - Idaho Falls, WV / 50337',
         avatarUrl: `${process.env.PUBLIC_URL}/assets/images/avatars/persian.jpg`,
@@ -246,6 +374,13 @@ const localConversations = [
     type: 'ONE_TO_ONE',
     unreadCount: 0,
     messages: [
+      {
+        id: '7ed017d0-ea7c-4545-bed3-1776e482ea60',
+        body: '/assets/images/chat/cat_karma.jpg',
+        contentType: 'image',
+        createdAt: '2023-10-23T14:37:15.280Z',
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b3',
+      },
       {
         id: 'd0ec934a-3dd5-49cb-8149-21989e881e65',
         body: 'The old oak tree stood tall and majestic, its branches swaying gently in the breeze.',
@@ -301,137 +436,6 @@ const localConversations = [
         attachments: [],
         createdAt: '2023-10-23T14:00:15.280Z',
         senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
-      },
-    ],
-  },
-  {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-    participants: [
-      {
-        status: 'online',
-        id: '8864c717-587d-472a-929a-8e5f298024da-0',
-        role: 'admin',
-        email: 'demo@minimals.cc',
-        name: 'Jaydon Frankie',
-        lastActivity: '2023-10-23T14:45:15.279Z',
-        address: '90210 Broadway Blvd',
-        avatarUrl: 'https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_25.jpg',
-        phoneNumber: '+40 777666555',
-      },
-      {
-        status: 'online',
-        id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-        role: 'UX/UI Designer',
-        email: 'violet.ratke86@yahoo.com',
-        name: 'Harrison Stein',
-        lastActivity: '2023-10-20T11:45:15.279Z',
-        address: '110 Lamar Station Apt. 730 - Hagerstown, OK / 49808',
-        avatarUrl: `${process.env.PUBLIC_URL}/assets/images/avatars/frenchie.jpg`,
-        phoneNumber: '692-767-2903',
-      },
-    ],
-    type: 'ONE_TO_ONE',
-    unreadCount: 0,
-    messages: [
-      {
-        id: '9574ce4a-27ab-4eec-9dd2-ea369f418722',
-        body: 'The aroma of freshly brewed coffee filled the air, awakening my senses.',
-        contentType: 'text',
-        attachments: [
-          {
-            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1',
-            name: 'cover-2.jpg',
-            path: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
-            preview: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
-            size: 48000000,
-            createdAt: '2023-10-23T14:38:44.497Z',
-            modifiedAt: '2023-10-23T14:38:44.497Z',
-            type: 'jpg',
-          },
-        ],
-        createdAt: '2023-10-23T06:45:15.280Z',
-        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-      },
-      {
-        id: '3148665b-1aa3-40f1-b4a0-ee579ce42282',
-        body: 'The children giggled with joy as they ran through the sprinklers on a hot summer day.',
-        contentType: 'text',
-        attachments: [
-          {
-            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-            name: 'design-suriname-2015.mp3',
-            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/design_suriname_2015.mp3',
-            preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/design_suriname_2015.mp3',
-            size: 24000000,
-            createdAt: '2023-10-22T13:38:44.497Z',
-            modifiedAt: '2023-10-22T13:38:44.497Z',
-            type: 'mp3',
-          },
-        ],
-        createdAt: '2023-10-23T08:45:15.280Z',
-        senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
-      },
-      {
-        id: 'db582097-c706-47e9-86b0-01d27187bae3',
-        body: 'He carefully crafted a beautiful sculpture out of clay, his hands skillfully shaping the intricate details.',
-        contentType: 'text',
-        attachments: [],
-        createdAt: '2023-10-23T10:15:15.280Z',
-        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-      },
-      {
-        id: '356342c6-49be-4d7f-be93-78e89f1f5d97',
-        body: 'The concert was a mesmerizing experience, with the music filling the venue and the crowd cheering in delight.',
-        contentType: 'text',
-        attachments: [
-          {
-            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b3',
-            name: 'expertise-2015-conakry-sao-tome-and-principe-gender.mp4',
-            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/expertise_2015_conakry_sao-tome-and-principe_gender.mp4',
-            preview:
-              'https://www.cloud.com/s/c218bo6kjuqyv66/expertise_2015_conakry_sao-tome-and-principe_gender.mp4',
-            size: 16000000,
-            createdAt: '2023-10-21T12:38:44.497Z',
-            modifiedAt: '2023-10-21T12:38:44.497Z',
-            type: 'mp4',
-          },
-          {
-            id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-            name: 'money-popup-crack.pdf',
-            path: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
-            preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
-            size: 12000000,
-            createdAt: '2023-10-20T11:38:44.497Z',
-            modifiedAt: '2023-10-20T11:38:44.497Z',
-            type: 'pdf',
-          },
-        ],
-        createdAt: '2023-10-23T12:30:15.280Z',
-        senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
-      },
-      {
-        id: '09c442f5-bb73-477b-adbe-9b52b631189c',
-        body: 'The waves crashed against the shore, creating a soothing symphony of sound.',
-        contentType: 'text',
-        attachments: [],
-        createdAt: '2023-10-23T13:30:15.280Z',
-        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-      },
-      {
-        id: '1a65bff1-5000-46aa-8aaf-3cd1bcf3d2d1',
-        body: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_9.jpg',
-        contentType: 'image',
-        attachments: [],
-        createdAt: '2023-10-23T13:45:15.280Z',
-        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-      },
-      {
-        id: '27b23e33-3fc7-4a1b-8317-e8c0a1df621c',
-        body: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_10.jpg',
-        contentType: 'image',
-        attachments: [],
-        createdAt: '2023-10-23T13:45:15.280Z',
-        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
       },
     ],
   },
@@ -747,15 +751,23 @@ export function useGetConversation(conversationId) {
 
   const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
 
+  // Use local data instead of API data
+  const localConversation = localConversations.find(
+    (conversation) => conversation.id === conversationId
+  );
+
+  // Initialize conversation with localConversation if available, or use data?.conversation
+  const conversation = localConversation || data?.conversation;
+
   // Move this useMemo hook to the top level
   const memoizedValue = useMemo(
     () => ({
-      conversation: data?.conversation,
+      conversation,
       conversationLoading: isLoading,
       conversationError: error,
       conversationValidating: isValidating,
     }),
-    [data?.conversation, error, isLoading, isValidating]
+    [conversation, error, isLoading, isValidating]
   );
 
   // Check if conversationId matches a specific ID you want to override
