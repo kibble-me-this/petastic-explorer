@@ -1,3 +1,5 @@
+import parse from 'html-react-parser'; // Import the parse function from the library
+
 import PropTypes from 'prop-types';
 import { formatDistanceToNowStrict } from 'date-fns';
 // @mui
@@ -13,6 +15,9 @@ import Iconify from 'src/components/iconify';
 //
 import { useGetMessage } from './hooks';
 
+import './ChatMessageItem.css'; // Import the CSS file
+import YourCustomComponent from './YourCustomComponent';
+
 // ----------------------------------------------------------------------
 
 export default function ChatMessageItem({ message, participants, onOpenLightbox }) {
@@ -23,6 +28,9 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
     participants,
     currentUserId: user.id,
   });
+
+  console.log('------> message.body:', message.body);
+  console.log('------> message.prop:', message.prop);
 
   const { firstName, avatarUrl } = senderDetails;
 
@@ -71,6 +79,51 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
     </Typography>
   );
 
+  // Determine which styles to apply based on message.body content
+  const contentStyle = () => {
+    if (message.body.includes('ingredients')) {
+      // HTML content is present, apply button style
+      return 'ingredients';
+    }
+    // Default style (you can define a different style here)
+    return 'ingredients';
+  };
+
+  const determinedStyle = contentStyle();
+
+  // Define a function to handle HTML content
+  const handleHtmlContent = (content) => {
+    console.log('handleHtmlContent');
+    return <div className={determinedStyle}>{parse(content)}</div>;
+  };
+
+  // Define a function to handle React component flag
+  const handleReactComponent = (flag) => {
+    if (flag === '--react-component--') {
+      console.log('--react-component--');
+      return <YourCustomComponent />;
+    }
+    return null;
+  };
+
+  // Define a function to handle plain text content
+  const handlePlainText = (content) => {
+    console.log('handlePlainText');
+
+    return <Box sx={{ paddingTop: 1.5 }}>{content}</Box>;
+  };
+
+  // Determine which callback function to use based on the flag in message.body
+  const renderContent = () => {
+    if (message.body.includes('html')) {
+      return handleHtmlContent(message.body);
+    }
+    if (message.body.includes('--react-component--')) {
+      return handleReactComponent(message.body);
+    }
+    return handlePlainText(message.body);
+  };
+
   const renderBody = (
     <Stack
       sx={{
@@ -113,7 +166,9 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         {renderInfo}
       </div>
 
-      {hasImage ? (
+      <div>{renderContent()}</div>
+
+      {hasImage && (
         <Box
           component="img"
           alt="attachment"
@@ -128,8 +183,6 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
             },
           }}
         />
-      ) : (
-        <Box sx={{ paddingTop: 1.5 }}>{body}</Box> // Add padding-top here
       )}
     </Stack>
   );
@@ -186,6 +239,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
           }}
         >
           {renderBody}
+
           {/* renderActions */}
         </Stack>
       </Stack>

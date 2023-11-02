@@ -29,7 +29,7 @@ export default function ChatHeaderDetail({ participants }) {
     participants[0].email = 'Kibble Balance';
     participants[0].role = '$100 • 1600';
   } else if (participants[0].name === 'Harrison Stein') {
-    participants[0].name = 'Bed Again • 4yo';
+    participants[0].name = 'Fred Again • 4yo';
     participants[0].status = 'French Bullog';
     participants[0].email = 'Kibble Balance';
     participants[0].role = '$100 • 1600';

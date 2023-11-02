@@ -1,0 +1,22 @@
+/* ChatMessageItem.css */
+
+.ingredients {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6.009px;
+}
+
+.ingredients li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6.009px 9.013px;
+  border-radius: 37.554px;
+  color: black;
+  background: white; /* Use 'white' or any desired background color */
+  margin: 3.0045px; /* Half of the gap value to create the gap between list items */
+  position: relative; /* Create a relative positioning context */
+}

@@ -216,6 +216,15 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
       <Box sx={{ p: 2.5, pt: 0 }}>{!collapseDesktop && renderSearchInput}</Box>
 
       <Scrollbar sx={{ pb: 1 }}>
+        {searchContacts.query && renderListResults}
+
+        {loading && renderSkeleton}
+
+        {!searchContacts.query && !!conversations.allIds.length && renderList}
+      </Scrollbar>
+
+      {/**
+      <Scrollbar sx={{ pb: 1 }}>
         {searchContacts.query && <div style={{ pointerEvents: 'none' }}>{renderListResults}</div>}
 
         {loading && <div style={{ pointerEvents: 'none' }}>{renderSkeleton}</div>}
@@ -223,7 +232,8 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
         {!searchContacts.query && !!conversations.allIds.length && (
           <div style={{ pointerEvents: 'none' }}>{renderList}</div>
         )}
-      </Scrollbar>
+      </Scrollbar> 
+      */}
     </>
   );
 

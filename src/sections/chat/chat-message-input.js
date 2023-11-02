@@ -317,8 +317,7 @@ export default function ChatMessageInput({
         onKeyUp={handleSendOpenaiMessage}
         onChange={handleOpenaiMessageChange}
         placeholder="Ask me pet things..."
-        // disabled={disabled}
-        disabled="true"
+        disabled={disabled}
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
             <IconButton onClick={handleAttach}>
