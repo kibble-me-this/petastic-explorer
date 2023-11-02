@@ -141,7 +141,7 @@ function Logo({ single = false, sx }) {
   return (
     <Link
       component={RouterLink}
-      to="/"
+      to="/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4"
       color="inherit"
       aria-label="go to homepage"
       sx={{ lineHeight: 0 }}

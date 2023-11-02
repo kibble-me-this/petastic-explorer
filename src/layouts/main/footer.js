@@ -24,10 +24,26 @@ const LINKS = [
   {
     headline: 'Minimal',
     children: [
-      { name: 'Blog', style: { pointerEvents: 'none' } },
-      { name: 'About us', style: { pointerEvents: 'none' } },
-      { name: 'Terms and Condition', style: { pointerEvents: 'none' } },
-      { name: 'Privacy Policy', style: { pointerEvents: 'none' } },
+      {
+        name: 'Blog',
+        href: '/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        style: { pointerEvents: 'none' },
+      },
+      {
+        name: 'About us',
+        href: '/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        style: { pointerEvents: 'none' },
+      },
+      {
+        name: 'Terms and Condition',
+        href: '/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        style: { pointerEvents: 'none' },
+      },
+      {
+        name: 'Privacy Policy',
+        href: '/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        style: { pointerEvents: 'none' },
+      },
     ],
   },
 ];
