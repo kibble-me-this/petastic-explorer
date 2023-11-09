@@ -4,6 +4,33 @@ import useSWR, { mutate } from 'swr';
 // utils
 import axios, { endpoints, fetcher } from '../utils/axios';
 
+import {
+  _id,
+  _ages,
+  _roles,
+  _prices,
+  _emails,
+  _ratings,
+  _nativeS,
+  _nativeM,
+  _nativeL,
+  _percents,
+  _booleans,
+  _sentences,
+  _lastNames,
+  _fullNames,
+  _tourNames,
+  _jobTitles,
+  _taskNames,
+  _postTitles,
+  _firstNames,
+  _fullAddress,
+  _companyNames,
+  _productNames,
+  _descriptions,
+  _phoneNumbers,
+} from '../_mock/assets';
+
 // ----------------------------------------------------------------------
 
 const options = {
@@ -821,15 +848,65 @@ export function useGetConversation(conversationId) {
 
   const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
 
+  console.log('data?.conversation:', data?.conversation?.messages.length);
+
+  if (data?.conversation?.messages) {
+    const messageBodiesToRemove = [
+      'The children giggled with joy as they ran through the sprinklers on a hot summer day.',
+      'The aroma of freshly brewed coffee filled the air, awakening my senses.',
+      'He carefully crafted a beautiful sculpture out of clay, his hands skillfully shaping the intricate details.',
+      'The concert was a mesmerizing experience, with the music filling the venue and the crowd cheering in delight.',
+      'The waves crashed against the shore, creating a soothing symphony of sound.',
+      'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_10.jpg',
+      'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_9.jpg',
+      'She eagerly opened the gift, her eyes sparkling with excitement.',
+      'The old oak tree stood tall and majestic, its branches swaying gently in the breeze.',
+      'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_5.jpg',
+      'The scent of blooming flowers wafted through the garden, creating a fragrant paradise.',
+      'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_8.jpg',
+
+      // Add more message bodies if needed
+    ];
+
+    // Iterate over the message bodies to remove
+    messageBodiesToRemove.forEach((messageBodyToRemove) => {
+      // Find the index of the message with the specified body
+      const indexToRemove = data.conversation.messages.findIndex(
+        (message) => message.body === messageBodyToRemove
+      );
+
+      // Remove the message if it exists in the array
+      if (indexToRemove !== -1) {
+        data.conversation.messages.splice(indexToRemove, 1);
+      }
+    });
+  }
+
+  console.log('data?.conversationL:', data?.conversation?.messages.length);
+
+  // Use local data instead of API data
+  const localConversation = localConversations.find(
+    (conversation) => conversation.id === conversationId
+  );
+
+  console.log('URL:', URL);
+  console.log('data:', data);
+  console.log('isLoading:', isLoading);
+  console.log('error:', error);
+  console.log('isValidating:', isValidating);
+  console.log('localConversation:', localConversation);
+
   // Move this useMemo hook to the top level
   const memoizedValue = useMemo(
     () => ({
       conversation: data?.conversation,
+      // conversation: localConversation,
       conversationLoading: isLoading,
       conversationError: error,
       conversationValidating: isValidating,
     }),
     [data?.conversation, error, isLoading, isValidating]
+    // [localConversation, error, isLoading, isValidating]
   );
 
   // Check if conversationId matches a specific ID you want to override
@@ -841,6 +918,8 @@ export function useGetConversation(conversationId) {
   //    conversationValidating: false, // Not validating
   //  };
   // }
+
+  console.log('memoizedValue:', memoizedValue);
 
   // If the conversationId doesn't match, return the fetched data
   return memoizedValue;

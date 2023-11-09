@@ -4,8 +4,8 @@ import uuidv4 from '../utils/uuidv4';
 import axios, { endpoints, fetcher } from '../utils/axios';
 
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
-// const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
+// const API_URL = process.env.REACT_APP_API_URL;
 
 export async function sendToOpenAI(conversationId, message, user) {
   try {
@@ -28,7 +28,7 @@ export async function sendToOpenAI(conversationId, message, user) {
       mutate(
         [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }],
         (currentData) => {
-          const { conversation: currentConversation } = currentData;
+          const { conversation: currentConversation } = currentData || { conversation: null };
           const conversation = {
             ...currentConversation,
             messages: [...currentConversation.messages, userMessage],
@@ -64,7 +64,7 @@ export async function sendToOpenAI(conversationId, message, user) {
         mutate(
           [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }],
           (currentData) => {
-            const { conversation: currentConversation } = currentData;
+            const { conversation: currentConversation } = currentData || { conversation: null };
             const conversation = {
               ...currentConversation,
               messages: [...currentConversation.messages, openaiResponseMessage],
@@ -80,8 +80,9 @@ export async function sendToOpenAI(conversationId, message, user) {
         const openaiResponseMessage = {
           id: uuidv4(),
           body: response.data.message.content,
-          prop: response.data.products,
-          contentType: 'text',
+          prop: response.data.props,
+          contentType: response.data.contentType,
+          responseType: response.data.responseType,
           createdAt: new Date(),
           senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2', // Lucian Obrien
         };

@@ -25,9 +25,10 @@ export function fShortenNumber(number) {
 }
 
 export function fData(number) {
-  const format = number ? numeral(number).format('0.0 b') : '';
+  const multipliedNumber = number * 2;
+  const format = multipliedNumber ? numeral(multipliedNumber).format('0.0') : '0.0';
 
-  return result(format, '.0');
+  return format;
 }
 
 function result(format, key = '.00') {

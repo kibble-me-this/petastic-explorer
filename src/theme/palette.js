@@ -35,6 +35,11 @@ const SECONDARY = {
   contrastText: '#FFFFFF',
 };
 
+const CHAT = {
+  light: '#99ADFF',
+  main: '#FFFFFF',
+};
+
 const INFO = {
   lighter: '#CAFDF5',
   light: '#61F3F3',

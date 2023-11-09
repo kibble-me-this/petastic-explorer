@@ -6,6 +6,8 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
+import Typography from '@mui/material/Typography';
+
 // utils
 import { fToNow } from 'src/utils/format-time';
 // components
@@ -69,27 +71,30 @@ export default function ChatHeaderDetail({ participants }) {
             : singleParticipant.status
         }
         primaryTypographyProps={{
+          component: Typography, // Use Typography component
+          variant: 'chat_body', // Apply the 'chat_body' variant here
           style: {
             fontWeight: 'bold', // Set the font weight to normal (not bold)
-            fontSize: '12px',
           },
         }}
         secondaryTypographyProps={{
-          component: 'span',
+          component: Typography, // Use Typography component for secondary text
+          variant: 'chat_body', // Apply the 'chat_body' variant to secondary text as well
           ...(singleParticipant.status !== 'offline' && {
             textTransform: 'capitalize',
           }),
           style: {
-            fontSize: '12px',
+            fontWeight: 'normal', // Set the font weight to normal (not bold)
           },
         }}
       />
       <ListItemText
         primary={singleParticipant.email}
         primaryTypographyProps={{
+          component: Typography, // Use Typography component for secondary text
+          variant: 'chat_body', // Apply the 'chat_body' variant to secondary text as well
           style: {
             fontWeight: 'normal', // Set the font weight to normal (not bold)
-            fontSize: '12px',
           },
         }}
         secondary={
@@ -98,13 +103,13 @@ export default function ChatHeaderDetail({ participants }) {
             : singleParticipant.role
         }
         secondaryTypographyProps={{
-          component: 'span',
+          component: Typography, // Use Typography component for secondary text
+          variant: 'chat_body', // Apply the 'chat_body' variant to secondary text as well
           ...(singleParticipant.role !== 'offline' && {
             textTransform: 'capitalize',
           }),
           style: {
             fontWeight: 'normal', // Set the font weight to normal (not bold)
-            fontSize: '12px',
           },
         }}
         style={{ textAlign: 'right' }}

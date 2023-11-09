@@ -24,6 +24,7 @@ export function responsiveFontSizes({ sm, md, lg }) {
 
 const primaryFont = 'Public Sans, sans-serif';
 const secondaryFont = 'Urbanist, sans-serif';
+const interFont = 'Inter, sans-serif';
 
 // ----------------------------------------------------------------------
 
@@ -97,6 +98,10 @@ export const typography = {
     lineHeight: 1.5,
     fontSize: pxToRem(12),
   },
+  caption2: {
+    lineHeight: 22 / 14,
+    fontSize: pxToRem(10),
+  },
   overline: {
     fontWeight: 700,
     lineHeight: 1.5,
@@ -108,5 +113,29 @@ export const typography = {
     lineHeight: 24 / 14,
     fontSize: pxToRem(14),
     textTransform: 'capitalize',
+  },
+  chat_body: {
+    fontWeight: 400,
+    lineHeight: '140%',
+    fontSize: pxToRem(14),
+    fontFamily: interFont,
+    letterSpacing: '0.137px',
+    ...responsiveFontSizes({ sm: 14, md: 14, lg: 14 }),
+  },
+  chat_author: {
+    fontWeight: 700,
+    lineHeight: '140%',
+    fontSize: pxToRem(12),
+    fontFamily: interFont,
+    letterSpacing: '0.412px',
+    ...responsiveFontSizes({ sm: 12, md: 12, lg: 12 }),
+  },
+  chat_caption: {
+    fontWeight: 700,
+    lineHeight: '140%',
+    fontSize: pxToRem(10),
+    fontFamily: interFont,
+    letterSpacing: '0.6px',
+    ...responsiveFontSizes({ sm: 10, md: 10, lg: 10 }),
   },
 };

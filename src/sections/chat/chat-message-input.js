@@ -130,37 +130,37 @@ export default function ChatMessageInput({
   const [openaiMessage, setOpenaiMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = useCallback(async () => {
-    if (openaiMessage && !isLoading) {
-      setIsLoading(true);
+  // const handleSendMessage = useCallback(async () => {
+  //   if (openaiMessage && !isLoading) {
+  //     setIsLoading(true);
 
-      // Construct the user's message object
-      const userMessage = {
-        role: 'user',
-        content: openaiMessage,
-      };
+  //     // Construct the user's message object
+  //     const userMessage = {
+  //       role: 'user',
+  //       content: openaiMessage,
+  //     };
 
-      // Simulate user sending a message to OpenAI
-      try {
-        const response = await sendToOpenAI('e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2', [userMessage], {
-          id: '8864c717-587d-472a-929a-8e5f298024da-0',
-        });
+  //     // Simulate user sending a message to OpenAI
+  //     try {
+  //       const response = await sendToOpenAI('e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2', [userMessage], {
+  //         id: '8864c717-587d-472a-929a-8e5f298024da-0',
+  //       });
 
-        // Handle the OpenAI response here
-        console.log('OpenAI Response:', response);
-      } catch (error) {
-        // Handle errors here
-        console.error('Error sending request to OpenAI:', error);
-      } finally {
-        setIsLoading(false);
-        setOpenaiMessage(''); // Clear the input field after sending the message
-      }
-    }
-  }, [openaiMessage, isLoading]);
+  //       // Handle the OpenAI response here
+  //       console.log('OpenAI Response:', response);
+  //     } catch (error) {
+  //       // Handle errors here
+  //       console.error('Error sending request to OpenAI:', error);
+  //     } finally {
+  //       setIsLoading(false);
+  //       setOpenaiMessage(''); // Clear the input field after sending the message
+  //     }
+  //   }
+  // }, [openaiMessage, isLoading]);
 
-  const simulateEnterKeyPress = useCallback(() => {
-    handleSendMessage(); // Simulate sending the message
-  }, [handleSendMessage]);
+  // const simulateEnterKeyPress = useCallback(() => {
+  //   handleSendMessage(); // Simulate sending the message
+  // }, [handleSendMessage]);
 
   // useEffect(() => {
   //   // Simulate pressing the "Enter" key after a 5-second timer

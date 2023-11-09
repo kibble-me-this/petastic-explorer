@@ -34,7 +34,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
 
   const { firstName, avatarUrl } = senderDetails;
 
-  const { body, createdAt } = message;
+  const { body, prop, createdAt } = message;
 
   let avatarSrc;
   let avatarName;
@@ -58,11 +58,11 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
   const renderInfo = (
     <Typography
       noWrap
-      variant="caption"
+      variant="chat_author"
       sx={{
-        // mb: 1,
-        color: me ? 'black' : 'white',
-        fontWeight: '400', // Add this line for bold text
+        // mb: 0.2,
+        color: me ? 'black' : '#99ADFF',
+        // fontWeight: '400', // Add this line for bold text
         textTransform: 'uppercase', // Add this line for uppercase text
         ...(hasImage && {
           mr: 'auto',
@@ -91,37 +91,27 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
 
   const determinedStyle = contentStyle();
 
-  // Define a function to handle HTML content
-  const handleHtmlContent = (content) => {
-    console.log('handleHtmlContent');
-    return <div className={determinedStyle}>{parse(content)}</div>;
-  };
-
   // Define a function to handle React component flag
-  const handleReactComponent = (flag) => {
-    if (flag === '--react-component--') {
-      console.log('--react-component--');
-      return <YourCustomComponent />;
+  const handleReactComponent = (content) => {
+    if (message.prop) {
+      return <YourCustomComponent messageContent={content} />;
     }
-    return null;
-  };
-
-  // Define a function to handle plain text content
-  const handlePlainText = (content) => {
-    console.log('handlePlainText');
-
-    return <Box sx={{ paddingTop: 1.5 }}>{content}</Box>;
+    return <div className={determinedStyle}>{parse(content.body)}</div>;
   };
 
   // Determine which callback function to use based on the flag in message.body
   const renderContent = () => {
-    if (message.body.includes('html')) {
-      return handleHtmlContent(message.body);
+    const bodyContent = (
+      <div>
+        <Box sx={{ paddingTop: 1.5 }}>{message.body}</Box>
+      </div>
+    );
+
+    if (message.body.includes('html') || message.contentType === 'html') {
+      return <div>{handleReactComponent(message)}</div>;
     }
-    if (message.body.includes('--react-component--')) {
-      return handleReactComponent(message.body);
-    }
-    return handlePlainText(message.body);
+
+    return bodyContent;
   };
 
   const renderBody = (
@@ -131,7 +121,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         minWidth: 48,
         maxWidth: 320,
         borderRadius: 2.5,
-        typography: 'body2',
+        typography: 'chat_body',
         bgcolor: '#345BFF',
         color: 'white',
         display: 'flex',
@@ -140,6 +130,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         ...(me && {
           color: 'grey.800',
           bgcolor: 'rgba(0, 0, 0, 0.10)',
+          ml: 0.2,
         }),
         ...(hasImage && {
           p: 0,
@@ -152,10 +143,10 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
           alt={firstName}
           src={avatarSrc}
           sx={{
-            width: 16,
-            height: 16,
+            width: 20,
+            height: 20,
             mr: 1,
-            alignSelf: 'center',
+            // alignSelf: 'center',
             ...(hasImage && {
               // mr: 'auto',
               mb: 1,

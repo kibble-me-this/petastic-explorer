@@ -6,17 +6,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6.009px;
+  gap: 6px;
 }
 
 .ingredients li {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6.009px 9.013px;
-  border-radius: 37.554px;
+  padding: 6px 12px;
+  border-radius: 37.5px;
   color: black;
   background: white; /* Use 'white' or any desired background color */
-  margin: 3.0045px; /* Half of the gap value to create the gap between list items */
+  margin: 1px; /* Half of the gap value to create the gap between list items */
   position: relative; /* Create a relative positioning context */
+  font-family: 'Inter', sans-serif; /* Replace 'Your Font Name' with your desired font */
+  text-transform: capitalize;
+  font-size: 12px;
 }
