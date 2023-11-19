@@ -19,9 +19,14 @@ export function fPercent(number) {
 }
 
 export function fShortenNumber(number) {
-  const format = number ? numeral(number).format('0.00a') : '';
+  const formattedNumber = numeral(number);
 
-  return result(format, '.00');
+  // Customize the formatting to round the number to one decimal place
+  // and add 'k' if it's in the thousands
+  if (number >= 1000) {
+    return formattedNumber.format('0.0a').toUpperCase();
+  }
+  return formattedNumber.format('0.0');
 }
 
 export function fData(number) {

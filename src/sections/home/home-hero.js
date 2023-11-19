@@ -11,13 +11,15 @@ import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton';
+
 // routes
 import { paths } from 'src/routes/paths';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // theme
 import { textGradient, bgGradient, bgBlur, blueButton } from 'src/theme/css';
-import { fShortenNumber } from 'src/utils/format-number';
+import { fShortenNumber, fData, fNumber } from 'src/utils/format-number';
 // layouts
 import { HEADER } from 'src/layouts/config-layout';
 // components
@@ -139,6 +141,12 @@ export default function HomeHero() {
 
   const isLight = theme.palette.mode === 'light';
 
+  const [totalMaxPets, setTotalMaxPets] = useState(0);
+  const [totalMaxDogs, setTotalMaxDogs] = useState(0);
+  const [totalMaxCats, setTotalMaxCats] = useState(0);
+  const [loadingMaxValues, setLoadingMaxValues] = useState(true);
+
+
   const getScroll = useCallback(() => {
     let heroHeight = 0;
 
@@ -156,6 +164,37 @@ export default function HomeHero() {
   useEffect(() => {
     getScroll();
   }, [getScroll]);
+
+  const fetchMaxValues = useCallback(async () => {
+    setLoadingMaxValues(true); // Set loading to true before fetching data
+
+    try {
+      const response = await fetch(
+        'https://jr4plu4hdb.execute-api.us-east-1.amazonaws.com/default/mongo'
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      // Set the appropriate state values based on the API response
+      setTotalMaxPets(data.totalMaxPets || 0);
+      setTotalMaxDogs(data.totalMaxDogs || 0);
+      setTotalMaxCats(data.totalMaxCats || 0);
+      
+
+      setLoadingMaxValues(false); // Set loading to false after data is fetched
+    } catch (error) {
+      console.error('Error fetching max values:', error);
+      setLoadingMaxValues(false); // Set loading to false if there's an error
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchMaxValues(); // Trigger the max values data API call
+  }, [fetchMaxValues]);
 
   const transition = {
     repeatType: 'loop',
@@ -485,25 +524,43 @@ export default function HomeHero() {
             direction="row"
             divider={<Divider orientation="vertical" flexItem sx={{ borderStyle: 'solid' }} />}
           >
-            <Stack
-              spacing={0.5}
-              sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
-            >
-              <Typography variant="h4">{fShortenNumber(247000)}+</Typography>
-              <Typography variant="caption" sx={{ opacity: 0.48 }}>
-                DOGS
-              </Typography>
-            </Stack>
+<Stack
+  spacing={0.5}
+  sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
+>
+  {loadingMaxValues ? (
+    <>
+      <Skeleton animation="wave" variant="text" width={80} height={20} />
+      <Skeleton animation="wave" variant="text" width={40} height={16} />
+    </>
+  ) : (
+    <>
+      <Typography variant="h4">{fShortenNumber(totalMaxDogs)}+</Typography>
+      <Typography variant="caption" sx={{ opacity: 0.48 }}>
+        DOGS
+      </Typography>
+    </>
+  )}
+</Stack>
 
-            <Stack
-              spacing={0.5}
-              sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
-            >
-              <Typography variant="h4">{fShortenNumber(172000)}+</Typography>
-              <Typography variant="caption" sx={{ opacity: 0.48 }}>
-                CATS
-              </Typography>
-            </Stack>
+<Stack
+  spacing={0.5}
+  sx={{ color: theme.palette.text.secondary, width: { xs: 0.5, md: 'auto' } }}
+>
+  {loadingMaxValues ? (
+    <>
+      <Skeleton animation="wave" variant="text" width={80} height={20} />
+      <Skeleton animation="wave" variant="text" width={40} height={16} />
+    </>
+  ) : (
+    <>
+      <Typography variant="h4">{fShortenNumber(totalMaxCats)}+</Typography>
+      <Typography variant="caption" sx={{ opacity: 0.48 }}>
+        CATS
+      </Typography>
+    </>
+  )}
+</Stack>
           </Stack>
         </Stack>
       </m.div>
