@@ -12,12 +12,21 @@ import { fShortenNumber } from 'src/utils/format-number';
 // ----------------------------------------------------------------------
 
 export default function BookingBooked({ title, subheader, data, ...other }) {
+  // Create mock modifiedValues with new values for progress.value
+  const modifiedValues = [610000, 153, 85, 76, 34]; // Modify this array as needed
+
+  // Combine the original data with mock modifiedValues
+  const modifiedData = data.map((progress, index) => ({
+    ...progress,
+    value: modifiedValues[index], // Override the progress.value
+  }));
+
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} />
+      <CardHeader title={title} subheader={subheader} sx={{ pb: 6.5 }} />
 
-      <Stack spacing={3} sx={{ p: 3 }}>
-        {data.map((progress) => (
+      <Stack spacing={3} sx={{ p: 3, mb: 3.5 }}>
+        {modifiedData.map((progress) => (
           <Stack key={progress.status}>
             <Stack
               direction="row"
@@ -31,7 +40,7 @@ export default function BookingBooked({ title, subheader, data, ...other }) {
 
             <LinearProgress
               variant="determinate"
-              value={progress.value}
+              value={100}
               color={
                 (progress.status === 'Pending' && 'warning') ||
                 (progress.status === 'Canceled' && 'error') ||

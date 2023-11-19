@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { useTheme, styled } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import Card from '@mui/material/Card';
+import Skeleton from '@mui/material/Skeleton'; // Import Skeleton component
+import Box from '@mui/material/Box'; // Import Skeleton component
+
 // utils
 import { fNumber } from 'src/utils/format-number';
 // components
@@ -10,7 +13,7 @@ import Chart, { useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-const CHART_HEIGHT = 400;
+const CHART_HEIGHT = 390;
 
 const LEGEND_HEIGHT = 72;
 
@@ -28,12 +31,12 @@ const StyledChart = styled(Chart)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function AppCurrentDownload({ title, subheader, chart, ...other }) {
+export default function AppCurrentDownload({ title, subheader, chart, loading, ...other }) {
   const theme = useTheme();
 
   const { colors, series, options } = chart;
 
-  const chartSeries = series.map((i) => i.value);
+  const chartSeries = loading ? [] : series.map((i) => i.value); // Use empty array if loading
 
   const chartOptions = useChart({
     chart: {
@@ -84,13 +87,39 @@ export default function AppCurrentDownload({ title, subheader, chart, ...other }
     <Card {...other}>
       <CardHeader title={title} subheader={subheader} sx={{ mb: 5 }} />
 
-      <StyledChart
-        dir="ltr"
-        type="donut"
-        series={chartSeries}
-        options={chartOptions}
-        height={280}
-      />
+      {loading ? ( // Check if loading
+        // Show Circular Skeleton component shaped like a donut while data is loading
+        <Box
+          width={CHART_HEIGHT}
+          height={CHART_HEIGHT}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Skeleton
+            variant="circular"
+            width={1}
+            height={1}
+            animation="wave"
+            sx={{
+              '& circle': {
+                stroke: theme.palette.divider,
+                strokeWidth: 2,
+                strokeDasharray: '6 6',
+              },
+            }}
+          />
+        </Box>
+      ) : (
+        // Render the actual chart when data has loaded
+        <StyledChart
+          dir="ltr"
+          type="donut"
+          series={chartSeries}
+          options={chartOptions}
+          height={280}
+        />
+      )}
     </Card>
   );
 }
@@ -99,4 +128,5 @@ AppCurrentDownload.propTypes = {
   chart: PropTypes.object,
   subheader: PropTypes.string,
   title: PropTypes.string,
+  loading: PropTypes.bool, // Add loading prop
 };

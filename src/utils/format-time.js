@@ -25,3 +25,21 @@ export function fToNow(date) {
       })
     : '';
 }
+
+export function format_seconds(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remaining_seconds = seconds % 60;
+
+  const minute_str = minutes === 1 ? 'minute' : 'minutes';
+  const second_str = remaining_seconds === 1 ? 'second' : 'seconds';
+
+  if (minutes > 0 && remaining_seconds > 0) {
+    return `${minutes} ${minute_str} ${remaining_seconds} ${second_str}`;
+  }
+  if (minutes > 0) {
+    return `${minutes} ${minute_str}`;
+  }
+  
+  return `${remaining_seconds} ${second_str}`;
+}
+

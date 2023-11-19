@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="512" height="512" id="svg2" version="1.1" inkscape:version="0.48.5 r" sodipodi:docname="United_States.svg">
+  
+  <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1366" inkscape:window-height="713" id="namedview71" showgrid="false" inkscape:zoom="0.5" inkscape:cx="-277.47147" inkscape:cy="282.21559" inkscape:window-x="0" inkscape:window-y="26" inkscape:window-maximized="1" inkscape:current-layer="svg2" showguides="true" inkscape:guide-bbox="true"/>
+  <defs id="defs4">
+    <polygon id="pt" points="0.16245985,0 -0.16245985,0 0,-0.5 " transform="scale(0.0616,0.0616)" style="fill:#ffffff"/>
+    <g id="star">
+      <use xlink:href="#pt" transform="matrix(-0.80901699,-0.58778525,0.58778525,-0.80901699,0,0)" id="use8" x="0" y="0" width="1235" height="650"/>
+      <use xlink:href="#pt" transform="matrix(0.30901699,-0.95105652,0.95105652,0.30901699,0,0)" id="use10" x="0" y="0" width="1235" height="650"/>
+      <use xlink:href="#pt" id="use12" x="0" y="0" width="1235" height="650"/>
+      <use xlink:href="#pt" transform="matrix(0.30901699,0.95105652,-0.95105652,0.30901699,0,0)" id="use14" x="0" y="0" width="1235" height="650"/>
+      <use xlink:href="#pt" transform="matrix(-0.80901699,0.58778525,-0.58778525,-0.80901699,0,0)" id="use16" x="0" y="0" width="1235" height="650"/>
+    </g>
+    <g id="s5">
+      <use xlink:href="#star" x="-0.252" id="use19" y="0" width="1235" height="650"/>
+      <use xlink:href="#star" x="-0.126" id="use21" y="0" width="1235" height="650"/>
+      <use xlink:href="#star" id="use23" x="0" y="0" width="1235" height="650"/>
+      <use xlink:href="#star" x="0.126" id="use25" y="0" width="1235" height="650"/>
+      <use xlink:href="#star" x="0.252" id="use27" y="0" width="1235" height="650"/>
+    </g>
+    <g id="s6">
+      <use xlink:href="#s5" x="-0.063000001" id="use30" y="0" width="1235" height="650"/>
+      <use xlink:href="#star" x="0.315" id="use32" y="0" width="1235" height="650"/>
+    </g>
+    <g id="x4">
+      <use xlink:href="#s6" id="use35" x="0" y="0" width="1235" height="650"/>
+      <use xlink:href="#s5" y="0.054000001" id="use37" x="0" width="1235" height="650"/>
+      <use xlink:href="#s6" y="0.108" id="use39" x="0" width="1235" height="650"/>
+      <use xlink:href="#s5" y="0.162" id="use41" x="0" width="1235" height="650"/>
+    </g>
+    <g id="u">
+      <use xlink:href="#x4" y="-0.21600001" id="use44" x="0" width="1235" height="650"/>
+      <use xlink:href="#x4" id="use46" x="0" y="0" width="1235" height="650"/>
+      <use xlink:href="#s6" y="0.21600001" id="use48" x="0" width="1235" height="650"/>
+    </g>
+    <rect id="stripe" width="1235" height="50" x="0" y="0" style="fill:#b22234"/>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3054">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect3056" width="490" height="490" x="-9.6342888" y="-25.845743" ry="53.362686"/>
+    </clipPath>
+  </defs>
+  <g id="g3580" transform="translate(20.634289,36.845743)" clip-path="url(#clipPath3054)">
+    <g id="g3122-7" transform="matrix(0.46330834,0,0,0.46359668,-465.0684,880.95016)"/>
+    <g transform="matrix(0.46394718,0,0,0.46369981,-471.98832,1018.1058)" id="g3183"/>
+    <g transform="matrix(0.55555558,0,0,0.83377794,-6.5041276,77.983789)" id="g3557">
+      <rect y="-84.396561" x="-14.634286" height="46.129234" width="899.99994" id="rect3040-1" style="fill:#ffffff;fill-opacity:1;stroke:none"/>
+      <rect style="fill:#ca4638;fill-opacity:1;stroke:none" id="rect3173" width="899.99994" height="46.129234" x="-14.634286" y="-130.5258"/>
+      <rect style="fill:#ffffff;fill-opacity:1;stroke:none" id="rect3175" width="899.99994" height="46.129234" x="-14.634286" y="7.8619018"/>
+      <rect y="-38.267334" x="-14.634286" height="46.129234" width="899.99994" id="rect3177" style="fill:#ca4638;fill-opacity:1;stroke:none"/>
+      <g id="g3222" transform="matrix(0.46153844,0,0,0.46129235,358.07451,-527.70437)">
+        <rect y="1361.0127" x="-807.53577" height="100" width="1950" id="rect3198" style="fill:#ffffff;fill-opacity:1;stroke:none"/>
+        <rect style="fill:#ca4638;fill-opacity:1;stroke:none" id="rect3200" width="1950" height="100" x="-807.53577" y="1261.0127"/>
+      </g>
+      <rect y="192.37885" x="-14.634286" height="46.129234" width="899.99994" id="rect3202" style="fill:#ffffff;fill-opacity:1;stroke:none"/>
+      <rect style="fill:#ca4638;fill-opacity:1;stroke:none" id="rect3204" width="899.99994" height="46.129234" x="-14.634286" y="146.2496"/>
+      <g id="g3226" transform="matrix(0.46153844,0,0,0.46129235,358.07451,-343.18743)">
+        <rect y="1261.0127" x="-807.53577" height="100" width="1950" id="rect3230" style="fill:#ca4638;fill-opacity:1;stroke:none"/>
+      </g>
+      <g id="g3241" transform="matrix(0.46153844,0,0,0.46129235,358.07451,-527.70437)">
+        <rect y="1361.0127" x="-807.53577" height="100" width="1950" id="rect3228" style="fill:#ffffff;fill-opacity:1;stroke:none" transform="translate(0,400)"/>
+        <rect style="fill:#ca4638;fill-opacity:1;stroke:none" id="rect3232" width="1950" height="100" x="-807.53577" y="1861.0127"/>
+      </g>
+      <g id="g3245" transform="matrix(0.46153844,0,0,0.46129235,358.07451,-435.4459)">
+        <rect transform="translate(0,400)" style="fill:#ffffff;fill-opacity:1;stroke:none" id="rect3247" width="1950" height="100" x="-807.53577" y="1361.0127"/>
+        <rect y="1861.0127" x="-807.53577" height="100" width="1950" id="rect3249" style="fill:#ca4638;fill-opacity:1;stroke:none"/>
+      </g>
+    </g>
+    <rect width="250" height="269.23361" id="rect3236" x="-14.634288" y="-30.845745" style="fill:#356ba0"/>
+    <use height="1052.3622" width="744.09448" y="0" x="0" id="use3578" transform="matrix(347.82667,0,0,472.00853,110.01912,102.07438)" xlink:href="#u"/>
+  </g>
+
+	<metadata>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+			<rdf:Description about="https://iconscout.com/legal#licenses" dc:title="United_States" dc:description="United_States" dc:publisher="Iconscout" dc:date="2017-05-28" dc:format="image/svg+xml" dc:language="en">
+				<dc:creator>
+					<rdf:Bag>
+						<rdf:li>Vignesh Oviyan</rdf:li>
+					</rdf:Bag>
+				</dc:creator>
+			</rdf:Description>
+		</rdf:RDF>
+    </metadata></svg>

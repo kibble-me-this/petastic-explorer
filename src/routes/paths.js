@@ -28,7 +28,7 @@ export const paths = {
   page404: '/404',
   page500: '/500',
   components: '/components',
-  explorer: 'https://explorer.petastic.com/',
+  explorer: '/explorer',
   petsSignIn: 'https://my.petastic.com/login',
   petsSignUp: 'https://my.petastic.com/register',
   docs: 'https://docs.minimals.cc',

@@ -34,6 +34,9 @@ import {
   _appInstalled,
   _appRelated,
   _appInvoices,
+  _topStates,
+  _topDogs,
+  _topCats,
 } from 'src/_mock';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -67,6 +70,8 @@ import AppFeatured from '../../overview/app/app-featured';
 import AppWidgetSummary from '../../overview/app/app-widget-summary';
 import AppCurrentDownload from '../../overview/app/app-current-download';
 import AppAreaInstalled from '../../overview/app/app-area-installed';
+import BankingBalanceStatistics from '../../overview/banking/banking-balance-statistics';
+
 import AppNewInvoice from '../../overview/app/app-new-invoice';
 import AppTopRelated from '../../overview/app/app-top-related';
 import AppTopInstalledCountries from '../../overview/app/app-top-installed-countries';
@@ -225,21 +230,27 @@ export default function UserListView() {
 
   const [loading, setLoading] = useState(true);
 
-  const [backgroundImage, setBackgroundImage] = useState('/assets/background/overlay_3.jpg');
+  // Define state variables for loading state of each API call
+  const [loadingPetData, setLoadingPetData] = useState(true);
+  const [loadingMaxValues, setLoadingMaxValues] = useState(true);
 
-  useEffect(() => {
-    // Get the current domain from window.location
-    const currentDomain = window.location.hostname;
+  // const [backgroundImage, setBackgroundImage] = useState('/assets/background/overlay_3.jpg');
+  const [backgroundImage, setBackgroundImage] = useState('/assets/background/overlay_4.jpg');
 
-    // Define the domains for which you want to use a different background image
-    const domainsWithCustomBackground = ['explorer.petastic.com'];
 
-    // Check if the current domain is in the list of domains with custom backgrounds
-    if (domainsWithCustomBackground.includes(currentDomain)) {
-      // Set the custom background image URL
-      setBackgroundImage('/assets/background/overlay_4.jpg');
-    }
-  }, []);
+  // useEffect(() => {
+  //   // Get the current domain from window.location
+  //   const currentDomain = window.location.hostname;
+  
+  //   // Define the domains for which you want to use a different background image
+  //   const domainsWithCustomBackground = ['localhost', 'www.petastic.com', 'petastic.com'];
+  
+  //   // Check if the current domain is in the list of domains with custom backgrounds
+  //   if (domainsWithCustomBackground.includes(currentDomain)) {
+  //     // Set the custom background image URL
+  //     setBackgroundImage('/assets/background/overlay_4.jpg');
+  //   }
+  // }, []);
 
   const fetchPetData = useCallback(async () => {
     setLoading(true); // Set loading to true before fetching data
@@ -262,9 +273,6 @@ export default function UserListView() {
       setTotalCount(data.totalCount);
       setTotalDogs(data.totalDogs);
       setTotalCats(data.totalCats);
-      setTotalMaxPets(data.totalMaxPets);
-      setTotalMaxDogs(data.totalMaxDogs);
-      setTotalMaxCats(data.totalMaxCats);
 
       console.log('Pet data:', data.pets);
       setLoading(false); // Set loading to false after data is fetched
@@ -274,6 +282,32 @@ export default function UserListView() {
     }
   }, [petName, currentPage, pageSize, filters.role, petType]);
 
+  const fetchMaxValues = useCallback(async () => {
+    setLoadingMaxValues(true); // Set loading to true before fetching data
+
+    try {
+      const response = await fetch(
+        'https://jr4plu4hdb.execute-api.us-east-1.amazonaws.com/default/mongo'
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      // Set the appropriate state values based on the API response
+      setTotalMaxPets(data.totalMaxPets || 0);
+      setTotalMaxDogs(data.totalMaxDogs || 0);
+      setTotalMaxCats(data.totalMaxCats || 0);
+
+      setLoadingMaxValues(false); // Set loading to false after data is fetched
+    } catch (error) {
+      console.error('Error fetching max values:', error);
+      setLoadingMaxValues(false); // Set loading to false if there's an error
+    }
+  }, []);
+
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage + 1); // Add +1 to match the API's page numbering
   };
@@ -281,6 +315,10 @@ export default function UserListView() {
   useEffect(() => {
     fetchPetData();
   }, [fetchPetData, currentPage]);
+
+  useEffect(() => {
+    fetchMaxValues(); // Trigger the max values data API call
+  }, [fetchMaxValues]);
 
   return (
     <>
@@ -297,7 +335,7 @@ export default function UserListView() {
         >
           {' '}
           <CustomBreadcrumbs
-            heading="Explorer"
+            heading="The Pet's Network Explorer"
             links={[{ name: 'Dashboard', href: paths.dashboard.root }]}
             sx={{
               mb: { xs: 3, md: 5 },
@@ -325,62 +363,45 @@ export default function UserListView() {
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Pets"
-                percent={61.6}
+                percent={((totalMaxPets-438510)/438510)*100}
                 total={totalMaxPets}
                 chart={{
-                  // series: [200, 231, 473, 213, 288, 505, 230, 476, 571, 436],
-                  series: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                  series: [15000, 28000, 35000, 72000, 80000, 100000, 100010, 100020],
                 }}
-                loading={loading}
+                loading={loadingMaxValues}
               />
             </Grid>
 
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Dogs"
-                percent={38.2}
+                percent={((totalMaxDogs-290510)/290510)*100}
                 total={totalMaxDogs}
                 chart={{
                   colors: [theme2.palette.info.light, theme2.palette.info.main],
-                  // series: [120, 141, 163, 133, 128, 135, 150, 146, 111, 126],
-                  series: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                  series: [15000, 28000, 35000, 72000, 80000, 100000, 100010, 100020],
                 }}
-                loading={loading}
+                loading={loadingMaxValues}
               />
             </Grid>
 
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Cats"
-                percent={190.3}
+                percent={((totalMaxCats-188510)/188510)*100}
                 total={totalMaxCats}
                 chart={{
                   colors: [theme2.palette.warning.light, theme2.palette.warning.main],
-                  // series: [80, 90, 310, 80, 160, 370, 80, 330, 460, 310],
-                  series: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                  series: [15000, 28000, 35000, 72000, 80000, 100000, 100010, 100020],
                 }}
-                loading={loading}
-              />
-            </Grid>
-            {/* 
-            <Grid xs={12} md={6} lg={4}>
-              <AppCurrentDownload
-                title="Current Download"
-                chart={{
-                  series: [
-                    { label: 'Mac', value: 12244 },
-                    { label: 'Window', value: 53345 },
-                    { label: 'iOS', value: 44313 },
-                    { label: 'Android', value: 78343 },
-                  ],
-                }}
+                loading={loadingMaxValues}
               />
             </Grid>
 
             <Grid xs={12} md={6} lg={8}>
               <AppAreaInstalled
-                title="Area Installed"
-                subheader="(+43%) than last year"
+                title="The Pet's Network (population growth) "
+                subheader="(+59%) than last 60 days"
                 chart={{
                   categories: [
                     'Jan',
@@ -398,85 +419,70 @@ export default function UserListView() {
                   ],
                   series: [
                     {
-                      year: '2019',
+                      year: '2023',
                       data: [
                         {
-                          name: 'Asia',
-                          data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 35, 51, 49],
+                          name: 'Total Pets',
+                          data: [
+                            0,
+                            0,
+                            0,
+                            32000,
+                            51500,
+                            86500,
+                            158500,
+                            238500,
+                            338500,
+                            438510,
+                            totalMaxPets,
+                          ],
                         },
-                        {
-                          name: 'America',
-                          data: [10, 34, 13, 56, 77, 88, 99, 77, 45, 13, 56, 77],
-                        },
-                      ],
-                    },
-                    {
-                      year: '2020',
-                      data: [
-                        {
-                          name: 'Asia',
-                          data: [51, 35, 41, 10, 91, 69, 62, 148, 91, 69, 62, 49],
-                        },
-                        {
-                          name: 'America',
-                          data: [56, 13, 34, 10, 77, 99, 88, 45, 77, 99, 88, 77],
-                        },
+                        // {
+                        //   name: 'Dogs',
+                        //   data: [0, 0, 51, 35, 41, 10, 91, 69, 62, 148, 91, 69],
+                        // },
+                        // {
+                        //   name: 'Cats',
+                        //   data: [0, 0, 51, 35, 41, 10, 91, 69, 62, 148, 91, 69],
+                        // },
                       ],
                     },
                   ],
                 }}
+                loading={loadingMaxValues} // Pass the loading state as a prop
+              />
+            </Grid>
+            <Grid xs={12} md={6} lg={4}>
+              <AppCurrentDownload
+                title="Species Demographic"
+                chart={{
+                  series: [
+                    { label: 'Dog', value: totalMaxDogs },
+                    { label: 'Cat', value: totalMaxCats },
+                  ],
+                }}
+                loading={loadingMaxValues}
               />
             </Grid>
 
-            <Grid xs={12} lg={8}>
-              <AppNewInvoice
-                title="New Invoice"
-                tableData={_appInvoices}
-                tableLabels={[
-                  { id: 'id', label: 'Invoice ID' },
-                  { id: 'category', label: 'Category' },
-                  { id: 'price', label: 'Price' },
-                  { id: 'status', label: 'Status' },
-                  { id: '' },
-                ]}
+            {/** TOP US PET STATES */}
+            <Grid xs={12} md={6} lg={4}>
+              <AppTopRelated
+                title="Top US Pet States"
+                list={_appRelated}
+                loading={loadingMaxValues}
               />
             </Grid>
 
+            {/** TOP DOGS */}
             <Grid xs={12} md={6} lg={4}>
-              <AppTopRelated title="Top Related Applications" list={_appRelated} />
+              <AppTopAuthors title="Top Dog Breeds" list={_topDogs} loading={loadingMaxValues} />
             </Grid>
 
+            {/** TOP CATS */}
             <Grid xs={12} md={6} lg={4}>
-              <AppTopInstalledCountries title="Top Installed Countries" list={_appInstalled} />
+              <AppTopAuthors title="Top Cat Breeds" list={_topCats} loading={loadingMaxValues} />
             </Grid>
-
-            <Grid xs={12} md={6} lg={4}>
-              <AppTopAuthors title="Top Authors" list={_appAuthors} />
-            </Grid>
-
-            <Grid xs={12} md={6} lg={4}>
-              <Stack spacing={3}>
-                <AppWidget
-                  title="Conversion"
-                  total={38566}
-                  icon="solar:user-rounded-bold"
-                  chart={{
-                    series: 48,
-                  }}
-                />
-
-                <AppWidget
-                  title="Applications"
-                  total={55566}
-                  icon="fluent:mail-24-filled"
-                  color="info"
-                  chart={{
-                    series: 75,
-                  }}
-                />
-              </Stack>
-            </Grid>
-            */}
           </Grid>
           <Card
             sx={{

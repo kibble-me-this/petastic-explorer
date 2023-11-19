@@ -65,6 +65,14 @@ export const mainRoutes = [
           { path: ':title', element: <PostDetailsPage /> },
         ],
       },
+      {
+        path: 'explorer',
+        children: [
+          { element: <UserListPage />, index: true },
+          { path: 'list', element: <PostListPage /> },
+          { path: ':title', element: <PostDetailsPage /> },
+        ],
+      },
     ],
   },
   {

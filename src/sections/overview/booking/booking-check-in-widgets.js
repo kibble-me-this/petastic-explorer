@@ -5,8 +5,11 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+
 // hooks
 import { fNumber } from 'src/utils/format-number';
+import { format_seconds } from 'src/utils/format-time';
 import { useResponsive } from 'src/hooks/use-responsive';
 // components
 import Chart, { useChart } from 'src/components/chart';
@@ -15,7 +18,19 @@ import Chart, { useChart } from 'src/components/chart';
 
 const CHART_SIZE = { width: 106, height: 106 };
 
-export default function BookingCheckInWidgets({ chart, ...other }) {
+function format_count(total, type) {
+  // Check if both total and type are defined
+  if (total) {
+    // Convert total to a string and make it all capital letters
+    return `${total.toString().toUpperCase()} ${type}`;
+  } // else {
+    // Handle the case where either total or type is undefined
+    return 'N/A'; // Or any other default value you prefer
+  // }
+}
+
+
+export default function BookingCheckInWidgets({ title, chart, ...other }) {
   const theme = useTheme();
 
   const smUp = useResponsive('up', 'sm');
@@ -84,39 +99,32 @@ export default function BookingCheckInWidgets({ chart, ...other }) {
 
   return (
     <Card {...other}>
+      <CardHeader title={title} sx={{ mb: 8 }} />
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
-        divider={
-          <Divider
-            orientation={smUp ? 'vertical' : 'horizontal'}
-            flexItem
-            sx={{ borderStyle: 'dashed' }}
-          />
-        }
+        direction={{ xs: 'column', sm: 'column' }}
+        divider={<Divider orientation="horizontal" flexItem sx={{ borderStyle: 'dashed' }} />}
       >
         {series.map((item, index) => (
           <Stack
             key={item.label}
             direction="row"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="left"
             spacing={3}
-            sx={{ width: 1, py: 5 }}
+            sx={{
+              width: 1,
+              py: 1,
+              pl: 3,
+              // Apply extra padding to the last item in the array
+              pb: index === series.length - 1 ? 3 : undefined,
+            }}
           >
-            <Chart
-              type="radialBar"
-              series={[item.percent]}
-              options={index === 1 ? chartOptionsCheckout : chartOptionsCheckIn}
-              {...CHART_SIZE}
-            />
-
             <div>
+              <Typography variant="overline">{item.label}</Typography>
               <Typography variant="h4" sx={{ mb: 0.5 }}>
-                {fNumber(item.total)}
-              </Typography>
-
-              <Typography variant="body2" sx={{ opacity: 0.72 }}>
-                {item.label}
+                <Typography variant="h4" sx={{ mb: 0.5 }}>
+                  {item.type === 'time' ? format_seconds(item.total) : format_count(item.total, item.type)}
+                </Typography>{' '}
               </Typography>
             </div>
           </Stack>
@@ -127,5 +135,6 @@ export default function BookingCheckInWidgets({ chart, ...other }) {
 }
 
 BookingCheckInWidgets.propTypes = {
+  title: PropTypes.string,
   chart: PropTypes.object,
 };

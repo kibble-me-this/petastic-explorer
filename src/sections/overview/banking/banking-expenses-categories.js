@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 import CardHeader from '@mui/material/CardHeader';
 import Card from '@mui/material/Card';
 // hooks
@@ -15,10 +13,20 @@ import Chart, { useChart } from 'src/components/chart';
 
 export default function BankingExpensesCategories({ title, subheader, chart, ...other }) {
   const theme = useTheme();
-
   const smUp = useResponsive('up', 'sm');
 
   const { colors, series, options } = chart;
+  const guidedLabels = []; // List of guided series labels
+  const nonGuidedLabels = []; // List of non-guided series labels
+
+  // Separate series into guided and non-guided categories
+  series.forEach((i) => {
+    if (i.guided) {
+      guidedLabels.push(i.label);
+    } else {
+      nonGuidedLabels.push(i.label);
+    }
+  });
 
   const chartSeries = series.map((i) => i.value);
 
@@ -36,6 +44,16 @@ export default function BankingExpensesCategories({ title, subheader, chart, ...
       itemMargin: {
         horizontal: 10,
         vertical: 7,
+      },
+      columnWidth: 140, // Adjust the width as needed
+      // Custom formatter for legend
+      formatter: (seriesName, opts) => {
+        if (guidedLabels.includes(seriesName)) {
+          return `<b>Guided:</b> ${seriesName}`;
+        } // else if (nonGuidedLabels.includes(seriesName)) {
+            return `<b>Non-Guided:</b> ${seriesName}`;
+        // }
+        // return seriesName; // Handle other cases if needed
       },
     },
     tooltip: {
@@ -64,7 +82,7 @@ export default function BankingExpensesCategories({ title, subheader, chart, ...
           my: 5,
           '& .apexcharts-legend': {
             m: 'auto',
-            height: { sm: 160 },
+            // height: { sm: 160 },
             flexWrap: { sm: 'wrap' },
             width: { xs: 240, sm: '50%' },
           },
@@ -78,30 +96,8 @@ export default function BankingExpensesCategories({ title, subheader, chart, ...
           type="polarArea"
           series={chartSeries}
           options={chartOptions}
-          height={smUp ? 240 : 360}
+          height={smUp ? 340 : 460}
         />
-      </Box>
-
-      <Divider sx={{ borderStyle: 'dashed' }} />
-
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(2, 1fr)"
-        sx={{ textAlign: 'center', typography: 'h4' }}
-      >
-        <Stack sx={{ py: 2, borderRight: `dashed 1px ${theme.palette.divider}` }}>
-          <Box component="span" sx={{ mb: 1, typography: 'body2', color: 'text.secondary' }}>
-            Categories
-          </Box>
-          9
-        </Stack>
-
-        <Stack sx={{ py: 2 }}>
-          <Box component="span" sx={{ mb: 1, typography: 'body2', color: 'text.secondary' }}>
-            Categories
-          </Box>
-          $18,765
-        </Stack>
       </Box>
     </Card>
   );

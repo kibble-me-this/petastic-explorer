@@ -18,7 +18,7 @@ export default function BankingBalanceStatistics({ title, subheader, chart, ...o
 
   const popover = usePopover();
 
-  const [seriesData, setSeriesData] = useState('Year');
+  const [seriesData, setSeriesData] = useState('Weekly');
 
   const chartOptions = useChart({
     colors,

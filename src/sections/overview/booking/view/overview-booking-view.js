@@ -2,8 +2,16 @@
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import Stack from '@mui/material/Stack';
 // _mock
-import { _bookings, _bookingNew, _bookingsOverview, _bookingReview } from 'src/_mock';
+import {
+  _bookings,
+  _bookingNew,
+  _bookingsOverview,
+  _bookingReview,
+  _analyticOrderTimeline,
+  _bankingRecentTransitions,
+} from 'src/_mock';
 // assets
 import {
   BookingIllustration,
@@ -23,6 +31,12 @@ import BookingWidgetSummary from '../booking-widget-summary';
 import BookingCheckInWidgets from '../booking-check-in-widgets';
 import BookingCustomerReviews from '../booking-customer-reviews';
 
+import AnalyticsOrderTimeline from '../../analytics/analytics-order-timeline';
+
+import BankingBalanceStatistics from '../../banking/banking-balance-statistics';
+import BankingRecentTransitions from '../../banking/banking-recent-transitions';
+import BankingExpensesCategories from '../../banking/banking-expenses-categories';
+
 // ----------------------------------------------------------------------
 
 const SPACING = 3;
@@ -35,148 +49,187 @@ export default function OverviewBookingView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
       <Grid container spacing={SPACING} disableEqualOverflow>
+        {/** TOP ROW */}
         <Grid xs={12} md={4}>
-          <BookingWidgetSummary
-            title="Total Booking"
-            total={714000}
-            icon={<BookingIllustration />}
+          <BookingTotalIncomes
+            title="Total Revenue"
+            total={0}
+            percent={0}
+            chart={{
+              series: [
+                { x: 2016, y: 111 },
+                { x: 2017, y: 136 },
+                { x: 2018, y: 76 },
+                { x: 2019, y: 108 },
+                { x: 2020, y: 74 },
+                { x: 2021, y: 54 },
+                { x: 2022, y: 57 },
+                { x: 2023, y: 84 },
+              ],
+            }}
+          />
+        </Grid>
+        <Grid xs={12} md={4}>
+          <BookingTotalIncomes
+            title="Total Revenue"
+            total={0}
+            percent={0}
+            chart={{
+              series: [
+                { x: 2016, y: 111 },
+                { x: 2017, y: 136 },
+                { x: 2018, y: 76 },
+                { x: 2019, y: 108 },
+                { x: 2020, y: 74 },
+                { x: 2021, y: 54 },
+                { x: 2022, y: 57 },
+                { x: 2023, y: 84 },
+              ],
+            }}
+          />
+        </Grid>
+        <Grid xs={12} md={4}>
+          <BookingTotalIncomes
+            title="Total Revenue"
+            total={0}
+            percent={0}
+            chart={{
+              series: [
+                { x: 2016, y: 111 },
+                { x: 2017, y: 136 },
+                { x: 2018, y: 76 },
+                { x: 2019, y: 108 },
+                { x: 2020, y: 74 },
+                { x: 2021, y: 54 },
+                { x: 2022, y: 57 },
+                { x: 2023, y: 84 },
+              ],
+            }}
           />
         </Grid>
 
-        <Grid xs={12} md={4}>
-          <BookingWidgetSummary title="Sold" total={311000} icon={<CheckInIllustration />} />
-        </Grid>
-
-        <Grid xs={12} md={4}>
-          <BookingWidgetSummary title="Canceled" total={124000} icon={<CheckoutIllustration />} />
-        </Grid>
-
+        {/** SECOND ROW */}
         <Grid container xs={12}>
-          <Grid container xs={12} md={8}>
-            <Grid xs={12} md={6}>
-              <BookingTotalIncomes
-                title="Total Incomes"
-                total={18765}
-                percent={2.6}
-                chart={{
-                  series: [
-                    { x: 2016, y: 111 },
-                    { x: 2017, y: 136 },
-                    { x: 2018, y: 76 },
-                    { x: 2019, y: 108 },
-                    { x: 2020, y: 74 },
-                    { x: 2021, y: 54 },
-                    { x: 2022, y: 57 },
-                    { x: 2023, y: 84 },
-                  ],
-                }}
-              />
-            </Grid>
-
-            <Grid xs={12} md={6}>
-              <BookingBooked title="Booked" data={_bookingsOverview} />
-            </Grid>
-
-            <Grid xs={12}>
-              <BookingCheckInWidgets
-                chart={{
-                  series: [
-                    { label: 'Sold', percent: 72, total: 38566 },
-                    { label: 'Pending for payment', percent: 64, total: 18472 },
-                  ],
-                }}
-              />
-            </Grid>
-
-            <Grid xs={12}>
-              <BookingStatistics
-                title="Statistics"
-                subheader="(+43% Sold | +12% Canceled) than last year"
-                chart={{
-                  colors: [theme.palette.primary.main, theme.palette.error.light],
-                  categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-                  series: [
-                    {
-                      type: 'Week',
-                      data: [
-                        {
-                          name: 'Sold',
-                          data: [10, 41, 35, 151, 49, 62, 69, 91, 48],
-                        },
-                        {
-                          name: 'Canceled',
-                          data: [10, 34, 13, 56, 77, 88, 99, 77, 45],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'Month',
-                      data: [
-                        {
-                          name: 'Sold',
-                          data: [148, 91, 69, 62, 49, 51, 35, 41, 10],
-                        },
-                        {
-                          name: 'Canceled',
-                          data: [45, 77, 99, 88, 77, 56, 13, 34, 10],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'Year',
-                      data: [
-                        {
-                          name: 'Sold',
-                          data: [76, 42, 29, 41, 27, 138, 117, 86, 63],
-                        },
-                        {
-                          name: 'Canceled',
-                          data: [80, 55, 34, 114, 80, 130, 15, 28, 55],
-                        },
-                      ],
-                    },
-                  ],
-                }}
-              />
-            </Grid>
-          </Grid>
-
+          {/** NEW PARENT ACTIVATIONS */}
           <Grid xs={12} md={4}>
             <BookingAvailable
-              title="Tours Available"
+              title="FetchAi Activations"
               chart={{
                 series: [
-                  { label: 'Sold out', value: 120 },
-                  { label: 'Available', value: 66 },
+                  { label: 'Activated', value: 272 },
+                  { label: 'Not Activated', value: 11 },
                 ],
               }}
             />
-
-            <BookingCustomerReviews
-              title="Customer Reviews"
-              subheader={`${_bookingReview.length} Reviews`}
-              list={_bookingReview}
-              sx={{ mt: SPACING }}
-            />
+          </Grid>
+          <Grid container xs={12} md={8}>
+            {/** NEW PARENT ENGAGEMENT */}
+            <Grid xs={12} md={6}>
+              <Stack orientation="column" spacing={1}>
+                <BookingCheckInWidgets
+                  title="FetchAi Engagement"
+                  chart={{
+                    series: [
+                      {
+                        label: 'Time from Adoption --> first engagement',
+                        type: 'time',
+                        percent: 72,
+                        total: 1832,
+                      },
+                      {
+                        label: 'Ave. Session Engagement (time)',
+                        type: 'time',
+                        percent: 64,
+                        total: 363,
+                      },
+                      {
+                        label: 'Ave. Session Engagement (count)',
+                        type: 'questions',
+                        percent: 64,
+                        total: 7,
+                      },
+                      {
+                        label: 'Total Pet Shelters Activated',
+                        type: 'shelters',
+                        percent: 64,
+                        total: 5,
+                      },
+                      { label: 'Buy it Now Clicks (Food)', type: 'clicks', percent: 72, total: 88 },
+                    ],
+                  }}
+                />
+              </Stack>
+            </Grid>
+            {/** NEW PARENT PIPELINE */}
+            <Grid xs={12} md={6}>
+              <BookingBooked title="New Parent Pipeline (current wk)" data={_bookingsOverview} />
+            </Grid>
           </Grid>
         </Grid>
 
-        <Grid xs={12}>
-          <BookingNewest title="Newest Booking" subheader="12 Booking" list={_bookingNew} />
+        {/** THIRD ROW */}
+        <Grid container xs={12}>
+          <Grid item xs={12}>
+            {' '}
+            {/* Adjust xs and md values */}
+            <BankingExpensesCategories
+              title="FetchAi New Parent Interactions (count)"
+              chart={{
+                series: [
+                  { label: 'Get food recommendations', value: 124, guided: true },
+                  { label: 'Click food purchase', value: 88, guided: true },
+                  { label: 'Get grooming recommendations', value: 115, guided: true },
+                  { label: 'Get pet insurance quote', value: 65, guided: true },
+                  { label: 'Show pet records', value: 100, guided: true },
+                  { label: 'Find local groomer', value: 17, guided: false },
+                  { label: 'Find local dog parks', value: 10, guided: false },
+                ],
+                colors: [
+                  theme.palette.primary.main,
+                  theme.palette.warning.dark,
+                  theme.palette.success.darker,
+                  theme.palette.error.main,
+                  theme.palette.info.dark,
+                  theme.palette.info.darker,
+                  theme.palette.success.main,
+                  theme.palette.warning.main,
+                  theme.palette.info.main,
+                ],
+              }}
+            />
+          </Grid>
+          {/** 
+          <Grid item xs={12} md={4}>
+            <AnalyticsOrderTimeline title="New Parent Journey" list={_analyticOrderTimeline} />
+          </Grid> */}
         </Grid>
 
         <Grid xs={12}>
-          <BookingDetails
-            title="Booking Details"
-            tableData={_bookings}
-            tableLabels={[
-              { id: 'destination', label: 'Destination' },
-              { id: 'customer', label: 'Customer' },
-              { id: 'checkIn', label: 'Check In' },
-              { id: 'checkOut', label: 'Check Out' },
-              { id: 'status', label: 'Status' },
-              { id: '' },
-            ]}
+          <BankingBalanceStatistics
+            title="FetchAi Activations Weekly Cohorts"
+            // subheader="(+43% Income | +12% Expense) than last year"
+            chart={{
+              categories: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9'],
+              series: [
+                {
+                  type: 'Weekly',
+                  data: [
+                    {
+                      name: 'Adoptable Pets',
+                      data: [18, 36, 158, 153, 0, 0, 0, 0, 0],
+                    },
+                    {
+                      name: 'Adoptions',
+                      data: [18, 30, 150, 85, 0, 0, 0, 0, 0],
+                    },
+                    {
+                      name: 'Activations',
+                      data: [18, 30, 148, 76, 0, 0, 0, 0, 0],
+                    },
+                  ],
+                },
+              ],
+            }}
           />
         </Grid>
       </Grid>

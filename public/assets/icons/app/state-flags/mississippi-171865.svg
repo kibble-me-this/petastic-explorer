@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="500" height="500" viewBox="0 0 615 615" id="svg2" version="1.1" inkscape:version="0.48.4 r9939" sodipodi:docname="mississippi.svg">
+  
+  <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1366" inkscape:window-height="705" id="namedview39" showgrid="false" inkscape:zoom="1.0999439" inkscape:cx="205.81391" inkscape:cy="143.59955" inkscape:window-x="0" inkscape:window-y="26" inkscape:window-maximized="1" inkscape:current-layer="svg2"/>
+  <defs id="defs4">
+    <path id="s" transform="scale(3,3)" d="m 0,-1 0.58779,1.80902 -1.53885,-1.11804 1.90212,0 -1.53885,1.11804 z" inkscape:connector-curvature="0" style="fill:#ffffff"/>
+    <clipPath id="canton">
+      <path d="M 0,0 H 60.5 V 60.5 H 0 z" id="path8" inkscape:connector-curvature="0"/>
+    </clipPath>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3006">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect3008" width="602.70001" height="602.70001" x="7.2839203" y="2.7795916" ry="65.636101"/>
+    </clipPath>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3010">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect3012" width="602.70001" height="602.70001" x="7.2839203" y="2.7795916" ry="65.636101"/>
+    </clipPath>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3014">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect3016" width="135.6075" height="90.404999" x="1.638882" y="0.41693872" ry="9.8454151"/>
+    </clipPath>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3018">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect3020" width="602.70001" height="602.70001" x="7.2839203" y="2.7795916" ry="65.636101"/>
+    </clipPath>
+  </defs>
+  <rect width="615" height="615" id="rect10" style="fill:#e74c3c" x="0" y="0" clip-path="url(#clipPath3018)"/>
+  <g clip-path="url(#clipPath3014)" transform="scale(4.4444444,6.6666667)" id="g12">
+    <path d="M 0,0 60,60 M 0,60 60,0" id="path14" inkscape:connector-curvature="0" style="stroke:#ffffff;stroke-width:12"/>
+    <path d="M 0,0 60,60 M 0,60 60,0" id="path16" style="stroke:#356ba0;stroke-width:9" inkscape:connector-curvature="0"/>
+    <g id="s6">
+      <use xlink:href="#s" x="6" y="6" id="use19" width="1107" height="738"/>
+      <use xlink:href="#s" x="14" y="14" id="use21" width="1107" height="738"/>
+      <use xlink:href="#s" x="22" y="22" id="use23" width="1107" height="738"/>
+      <use xlink:href="#s" x="38" y="38" id="use25" width="1107" height="738"/>
+      <use xlink:href="#s" x="46" y="46" id="use27" width="1107" height="738"/>
+      <use xlink:href="#s" x="54" y="54" id="use29" width="1107" height="738"/>
+    </g>
+    <use xlink:href="#s6" transform="scale(-1,1)" x="-60" id="use31" y="0" width="1107" height="738"/>
+    <use xlink:href="#s" x="30" y="30" id="use33" width="1107" height="738"/>
+  </g>
+  <path d="M 266.66667,0 H 615 V 410 H 0 v -10 h 266.66667 z" id="path35" inkscape:connector-curvature="0" style="fill:#ffffff" clip-path="url(#clipPath3010)"/>
+  <rect x="273.33334" width="341.66666" height="205" id="rect37" style="fill:#356ba0" y="0" clip-path="url(#clipPath3006)"/>
+  <rect style="fill:#e74c3c;fill-opacity:1;stroke:none" id="rect3022" width="290.74213" height="27.955971" x="8.9459143" y="409.6394"/>
+
+	<metadata>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+			<rdf:Description about="https://iconscout.com/legal#licenses" dc:title="mississippi" dc:description="mississippi" dc:publisher="Iconscout" dc:date="2017-05-28" dc:format="image/svg+xml" dc:language="en">
+				<dc:creator>
+					<rdf:Bag>
+						<rdf:li>Vignesh Oviyan</rdf:li>
+					</rdf:Bag>
+				</dc:creator>
+			</rdf:Description>
+		</rdf:RDF>
+    </metadata></svg>

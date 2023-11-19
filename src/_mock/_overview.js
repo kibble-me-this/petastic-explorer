@@ -3,18 +3,27 @@ import { _mock } from './_mock';
 // APP
 // ----------------------------------------------------------------------
 
-export const _appRelated = ['Chrome', 'Drive', 'Dropbox', 'Evernote', 'Github'].map(
+export const _appRelated = ['California', 'Texas', 'Florida', 'New York',  'Pennsylvania'].map(
   (name, index) => {
     const system = [2, 4].includes(index) ? 'Windows' : 'Mac';
 
     const price = [2, 4].includes(index) ? _mock.number.price(index) : 0;
 
     const shortcut =
-      (name === 'Chrome' && '/assets/icons/app/ic_chrome.svg') ||
-      (name === 'Drive' && '/assets/icons/app/ic_drive.svg') ||
-      (name === 'Dropbox' && '/assets/icons/app/ic_dropbox.svg') ||
-      (name === 'Evernote' && '/assets/icons/app/ic_evernote.svg') ||
+      (name === 'California' && '/assets/icons/app/state-flags/california-171909.svg') ||
+      (name === 'Florida' && '/assets/icons/app/state-flags/florida-171907.svg') ||
+      (name === 'New York' && '/assets/icons/app/state-flags/new-171879.svg') ||
+      (name === 'Texas' && '/assets/icons/app/state-flags/texas-171877.svg') ||
+      (name === 'Pennsylvania' && '/assets/icons/app/state-flags/pennsylvania-171901.svg') ||
       '/assets/icons/app/ic_github.svg';
+
+    const totalReviews =
+      (name === 'California' && 68214) ||
+      (name === 'Florida' && 31400) ||
+      (name === 'New York' && 29473) ||
+      (name === 'Texas' && 57056) ||
+      (name === 'Pennsylvania' && 24559) ||
+      '/assets/icons/app/ic_github.svg';  
 
     return {
       id: _mock.id(index),
@@ -23,12 +32,12 @@ export const _appRelated = ['Chrome', 'Drive', 'Dropbox', 'Evernote', 'Github'].
       system,
       shortcut,
       ratingNumber: _mock.number.rating(index),
-      totalReviews: _mock.number.nativeL(index),
+      totalReviews
     };
   }
 );
 
-export const _appInstalled = ['Germany', 'England', 'France', 'Korean', 'USA'].map(
+export const _appInstalled = ['New York', 'Florida', 'California', 'Texas', 'Pennsylvania'].map(
   (name, index) => ({
     id: _mock.id(index),
     name,
@@ -39,12 +48,105 @@ export const _appInstalled = ['Germany', 'England', 'France', 'Korean', 'USA'].m
   })
 );
 
-export const _appAuthors = [...Array(3)].map((_, index) => ({
-  id: _mock.id(index),
-  name: _mock.fullName(index),
-  avatarUrl: _mock.image.avatar(index),
-  totalFavorites: _mock.number.nativeL(index),
-}));
+const topStates = [
+  {
+    id: "customId3",
+    name: "New York",
+    avatarUrl: "url/to/avatar1.jpg",
+    totalFavorites: 25786,
+  }, 
+  {
+    id: "customId2",
+    name: "Florida",
+    avatarUrl: "url/to/avatar2.jpg",
+    totalFavorites: 27241,
+  },
+ {
+    id: "customId1",
+    name: "California",
+    avatarUrl: "url/to/avatar3.jpg",
+    totalFavorites: 59151,
+  },
+];
+const topDogs = [
+    {
+    id: "customId1",
+    name: "Labrador Retriever",
+    avatarUrl: "url/to/avatar3.jpg",
+    totalFavorites: 24420,
+  },
+  {
+    id: "customId2",
+    name: "Pit Bull Terrier",
+    avatarUrl: "url/to/avatar2.jpg",
+    totalFavorites: 20845,
+  },
+  {
+    id: "customId3",
+    name: "German Shepherd Dog",
+    avatarUrl: "url/to/avatar1.jpg",
+    totalFavorites: 12897,
+  },
+  {
+    id: "customId4",
+    name: "Chihuahua",
+    avatarUrl: "url/to/avatar2.jpg",
+    totalFavorites: 8910,
+  },
+  {
+    id: "customId5",
+    name: "Hound",
+    avatarUrl: "url/to/avatar1.jpg",
+    totalFavorites: 8046,
+  },
+
+];
+
+const topCats = [
+  {
+    id: "customId1",
+    name: "Domestic Short Hair",
+    avatarUrl: "url/to/avatar1.jpg",
+    totalFavorites: 25697,
+  },
+  {
+    id: "customId2",
+    name: "Tabby",
+    avatarUrl: "url/to/avatar2.jpg",
+    totalFavorites: 12321,
+  },
+  {
+    id: "customId3",
+    name: "Domestic Medium Hair",
+    avatarUrl: "url/to/avatar3.jpg",
+    totalFavorites: 10291,
+  },
+  {
+    id: "customId4",
+    name: "TaDomestic Medium Hair",
+    avatarUrl: "url/to/avatar2.jpg",
+    totalFavorites: 5705,
+  },
+  {
+    id: "customId5",
+    name: "Siamese",
+    avatarUrl: "url/to/avatar3.jpg",
+    totalFavorites: 2331,
+  },
+];
+
+export const _appAuthors = topStates;
+export const _topStates = topStates;
+export const _topDogs = topDogs;
+export const _topCats = topCats;
+
+
+// export const _appAuthors = [...Array(3)].map((_, index) => ({
+//   id: _mock.id(index),
+//   name: _mock.fullName(index),
+//   avatarUrl: _mock.image.avatar(index),
+//   totalFavorites: _mock.number.nativeL(index),
+// }));
 
 export const _appInvoices = [...Array(5)].map((_, index) => {
   const category = ['Android', 'Mac', 'Windows', 'Android', 'Mac'][index];
@@ -85,9 +187,10 @@ export const _analyticPosts = [...Array(5)].map((_, index) => ({
 
 export const _analyticOrderTimeline = [...Array(5)].map((_, index) => {
   const title = [
-    '1983, orders, $4220',
-    '12 Invoices have been paid',
-    'Order #37745 from September',
+    'Shelter :: submits change of owenrship',
+    'Parent :: exits with new pet',
+    'Parent :: opens email from FetchAi',
+    'FetchAi :: guides pet owner through day 1',
     'New order placed #XF-2356',
     'New order placed #XF-2346',
   ][index];
@@ -301,8 +404,8 @@ export const _bookings = [...Array(5)].map((_, index) => {
   };
 });
 
-export const _bookingsOverview = [...Array(3)].map((_, index) => ({
-  status: ['Pending', 'Canceled', 'Sold'][index],
+export const _bookingsOverview = [...Array(5)].map((_, index) => ({
+  status: ['Adoptable Pets on Network', 'Pets @ Activated Shelters', 'Adopted', 'FetchAi Onboarded', 'FetchAi Commerce (clicks)'][index],
   quantity: _mock.number.percent(index) * 1000,
   value: _mock.number.percent(index),
 }));

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -7,15 +7,18 @@ import MenuItem from '@mui/material/MenuItem';
 import CardHeader from '@mui/material/CardHeader';
 import ButtonBase from '@mui/material/ButtonBase';
 import Card from '@mui/material/Card';
+import Skeleton from '@mui/material/Skeleton';
+
 // components
 import Iconify from 'src/components/iconify';
 import Chart, { useChart } from 'src/components/chart';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
-// ----------------------------------------------------------------------
-
-export default function AppAreaInstalled({ title, subheader, chart, ...other }) {
+export default function AppAreaInstalled({ title, subheader, chart, loading, ...other }) {
   const theme = useTheme();
+
+  const [loadingData1, setLoadingData1] = useState(true);
+  const [loadingData2, setLoadingData2] = useState(true);
 
   const {
     colors = [
@@ -28,8 +31,7 @@ export default function AppAreaInstalled({ title, subheader, chart, ...other }) 
   } = chart;
 
   const popover = usePopover();
-
-  const [seriesData, setSeriesData] = useState('2019');
+  const [seriesData, setSeriesData] = useState('2023');
 
   const chartOptions = useChart({
     colors: colors.map((colr) => colr[1]),
@@ -48,20 +50,27 @@ export default function AppAreaInstalled({ title, subheader, chart, ...other }) 
     ...options,
   });
 
-  const handleChangeSeries = useCallback(
-    (newValue) => {
-      popover.onClose();
-      setSeriesData(newValue);
-    },
-    [popover]
-  );
+  const handleChangeSeries = (newValue) => {
+    popover.onClose();
+    setSeriesData(newValue);
+  };
+
+  useEffect(() => {
+    if (!loading) {
+      // Simulate fetching data from the API
+      setTimeout(() => {
+        // Simulate data fetching
+        setLoadingData1(false); // Set loadingData1 to false once data is fetched
+      }, 500); // Simulate a 2-second delay for data fetching (you can adjust this)
+    }
+  }, [loading]);
 
   return (
     <>
       <Card {...other}>
         <CardHeader
           title={title}
-          subheader={subheader}
+          subheader={loading ? <Skeleton animation="wave" width={100} /> : subheader}
           action={
             <ButtonBase
               onClick={popover.onOpen}
@@ -75,7 +84,6 @@ export default function AppAreaInstalled({ title, subheader, chart, ...other }) 
               }}
             >
               {seriesData}
-
               <Iconify
                 width={16}
                 icon={popover.open ? 'eva:arrow-ios-upward-fill' : 'eva:arrow-ios-downward-fill'}
@@ -85,13 +93,15 @@ export default function AppAreaInstalled({ title, subheader, chart, ...other }) 
           }
         />
 
-        {series.map((item) => (
-          <Box key={item.year} sx={{ mt: 3, mx: 3 }}>
-            {item.year === seriesData && (
-              <Chart dir="ltr" type="line" series={item.data} options={chartOptions} height={364} />
-            )}
-          </Box>
-        ))}
+        <Box sx={{ mt: 3, mx: 3 }}>
+          <Chart
+            dir="ltr"
+            type="line"
+            series={loadingData1 ? [] : series.find((item) => item.year === seriesData)?.data || []}
+            options={chartOptions}
+            height={364}
+          />
+        </Box>
       </Card>
 
       <CustomPopover open={popover.open} onClose={popover.onClose} sx={{ width: 140 }}>
@@ -113,4 +123,5 @@ AppAreaInstalled.propTypes = {
   chart: PropTypes.object,
   subheader: PropTypes.string,
   title: PropTypes.string,
+  loading: PropTypes.bool, // Add loading prop for handling loading state
 };

@@ -24,7 +24,7 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
 
   const total = sumBy(series, 'value');
 
-  const chartSeries = (series.filter((i) => i.label === 'Sold out')[0].value / total) * 100;
+  const chartSeries = (series.filter((i) => i.label === 'Activated')[0].value / total) * 100;
 
   const chartOptions = useChart({
     legend: {
@@ -49,8 +49,8 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
           name: { offsetY: -16 },
           value: { offsetY: 8 },
           total: {
-            label: 'Tours',
-            formatter: () => fNumber(total),
+            label: 'Activation Rate %',
+            formatter: () => fNumber(chartSeries),
           },
         },
       },
@@ -87,7 +87,7 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
               }}
             />
             <Box sx={{ color: 'text.secondary', flexGrow: 1 }}>{item.label}</Box>
-            {item.value} Tours
+            {item.value} Pet Parents
           </Stack>
         ))}
       </Stack>

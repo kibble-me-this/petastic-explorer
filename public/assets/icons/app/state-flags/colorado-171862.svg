@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="500" height="500" id="svg2" version="1.1" inkscape:version="0.48.4 r9939" sodipodi:docname="colorado.svg">
+  
+  <defs id="defs14">
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath2993">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect2995" width="1436.993" height="1436.993" x="230.51758" y="-99.643814" ry="156.49348"/>
+    </clipPath>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath2997">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect2999" width="490" height="490" x="5.7142944" y="5.5714216" ry="53.362686"/>
+    </clipPath>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath3001">
+      <rect style="fill:#808080;fill-opacity:1;stroke:none" id="rect3003" width="1764" height="1176" x="20.571461" y="-586.6286" ry="128.07045"/>
+    </clipPath>
+  </defs>
+  <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1366" inkscape:window-height="705" id="namedview12" showgrid="false" inkscape:zoom="0.54997193" inkscape:cx="426.62939" inkscape:cy="285.62964" inkscape:window-x="0" inkscape:window-y="26" inkscape:window-maximized="1" inkscape:current-layer="svg2"/>
+  
+  
+  <g id="g2993" transform="matrix(0.27777778,0,0,0.41666667,0,250)" clip-path="url(#clipPath3001)">
+    <rect y="-600" x="0" style="fill:#356ba0" id="rect4" height="1200" width="1800"/>
+    <rect style="fill:#ffffff" x="0" id="rect6" y="-200" height="400" width="1800"/>
+  </g>
+  <path inkscape:connector-curvature="0" style="fill:#ca4638" id="path8" d="m 312.70494,295.29133 a 136.39593,136.39593 0 1 1 0,-102.29696 l -126.44246,51.14848 z" clip-path="url(#clipPath2997)"/>
+  <circle transform="matrix(0.34098983,0,0,0.34098983,-72.889855,39.54895)" sodipodi:ry="200" sodipodi:rx="200" sodipodi:cy="600" sodipodi:cx="760" style="fill:#e5b731" id="circle10" r="200" cy="600" cx="760" d="m 960,600 c 0,110.45695 -89.54305,200 -200,200 -110.45695,0 -200,-89.54305 -200,-200 0,-110.45695 89.54305,-200 200,-200 110.45695,0 200,89.54305 200,200 z" clip-path="url(#clipPath2993)"/>
+
+	<metadata>
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+			<rdf:Description about="https://iconscout.com/legal#licenses" dc:title="colorado" dc:description="colorado" dc:publisher="Iconscout" dc:date="2017-05-28" dc:format="image/svg+xml" dc:language="en">
+				<dc:creator>
+					<rdf:Bag>
+						<rdf:li>Vignesh Oviyan</rdf:li>
+					</rdf:Bag>
+				</dc:creator>
+			</rdf:Description>
+		</rdf:RDF>
+    </metadata></svg>
