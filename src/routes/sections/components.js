@@ -43,7 +43,6 @@ const TextFieldPage = lazy(() => import('src/pages/components/mui/textfield'));
 const TimelinePage = lazy(() => import('src/pages/components/mui/timeline'));
 const TooltipPage = lazy(() => import('src/pages/components/mui/tooltip'));
 const TransferListPage = lazy(() => import('src/pages/components/mui/transfer-list'));
-const TreesViewPage = lazy(() => import('src/pages/components/mui/tree-view'));
 // EXTRA COMPONENTS
 const AnimatePage = lazy(() => import('src/pages/components/extra/animate'));
 const CarouselsPage = lazy(() => import('src/pages/components/extra/carousel'));
@@ -131,7 +130,6 @@ export const componentsRoutes = [
               { path: 'timeline', element: <TimelinePage /> },
               { path: 'tooltip', element: <TooltipPage /> },
               { path: 'transfer-list', element: <TransferListPage /> },
-              { path: 'tree-view', element: <TreesViewPage /> },
             ],
           },
           {
