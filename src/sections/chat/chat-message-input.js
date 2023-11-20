@@ -31,6 +31,9 @@ export default function ChatMessageInput({
   disabled,
   selectedConversationId,
   // isAiLoading, // Add the loading prop to the propTypes
+  inputMessage, // Receive the prop
+  onTyping,
+  onInputTyping, // Add this prop
 }) {
   const router = useRouter();
 
@@ -39,6 +42,9 @@ export default function ChatMessageInput({
   const fileRef = useRef(null);
 
   const [message, setMessage] = useState('');
+
+  // This state determines whether to show or hide the buttons
+  const [showButtons, setShowButtons] = useState(true);
 
   const renderLoading = (
     <Box sx={{ width: '100%' }}>
@@ -171,14 +177,28 @@ export default function ChatMessageInput({
   //   };
   // }, [simulateEnterKeyPress]);
 
-  // Function to handle user input for OpenAI
-  const handleOpenaiMessageChange = useCallback((event) => {
-    setOpenaiMessage(event.target.value);
-  }, []);
+  const handleOpenaiMessageChange = useCallback(
+    (event) => {
+      const { value } = event.target;
+      setOpenaiMessage(value);
 
+      // Clear the inputMessage state in the parent component whenever the user types
+      if (onInputTyping) {
+        onInputTyping(value);
+      }
+    },
+    [onInputTyping]
+  );
   useEffect(() => {
     console.log('Updated Conversation Data:', conversationData);
   }, [conversationData]);
+
+  // Effect hook to update local message state when the prop changes
+  useEffect(() => {
+    if (inputMessage) {
+      setMessage(inputMessage);
+    }
+  }, [inputMessage]);
 
   const [isAiLoading, setAiIsLoading] = useState(false);
 
@@ -313,9 +333,10 @@ export default function ChatMessageInput({
       {/* New input field for OpenAI */}
       <InputBase
         multiline // Set the multiline prop to true
-        value={openaiMessage}
+        value={openaiMessage || inputMessage} // fallback to inputMessage if openaiMessage is falsy
+        // onTyping={handleInputTyping}
         onKeyUp={handleSendOpenaiMessage}
-        onChange={handleOpenaiMessageChange}
+        onChange={handleOpenaiMessageChange} // This will call onInputTyping in the parent
         placeholder="Ask me pet things..."
         disabled={disabled}
         endAdornment={
@@ -350,4 +371,7 @@ ChatMessageInput.propTypes = {
   recipients: PropTypes.array,
   selectedConversationId: PropTypes.string,
   // isAiLoading: PropTypes.bool,
+  inputMessage: PropTypes.string,
+  onTyping: PropTypes.func, // This should be func, not bool
+  onInputTyping: PropTypes.func, // Add this line
 };

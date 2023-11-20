@@ -14,7 +14,7 @@ const YourCustomComponent = ({ messageContent }) => {
       coverUrl: messageContent.prop.avatar_file_name,
       role: messageContent.prop.breed,
       totalFollowers: messageContent.prop.gender,
-      totalPosts: '26 LBS',
+      totalPosts: 'N/A',
       avatarUrl: 'url_to_avatar_image',
       totalFollowing: messageContent.prop.age.life_stage,
     };

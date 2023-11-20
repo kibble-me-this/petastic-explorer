@@ -4,8 +4,8 @@ import uuidv4 from '../utils/uuidv4';
 import axios, { endpoints, fetcher } from '../utils/axios';
 
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
-const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
-// const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
+const API_URL = process.env.REACT_APP_API_URL;
 
 export async function sendToOpenAI(conversationId, message, user) {
   try {

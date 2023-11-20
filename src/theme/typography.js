@@ -128,6 +128,7 @@ export const typography = {
     fontSize: pxToRem(12),
     fontFamily: interFont,
     letterSpacing: '0.412px',
+    textTransform: 'none',
     ...responsiveFontSizes({ sm: 12, md: 12, lg: 12 }),
   },
   chat_caption: {

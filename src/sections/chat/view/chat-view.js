@@ -6,6 +6,12 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+// components
+import Iconify from 'src/components/iconify';
+
 // routes
 import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
@@ -37,6 +43,11 @@ export default function ChatView() {
 
   const selectedConversationId = searchParams.get('id') || '';
 
+  const [showButton1, setShowButton1] = useState(true);
+  const [showButton2, setShowButton2] = useState(true);
+  const [userTyped, setUserTyped] = useState(false);
+  const [inputFieldFocused, setInputFieldFocused] = useState(false);
+
   const [recipients, setRecipients] = useState([]);
 
   const { contacts } = useGetContacts();
@@ -44,6 +55,9 @@ export default function ChatView() {
   const { conversations, conversationsLoading } = useGetConversations();
 
   const { conversation, conversationError } = useGetConversation(`${selectedConversationId}`);
+
+  // Step 1: State to hold the message text
+  const [inputMessage, setInputMessage] = useState('');
 
   const participants = conversation
     ? conversation.participants.filter((participant) => participant.id !== user.id)
@@ -64,6 +78,34 @@ export default function ChatView() {
     setRecipients(selected);
   }, []);
 
+  const [button1Text, setButton1Text] = useState('');
+
+  const handleButton1Click = () => {
+    setInputMessage('i need a food recommendation for a french bulldog');
+
+    // Call the function to set the button text
+    setShowButton1(false);
+    setShowButton2(false);
+  };
+
+  const handleButton2Click = () => {
+    setInputMessage('i need an html list of training tips for a french bulldog');
+    setShowButton1(false);
+    setShowButton2(false);
+  };
+  const handleInputTyping = (text) => {
+    // When the user is typing, clear the inputMessage to prevent it from being reset
+    setInputMessage('');
+
+    if (text.trim() !== '') {
+      setShowButton1(false);
+      setShowButton2(false);
+    } else {
+      setShowButton1(true);
+      setShowButton2(true);
+    }
+  };
+
   const details = !!conversation;
 
   const renderHead = (
@@ -76,7 +118,11 @@ export default function ChatView() {
       {selectedConversationId ? (
         <>{details && <ChatHeaderDetail participants={participants} />}</>
       ) : (
-        <ChatHeaderCompose contacts={contacts} onAddRecipients={handleAddRecipients} />
+        <ChatHeaderCompose
+          contacts={contacts}
+          onAddRecipients={handleAddRecipients}
+          onInputTyping={handleInputTyping}
+        />
       )}
     </Stack>
   );
@@ -101,12 +147,72 @@ export default function ChatView() {
     >
       <ChatMessageList messages={conversation?.messages} participants={participants} />
 
+      <Stack direction="column" spacing={1} sx={{ mx: 2, mb: 2 }}>
+        <Button
+          variant="outlined"
+          onClick={handleButton1Click}
+          style={{ display: showButton1 ? 'block' : 'none' }}
+          sx={{
+            borderRadius: '12px', // You can adjust the value as needed
+            border: '1px solid #D0C0BD',
+          }}
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            onClick={handleButton1Click}
+            style={{ display: showButton1 ? 'flex' : 'none' }}
+            sx={{ my: 1.5, ml: 1.5, mr: 0.5 }}
+          >
+            <Stack direction="column" alignItems="flex-start">
+              <Typography variant="chat_author">Find food recommendations</Typography>
+              <Typography
+                variant="chat_author"
+                sx={{ fontWeight: 'normal', textTransform: 'none' }}
+              >
+                for your French Bulldog
+              </Typography>
+            </Stack>
+            <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#808080' }} />{' '}
+          </Stack>
+        </Button>
+
+        <Button
+          variant="outlined"
+          onClick={handleButton2Click}
+          style={{ display: showButton1 ? 'block' : 'none' }}
+          sx={{
+            borderRadius: '12px', // You can adjust the value as needed
+            border: '1px solid #D0C0BD',
+          }}
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            onClick={handleButton2Click}
+            style={{ display: showButton1 ? 'flex' : 'none' }}
+            sx={{ my: 1.5, ml: 1.5, mr: 0.5 }}
+          >
+            <Stack direction="column" alignItems="flex-start">
+              <Typography variant="chat_author">Get training advice</Typography>
+              <Typography variant="chat_author" sx={{ fontWeight: 'normal' }}>
+                for your French Bulldog
+              </Typography>
+            </Stack>
+            <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#808080' }} />{' '}
+          </Stack>
+        </Button>
+      </Stack>
       <ChatMessageInput
         recipients={recipients}
         onAddRecipients={handleAddRecipients}
         //
         selectedConversationId={selectedConversationId}
         disabled={!recipients.length && !selectedConversationId}
+        onInputTyping={handleInputTyping} // Pass a prop to track typing
+        inputMessage={inputMessage}
       />
     </Stack>
   );
@@ -149,7 +255,6 @@ export default function ChatView() {
             }}
           >
             {renderHead}
-
             <Stack
               direction="row"
               sx={{
@@ -162,8 +267,8 @@ export default function ChatView() {
             >
               {renderMessages}
 
-              {/* details && <ChatRoom conversation={conversation} participants={participants} /> */}
-            </Stack>
+              {details && <ChatRoom conversation={conversation} participants={participants} />}
+            </Stack>{' '}
           </Stack>
         </Stack>
       </Stack>

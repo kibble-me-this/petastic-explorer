@@ -23,3 +23,13 @@
   text-transform: capitalize;
   font-size: 12px;
 }
+.disclaimer {
+  font-weight: bold; /* This will make the text bold */
+  font-size: 10px;
+  color: white; /* This sets the default text color to white for .disclaimer */
+}
+
+.disclaimer a {
+  color: white; /* This ensures that links are also white */
+  text-decoration: underline; /* Optional: if you want to underline the links */
+}

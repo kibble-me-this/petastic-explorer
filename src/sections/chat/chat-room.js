@@ -113,14 +113,14 @@ export default function ChatRoom({ participants, conversation }) {
           sx={{
             height: 1,
             flexShrink: 0,
-            width: NAV_WIDTH,
+            width: collapseDesktop ? 0 : NAV_WIDTH, // This line controls the width directly
             borderLeft: `solid 1px ${theme.palette.divider}`,
-            transition: theme.transitions.create(['width'], {
-              duration: theme.transitions.duration.shorter,
-            }),
-            ...(collapseDesktop && {
-              width: 0,
-            }),
+            // transition: theme.transitions.create(['width'], {
+            //   duration: theme.transitions.duration.shorter,
+            // }),
+            // ...(collapseDesktop && {
+            //   width: 0,
+            // }),
           }}
         >
           {!collapseDesktop && renderContent}
