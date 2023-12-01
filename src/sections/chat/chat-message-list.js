@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react'; // Import useState and useEffect
+
 // @mui
 import Box from '@mui/material/Box';
 // components
@@ -23,12 +25,14 @@ export default function ChatMessageList({ messages = [], participants }) {
     <>
       <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
         <Box>
-          {messages.map((message) => (
-            <ChatMessageItem
+          {messages.map((message, index) => (
+            // Delay rendering of each message item using setTimeout
+            <DelayedMessageItem
               key={message.id}
               message={message}
               participants={participants}
               onOpenLightbox={() => lightbox.onOpen(message.body)}
+              delay={index * 1} // Adjust the delay duration (in milliseconds) as needed
             />
           ))}
         </Box>
@@ -47,4 +51,35 @@ export default function ChatMessageList({ messages = [], participants }) {
 ChatMessageList.propTypes = {
   messages: PropTypes.array,
   participants: PropTypes.array,
+};
+
+// DelayedMessageItem component to render message items with a delay
+function DelayedMessageItem({ message, participants, onOpenLightbox, delay }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [delay]);
+
+  return isVisible ? (
+    <ChatMessageItem
+      key={message.id}
+      message={message}
+      participants={participants}
+      onOpenLightbox={onOpenLightbox}
+    />
+  ) : null;
+}
+
+DelayedMessageItem.propTypes = {
+  message: PropTypes.object,
+  participants: PropTypes.array,
+  onOpenLightbox: PropTypes.func,
+  delay: PropTypes.number, // Delay duration in milliseconds
 };

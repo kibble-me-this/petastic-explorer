@@ -30,7 +30,7 @@ const NAV_WIDTH = 320;
 
 const NAV_COLLAPSE_WIDTH = 72;
 
-export default function ChatNav({ loading, contacts, conversations, selectedConversationId }) {
+export default function ChatNav({ loading, contacts, conversations, selectedConversationId, pet }) {
   const theme = useTheme();
 
   const router = useRouter();
@@ -143,15 +143,19 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
 
   const renderList = (
     <>
-      {conversations.allIds.map((conversationId) => (
-        <ChatNavItem
-          key={conversationId}
-          collapse={collapseDesktop}
-          conversation={conversations.byId[conversationId]}
-          selected={conversationId === selectedConversationId}
-          onCloseMobile={onCloseMobile}
-        />
-      ))}
+      {conversations.allIds.map((conversationId) => {
+        console.log('------> conversationId:', conversationId);
+        return (
+          <ChatNavItem
+            key={conversationId}
+            collapse={collapseDesktop}
+            conversation={conversations.byId[conversationId]}
+            selected={conversationId === selectedConversationId}
+            onCloseMobile={onCloseMobile}
+            pet={pet}
+          />
+        );
+      })}
     </>
   );
 
@@ -261,7 +265,7 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
         </Stack>
       ) : (
         <Drawer
-          // open={openMobile}
+          open={openMobile}
           onClose={onCloseMobile}
           slotProps={{
             backdrop: { invisible: true },
@@ -282,4 +286,5 @@ ChatNav.propTypes = {
   conversations: PropTypes.object,
   loading: PropTypes.bool,
   selectedConversationId: PropTypes.string,
+  pet: PropTypes.array,
 };

@@ -22,10 +22,123 @@ import ChatRoomAttachments from './chat-room-attachments';
 
 const NAV_WIDTH = 240;
 
-export default function ChatRoom({ participants, conversation }) {
+export default function ChatRoom({ participants, conversation, pet }) {
   const theme = useTheme();
 
   const lgUp = useResponsive('up', 'lg');
+
+  // Define your local conversations data
+  const localConversations = [
+    {
+      id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+      participants: [
+        {
+          status: 'online',
+          id: '8864c717-587d-472a-929a-8e5f298024da-0',
+          role: 'admin',
+          email: 'demo@minimals.cc',
+          name: 'Jaydon Frankie',
+          lastActivity: '2023-10-23T14:45:15.279Z',
+          address: '90210 Broadway Blvd',
+          avatarUrl: 'https://api-dev-minimal-v510.vercel.app/assets/images/avatar/avatar_25.jpg',
+          phoneNumber: '+40 777666555',
+        },
+        {
+          status: 'online',
+          id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+          role: 'UX/UI Designer',
+          email: 'violet.ratke86@yahoo.com',
+          name: 'Harrison Stein',
+          lastActivity: '2023-10-20T11:45:15.279Z',
+          address: '110 Lamar Station Apt. 730 - Hagerstown, OK / 49808',
+          avatarUrl: `${process.env.PUBLIC_URL}/assets/images/avatars/frenchie.jpg`,
+          phoneNumber: '692-767-2903',
+        },
+      ],
+      type: 'ONE_TO_ONE',
+      unreadCount: 0,
+      messages: [
+        {
+          id: '9574ce4a-27ab-4eec-9dd2-ea369f418722',
+          body: 'The aroma of freshly brewed coffee filled the air, awakening my senses.',
+          contentType: 'text',
+          attachments: [
+            {
+              id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1',
+              name: 'vaccination-card.jpg',
+              path: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
+              preview: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_3.jpg',
+              size: 48000000,
+              createdAt: '2023-10-23T14:38:44.497Z',
+              modifiedAt: '2023-10-23T14:38:44.497Z',
+              type: 'jpg',
+            },
+          ],
+          createdAt: '2023-10-23T06:45:15.280Z',
+          senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        },
+        {
+          id: '3148665b-1aa3-40f1-b4a0-ee579ce42282',
+          body: 'The children giggled with joy as they ran through the sprinklers on a hot summer day.',
+          contentType: 'text',
+          attachments: [],
+          createdAt: '2023-10-23T08:45:15.280Z',
+          senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
+        },
+        {
+          id: 'db582097-c706-47e9-86b0-01d27187bae3',
+          body: 'He carefully crafted a beautiful sculpture out of clay, his hands skillfully shaping the intricate details.',
+          contentType: 'text',
+          attachments: [],
+          createdAt: '2023-10-23T10:15:15.280Z',
+          senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        },
+        {
+          id: '356342c6-49be-4d7f-be93-78e89f1f5d97',
+          body: 'The concert was a mesmerizing experience, with the music filling the venue and the crowd cheering in delight.',
+          contentType: 'text',
+          attachments: [
+            {
+              id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+              name: 'adoption-contract.pdf',
+              path: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
+              preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
+              size: 12000000,
+              createdAt: '2023-10-20T11:38:44.497Z',
+              modifiedAt: '2023-10-20T11:38:44.497Z',
+              type: 'pdf',
+            },
+          ],
+          createdAt: '2023-10-23T12:30:15.280Z',
+          senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
+        },
+        {
+          id: '09c442f5-bb73-477b-adbe-9b52b631189c',
+          body: 'The waves crashed against the shore, creating a soothing symphony of sound.',
+          contentType: 'text',
+          attachments: [],
+          createdAt: '2023-10-23T13:30:15.280Z',
+          senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        },
+        {
+          id: '1a65bff1-5000-46aa-8aaf-3cd1bcf3d2d1',
+          body: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_9.jpg',
+          contentType: 'image',
+          attachments: [],
+          createdAt: '2023-10-23T13:45:15.280Z',
+          senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        },
+        {
+          id: '27b23e33-3fc7-4a1b-8317-e8c0a1df621c',
+          body: 'https://api-dev-minimal-v510.vercel.app/assets/images/cover/cover_10.jpg',
+          contentType: 'image',
+          attachments: [],
+          createdAt: '2023-10-23T13:45:15.280Z',
+          senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        },
+      ],
+    },
+  ];
 
   const {
     collapseDesktop,
@@ -54,14 +167,18 @@ export default function ChatRoom({ participants, conversation }) {
 
   const group = participants.length > 1;
 
-  const attachments = uniq(flatten(conversation.messages.map((messages) => messages.attachments)));
+  const attachments = uniq(
+    flatten(localConversations[0].messages.map((messages) => messages.attachments))
+  );
+
+  console.log('attachments: ', attachments);
 
   const renderContent = (
     <>
       {group ? (
         <ChatRoomGroup participants={participants} />
       ) : (
-        <ChatRoomSingle participant={participants[0]} />
+        <ChatRoomSingle participant={participants[0]} pet={pet} />
       )}
 
       <ChatRoomAttachments attachments={attachments} />
@@ -147,4 +264,5 @@ export default function ChatRoom({ participants, conversation }) {
 ChatRoom.propTypes = {
   conversation: PropTypes.object,
   participants: PropTypes.array,
+  pet: PropTypes.array,
 };

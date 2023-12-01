@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+import Skeleton from '@mui/material/Skeleton';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // utils
@@ -15,7 +16,7 @@ import FileThumbnail from 'src/components/file-thumbnail';
 
 // ----------------------------------------------------------------------
 
-export default function ChatRoomAttachments({ attachments }) {
+export default function ChatRoomAttachments({ attachments, pet }) {
   const collapse = useBoolean(true);
 
   const totalAttachments = attachments.length;
@@ -36,7 +37,7 @@ export default function ChatRoomAttachments({ attachments }) {
       }}
     >
       <Box component="span" sx={{ flexGrow: 1 }}>
-        Attachments ({totalAttachments})
+        Records & Documents ({totalAttachments})
       </Box>
       <Iconify
         width={16}
@@ -51,55 +52,90 @@ export default function ChatRoomAttachments({ attachments }) {
 
   const renderContent = (
     <Scrollbar sx={{ px: 2, py: 2.5 }}>
-      {attachments.map((attachment, index) => (
-        <Stack
-          key={attachment.name + index}
-          spacing={1.5}
-          direction="row"
-          alignItems="center"
-          sx={{ mb: 2 }}
-        >
-          <Stack
-            alignItems="center"
-            justifyContent="center"
-            sx={{
-              width: 40,
-              height: 40,
-              flexShrink: 0,
-              borderRadius: 1,
-              overflow: 'hidden',
-              position: 'relative',
-              backgroundColor: 'background.neutral',
-            }}
-          >
-            <FileThumbnail
-              imageView
-              file={attachment.preview}
-              onDownload={() => console.info('DOWNLOAD')}
-              sx={{ width: 28, height: 28 }}
-            />
-          </Stack>
+      {attachments.length > 0
+        ? attachments.map((attachment, index) => (
+            <Stack
+              key={attachment.name + index}
+              spacing={1.5}
+              direction="row"
+              alignItems="center"
+              sx={{ mb: 2 }}
+            >
+              <Stack
+                alignItems="center"
+                justifyContent="center"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  flexShrink: 0,
+                  borderRadius: 1,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  backgroundColor: 'background.neutral',
+                }}
+              >
+                <FileThumbnail
+                  imageView
+                  file={attachment.preview}
+                  onDownload={() => console.info('DOWNLOAD')}
+                  sx={{ width: 28, height: 28 }}
+                />
+              </Stack>
 
-          <ListItemText
-            primary={attachment.name}
-            secondary={fDateTime(attachment.createdAt)}
-            primaryTypographyProps={{
-              noWrap: true,
-              typography: 'body2',
-            }}
-            secondaryTypographyProps={{
-              mt: 0.25,
-              noWrap: true,
-              component: 'span',
-              typography: 'caption',
-              color: 'text.disabled',
-            }}
-          />
-        </Stack>
-      ))}
+              <ListItemText
+                primary={attachment.name}
+                secondary={fDateTime(attachment.createdAt)}
+                primaryTypographyProps={{
+                  noWrap: true,
+                  typography: 'body2',
+                }}
+                secondaryTypographyProps={{
+                  mt: 0.25,
+                  noWrap: true,
+                  component: 'span',
+                  typography: 'caption',
+                  color: 'text.disabled',
+                }}
+              />
+            </Stack>
+          ))
+        : Array.from({ length: 6 }).map((_, index) => (
+            <Stack key={index} spacing={1.5} direction="row" alignItems="center" sx={{ mb: 2 }}>
+              <Stack
+                alignItems="center"
+                justifyContent="center"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  flexShrink: 0,
+                  borderRadius: 1,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  backgroundColor: 'background.neutral',
+                }}
+              >
+                <Skeleton variant="rectangular" width={28} height={28} />
+              </Stack>
+
+              <ListItemText
+                primary={<Skeleton variant="text" width={100} />}
+                secondary={<Skeleton variant="text" width={80} />}
+                primaryTypographyProps={{
+                  noWrap: true,
+                  typography: 'body2',
+                }}
+                secondaryTypographyProps={{
+                  mt: 0.25,
+                  noWrap: true,
+                  component: 'span',
+                  typography: 'caption',
+                  color: 'text.disabled',
+                }}
+              />
+            </Stack>
+          ))}
     </Scrollbar>
   );
-
   return (
     <>
       {renderBtn}
@@ -122,4 +158,5 @@ export default function ChatRoomAttachments({ attachments }) {
 
 ChatRoomAttachments.propTypes = {
   attachments: PropTypes.array,
+  pet: PropTypes.array,
 };

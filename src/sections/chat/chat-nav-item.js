@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+import Skeleton from '@mui/material/Skeleton';
 // routes
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -23,7 +24,7 @@ import { useGetNavItem } from './hooks';
 
 // ----------------------------------------------------------------------
 
-export default function ChatNavItem({ selected, collapse, conversation, onCloseMobile }) {
+export default function ChatNavItem({ selected, collapse, conversation, onCloseMobile, pet }) {
   const { user } = useMockedUser();
 
   const mdUp = useResponsive('up', 'md');
@@ -69,7 +70,11 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
 
   const renderSingle = (
     <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-      <Avatar alt={name} src={avatarUrl} sx={{ width: 32, height: 32 }} />
+      {pet.avatar ? (
+        <Avatar alt={name} src={pet.avatar} sx={{ width: 32, height: 32 }} />
+      ) : (
+        <Skeleton variant="circular" width={32} height={32} /> // Display Skeleton if 'pet.avatar' is empty
+      )}
     </Badge>
   );
 
@@ -149,4 +154,5 @@ ChatNavItem.propTypes = {
   conversation: PropTypes.object,
   onCloseMobile: PropTypes.func,
   selected: PropTypes.bool,
+  pet: PropTypes.array,
 };

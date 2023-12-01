@@ -31,7 +31,7 @@ export function useMockedUser() {
   };
 
   const fetchai = {
-    id: '8864c717-587d-472a-929a-8e5f298024da-0',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
     displayName: 'PETASTIC AI',
     email: 'demo@minimals.cc',
     password: 'demo1234',

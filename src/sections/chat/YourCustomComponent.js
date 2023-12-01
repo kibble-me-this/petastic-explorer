@@ -2,16 +2,20 @@ import React from 'react';
 import parse from 'html-react-parser';
 import reactStringReplace from 'react-string-replace';
 import PropTypes from 'prop-types';
+import Button from '@mui/material/Button'; // Import the Button component from Material-UI
 
 import PostItemHorizontal from './food-item-card';
 import PetCard from './pet-card';
+import FetchButton from './fetch-button';
 
 const YourCustomComponent = ({ messageContent }) => {
   if (messageContent.responseType === 'get_pet_passport') {
+    console.log('Value in messageContent: ', messageContent);
+
     // Define your user data
     const userData = {
       name: messageContent.prop.name,
-      coverUrl: messageContent.prop.avatar_file_name,
+      coverUrl: messageContent.prop.avatar,
       role: messageContent.prop.breed,
       totalFollowers: messageContent.prop.gender,
       totalPosts: 'N/A',
@@ -31,6 +35,7 @@ const YourCustomComponent = ({ messageContent }) => {
       </div>
     );
   }
+
   if (messageContent.responseType === 'get_pet_food_recommendations') {
     if (Array.isArray(messageContent.prop)) {
       // Modify the structure of messageContent.prop to match PostItemHorizontal prop types
@@ -69,6 +74,20 @@ const YourCustomComponent = ({ messageContent }) => {
       );
     }
     return <div>{parse(messageContent.body)}</div>;
+  }
+
+  // Check if the message content includes 'login' and return a button if it does
+  if (messageContent.body.includes('login')) {
+    return (
+      <div>
+        {reactStringReplace(parse(messageContent.body), 'opt in button', (match, index) => (
+          <>
+            {/* Create an array of PetCard components with mapped propItems */}
+            <FetchButton user={messageContent.body} /> {/* Pass the same user data to UserCard */}
+          </>
+        ))}
+      </div>
+    );
   }
 
   // Handle other response types or invalid response types

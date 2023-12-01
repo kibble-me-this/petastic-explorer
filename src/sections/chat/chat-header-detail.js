@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
 import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton'; // Import the Skeleton component.
 
 // utils
 import { fToNow } from 'src/utils/format-time';
@@ -15,26 +16,27 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function ChatHeaderDetail({ participants }) {
+export default function ChatHeaderDetail({ participants, pet }) {
   const group = participants.length > 1;
 
   console.log('participants:', participants);
+  console.log('pet:', pet);
 
   if (participants[0].name === 'Lucian Obrien') {
     participants[0].name = 'Grilli • 3yo';
     participants[0].status = 'Shih Tzu';
     participants[0].email = 'Kibble Balance';
-    participants[0].role = '$100 • 1600';
+    participants[0].role = '$110 • 1600';
   } else if (participants[0].name === 'Deja Brady') {
     participants[0].name = 'Skril • 5yo';
     participants[0].status = 'Persian';
     participants[0].email = 'Kibble Balance';
-    participants[0].role = '$100 • 1600';
+    participants[0].role = '$110 • 1600';
   } else if (participants[0].name === 'Harrison Stein') {
     participants[0].name = 'Ollie • Adult';
     participants[0].status = 'Chihuahua Mix';
     participants[0].email = 'Kibble Balance';
-    participants[0].role = '$100 • 1600';
+    participants[0].role = '$110 • 1600';
   }
 
   const singleParticipant = participants[0];
@@ -60,56 +62,71 @@ export default function ChatHeaderDetail({ participants }) {
       flexGrow={1}
       direction="row"
       alignItems="center"
-      justifyContent="space-between" // This will space the items apart horizontally
+      justifyContent="space-between"
       spacing={2}
     >
       <ListItemText
-        primary={singleParticipant.name}
+        primary={
+          pet.name ? (
+            `${pet.name} • ${pet.lifeStage}`
+          ) : (
+            <Skeleton variant="text" width={100} /> // Display Skeleton if 'pet.name' is empty
+          )
+        }
         secondary={
-          singleParticipant.status === 'offline'
-            ? fToNow(singleParticipant.lastActivity)
-            : singleParticipant.status
+          pet.breed ? (
+            pet.breed
+          ) : (
+            <Skeleton variant="text" width={80} /> // Display Skeleton if 'pet.breed' is empty
+          )
         }
         primaryTypographyProps={{
-          component: Typography, // Use Typography component
-          variant: 'chat_body', // Apply the 'chat_body' variant here
+          component: Typography,
+          variant: 'chat_body',
           style: {
-            fontWeight: 'bold', // Set the font weight to normal (not bold)
+            fontWeight: 'bold',
           },
         }}
         secondaryTypographyProps={{
-          component: Typography, // Use Typography component for secondary text
-          variant: 'chat_body', // Apply the 'chat_body' variant to secondary text as well
+          component: Typography,
+          variant: 'chat_body',
           ...(singleParticipant.status !== 'offline' && {
             textTransform: 'capitalize',
           }),
           style: {
-            fontWeight: 'normal', // Set the font weight to normal (not bold)
+            fontWeight: 'normal',
           },
         }}
       />
       <ListItemText
         primary={singleParticipant.email}
         primaryTypographyProps={{
-          component: Typography, // Use Typography component for secondary text
-          variant: 'chat_body', // Apply the 'chat_body' variant to secondary text as well
+          component: Typography,
+          variant: 'chat_body',
           style: {
-            fontWeight: 'normal', // Set the font weight to normal (not bold)
+            fontWeight: 'normal',
           },
         }}
+        // secondary={
+        //   singleParticipant.role === 'offline'
+        //     ? fToNow(singleParticipant.lastActivity)
+        //     : singleParticipant.role
+        // }
         secondary={
-          singleParticipant.role === 'offline'
-            ? fToNow(singleParticipant.lastActivity)
-            : singleParticipant.role
+          pet.kibble_balance ? (
+            pet.kibble_balance
+          ) : (
+            <Skeleton variant="text" width={100} sx={{ marginLeft: 'auto' }} /> // Align to the right edge
+          )
         }
         secondaryTypographyProps={{
-          component: Typography, // Use Typography component for secondary text
-          variant: 'chat_body', // Apply the 'chat_body' variant to secondary text as well
+          component: Typography,
+          variant: 'chat_body',
           ...(singleParticipant.role !== 'offline' && {
             textTransform: 'capitalize',
           }),
           style: {
-            fontWeight: 'normal', // Set the font weight to normal (not bold)
+            fontWeight: 'normal',
           },
         }}
         style={{ textAlign: 'right' }}
@@ -141,4 +158,5 @@ export default function ChatHeaderDetail({ participants }) {
 
 ChatHeaderDetail.propTypes = {
   participants: PropTypes.array,
+  pet: PropTypes.array,
 };

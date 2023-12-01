@@ -37,6 +37,13 @@ export default function ChatView() {
 
   const { user } = useMockedUser();
 
+  const [pet, setPet] = useState({
+    name: '',
+    lifeStage: '',
+    breed: '',
+    avatar: '',
+  });
+
   const settings = useSettingsContext();
 
   const searchParams = useSearchParams();
@@ -63,10 +70,10 @@ export default function ChatView() {
     ? conversation.participants.filter((participant) => participant.id !== user.id)
     : [];
 
-  useEffect(() => {
-    // Navigate to the desired URL when the component loads
-    navigate('/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4');
-  }, [navigate]);
+  // useEffect(() => {
+  //   // Navigate to the desired URL when the component loads
+  //   navigate('/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4');
+  // }, [navigate]);
 
   // useEffect(() => {
   //   if (conversationError || !selectedConversationId) {
@@ -81,7 +88,7 @@ export default function ChatView() {
   const [button1Text, setButton1Text] = useState('');
 
   const handleButton1Click = () => {
-    setInputMessage('i need a food recommendation for a french bulldog');
+    setInputMessage(`i need a food recommendation for a ${pet.breed}`);
 
     // Call the function to set the button text
     setShowButton1(false);
@@ -89,7 +96,7 @@ export default function ChatView() {
   };
 
   const handleButton2Click = () => {
-    setInputMessage('i need an html list of training tips for a french bulldog');
+    setInputMessage(`i need an html list of training tips for a ${pet.breed}`);
     setShowButton1(false);
     setShowButton2(false);
   };
@@ -116,7 +123,7 @@ export default function ChatView() {
       sx={{ pr: 1, pl: 2.5, py: 1, minHeight: 72 }}
     >
       {selectedConversationId ? (
-        <>{details && <ChatHeaderDetail participants={participants} />}</>
+        <>{details && <ChatHeaderDetail participants={participants} pet={pet} />}</>
       ) : (
         <ChatHeaderCompose
           contacts={contacts}
@@ -133,6 +140,7 @@ export default function ChatView() {
       conversations={conversations}
       loading={conversationsLoading}
       selectedConversationId={selectedConversationId}
+      pet={pet}
     />
   );
 
@@ -143,6 +151,8 @@ export default function ChatView() {
         height: 1,
         overflow: 'hidden',
         backgroundImage: 'url(/assets/background/chat_bg.svg)',
+        backgroundSize: '100% 100%', // Make the background image cover the entire Stack
+        backgroundRepeat: 'no-repeat', //
       }}
     >
       <ChatMessageList messages={conversation?.messages} participants={participants} />
@@ -171,7 +181,7 @@ export default function ChatView() {
                 variant="chat_author"
                 sx={{ fontWeight: 'normal', textTransform: 'none' }}
               >
-                for your French Bulldog
+                for your {pet.breed}
               </Typography>
             </Stack>
             <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#808080' }} />{' '}
@@ -198,7 +208,7 @@ export default function ChatView() {
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="chat_author">Get training advice</Typography>
               <Typography variant="chat_author" sx={{ fontWeight: 'normal' }}>
-                for your French Bulldog
+                for your {pet.breed}
               </Typography>
             </Stack>
             <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#808080' }} />{' '}
@@ -213,6 +223,7 @@ export default function ChatView() {
         disabled={!recipients.length && !selectedConversationId}
         onInputTyping={handleInputTyping} // Pass a prop to track typing
         inputMessage={inputMessage}
+        setPet={setPet} // Pass setPet as a prop
       />
     </Stack>
   );
@@ -223,7 +234,7 @@ export default function ChatView() {
         component={Paper}
         variant="outlined"
         alignItems="center"
-        // spacing={{ xs: 3, md: 5 }}
+        spacing={{ xs: 3, md: 5 }}
         sx={{
           // borderRadius: 2,
           bgcolor: 'unset',
@@ -240,8 +251,8 @@ export default function ChatView() {
           direction="row"
           sx={{
             backgroundColor: '#F2E1DE',
-            width: '400px',
-            height: '750px',
+            width: '40vh',
+            height: '72vh',
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Add your desired shadow settings here
           }}
         >
@@ -267,7 +278,9 @@ export default function ChatView() {
             >
               {renderMessages}
 
-              {details && <ChatRoom conversation={conversation} participants={participants} />}
+              {details && (
+                <ChatRoom conversation={conversation} participants={participants} pet={pet} />
+              )}
             </Stack>{' '}
           </Stack>
         </Stack>

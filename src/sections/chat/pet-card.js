@@ -64,7 +64,6 @@ export default function UserCard({ user }) {
         <div style={{ flex: 1 }} />
         <Image
           src="assets/images/avatars/near.svg"
-          alt={coverUrl}
           // ratio="1/1"
           // overlay={alpha(theme.palette.grey[900], 0.48)}
           sx={{ mr: 2.5, mb: 2.5 }}

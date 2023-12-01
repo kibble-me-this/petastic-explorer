@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 // hooks
 import { useMockedUser } from 'src/hooks/use-mocked-user';
@@ -31,6 +32,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
 
   console.log('------> message.body:', message.body);
   console.log('------> message.prop:', message.prop);
+  console.log('------> me', me);
 
   const { firstName, avatarUrl } = senderDetails;
 
@@ -96,11 +98,16 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
     if (message.prop) {
       return <YourCustomComponent messageContent={content} />;
     }
+    if (message.body.includes('login')) {
+      return <YourCustomComponent messageContent={content} />;
+    }
     return <div className={determinedStyle}>{parse(content.body)}</div>;
   };
 
   // Determine which callback function to use based on the flag in message.body
   const renderContent = () => {
+    console.log('Calling renderContent: ', message);
+
     const bodyContent = (
       <div>
         <Box sx={{ paddingTop: 1.5 }}>{message.body}</Box>

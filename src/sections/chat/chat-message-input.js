@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { sub } from 'date-fns';
 import { useRef, useState, useCallback, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 // @mui
 import Stack from '@mui/material/Stack';
 import InputBase from '@mui/material/InputBase';
@@ -18,11 +19,171 @@ import uuidv4 from 'src/utils/uuidv4';
 import Iconify from 'src/components/iconify';
 // api
 import { sendMessage, createConversation } from 'src/api/chat';
-import { sendToOpenAI } from '../../api/openai'; // Your OpenAI API integration
+import { set } from 'lodash';
+import { sendToOpenAI, sendMockMessage } from '../../api/openai'; // Your OpenAI API integration
 
 const MAX_LINES = 4; // Define your maximum number of lines here
 
-// ----------------------------------------------------------------------
+// Define the sendOpenaiMessage function within your component
+async function sendLocalMessage(
+  openaiMessage,
+  selectedConversationId,
+  setPet,
+  user,
+  conversationData,
+  myContact,
+  setConversationData,
+  setAiIsLoading,
+  clearOpenaiMessage
+) {
+  try {
+    if (openaiMessage) {
+      // Set isLoading to true before making the request
+      setAiIsLoading(true);
+      console.log(setPet);
+
+      // Construct the user's message object
+      const userMessage = {
+        id: uuidv4(),
+        attachments: [],
+        body: openaiMessage,
+        contentType: 'text',
+        createdAt: new Date(),
+        senderId: myContact.id,
+      };
+
+      // Update the conversation data to include the user's message
+      // setConversationData((prevConversationData) => ({
+      //   ...prevConversationData,
+      //   messages: [...prevConversationData.messages, userMessage],
+      // }));
+
+      // // Wrap the message object in an array with the n property
+      const messageArray = [
+        {
+          role: 'user',
+          content: openaiMessage,
+        },
+      ];
+
+      sendMockMessage(selectedConversationId, messageArray, user);
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    // Set isLoading to false when you're done
+    setAiIsLoading(false);
+  }
+}
+
+// Define the sendOpenaiMessage function within your component
+async function sendOpenaiMessage(
+  openaiMessage,
+  selectedConversationId,
+  setPet,
+  user,
+  conversationData,
+  myContact,
+  setConversationData,
+  setAiIsLoading,
+  clearOpenaiMessage
+) {
+  try {
+    if (openaiMessage) {
+      // Set isLoading to true before making the request
+      setAiIsLoading(true);
+      console.log(setPet);
+
+      // Construct the user's message object
+      const userMessage = {
+        id: uuidv4(),
+        attachments: [],
+        body: openaiMessage,
+        contentType: 'text',
+        createdAt: new Date(),
+        senderId: myContact.id,
+      };
+
+      // Update the conversation data to include the user's message
+      // setConversationData((prevConversationData) => ({
+      //   ...prevConversationData,
+      //   messages: [...prevConversationData.messages, userMessage],
+      // }));
+
+      // Wrap the message object in an array with the n property
+      const messageArray = [
+        {
+          role: 'user',
+          content: openaiMessage,
+        },
+      ];
+
+      // Send the user's message to the OpenAI API
+      const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, user);
+
+      console.log('------> openaiResponse:', openaiResponse);
+
+      // Handle the OpenAI response
+      if (openaiResponse) {
+        const petData = {};
+
+        if (openaiResponse?.data?.props?.name) {
+          petData.name = openaiResponse?.data?.props?.name;
+        }
+
+        if (openaiResponse?.data?.props?.age?.life_stage) {
+          petData.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
+        }
+
+        if (openaiResponse?.data?.props?.breed) {
+          petData.breed = openaiResponse?.data?.props?.breed;
+        }
+
+        if (openaiResponse?.data?.props?.avatar) {
+          petData.avatar = openaiResponse?.data?.props?.avatar;
+        }
+
+        if (Object.keys(petData).length > 0) {
+          // Only set petData if it has properties
+          setPet(petData);
+        }
+
+        // Access participants from conversationData
+        const participants = conversationData.participants;
+
+        console.log('------> participants:', participants);
+        console.log('------> myContact:', myContact);
+
+        // Generate a new unique ID for the response message
+        const openaiResponseMessage = {
+          id: uuidv4(),
+          body: openaiResponse.data.content,
+          contentType: 'text',
+          createdAt: new Date(),
+          senderId: participants[0].id, // TODO: ref fetchai id
+        };
+
+        // Update the conversation data again to include the OpenAI response
+        setConversationData((prevConversationData) => ({
+          ...prevConversationData,
+          messages: [...prevConversationData.messages, openaiResponseMessage],
+        }));
+
+        // Clear the input field
+        clearOpenaiMessage();
+
+        console.log('User Message:', userMessage);
+        console.log('OpenAI Response Message:', openaiResponseMessage);
+        console.log('Updated Conversation Data:', conversationData);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    // Set isLoading to false when you're done
+    setAiIsLoading(false);
+  }
+}
 
 export default function ChatMessageInput({
   recipients,
@@ -34,10 +195,19 @@ export default function ChatMessageInput({
   inputMessage, // Receive the prop
   onTyping,
   onInputTyping, // Add this prop
+  setPet,
 }) {
   const router = useRouter();
 
-  const { user } = useMockedUser();
+  const location = useLocation();
+
+  // Use the URLSearchParams API to extract the petPassport value from the URL
+  const petPassport = useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get('petPassport') || ''; // Provide a default value if not found
+  }, [location.search]);
+
+  const { user, fetchai } = useMockedUser();
 
   const fileRef = useRef(null);
 
@@ -65,6 +235,22 @@ export default function ChatMessageInput({
       status: 'online',
     }),
     [user]
+  );
+
+  const fetchContact = useMemo(
+    () => ({
+      id: fetchai.id,
+      role: fetchai.role,
+      email: fetchai.email,
+      address: fetchai.address,
+      name: fetchai.displayName,
+      lastActivity: new Date(),
+      avatarUrl: fetchai.photoURL,
+      phoneNumber: fetchai.phoneNumber,
+      petPassport,
+      status: 'online',
+    }),
+    [fetchai, petPassport]
   );
 
   const messageData = useMemo(
@@ -189,6 +375,7 @@ export default function ChatMessageInput({
     },
     [onInputTyping]
   );
+
   useEffect(() => {
     console.log('Updated Conversation Data:', conversationData);
   }, [conversationData]);
@@ -201,77 +388,180 @@ export default function ChatMessageInput({
   }, [inputMessage]);
 
   const [isAiLoading, setAiIsLoading] = useState(false);
+  // Define sentHelloMessage and setSentHelloMessage
+  const [sentHelloMessage, setSentHelloMessage] = useState(false);
+
+  // Add this useEffect to send a predefined message to OpenAI once
+  useEffect(() => {
+    let timer; // Declare the timer variable
+
+    if (!sentHelloMessage) {
+      const predefinedLocalMessage = 'Hey there html login button'; // Your predefined message
+      const predefinedMessage = 'Hi, Im FetchAi. Let me turn on your super pawers.'; // Your predefined message
+
+      timer = setTimeout(async () => {
+        if (predefinedMessage) {
+          setSentHelloMessage(true); // Mark the message as sent
+
+          // await sendLocalMessage(
+          //   predefinedLocalMessage,
+          //   selectedConversationId,
+          //   setPet,
+          //   user,
+          //   conversationData,
+          //   myContact,
+          //   setConversationData,
+          //   setAiIsLoading,
+          //   // clearOpenaiMessage,
+          //   () => setOpenaiMessage('') // Callback to clear openaiMessage
+          // );
+
+          await sendOpenaiMessage(
+            predefinedMessage,
+            selectedConversationId,
+            setPet,
+            fetchContact,
+            conversationData,
+            myContact,
+            setConversationData,
+            setAiIsLoading,
+            // clearOpenaiMessage,
+            () => setOpenaiMessage('') // Callback to clear openaiMessage
+          );
+        }
+      }, 3000); // 3 seconds delay
+    }
+
+    // Cleanup function to clear the timer if the component unmounts
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [
+    sentHelloMessage,
+    selectedConversationId,
+    fetchContact,
+    conversationData,
+    myContact,
+    setConversationData,
+    setAiIsLoading,
+    // clearOpenaiMessage,
+    setPet,
+  ]);
+
+  // const handleSendOpenaiMessage = useCallback(
+  //   async (event) => {
+  //     try {
+  //       // Set isLoading to true before making the request
+  //       setAiIsLoading(true);
+
+  //       if (event.key === 'Enter') {
+  //         if (openaiMessage) {
+  //           // Construct the user's message object
+  //           const userMessage = {
+  //             id: uuidv4(),
+  //             attachments: [],
+  //             body: openaiMessage,
+  //             contentType: 'text',
+  //             createdAt: new Date(),
+  //             senderId: myContact.id,
+  //           };
+
+  //           // Update the conversation data to include the user's message
+  //           setConversationData((prevConversationData) => ({
+  //             ...prevConversationData,
+  //             messages: [...prevConversationData.messages, userMessage],
+  //           }));
+
+  //           // Wrap the message object in an array with the n property
+  //           const messageArray = [
+  //             {
+  //               role: 'user',
+  //               content: openaiMessage,
+  //             },
+  //           ];
+
+  //           // Send the user's message to the OpenAI API
+  //           const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, user);
+
+  //           // Handle the OpenAI response
+  //           if (openaiResponse) {
+  //             // Access participants from conversationData
+  //             const participants = conversationData.participants;
+  //             // Determine the ID of the other participant
+  //             // const otherParticipantId = participants.find((participant) => participant.id !== myContact.id).id;
+
+  //             console.log('participants:id', participants[0].id);
+  //             console.log('participants:name', participants[0].name);
+
+  //             // Generate a new unique ID for the response message
+  //             const openaiResponseMessage = {
+  //               id: uuidv4(),
+  //               body: openaiResponse.data.content,
+  //               contentType: 'text',
+  //               createdAt: new Date(),
+  //               senderId: participants[0].id, // TODO: ref fetchai id
+  //             };
+
+  //             // Update the conversation data again to include the OpenAI response
+  //             setConversationData((prevConversationData) => ({
+  //               ...prevConversationData,
+  //               messages: [...prevConversationData.messages, openaiResponseMessage],
+  //             }));
+
+  //             // Clear the input field
+  //             setOpenaiMessage('');
+
+  //             console.log('User Message:', userMessage);
+  //             console.log('OpenAI Response Message:', openaiResponseMessage);
+  //             console.log('Updated Conversation Data:', conversationData);
+
+  //             // Set isLoading to false when you're done
+  //             setAiIsLoading(false);
+  //           }
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     } finally {
+  //       // Set isLoading to false when you're done
+  //       setAiIsLoading(false);
+  //     }
+  //   },
+  //   [
+  //     openaiMessage,
+  //     setConversationData,
+  //     user,
+  //     conversationData,
+  //     myContact.id,
+  //     selectedConversationId,
+  //   ]
+  // );
 
   const handleSendOpenaiMessage = useCallback(
     async (event) => {
       try {
         // Set isLoading to true before making the request
         setAiIsLoading(true);
+        console.log('setPEEEEt: ', setPet);
+        // setPet({ name: 'Charlie', lifeStage: 'Adult', breed: 'Shih Tzu' });
 
         if (event.key === 'Enter') {
           if (openaiMessage) {
-            // Construct the user's message object
-            const userMessage = {
-              id: uuidv4(),
-              attachments: [],
-              body: openaiMessage,
-              contentType: 'text',
-              createdAt: new Date(),
-              senderId: myContact.id,
-            };
-
-            // Update the conversation data to include the user's message
-            setConversationData((prevConversationData) => ({
-              ...prevConversationData,
-              messages: [...prevConversationData.messages, userMessage],
-            }));
-
-            // Wrap the message object in an array with the n property
-            const messageArray = [
-              {
-                role: 'user',
-                content: openaiMessage,
-              },
-            ];
-
-            // Send the user's message to the OpenAI API
-            const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, user);
-
-            // Handle the OpenAI response
-            if (openaiResponse) {
-              // Access participants from conversationData
-              const participants = conversationData.participants;
-              // Determine the ID of the other participant
-              // const otherParticipantId = participants.find((participant) => participant.id !== myContact.id).id;
-
-              console.log('participants:id', participants[0].id);
-              console.log('participants:name', participants[0].name);
-
-              // Generate a new unique ID for the response message
-              const openaiResponseMessage = {
-                id: uuidv4(),
-                body: openaiResponse.data.content,
-                contentType: 'text',
-                createdAt: new Date(),
-                senderId: participants[0].id, // TODO: ref fetchai id
-              };
-
-              // Update the conversation data again to include the OpenAI response
-              setConversationData((prevConversationData) => ({
-                ...prevConversationData,
-                messages: [...prevConversationData.messages, openaiResponseMessage],
-              }));
-
-              // Clear the input field
-              setOpenaiMessage('');
-
-              console.log('User Message:', userMessage);
-              console.log('OpenAI Response Message:', openaiResponseMessage);
-              console.log('Updated Conversation Data:', conversationData);
-
-              // Set isLoading to false when you're done
-              setAiIsLoading(false);
-            }
+            // Call the sendOpenaiMessage function here
+            await sendOpenaiMessage(
+              openaiMessage,
+              selectedConversationId,
+              setPet,
+              user,
+              conversationData,
+              myContact,
+              setConversationData,
+              setAiIsLoading,
+              // clearOpenaiMessage,
+              () => setOpenaiMessage('') // Callback to clear openaiMessage
+            );
           }
         }
       } catch (error) {
@@ -283,11 +573,14 @@ export default function ChatMessageInput({
     },
     [
       openaiMessage,
-      setConversationData,
+      selectedConversationId,
       user,
       conversationData,
-      myContact.id,
-      selectedConversationId,
+      myContact,
+      setConversationData,
+      setAiIsLoading,
+      // clearOpenaiMessage,
+      setPet,
     ]
   );
 
@@ -374,4 +667,5 @@ ChatMessageInput.propTypes = {
   inputMessage: PropTypes.string,
   onTyping: PropTypes.func, // This should be func, not bool
   onInputTyping: PropTypes.func, // Add this line
+  setPet: PropTypes.func,
 };

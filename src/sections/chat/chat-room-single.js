@@ -10,21 +10,37 @@ import ListItemButton from '@mui/material/ListItemButton';
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
 import Iconify from 'src/components/iconify';
+import Skeleton from '@mui/material/Skeleton'; // Import Skeleton component
 
 // ----------------------------------------------------------------------
 
-export default function ChatRoomSingle({ participant }) {
+export default function ChatRoomSingle({ participant, pet }) {
   const collapse = useBoolean(true);
 
   const { name, avatarUrl, role, address, phoneNumber, email } = participant;
+  const { _address, setAddress } = useBoolean(false);
+  const { _email, setEmail } = useBoolean(false);
+  const { _phoneNumber, setPhoneNumber } = useBoolean(false);
 
   const renderInfo = (
     <Stack alignItems="center" sx={{ py: 5 }}>
-      <Avatar alt={name} src={avatarUrl} sx={{ width: 96, height: 96, mb: 2 }} />
-      <Typography variant="subtitle1">{name}</Typography>
-      <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
-        {role}
-      </Typography>
+      {pet.avatar ? (
+        <Avatar alt={pet.name} src={pet.avatar} sx={{ width: 96, height: 96, mb: 2 }} />
+      ) : (
+        <Skeleton variant="circular" width={96} height={96} />
+      )}
+      {pet.name ? (
+        <Typography variant="subtitle1">{pet.name}</Typography>
+      ) : (
+        <Skeleton variant="text" width={120} height={24} />
+      )}
+      {pet.breed ? (
+        <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
+          {pet.breed}
+        </Typography>
+      ) : (
+        <Skeleton variant="text" width={150} height={18} />
+      )}
     </Stack>
   );
 
@@ -43,7 +59,7 @@ export default function ChatRoomSingle({ participant }) {
       }}
     >
       <Box component="span" sx={{ flexGrow: 1 }}>
-        Information
+        Emergency Information
       </Box>
       <Iconify
         width={16}
@@ -65,31 +81,56 @@ export default function ChatRoomSingle({ participant }) {
         },
       }}
     >
-      <Stack direction="row">
-        <Iconify icon="mingcute:location-fill" />
-        <Typography variant="body2">{address}</Typography>
-      </Stack>
+      {/* Address with Skeleton */}
+      {_address ? (
+        <Stack direction="row">
+          <Iconify icon="mingcute:location-fill" />
+          <Typography variant="body2">{address}</Typography>
+        </Stack>
+      ) : (
+        <Stack direction="row">
+          <Iconify icon="mingcute:location-fill" />
+          <Stack direction="column">
+            <Skeleton variant="text" width={150} />
+            <Skeleton variant="text" width={150} />
+          </Stack>
+        </Stack>
+      )}
 
-      <Stack direction="row">
-        <Iconify icon="solar:phone-bold" />
-        <Typography variant="body2">{phoneNumber}</Typography>
-      </Stack>
+      {/* Phone Number with Skeleton */}
+      {_phoneNumber ? (
+        <Stack direction="row">
+          <Iconify icon="solar:phone-bold" />
+          <Typography variant="body2">{phoneNumber}</Typography>
+        </Stack>
+      ) : (
+        <Stack direction="row">
+          <Iconify icon="solar:phone-bold" />
+          <Skeleton variant="text" width={100} />
+        </Stack>
+      )}
 
-      <Stack direction="row">
-        <Iconify icon="fluent:mail-24-filled" />
-        <Typography variant="body2" noWrap>
-          {email}
-        </Typography>
-      </Stack>
+      {/* Email with Skeleton */}
+      {_email ? (
+        <Stack direction="row">
+          <Iconify icon="fluent:mail-24-filled" />
+          <Typography variant="body2" noWrap>
+            {email}
+          </Typography>
+        </Stack>
+      ) : (
+        <Stack direction="row">
+          <Iconify icon="fluent:mail-24-filled" />
+          <Skeleton variant="text" width={150} />
+        </Stack>
+      )}
     </Stack>
   );
 
   return (
     <>
       {renderInfo}
-
       {renderBtn}
-
       <div>
         <Collapse in={collapse.value}>{renderContent}</Collapse>
       </div>
@@ -99,4 +140,5 @@ export default function ChatRoomSingle({ participant }) {
 
 ChatRoomSingle.propTypes = {
   participant: PropTypes.object,
+  pet: PropTypes.array,
 };

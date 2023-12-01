@@ -4,8 +4,10 @@ import uuidv4 from '../utils/uuidv4';
 import axios, { endpoints, fetcher } from '../utils/axios';
 
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
-// const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
+// const API_URL = process.env.REACT_APP_API_URL;
+
+let isFirstCall = true; // Add this variable to track the first call
 
 export async function sendToOpenAI(conversationId, message, user) {
   try {
@@ -40,6 +42,13 @@ export async function sendToOpenAI(conversationId, message, user) {
         },
         false
       );
+
+      if (isFirstCall) {
+        // Modify the message content only on the first call
+        const petPassport = user.petPassport;
+        message[0].content = petPassport;
+        isFirstCall = false; // Mark the first call as done
+      }
 
       // Send a request to the OpenAI API for text message
       const response = await axios.post(API_URL, message, {
@@ -105,6 +114,49 @@ export async function sendToOpenAI(conversationId, message, user) {
       }
 
       return response;
+    }
+
+    // Return null for unsupported message types
+    return null;
+  } catch (error) {
+    console.error('Error sending request to OpenAI:', error);
+    throw error;
+  }
+}
+
+export async function sendMockMessage(conversationId, message, user) {
+  try {
+    // Check if the message is of the first type (text message)
+    if (message[0]?.role === 'user' && message[0]?.content) {
+      console.log('Text Message content:', message[0].content);
+
+      // Update the conversation with the user's text message
+      const userMessage = {
+        id: uuidv4(),
+        body: message[0].content,
+        contentType: 'text',
+        createdAt: new Date(),
+        senderId: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
+      };
+
+      console.log('userMessage', userMessage);
+
+      // First mutate call to update the conversation with the user's message
+      mutate(
+        [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }],
+        (currentData) => {
+          const { conversation: currentConversation } = currentData || { conversation: null };
+          const conversation = {
+            ...currentConversation,
+            messages: [...currentConversation.messages, userMessage],
+          };
+          console.log('convrsation', conversation);
+          return {
+            conversation,
+          };
+        },
+        false
+      );
     }
 
     // Return null for unsupported message types
