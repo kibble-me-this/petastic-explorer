@@ -12,7 +12,7 @@ import ChatMessageItem from './chat-message-item';
 
 // ----------------------------------------------------------------------
 
-export default function ChatMessageList({ messages = [], participants }) {
+export default function ChatMessageList({ messages = [], participants, onAiLoadingChange }) {
   const { messagesEndRef } = useMessagesScroll(messages);
 
   const slides = messages
@@ -33,6 +33,7 @@ export default function ChatMessageList({ messages = [], participants }) {
               participants={participants}
               onOpenLightbox={() => lightbox.onOpen(message.body)}
               delay={index * 1} // Adjust the delay duration (in milliseconds) as needed
+              onAiLoadingChange={onAiLoadingChange}
             />
           ))}
         </Box>
@@ -51,10 +52,11 @@ export default function ChatMessageList({ messages = [], participants }) {
 ChatMessageList.propTypes = {
   messages: PropTypes.array,
   participants: PropTypes.array,
+  onAiLoadingChange: PropTypes.array,
 };
 
 // DelayedMessageItem component to render message items with a delay
-function DelayedMessageItem({ message, participants, onOpenLightbox, delay }) {
+function DelayedMessageItem({ message, participants, onOpenLightbox, delay, onAiLoadingChange }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ function DelayedMessageItem({ message, participants, onOpenLightbox, delay }) {
       message={message}
       participants={participants}
       onOpenLightbox={onOpenLightbox}
+      onAiLoadingChange={onAiLoadingChange}
     />
   ) : null;
 }
@@ -82,4 +85,5 @@ DelayedMessageItem.propTypes = {
   participants: PropTypes.array,
   onOpenLightbox: PropTypes.func,
   delay: PropTypes.number, // Delay duration in milliseconds
+  onAiLoadingChange: PropTypes.func,
 };

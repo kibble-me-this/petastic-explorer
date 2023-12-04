@@ -4,9 +4,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useMockedUser } from 'src/hooks/use-mocked-user';
 
-import { sendToOpenAI } from '../../api/openai'; // Your OpenAI API integration
+import { sendToOpenAI } from '../../api/openai';
 
-export default function FetchButton({ value }) {
+export default function FetchButton({ value, onAiLoadingChange }) {
   const { title } = value;
   const [buttonClicked, setButtonClicked] = useState(false);
   const { user, fetchai } = useMockedUser();
@@ -15,9 +15,10 @@ export default function FetchButton({ value }) {
     if (!buttonClicked) {
       // Prevent multiple clicks
       setButtonClicked(true);
+      onAiLoadingChange(true);
 
       try {
-        const openaiMessage = '0e189b7ec5ba5eafbe52975f9f14bf40'; // Your predefined message
+        const openaiMessage = 'Yes, i opt me in to the Paws Before Profits program'; // Your predefined message
         const selectedConversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4';
 
         // Wrap the message object in an array with the n property
@@ -38,12 +39,14 @@ export default function FetchButton({ value }) {
 
         // Reset the buttonClicked state to false once the API request is complete
         setButtonClicked(false);
+        onAiLoadingChange(false);
       } catch (error) {
         // Handle any errors from the API request
         console.error('OpenAI API Error:', error);
 
         // Reset the buttonClicked state to false if an error occurs
-        setButtonClicked(false);
+        // setButtonClicked(false);
+        onAiLoadingChange(false);
       }
     }
   };
@@ -63,7 +66,7 @@ export default function FetchButton({ value }) {
         onClick={handleButtonClick}
         disabled={buttonClicked}
       >
-        {buttonClicked ? 'Processing...' : 'Authenticated'}
+        {buttonClicked ? 'Count me in' : 'Yes. I opt in'}
       </Button>
     </>
   );
@@ -71,4 +74,5 @@ export default function FetchButton({ value }) {
 
 FetchButton.propTypes = {
   value: PropTypes.string,
+  onAiLoadingChange: PropTypes.func,
 };

@@ -24,166 +24,7 @@ import { sendToOpenAI, sendMockMessage } from '../../api/openai'; // Your OpenAI
 
 const MAX_LINES = 4; // Define your maximum number of lines here
 
-// Define the sendOpenaiMessage function within your component
-async function sendLocalMessage(
-  openaiMessage,
-  selectedConversationId,
-  setPet,
-  user,
-  conversationData,
-  myContact,
-  setConversationData,
-  setAiIsLoading,
-  clearOpenaiMessage
-) {
-  try {
-    if (openaiMessage) {
-      // Set isLoading to true before making the request
-      setAiIsLoading(true);
-      console.log(setPet);
-
-      // Construct the user's message object
-      const userMessage = {
-        id: uuidv4(),
-        attachments: [],
-        body: openaiMessage,
-        contentType: 'text',
-        createdAt: new Date(),
-        senderId: myContact.id,
-      };
-
-      // Update the conversation data to include the user's message
-      // setConversationData((prevConversationData) => ({
-      //   ...prevConversationData,
-      //   messages: [...prevConversationData.messages, userMessage],
-      // }));
-
-      // // Wrap the message object in an array with the n property
-      const messageArray = [
-        {
-          role: 'user',
-          content: openaiMessage,
-        },
-      ];
-
-      sendMockMessage(selectedConversationId, messageArray, user);
-    }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    // Set isLoading to false when you're done
-    setAiIsLoading(false);
-  }
-}
-
-// Define the sendOpenaiMessage function within your component
-async function sendOpenaiMessage(
-  openaiMessage,
-  selectedConversationId,
-  setPet,
-  user,
-  conversationData,
-  myContact,
-  setConversationData,
-  setAiIsLoading,
-  clearOpenaiMessage
-) {
-  try {
-    if (openaiMessage) {
-      // Set isLoading to true before making the request
-      setAiIsLoading(true);
-      console.log(setPet);
-
-      // Construct the user's message object
-      const userMessage = {
-        id: uuidv4(),
-        attachments: [],
-        body: openaiMessage,
-        contentType: 'text',
-        createdAt: new Date(),
-        senderId: myContact.id,
-      };
-
-      // Update the conversation data to include the user's message
-      // setConversationData((prevConversationData) => ({
-      //   ...prevConversationData,
-      //   messages: [...prevConversationData.messages, userMessage],
-      // }));
-
-      // Wrap the message object in an array with the n property
-      const messageArray = [
-        {
-          role: 'user',
-          content: openaiMessage,
-        },
-      ];
-
-      // Send the user's message to the OpenAI API
-      const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, user);
-
-      console.log('------> openaiResponse:', openaiResponse);
-
-      // Handle the OpenAI response
-      if (openaiResponse) {
-        const petData = {};
-
-        if (openaiResponse?.data?.props?.name) {
-          petData.name = openaiResponse?.data?.props?.name;
-        }
-
-        if (openaiResponse?.data?.props?.age?.life_stage) {
-          petData.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
-        }
-
-        if (openaiResponse?.data?.props?.breed) {
-          petData.breed = openaiResponse?.data?.props?.breed;
-        }
-
-        if (openaiResponse?.data?.props?.avatar) {
-          petData.avatar = openaiResponse?.data?.props?.avatar;
-        }
-
-        if (Object.keys(petData).length > 0) {
-          // Only set petData if it has properties
-          setPet(petData);
-        }
-
-        // Access participants from conversationData
-        const participants = conversationData.participants;
-
-        console.log('------> participants:', participants);
-        console.log('------> myContact:', myContact);
-
-        // Generate a new unique ID for the response message
-        const openaiResponseMessage = {
-          id: uuidv4(),
-          body: openaiResponse.data.content,
-          contentType: 'text',
-          createdAt: new Date(),
-          senderId: participants[0].id, // TODO: ref fetchai id
-        };
-
-        // Update the conversation data again to include the OpenAI response
-        setConversationData((prevConversationData) => ({
-          ...prevConversationData,
-          messages: [...prevConversationData.messages, openaiResponseMessage],
-        }));
-
-        // Clear the input field
-        clearOpenaiMessage();
-
-        console.log('User Message:', userMessage);
-        console.log('OpenAI Response Message:', openaiResponseMessage);
-        console.log('Updated Conversation Data:', conversationData);
-      }
-    }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    // Set isLoading to false when you're done
-    setAiIsLoading(false);
-  }
-}
+// ----------------------------------------------------------------------
 
 export default function ChatMessageInput({
   recipients,
@@ -191,11 +32,12 @@ export default function ChatMessageInput({
   //
   disabled,
   selectedConversationId,
-  // isAiLoading, // Add the loading prop to the propTypes
   inputMessage, // Receive the prop
   onTyping,
   onInputTyping, // Add this prop
   setPet,
+  isAiLoading,
+  onAiLoadingChange,
 }) {
   const router = useRouter();
 
@@ -387,7 +229,7 @@ export default function ChatMessageInput({
     }
   }, [inputMessage]);
 
-  const [isAiLoading, setAiIsLoading] = useState(false);
+  // const [isAiLoading, onAiLoadingChange] = useState(false);
   // Define sentHelloMessage and setSentHelloMessage
   const [sentHelloMessage, setSentHelloMessage] = useState(false);
 
@@ -396,25 +238,13 @@ export default function ChatMessageInput({
     let timer; // Declare the timer variable
 
     if (!sentHelloMessage) {
-      const predefinedLocalMessage = 'Hey there html login button'; // Your predefined message
-      const predefinedMessage = 'Hi, Im FetchAi. Let me turn on your super pawers.'; // Your predefined message
+      const predefinedLocalMessage =
+        'Shelter name is part of the Paws Before Profits program. This means that 5% of all the purchases you make for pet name, will be shared with shelter name. But first, you have to opt in.  html login button'; // Your predefined message
+      const predefinedMessage = 'Hi, Im FetchAi. Let me turn on your super pawers.';
 
       timer = setTimeout(async () => {
         if (predefinedMessage) {
           setSentHelloMessage(true); // Mark the message as sent
-
-          // await sendLocalMessage(
-          //   predefinedLocalMessage,
-          //   selectedConversationId,
-          //   setPet,
-          //   user,
-          //   conversationData,
-          //   myContact,
-          //   setConversationData,
-          //   setAiIsLoading,
-          //   // clearOpenaiMessage,
-          //   () => setOpenaiMessage('') // Callback to clear openaiMessage
-          // );
 
           await sendOpenaiMessage(
             predefinedMessage,
@@ -424,7 +254,20 @@ export default function ChatMessageInput({
             conversationData,
             myContact,
             setConversationData,
-            setAiIsLoading,
+            onAiLoadingChange,
+            // clearOpenaiMessage,
+            () => setOpenaiMessage('') // Callback to clear openaiMessage
+          );
+
+          await sendLocalMessage(
+            predefinedLocalMessage,
+            selectedConversationId,
+            setPet,
+            fetchContact,
+            conversationData,
+            myContact,
+            setConversationData,
+            onAiLoadingChange,
             // clearOpenaiMessage,
             () => setOpenaiMessage('') // Callback to clear openaiMessage
           );
@@ -445,7 +288,7 @@ export default function ChatMessageInput({
     conversationData,
     myContact,
     setConversationData,
-    setAiIsLoading,
+    onAiLoadingChange,
     // clearOpenaiMessage,
     setPet,
   ]);
@@ -454,7 +297,7 @@ export default function ChatMessageInput({
   //   async (event) => {
   //     try {
   //       // Set isLoading to true before making the request
-  //       setAiIsLoading(true);
+  //       onAiLoadingChange(true);
 
   //       if (event.key === 'Enter') {
   //         if (openaiMessage) {
@@ -518,7 +361,7 @@ export default function ChatMessageInput({
   //             console.log('Updated Conversation Data:', conversationData);
 
   //             // Set isLoading to false when you're done
-  //             setAiIsLoading(false);
+  //             onAiLoadingChange(false);
   //           }
   //         }
   //       }
@@ -526,7 +369,7 @@ export default function ChatMessageInput({
   //       console.error(error);
   //     } finally {
   //       // Set isLoading to false when you're done
-  //       setAiIsLoading(false);
+  //       onAiLoadingChange(false);
   //     }
   //   },
   //   [
@@ -543,11 +386,14 @@ export default function ChatMessageInput({
     async (event) => {
       try {
         // Set isLoading to true before making the request
-        setAiIsLoading(true);
+        onAiLoadingChange(true);
         console.log('setPEEEEt: ', setPet);
         // setPet({ name: 'Charlie', lifeStage: 'Adult', breed: 'Shih Tzu' });
 
         if (event.key === 'Enter') {
+          // Prevent the "Enter" key from creating a new line
+          event.preventDefault();
+
           if (openaiMessage) {
             // Call the sendOpenaiMessage function here
             await sendOpenaiMessage(
@@ -558,7 +404,7 @@ export default function ChatMessageInput({
               conversationData,
               myContact,
               setConversationData,
-              setAiIsLoading,
+              onAiLoadingChange,
               // clearOpenaiMessage,
               () => setOpenaiMessage('') // Callback to clear openaiMessage
             );
@@ -568,7 +414,7 @@ export default function ChatMessageInput({
         console.error(error);
       } finally {
         // Set isLoading to false when you're done
-        setAiIsLoading(false);
+        onAiLoadingChange(false);
       }
     },
     [
@@ -578,7 +424,7 @@ export default function ChatMessageInput({
       conversationData,
       myContact,
       setConversationData,
-      setAiIsLoading,
+      onAiLoadingChange,
       // clearOpenaiMessage,
       setPet,
     ]
@@ -627,9 +473,15 @@ export default function ChatMessageInput({
       <InputBase
         multiline // Set the multiline prop to true
         value={openaiMessage || inputMessage} // fallback to inputMessage if openaiMessage is falsy
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            handleSendOpenaiMessage(event);
+          }
+        }}
         // onTyping={handleInputTyping}
-        onKeyUp={handleSendOpenaiMessage}
-        onChange={handleOpenaiMessageChange} // This will call onInputTyping in the parent
+        // onKeyUp={handleSendOpenaiMessage}
+        onChange={handleOpenaiMessageChange}
         placeholder="Ask me pet things..."
         disabled={disabled}
         endAdornment={
@@ -663,9 +515,171 @@ ChatMessageInput.propTypes = {
   onAddRecipients: PropTypes.func,
   recipients: PropTypes.array,
   selectedConversationId: PropTypes.string,
-  // isAiLoading: PropTypes.bool,
   inputMessage: PropTypes.string,
   onTyping: PropTypes.func, // This should be func, not bool
   onInputTyping: PropTypes.func, // Add this line
   setPet: PropTypes.func,
+  isAiLoading: PropTypes.bool,
+  onAiLoadingChange: PropTypes.func,
 };
+
+// Define the sendOpenaiMessage function within your component
+async function sendLocalMessage(
+  openaiMessage,
+  selectedConversationId,
+  setPet,
+  user,
+  conversationData,
+  myContact,
+  setConversationData,
+  onAiLoadingChange,
+  clearOpenaiMessage
+) {
+  try {
+    if (openaiMessage) {
+      // Set isLoading to true before making the request
+      onAiLoadingChange(true);
+      console.log(setPet);
+
+      // Construct the user's message object
+      const userMessage = {
+        id: uuidv4(),
+        attachments: [],
+        body: openaiMessage,
+        contentType: 'text',
+        createdAt: new Date(),
+        senderId: myContact.id,
+      };
+
+      // Update the conversation data to include the user's message
+      // setConversationData((prevConversationData) => ({
+      //   ...prevConversationData,
+      //   messages: [...prevConversationData.messages, userMessage],
+      // }));
+
+      // // Wrap the message object in an array with the n property
+      const messageArray = [
+        {
+          role: 'user',
+          content: openaiMessage,
+        },
+      ];
+
+      sendMockMessage(selectedConversationId, messageArray, user);
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    // Set isLoading to false when you're done
+    onAiLoadingChange(false);
+  }
+}
+
+// Define the sendOpenaiMessage function within your component
+async function sendOpenaiMessage(
+  openaiMessage,
+  selectedConversationId,
+  setPet,
+  user,
+  conversationData,
+  myContact,
+  setConversationData,
+  onAiLoadingChange,
+  clearOpenaiMessage
+) {
+  try {
+    if (openaiMessage) {
+      // Set isLoading to true before making the request
+      onAiLoadingChange(true);
+      console.log(setPet);
+
+      // Construct the user's message object
+      const userMessage = {
+        id: uuidv4(),
+        attachments: [],
+        body: openaiMessage,
+        contentType: 'text',
+        createdAt: new Date(),
+        senderId: myContact.id,
+      };
+
+      // Update the conversation data to include the user's message
+      // setConversationData((prevConversationData) => ({
+      //   ...prevConversationData,
+      //   messages: [...prevConversationData.messages, userMessage],
+      // }));
+
+      // Wrap the message object in an array with the n property
+      const messageArray = [
+        {
+          role: 'user',
+          content: openaiMessage,
+        },
+      ];
+
+      // Clear the input field
+      clearOpenaiMessage();
+
+      // Send the user's message to the OpenAI API
+      const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, user);
+
+      console.log('------> openaiResponse:', openaiResponse);
+
+      // Handle the OpenAI response
+      if (openaiResponse) {
+        const petData = {};
+
+        if (openaiResponse?.data?.props?.name) {
+          petData.name = openaiResponse?.data?.props?.name;
+        }
+
+        if (openaiResponse?.data?.props?.age?.life_stage) {
+          petData.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
+        }
+
+        if (openaiResponse?.data?.props?.breed) {
+          petData.breed = openaiResponse?.data?.props?.breed;
+        }
+
+        if (openaiResponse?.data?.props?.avatar) {
+          petData.avatar = openaiResponse?.data?.props?.avatar;
+        }
+
+        if (Object.keys(petData).length > 0) {
+          // Only set petData if it has properties
+          setPet(petData);
+        }
+
+        // Access participants from conversationData
+        const participants = conversationData.participants;
+
+        console.log('------> participants:', participants);
+        console.log('------> myContact:', myContact);
+
+        // Generate a new unique ID for the response message
+        const openaiResponseMessage = {
+          id: uuidv4(),
+          body: openaiResponse.data.content,
+          contentType: 'text',
+          createdAt: new Date(),
+          senderId: participants[0].id, // TODO: ref fetchai id
+        };
+
+        // Update the conversation data again to include the OpenAI response
+        setConversationData((prevConversationData) => ({
+          ...prevConversationData,
+          messages: [...prevConversationData.messages, openaiResponseMessage],
+        }));
+
+        console.log('User Message:', userMessage);
+        console.log('OpenAI Response Message:', openaiResponseMessage);
+        console.log('Updated Conversation Data:', conversationData);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    // Set isLoading to false when you're done
+    onAiLoadingChange(false);
+  }
+}

@@ -63,6 +63,12 @@ export default function ChatView() {
 
   const { conversation, conversationError } = useGetConversation(`${selectedConversationId}`);
 
+  const [isAiLoading, setIsAiLoading] = useState(false);
+
+  const handleAiLoadingChange = (isLoading) => {
+    setIsAiLoading(isLoading);
+  };
+
   // Step 1: State to hold the message text
   const [inputMessage, setInputMessage] = useState('');
 
@@ -155,8 +161,12 @@ export default function ChatView() {
         backgroundRepeat: 'no-repeat', //
       }}
     >
-      <ChatMessageList messages={conversation?.messages} participants={participants} />
-
+      <ChatMessageList
+        messages={conversation?.messages}
+        participants={participants}
+        onAiLoadingChange={handleAiLoadingChange}
+      />
+      {/** 
       <Stack direction="column" spacing={1} sx={{ mx: 2, mb: 2 }}>
         <Button
           variant="outlined"
@@ -215,15 +225,18 @@ export default function ChatView() {
           </Stack>
         </Button>
       </Stack>
+      */}
       <ChatMessageInput
         recipients={recipients}
         onAddRecipients={handleAddRecipients}
         //
         selectedConversationId={selectedConversationId}
         disabled={!recipients.length && !selectedConversationId}
-        onInputTyping={handleInputTyping} // Pass a prop to track typing
+        onInputTyping={handleInputTyping}
         inputMessage={inputMessage}
-        setPet={setPet} // Pass setPet as a prop
+        setPet={setPet}
+        isAiLoading={isAiLoading}
+        onAiLoadingChange={handleAiLoadingChange}
       />
     </Stack>
   );

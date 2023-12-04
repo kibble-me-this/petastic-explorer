@@ -21,7 +21,12 @@ import YourCustomComponent from './YourCustomComponent';
 
 // ----------------------------------------------------------------------
 
-export default function ChatMessageItem({ message, participants, onOpenLightbox }) {
+export default function ChatMessageItem({
+  message,
+  participants,
+  onOpenLightbox,
+  onAiLoadingChange,
+}) {
   const { user, fetchai } = useMockedUser();
 
   const { me, senderDetails, hasImage } = useGetMessage({
@@ -96,10 +101,10 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
   // Define a function to handle React component flag
   const handleReactComponent = (content) => {
     if (message.prop) {
-      return <YourCustomComponent messageContent={content} />;
+      return <YourCustomComponent messageContent={content} onAiLoadingChange={onAiLoadingChange} />;
     }
-    if (message.body.includes('login')) {
-      return <YourCustomComponent messageContent={content} />;
+    if (message.body.includes('html login button')) {
+      return <YourCustomComponent messageContent={content} onAiLoadingChange={onAiLoadingChange} />;
     }
     return <div className={determinedStyle}>{parse(content.body)}</div>;
   };
@@ -164,7 +169,7 @@ export default function ChatMessageItem({ message, participants, onOpenLightbox 
         {renderInfo}
       </div>
 
-      <div>{renderContent()}</div>
+      {renderContent()}
 
       {hasImage && (
         <Box
@@ -249,4 +254,5 @@ ChatMessageItem.propTypes = {
   message: PropTypes.object,
   onOpenLightbox: PropTypes.func,
   participants: PropTypes.array,
+  onAiLoadingChange: PropTypes.func,
 };

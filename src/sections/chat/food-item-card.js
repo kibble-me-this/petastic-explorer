@@ -31,7 +31,7 @@ import { Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function PostItemHorizontal({ post }) {
+export default function PetFoodCard({ post }) {
   const popover = usePopover();
 
   const router = useRouter();
@@ -242,7 +242,7 @@ export default function PostItemHorizontal({ post }) {
   );
 }
 
-PostItemHorizontal.propTypes = {
+PetFoodCard.propTypes = {
   post: PropTypes.shape({
     author: PropTypes.object,
     coverUrl: PropTypes.string,
