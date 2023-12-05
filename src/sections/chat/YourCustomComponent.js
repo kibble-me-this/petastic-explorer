@@ -2,7 +2,8 @@ import React from 'react';
 import parse from 'html-react-parser';
 import reactStringReplace from 'react-string-replace';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button'; // Import the Button component from Material-UI
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 import PetFoodCard from './food-item-card';
 import NewParentList from './new-parent-list';
@@ -121,15 +122,13 @@ const YourCustomComponent = ({ messageContent, onAiLoadingChange }) => {
   // Check if the message content includes 'login' and return a button if it does
   if (messageContent.body.includes('html login button')) {
     return (
-      <div>
+      <Typography sx={{ typography: 'chat_body', marginTop: '12px' }}>
         {reactStringReplace(parse(messageContent.body), 'html login button', (match, index) => (
           <>
-            {/* Create an array of PetCard components with mapped propItems */}
             <FetchButton value={messageContent.body} onAiLoadingChange={onAiLoadingChange} />{' '}
-            {/* Pass the same user data to UserCard */}
           </>
         ))}
-      </div>
+      </Typography>
     );
   }
 

@@ -107,12 +107,12 @@ export default function NewParentList({ post, onAiLoadingChange }) {
               <Typography variant="chat_author">{title}</Typography>
               <Typography
                 variant="chat_author"
-                sx={{ fontWeight: 'normal', textTransform: 'none' }}
+                sx={{ fontWeight: 'normal', textTransform: 'none', textAlign: 'left' }}
               >
                 {description}
               </Typography>
             </Stack>
-            <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#808080' }} />{' '}
+            <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#FFF' }} />{' '}
           </Stack>
         </Button>
       </Stack>

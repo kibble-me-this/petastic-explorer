@@ -35,6 +35,7 @@ export default function ChatMessageInput({
   inputMessage, // Receive the prop
   onTyping,
   onInputTyping, // Add this prop
+  pet,
   setPet,
   isAiLoading,
   onAiLoadingChange,
@@ -237,10 +238,13 @@ export default function ChatMessageInput({
   useEffect(() => {
     let timer; // Declare the timer variable
 
+    console.log('pet in useEffect', pet);
+
     if (!sentHelloMessage) {
-      const predefinedLocalMessage =
-        'Shelter name is part of the Paws Before Profits program. This means that 5% of all the purchases you make for pet name, will be shared with shelter name. But first, you have to opt in.  html login button'; // Your predefined message
-      const predefinedMessage = 'Hi, Im FetchAi. Let me turn on your super pawers.';
+      const predefinedLocalMessage = `<b>Paws Before Profits</b> html login button`;
+
+      const predefinedMessage =
+        "🐾 Hi there, I'm FetchAi! 🐶 Let's unleash your super pawers! 🚀🐕";
 
       timer = setTimeout(async () => {
         if (predefinedMessage) {
@@ -250,6 +254,7 @@ export default function ChatMessageInput({
             predefinedMessage,
             selectedConversationId,
             setPet,
+            pet,
             fetchContact,
             conversationData,
             myContact,
@@ -263,6 +268,7 @@ export default function ChatMessageInput({
             predefinedLocalMessage,
             selectedConversationId,
             setPet,
+            pet,
             fetchContact,
             conversationData,
             myContact,
@@ -291,6 +297,7 @@ export default function ChatMessageInput({
     onAiLoadingChange,
     // clearOpenaiMessage,
     setPet,
+    pet,
   ]);
 
   // const handleSendOpenaiMessage = useCallback(
@@ -400,6 +407,7 @@ export default function ChatMessageInput({
               openaiMessage,
               selectedConversationId,
               setPet,
+              pet,
               user,
               conversationData,
               myContact,
@@ -427,6 +435,7 @@ export default function ChatMessageInput({
       onAiLoadingChange,
       // clearOpenaiMessage,
       setPet,
+      pet,
     ]
   );
 
@@ -516,8 +525,9 @@ ChatMessageInput.propTypes = {
   recipients: PropTypes.array,
   selectedConversationId: PropTypes.string,
   inputMessage: PropTypes.string,
-  onTyping: PropTypes.func, // This should be func, not bool
-  onInputTyping: PropTypes.func, // Add this line
+  onTyping: PropTypes.func,
+  onInputTyping: PropTypes.func,
+  pet: PropTypes.array,
   setPet: PropTypes.func,
   isAiLoading: PropTypes.bool,
   onAiLoadingChange: PropTypes.func,
@@ -528,6 +538,7 @@ async function sendLocalMessage(
   openaiMessage,
   selectedConversationId,
   setPet,
+  pet,
   user,
   conversationData,
   myContact,
@@ -580,6 +591,7 @@ async function sendOpenaiMessage(
   openaiMessage,
   selectedConversationId,
   setPet,
+  pet,
   user,
   conversationData,
   myContact,
@@ -630,24 +642,24 @@ async function sendOpenaiMessage(
         const petData = {};
 
         if (openaiResponse?.data?.props?.name) {
-          petData.name = openaiResponse?.data?.props?.name;
+          pet.name = openaiResponse?.data?.props?.name;
         }
 
         if (openaiResponse?.data?.props?.age?.life_stage) {
-          petData.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
+          pet.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
         }
 
         if (openaiResponse?.data?.props?.breed) {
-          petData.breed = openaiResponse?.data?.props?.breed;
+          pet.breed = openaiResponse?.data?.props?.breed;
         }
 
         if (openaiResponse?.data?.props?.avatar) {
-          petData.avatar = openaiResponse?.data?.props?.avatar;
+          pet.avatar = openaiResponse?.data?.props?.avatar;
         }
 
-        if (Object.keys(petData).length > 0) {
+        if (Object.keys(pet).length > 0) {
           // Only set petData if it has properties
-          setPet(petData);
+          setPet(pet);
         }
 
         // Access participants from conversationData

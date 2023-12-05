@@ -234,6 +234,7 @@ export default function ChatView() {
         disabled={!recipients.length && !selectedConversationId}
         onInputTyping={handleInputTyping}
         inputMessage={inputMessage}
+        pet={pet}
         setPet={setPet}
         isAiLoading={isAiLoading}
         onAiLoadingChange={handleAiLoadingChange}

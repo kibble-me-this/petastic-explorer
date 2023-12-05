@@ -18,7 +18,7 @@ export default function FetchButton({ value, onAiLoadingChange }) {
       onAiLoadingChange(true);
 
       try {
-        const openaiMessage = 'Yes, i opt me in to the Paws Before Profits program'; // Your predefined message
+        const openaiMessage = 'Yes, please opt me in to the Paws Before Profits program ❤️.'; // Your predefined message
         const selectedConversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4';
 
         // Wrap the message object in an array with the n property
@@ -38,7 +38,6 @@ export default function FetchButton({ value, onAiLoadingChange }) {
         // Optionally, you can trigger other actions or update state based on the response
 
         // Reset the buttonClicked state to false once the API request is complete
-        setButtonClicked(false);
         onAiLoadingChange(false);
       } catch (error) {
         // Handle any errors from the API request
@@ -53,20 +52,23 @@ export default function FetchButton({ value, onAiLoadingChange }) {
 
   return (
     <>
-      <Typography>{title}</Typography>
       <Button
-        size="small"
         color="inherit"
         variant="outlined"
         sx={{
-          borderColor: '#FFF', // Change to your desired color
-          mx: 2,
-          mb: 2,
+          borderColor: '#FFF',
+          mt: 2,
+          width: '100%',
+          '&:disabled': {
+            color: '#FFF',
+            borderColor: '#FFF',
+            background: 'none',
+          },
         }}
         onClick={handleButtonClick}
         disabled={buttonClicked}
       >
-        {buttonClicked ? 'Count me in' : 'Yes. I opt in'}
+        {buttonClicked ? 'Your Shelter is Earning 💰' : 'Loves it, I opt in❣️'}
       </Button>
     </>
   );

@@ -114,13 +114,13 @@ export default function ChatMessageItem({
     console.log('Calling renderContent: ', message);
 
     const bodyContent = (
-      <div>
+      <>
         <Box sx={{ paddingTop: 1.5 }}>{message.body}</Box>
-      </div>
+      </>
     );
 
     if (message.body.includes('html') || message.contentType === 'html') {
-      return <div>{handleReactComponent(message)}</div>;
+      return <>{handleReactComponent(message)}</>;
     }
 
     return bodyContent;
