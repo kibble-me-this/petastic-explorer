@@ -31,24 +31,17 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 export default function FirebaseRegisterView() {
   const { register, loginWithGoogle, loginWithGithub, loginWithTwitter } = useAuthContext();
 
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
-
   const [errorMsg, setErrorMsg] = useState('');
 
   const router = useRouter();
 
   const password = useBoolean();
 
-  const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLISHABLE_KEY, {
-    extensions: [new NearExtension({ rpcUrl: '' }), new OAuthExtension()],
-  });
-
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string().required('First name required'),
     lastName: Yup.string().required('Last name required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    petPassport: Yup.string().required('Pet passport is required'),
-    // password: Yup.string().required('Password is required'),
+    password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
@@ -70,27 +63,19 @@ export default function FirebaseRegisterView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
-    setIsLoggingIn(true);
     try {
-      const email = data.email;
-
-      // Authenticate with Magic using email/password
-      await magic.auth.loginWithMagicLink({ email });
-
-      // Generate query parameters with the user's email and petPassport
+      await register?.(data.email, data.password, data.firstName, data.lastName);
       const searchParams = new URLSearchParams({
-        id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
-        petPassport: data.petPassport, // Include petPassport field
+        email: data.email,
       }).toString();
 
-      // Construct the URL for the verification page with query parameters
-      const href = `${paths.dashboard.chat}?${searchParams}`;
+      const href = `${paths.auth.firebase.verify}?${searchParams}`;
 
-      // Redirect to the verification page
       router.push(href);
     } catch (error) {
       console.error(error);
-      setIsLoggingIn(false);
+      reset();
+      setErrorMsg(typeof error === 'string' ? error : error.message);
     }
   });
 
@@ -164,9 +149,7 @@ export default function FirebaseRegisterView() {
       </Stack>
 
       <RHFTextField name="email" label="Email address" />
-      <RHFTextField name="petPassport" label="Pet Passport" />
 
-      {/** 
       <RHFTextField
         name="password"
         label="Password"
@@ -181,7 +164,7 @@ export default function FirebaseRegisterView() {
           ),
         }}
       />
-*/}
+
       <LoadingButton
         fullWidth
         color="inherit"

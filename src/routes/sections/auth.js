@@ -5,6 +5,9 @@ import { GuestGuard } from 'src/auth/guard';
 // layouts
 import CompactLayout from 'src/layouts/compact';
 import AuthClassicLayout from 'src/layouts/auth/classic';
+import AuthModernCompactLayout from 'src/layouts/auth/modern-compact';
+import AuthModernLayout from 'src/layouts/auth/modern';
+
 // components
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -46,9 +49,9 @@ const authAmplify = {
     {
       path: 'login',
       element: (
-        <AuthClassicLayout>
+        <AuthModernLayout>
           <AmplifyLoginPage />
-        </AuthClassicLayout>
+        </AuthModernLayout>
       ),
     },
     {
@@ -168,9 +171,49 @@ const authAuth0 = {
   ],
 };
 
+const authMagicLink = {
+  path: 'magiclink',
+  element: (
+    <GuestGuard>
+      <Suspense fallback={<SplashScreen />}>
+        <Outlet />
+      </Suspense>
+    </GuestGuard>
+  ),
+  children: [
+    {
+      path: 'login',
+      element: (
+        <AuthModernLayout>
+          <FirebaseLoginPage />
+        </AuthModernLayout>
+      ),
+    },
+    {
+      path: 'register',
+      element: (
+        <AuthModernLayout title="Your MagicLink Registration">
+          <FirebaseRegisterPage />
+        </AuthModernLayout>
+      ),
+    },
+    {
+      element: (
+        <CompactLayout>
+          <Outlet />
+        </CompactLayout>
+      ),
+      children: [
+        { path: 'verify', element: <FirebaseVerifyPage /> },
+        { path: 'forgot-password', element: <FirebaseForgotPasswordPage /> },
+      ],
+    },
+  ],
+};
+
 export const authRoutes = [
   {
     path: 'auth',
-    children: [authAmplify, authJwt, authFirebase, authAuth0],
+    children: [authAmplify, authJwt, authFirebase, authAuth0, authMagicLink],
   },
 ];
