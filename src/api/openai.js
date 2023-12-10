@@ -9,7 +9,7 @@ const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT;
 // const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
 // const API_URL = process.env.REACT_APP_API_URL;
 
-let isFirstCall = true; // Add this variable to track the first call
+// let isFirstCall = true; // Add this variable to track the first call
 
 // Define API URLs based on the environment
 const LOCAL_API_URL = process.env.REACT_APP_API_URL_LOCAL;
@@ -34,29 +34,34 @@ export async function sendToOpenAI(conversationId, message, user) {
 
       console.log('userMessage', userMessage);
 
-      // First mutate call to update the conversation with the user's message
-      mutate(
-        [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }],
-        (currentData) => {
-          const { conversation: currentConversation } = currentData || { conversation: null };
-          const conversation = {
-            ...currentConversation,
-            messages: [...currentConversation.messages, userMessage],
-          };
-          console.log('convrsation', conversation);
-          return {
-            conversation,
-          };
-        },
-        false
-      );
+      if (!message[0]?.content.includes('petPassport:')) {
+        // Replace "petPassport:" with "Please hold"
+        // message[0].content = 'Please hold';
 
-      if (isFirstCall) {
-        // Modify the message content only on the first call
-        const petPassport = user.petPassport;
-        message[0].content = petPassport;
-        isFirstCall = false; // Mark the first call as done
+        // First mutate call to update the conversation with the user's message
+        mutate(
+          [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }],
+          (currentData) => {
+            const { conversation: currentConversation } = currentData || { conversation: null };
+            const conversation = {
+              ...currentConversation,
+              messages: [...currentConversation.messages, userMessage],
+            };
+            console.log('convrsation', conversation);
+            return {
+              conversation,
+            };
+          },
+          false
+        );
       }
+
+      // if (isFirstCall) {
+      //   // Modify the message content only on the first call
+      //   const petPassport = user.petPassport;
+      //   message[0].content = petPassport;
+      //   isFirstCall = false; // Mark the first call as done
+      // }
 
       // Send a request to the OpenAI API for text message
       const response = await axios.post(API_URL, message, {

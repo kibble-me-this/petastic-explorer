@@ -25,6 +25,8 @@ export default function ChatMessageItem({
   message,
   participants,
   onOpenLightbox,
+  pet,
+  setPet,
   onAiLoadingChange,
 }) {
   const { user, fetchai } = useMockedUser();
@@ -101,10 +103,34 @@ export default function ChatMessageItem({
   // Define a function to handle React component flag
   const handleReactComponent = (content) => {
     if (message.prop) {
-      return <YourCustomComponent messageContent={content} onAiLoadingChange={onAiLoadingChange} />;
+      return (
+        <YourCustomComponent
+          messageContent={content}
+          pet={pet}
+          setPet={setPet}
+          onAiLoadingChange={onAiLoadingChange}
+        />
+      );
     }
     if (message.body.includes('html login button')) {
-      return <YourCustomComponent messageContent={content} onAiLoadingChange={onAiLoadingChange} />;
+      return (
+        <YourCustomComponent
+          messageContent={content}
+          pet={pet}
+          setPet={setPet}
+          onAiLoadingChange={onAiLoadingChange}
+        />
+      );
+    }
+    if (message.body.includes('html accept pet button')) {
+      return (
+        <YourCustomComponent
+          messageContent={content}
+          pet={pet}
+          setPet={setPet}
+          onAiLoadingChange={onAiLoadingChange}
+        />
+      );
     }
     return <div className={determinedStyle}>{parse(content.body)}</div>;
   };
@@ -254,5 +280,7 @@ ChatMessageItem.propTypes = {
   message: PropTypes.object,
   onOpenLightbox: PropTypes.func,
   participants: PropTypes.array,
+  pet: PropTypes.array,
+  setPet: PropTypes.func,
   onAiLoadingChange: PropTypes.func,
 };

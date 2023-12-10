@@ -9,8 +9,9 @@ import PetFoodCard from './food-item-card';
 import NewParentList from './new-parent-list';
 import PetCard from './pet-card';
 import FetchButton from './fetch-button';
+import FetchAcceptPetButton from './fetch-accept-pet-button';
 
-const YourCustomComponent = ({ messageContent, onAiLoadingChange }) => {
+const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange }) => {
   if (messageContent.responseType === 'get_pet_passport') {
     console.log('Value in messageContent: ', messageContent);
 
@@ -132,6 +133,28 @@ const YourCustomComponent = ({ messageContent, onAiLoadingChange }) => {
     );
   }
 
+  // Check if the message content includes 'login' and return a button if it does
+  if (messageContent.body.includes('html accept pet button')) {
+    return (
+      <Typography sx={{ typography: 'chat_body', marginTop: '12px' }}>
+        {reactStringReplace(
+          parse(messageContent.body),
+          'html accept pet button',
+          (match, index) => (
+            <>
+              <FetchAcceptPetButton
+                value={messageContent.body}
+                pet={pet}
+                setPet={setPet}
+                onAiLoadingChange={onAiLoadingChange}
+              />{' '}
+            </>
+          )
+        )}
+      </Typography>
+    );
+  }
+
   // Handle other response types or invalid response types
   // Example: display a message for unsupported types
   return <div>Unsupported response type: {messageContent.responseType}</div>;
@@ -139,6 +162,8 @@ const YourCustomComponent = ({ messageContent, onAiLoadingChange }) => {
 
 YourCustomComponent.propTypes = {
   messageContent: PropTypes.string.isRequired,
+  pet: PropTypes.array,
+  setPet: PropTypes.func,
   onAiLoadingChange: PropTypes.func,
 };
 

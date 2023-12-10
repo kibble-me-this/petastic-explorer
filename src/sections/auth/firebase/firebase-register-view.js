@@ -81,6 +81,7 @@ export default function FirebaseRegisterView() {
       const searchParams = new URLSearchParams({
         id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
         petPassport: data.petPassport, // Include petPassport field
+        email: data.email,
       }).toString();
 
       // Construct the URL for the verification page with query parameters

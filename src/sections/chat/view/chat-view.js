@@ -164,6 +164,8 @@ export default function ChatView() {
       <ChatMessageList
         messages={conversation?.messages}
         participants={participants}
+        pet={pet}
+        setPet={setPet}
         onAiLoadingChange={handleAiLoadingChange}
       />
       {/** 

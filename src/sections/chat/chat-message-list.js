@@ -12,7 +12,13 @@ import ChatMessageItem from './chat-message-item';
 
 // ----------------------------------------------------------------------
 
-export default function ChatMessageList({ messages = [], participants, onAiLoadingChange }) {
+export default function ChatMessageList({
+  messages = [],
+  participants,
+  pet,
+  setPet,
+  onAiLoadingChange,
+}) {
   const { messagesEndRef } = useMessagesScroll(messages);
 
   const slides = messages
@@ -32,7 +38,9 @@ export default function ChatMessageList({ messages = [], participants, onAiLoadi
               message={message}
               participants={participants}
               onOpenLightbox={() => lightbox.onOpen(message.body)}
-              delay={index * 1} // Adjust the delay duration (in milliseconds) as needed
+              delay={index * 1}
+              pet={pet}
+              setPet={setPet}
               onAiLoadingChange={onAiLoadingChange}
             />
           ))}
@@ -52,11 +60,21 @@ export default function ChatMessageList({ messages = [], participants, onAiLoadi
 ChatMessageList.propTypes = {
   messages: PropTypes.array,
   participants: PropTypes.array,
+  pet: PropTypes.array,
+  setPet: PropTypes.func,
   onAiLoadingChange: PropTypes.array,
 };
 
 // DelayedMessageItem component to render message items with a delay
-function DelayedMessageItem({ message, participants, onOpenLightbox, delay, onAiLoadingChange }) {
+function DelayedMessageItem({
+  message,
+  participants,
+  onOpenLightbox,
+  delay,
+  pet,
+  setPet,
+  onAiLoadingChange,
+}) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -75,6 +93,8 @@ function DelayedMessageItem({ message, participants, onOpenLightbox, delay, onAi
       message={message}
       participants={participants}
       onOpenLightbox={onOpenLightbox}
+      pet={pet}
+      setPet={setPet}
       onAiLoadingChange={onAiLoadingChange}
     />
   ) : null;
@@ -84,6 +104,8 @@ DelayedMessageItem.propTypes = {
   message: PropTypes.object,
   participants: PropTypes.array,
   onOpenLightbox: PropTypes.func,
-  delay: PropTypes.number, // Delay duration in milliseconds
+  delay: PropTypes.number,
+  pet: PropTypes.array,
+  setPet: PropTypes.number,
   onAiLoadingChange: PropTypes.func,
 };
