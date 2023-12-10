@@ -5,7 +5,7 @@
   "description": "Cra & JavaScript",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "16.19.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -87,7 +87,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-helmet-async": "^1.3.0",
-    "react-hook-form": "^7.49.0",
+    "react-hook-form": "7.48.2",
     "react-i18next": "^13.0.3",
     "react-image-crop": "^10.1.8",
     "react-lazy-load-image-component": "^1.6.0",
