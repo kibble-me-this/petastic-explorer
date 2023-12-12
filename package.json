@@ -39,6 +39,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.0",
     "@aws-amplify/auth": "^5.6.0",
+    "@emailjs/browser": "^3.11.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -78,6 +79,7 @@
     "mapbox-gl": "^2.15.0",
     "mui-one-time-password-input": "^2.0.0",
     "near-api-js": "^2.1.4",
+    "node-fetch": "2.6.1",
     "notistack": "^3.0.1",
     "nprogress": "^0.2.0",
     "numeral": "^2.0.6",

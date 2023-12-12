@@ -33,15 +33,15 @@ export default function PostItemHorizontal({ post }) {
   const mdUp = useResponsive('up', 'md');
 
   const {
-    breed,
-    // author,
-    // publish,
-    // coverUrl,
-    // createdAt,
-    // totalViews,
-    // totalShares,
-    // totalComments,
-    // description,
+    title,
+    author,
+    publish,
+    coverUrl,
+    createdAt,
+    totalViews,
+    totalShares,
+    totalComments,
+    description,
   } = post;
 
   return (
@@ -52,14 +52,79 @@ export default function PostItemHorizontal({ post }) {
             p: (theme) => theme.spacing(3, 3, 2, 3),
           }}
         >
+          <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+            <Label variant="soft" color={(publish === 'published' && 'info') || 'default'}>
+              {publish}
+            </Label>
+
+            <Box component="span" sx={{ typography: 'caption', color: 'text.disabled' }}>
+              {fDate(createdAt)}
+            </Box>
+          </Stack>
+
           <Stack spacing={1} flexGrow={1}>
-            <Link color="inherit" component={RouterLink} href={paths.dashboard.post.details(breed)}>
+            <Link color="inherit" component={RouterLink} href={paths.dashboard.post.details(title)}>
               <TextMaxLine variant="subtitle2" line={2}>
-                {breed}
+                {title}
               </TextMaxLine>
             </Link>
+
+            <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}>
+              {description}
+            </TextMaxLine>
+          </Stack>
+
+          <Stack direction="row" alignItems="center">
+            <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+              <Iconify icon="eva:more-horizontal-fill" />
+            </IconButton>
+
+            <Stack
+              spacing={1.5}
+              flexGrow={1}
+              direction="row"
+              justifyContent="flex-end"
+              sx={{
+                typography: 'caption',
+                color: 'text.disabled',
+              }}
+            >
+              <Stack direction="row" alignItems="center">
+                <Iconify icon="eva:message-circle-fill" width={16} sx={{ mr: 0.5 }} />
+                {fShortenNumber(totalComments)}
+              </Stack>
+
+              <Stack direction="row" alignItems="center">
+                <Iconify icon="solar:eye-bold" width={16} sx={{ mr: 0.5 }} />
+                {fShortenNumber(totalViews)}
+              </Stack>
+
+              <Stack direction="row" alignItems="center">
+                <Iconify icon="solar:share-bold" width={16} sx={{ mr: 0.5 }} />
+                {fShortenNumber(totalShares)}
+              </Stack>
+            </Stack>
           </Stack>
         </Stack>
+
+        {mdUp && (
+          <Box
+            sx={{
+              width: 180,
+              height: 240,
+              position: 'relative',
+              flexShrink: 0,
+              p: 1,
+            }}
+          >
+            <Avatar
+              alt={author.name}
+              src={author.avatarUrl}
+              sx={{ position: 'absolute', top: 16, right: 16, zIndex: 9 }}
+            />
+            <Image alt={title} src={coverUrl} sx={{ height: 1, borderRadius: 1.5 }} />
+          </Box>
+        )}
       </Stack>
 
       <CustomPopover
@@ -71,7 +136,7 @@ export default function PostItemHorizontal({ post }) {
         <MenuItem
           onClick={() => {
             popover.onClose();
-            router.push(paths.dashboard.post.details(breed));
+            router.push(paths.dashboard.post.details(title));
           }}
         >
           <Iconify icon="solar:eye-bold" />
@@ -81,7 +146,7 @@ export default function PostItemHorizontal({ post }) {
         <MenuItem
           onClick={() => {
             popover.onClose();
-            router.push(paths.dashboard.post.edit(breed));
+            router.push(paths.dashboard.post.edit(title));
           }}
         >
           <Iconify icon="solar:pen-bold" />
@@ -109,7 +174,7 @@ PostItemHorizontal.propTypes = {
     createdAt: PropTypes.instanceOf(Date),
     description: PropTypes.string,
     publish: PropTypes.string,
-    breed: PropTypes.string,
+    title: PropTypes.string,
     totalComments: PropTypes.number,
     totalShares: PropTypes.number,
     totalViews: PropTypes.number,

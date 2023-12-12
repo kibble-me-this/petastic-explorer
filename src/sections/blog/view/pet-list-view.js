@@ -44,9 +44,9 @@ export default function PetListView() {
 
   const debouncedQuery = useDebounce(searchQuery);
 
-  const { posts, postsLoading } = useGetPosts();
+  // const { posts, postsLoading } = useGetPosts();
 
-  console.log(posts);
+  // console.log(posts);
 
   // const { pets } = useGetPets('5ee83180f121686526084263');
 
@@ -56,6 +56,14 @@ export default function PetListView() {
   // const [ownerName, setOwnerName] = useState('');
   const [isApiLoading, setIsApiLoading] = useState(true);
   // const [fetchError, setFetchError] = useState(null); // Rename the variable here
+
+  const [filteredAndSortedPets, setFilteredAndSortedPets] = useState([]);
+  // Define the callback function to update filteredAndSortedPets
+  const updateFilteredAndSortedPets = (newPets) => {
+    console.log('Called updateFilteredAndSortedPets');
+    setFilteredAndSortedPets(newPets);
+    handleFilterPublish(null, 'adopted');
+  };
 
   const { searchResults, searchLoading } = useSearchPosts(debouncedQuery);
 
@@ -113,12 +121,12 @@ export default function PetListView() {
         // setIsApiLoading(false); // Set loading to false after data is fetched
 
         // Apply filtering and sorting logic to apiPets and store the result in filteredAndSortedPets
-        // const filteredAndSortedData = applyFilter({
-        //   inputData: data.pets, // Use the fetched data
-        //   filters,
-        //   sortBy,
-        // });
-        // setFilteredAndSortedPets(filteredAndSortedData);
+        const filteredAndSortedData = applyFilter({
+          inputData: data.pets, // Use the fetched data
+          filters,
+          sortBy,
+        });
+        setFilteredAndSortedPets(filteredAndSortedData);
         setIsApiLoading(false);
       })
       .catch((error) => {
@@ -138,7 +146,7 @@ export default function PetListView() {
             href: paths.dashboard.root,
           },
           {
-            name: 'Blog',
+            name: 'Pets',
             href: paths.dashboard.post.root,
           },
           {
@@ -152,7 +160,7 @@ export default function PetListView() {
             variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}
           >
-            New Post
+            New Pet
           </Button>
         }
         sx={{
@@ -212,7 +220,12 @@ export default function PetListView() {
         ))}
       </Tabs>
 
-      <PetListHorizontal posts={dataFiltered} loading={isApiLoading} />
+      <PetListHorizontal
+        posts={dataFiltered}
+        loading={isApiLoading}
+        filteredAndSortedPets={filteredAndSortedPets}
+        updateFilteredAndSortedPets={updateFilteredAndSortedPets}
+      />
     </Container>
   );
 }
@@ -250,7 +263,10 @@ const applyFilter = ({ inputData, filters, sortBy }) => {
         ) &&
         publish === 'dog'
       ) {
-        filteredData.push(post);
+        // Check if the post status does not include 'adopted'
+        if (!post.status.includes('adopted')) {
+          filteredData.push(post);
+        }
       }
 
       // Check if the post is related to a cat
@@ -258,6 +274,14 @@ const applyFilter = ({ inputData, filters, sortBy }) => {
         type.includes('Anymal::Carnivora::Felidae::Felis::Felis Catus::Domesticated Cat::Cat') &&
         publish === 'cat'
       ) {
+        // Check if the post status does not include 'adopted'
+        if (!post.status.includes('adopted')) {
+          filteredData.push(post);
+        }
+      }
+
+      // Check if the post is adopted
+      if (post.status.includes('adopted') && publish === 'adopted') {
         filteredData.push(post);
       }
     });

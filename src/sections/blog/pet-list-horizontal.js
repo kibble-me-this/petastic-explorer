@@ -3,18 +3,24 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
 //
-import { PostItemSkeleton } from './post-skeleton';
+import { PetItemSkeleton } from './pet-skeleton';
 import PetItemHorizontal from './pet-item-horizontal';
+import PetCard from './pet-card';
 
 // ----------------------------------------------------------------------
 
-export default function PostListHorizontal({ posts, loading }) {
+export default function PostListHorizontal({
+  posts,
+  loading,
+  filteredAndSortedPets,
+  updateFilteredAndSortedPets,
+}) {
   console.log('PostListHorizontal', posts);
 
   const renderSkeleton = (
     <>
       {[...Array(16)].map((_, index) => (
-        <PostItemSkeleton key={index} variant="horizontal" />
+        <PetItemSkeleton key={index} variant="horizontal" />
       ))}
     </>
   );
@@ -22,7 +28,12 @@ export default function PostListHorizontal({ posts, loading }) {
   const renderList = (
     <>
       {posts.map((post) => (
-        <PetItemHorizontal key={post.id} post={post} />
+        <PetCard
+          key={post.id}
+          user={post}
+          filteredAndSortedPets={filteredAndSortedPets}
+          updateFilteredAndSortedPets={updateFilteredAndSortedPets}
+        />
       ))}
     </>
   );
@@ -34,7 +45,7 @@ export default function PostListHorizontal({ posts, loading }) {
         display="grid"
         gridTemplateColumns={{
           xs: 'repeat(1, 1fr)',
-          md: 'repeat(2, 1fr)',
+          md: 'repeat(3, 1fr)',
         }}
       >
         {loading ? renderSkeleton : renderList}
@@ -58,4 +69,6 @@ export default function PostListHorizontal({ posts, loading }) {
 PostListHorizontal.propTypes = {
   loading: PropTypes.bool,
   posts: PropTypes.array,
+  filteredAndSortedPets: PropTypes.array,
+  updateFilteredAndSortedPets: PropTypes.func,
 };
