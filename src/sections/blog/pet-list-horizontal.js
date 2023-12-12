@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
 //
 import { PostItemSkeleton } from './post-skeleton';
-import PostItemHorizontal from './post-item-horizontal';
+import PetItemHorizontal from './pet-item-horizontal';
 
 // ----------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ export default function PostListHorizontal({ posts, loading }) {
   const renderList = (
     <>
       {posts.map((post) => (
-        <PostItemHorizontal key={post.id} post={post} />
+        <PetItemHorizontal key={post.id} post={post} />
       ))}
     </>
   );

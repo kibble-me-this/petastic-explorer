@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 // auth
-import { AuthGuard } from 'src/auth/guard';
+import { AuthGuard, GuestGuard } from 'src/auth/guard';
+
 // layouts
 import DashboardLayout from 'src/layouts/dashboard';
 // components
@@ -41,6 +42,11 @@ const BlogPostsPage = lazy(() => import('src/pages/dashboard/post/list'));
 const BlogPostPage = lazy(() => import('src/pages/dashboard/post/details'));
 const BlogNewPostPage = lazy(() => import('src/pages/dashboard/post/new'));
 const BlogEditPostPage = lazy(() => import('src/pages/dashboard/post/edit'));
+// PET
+const PetsPage = lazy(() => import('src/pages/dashboard/pet/list'));
+const PetPage = lazy(() => import('src/pages/dashboard/pet/details'));
+const NewPetPage = lazy(() => import('src/pages/dashboard/pet/new'));
+const EditPetPage = lazy(() => import('src/pages/dashboard/pet/edit'));
 // JOB
 const JobDetailsPage = lazy(() => import('src/pages/dashboard/job/details'));
 const JobListPage = lazy(() => import('src/pages/dashboard/job/list'));
@@ -54,6 +60,29 @@ const TourEditPage = lazy(() => import('src/pages/dashboard/tour/edit'));
 // FILE MANAGER
 const FileManagerPage = lazy(() => import('src/pages/dashboard/file-manager'));
 // APP
+
+// Define a custom wrapper component for the ChatPage
+const ConditionalChatPage = () => {
+  const { new: someParam } = useParams();
+  const navigate = useNavigate();
+
+  console.log('someParam: ', someParam);
+  // Check if certain URL parameters are present
+  const shouldRequireAuth = someParam === 'new=adoption'; // Replace with your condition
+
+  if (!shouldRequireAuth) {
+    return (
+      <AuthGuard>
+        <ChatPage />
+      </AuthGuard>
+    );
+  }
+
+  // If the condition is not met, you can redirect or render something else
+  // navigate('/someOtherRoute'); // Redirect to another route
+  return <ChatPage />; // or render an error message or another component
+};
+
 const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 const MailPage = lazy(() => import('src/pages/dashboard/mail'));
 const CalendarPage = lazy(() => import('src/pages/dashboard/calendar'));
@@ -69,11 +98,13 @@ export const dashboardRoutes = [
   {
     path: 'dashboard',
     element: (
-      <DashboardLayout>
-        <Suspense fallback={<LoadingScreen />}>
-          <Outlet />
-        </Suspense>
-      </DashboardLayout>
+      <GuestGuard>
+        <DashboardLayout>
+          <Suspense fallback={<LoadingScreen />}>
+            <Outlet />
+          </Suspense>
+        </DashboardLayout>
+      </GuestGuard>
     ),
     children: [
       { element: <IndexPage />, index: true },
@@ -85,8 +116,18 @@ export const dashboardRoutes = [
       {
         path: 'user',
         children: [
-          { element: <UserProfilePage />, index: true },
-          { path: 'profile', element: <UserProfilePage /> },
+          {
+            element: (
+              <AuthGuard>
+                <UserProfilePage />
+              </AuthGuard>
+            ),
+            index: true,
+          },
+          {
+            path: 'profile',
+            element: <UserProfilePage />,
+          },
           { path: 'cards', element: <UserCardsPage /> },
           { path: 'list', element: <UserListPage /> },
           { path: 'new', element: <UserCreatePage /> },
@@ -133,6 +174,16 @@ export const dashboardRoutes = [
         ],
       },
       {
+        path: 'org-pets',
+        children: [
+          { element: <PetsPage />, index: true },
+          { path: 'list', element: <PetsPage /> },
+          { path: ':title', element: <PetPage /> },
+          { path: ':title/edit', element: <EditPetPage /> },
+          { path: 'new', element: <NewPetPage /> },
+        ],
+      },
+      {
         path: 'job',
         children: [
           { element: <JobListPage />, index: true },
@@ -154,7 +205,19 @@ export const dashboardRoutes = [
       },
       { path: 'file-manager', element: <FileManagerPage /> },
       { path: 'mail', element: <MailPage /> },
-      { path: 'chat', element: <ChatPage /> },
+      // { path: 'chat', element: <ChatPage /> },
+      {
+        path: 'chat/:new', // Define the parameter in the route path
+        element: <ConditionalChatPage />, // Use the custom wrapper
+      },
+      {
+        path: 'chat', // Define the parameter in the route path
+        element: (
+          <AuthGuard>
+            <ChatPage />
+          </AuthGuard>
+        ), // Use the custom wrapper
+      },
       { path: 'calendar', element: <CalendarPage /> },
       { path: 'kanban', element: <KanbanPage /> },
       { path: 'permission', element: <PermissionDeniedPage /> },

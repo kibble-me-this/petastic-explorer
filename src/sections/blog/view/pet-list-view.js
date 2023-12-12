@@ -23,7 +23,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import PostSort from '../post-sort';
 import PostSearch from '../post-search';
-import PostListHorizontal from '../post-list-horizontal';
+import PetListHorizontal from '../pet-list-horizontal';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function PostListView() {
+export default function PetListView() {
   const settings = useSettingsContext();
 
   const [sortBy, setSortBy] = useState('latest');
@@ -212,7 +212,7 @@ export default function PostListView() {
         ))}
       </Tabs>
 
-      <PostListHorizontal posts={dataFiltered} loading={isApiLoading} />
+      <PetListHorizontal posts={dataFiltered} loading={isApiLoading} />
     </Container>
   );
 }

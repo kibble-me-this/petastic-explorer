@@ -110,7 +110,11 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={() => handleClickItem(option.linkTo)}>
+            <MenuItem
+              key={option.label}
+              onClick={() => handleClickItem(option.linkTo)}
+              disabled={option.label === 'Profile' || option.label === 'Settings'}
+            >
               {option.label}
             </MenuItem>
           ))}

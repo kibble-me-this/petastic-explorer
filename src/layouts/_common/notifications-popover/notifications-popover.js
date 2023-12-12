@@ -137,6 +137,7 @@ export default function NotificationsPopover() {
   return (
     <>
       <IconButton
+        disabled
         component={m.button}
         whileTap="tap"
         whileHover="hover"
@@ -144,7 +145,10 @@ export default function NotificationsPopover() {
         color={drawer.value ? 'primary' : 'default'}
         onClick={drawer.onTrue}
       >
-        <Badge badgeContent={totalUnRead} color="error">
+        <Badge
+          // badgeContent={totalUnRead}
+          color="error"
+        >
           <Iconify icon="solar:bell-bing-bold-duotone" width={24} />
         </Badge>
       </IconButton>

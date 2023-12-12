@@ -153,6 +153,16 @@ export const paths = {
         edit: `${ROOTS.DASHBOARD}/post/${paramCase(MOCK_TITLE)}/edit`,
       },
     },
+    orgpets: {
+      root: `${ROOTS.DASHBOARD}/org-pets`,
+      new: `${ROOTS.DASHBOARD}/post/new`,
+      details: (title) => `${ROOTS.DASHBOARD}/post/${paramCase(title)}`,
+      edit: (title) => `${ROOTS.DASHBOARD}/post/${paramCase(title)}/edit`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/post/${paramCase(MOCK_TITLE)}`,
+        edit: `${ROOTS.DASHBOARD}/post/${paramCase(MOCK_TITLE)}/edit`,
+      },
+    },
     order: {
       root: `${ROOTS.DASHBOARD}/order`,
       details: (id) => `${ROOTS.DASHBOARD}/order/${id}`,

@@ -39,6 +39,7 @@ export default function SettingsButton({ sx }) {
         }}
       >
         <IconButton
+          disabled
           component={m.button}
           whileTap="tap"
           whileHover="hover"
