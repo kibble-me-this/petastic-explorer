@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import { useEffect, useReducer, useCallback, useMemo } from 'react';
 // utils
+import { Magic } from 'magic-sdk';
+import { NearExtension } from '@magic-ext/near';
+import { OAuthExtension } from '@magic-ext/oauth';
 import axios, { endpoints } from 'src/utils/axios';
 //
 import { AuthContext } from './auth-context';
@@ -44,6 +47,7 @@ const reducer = (state, action) => {
       user: null,
     };
   }
+  console.log('reducer state: ', state);
   return state;
 };
 
@@ -115,6 +119,43 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
+  const loginMagic = useCallback(async (email) => {
+    console.log('Calling loginMagic:', email);
+    try {
+      const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLISHABLE_KEY, {
+        extensions: [new NearExtension({ rpcUrl: '' })],
+      });
+
+      // Send the Magic link to the user's email
+      await magic.auth.loginWithMagicLink({ email });
+
+      // Check if the user is logged in
+      const magicIsLoggedIn = await magic.user.isLoggedIn();
+      if (magicIsLoggedIn) {
+        // If the user is logged in, retrieve user metadata
+        const user = await magic.user.getMetadata();
+        const publicAddress = user.publicAddress;
+
+        console.log('userMetadata', user);
+
+        // You can now use this user metadata or NEAR public address as needed
+
+        // Update the session with the NEAR public address or any other necessary data
+        // setSession(publicAddress);
+
+        // Update the context to reflect the user's authentication status
+        dispatch({
+          type: 'LOGIN',
+          payload: {
+            user, // Use the actual user data received from getMetadata
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Magic login error:', error);
+    }
+  }, []);
+
   // REGISTER
   const register = useCallback(async (email, password, firstName, lastName) => {
     const data = {
@@ -149,7 +190,9 @@ export function AuthProvider({ children }) {
   // ----------------------------------------------------------------------
 
   const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
+  console.log('state.user: ', state.user);
 
+  console.log('checkAuthenticated: ', checkAuthenticated);
   const status = state.loading ? 'loading' : checkAuthenticated;
 
   const memoizedValue = useMemo(
@@ -161,10 +204,11 @@ export function AuthProvider({ children }) {
       unauthenticated: status === 'unauthenticated',
       //
       login,
+      loginMagic,
       register,
       logout,
     }),
-    [login, logout, register, state.user, status]
+    [login, loginMagic, logout, register, state.user, status]
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;

@@ -98,13 +98,13 @@ export const dashboardRoutes = [
   {
     path: 'dashboard',
     element: (
-      <GuestGuard>
+      <AuthGuard>
         <DashboardLayout>
           <Suspense fallback={<LoadingScreen />}>
             <Outlet />
           </Suspense>
         </DashboardLayout>
-      </GuestGuard>
+      </AuthGuard>
     ),
     children: [
       { element: <IndexPage />, index: true },

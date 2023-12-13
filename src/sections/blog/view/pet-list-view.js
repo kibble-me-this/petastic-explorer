@@ -15,15 +15,19 @@ import { useDebounce } from 'src/hooks/use-debounce';
 import { POST_SORT_OPTIONS } from 'src/_mock';
 // api
 import { useGetPosts, useSearchPosts, useGetPets } from 'src/api/blog';
+// auth
+import { useAuthContext } from 'src/auth/hooks';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
-import PostSort from '../post-sort';
-import PostSearch from '../post-search';
+// import PostSort from '../post-sort';
+// import PostSearch from '../post-search';
 import PetListHorizontal from '../pet-list-horizontal';
+
+import { getShelterAccountId } from '../_mock';
 
 // ----------------------------------------------------------------------
 
@@ -44,13 +48,13 @@ export default function PetListView() {
 
   const debouncedQuery = useDebounce(searchQuery);
 
+  const { user, logout } = useAuthContext();
+  console.log('user', user);
+  // console.log('logout', logout);
+
   // const { posts, postsLoading } = useGetPosts();
 
-  // console.log(posts);
-
-  // const { pets } = useGetPets('5ee83180f121686526084263');
-
-  const { shelterAccountId, setShelterAccountId } = useState('5ee83180f121686526084263');
+  // const { shelterAccountId, setShelterAccountId } = useState('5ee83180f121686526084263');
 
   const [apiPets, setApiPets] = useState([]);
   // const [ownerName, setOwnerName] = useState('');
@@ -99,9 +103,11 @@ export default function PetListView() {
     setIsApiLoading(true);
 
     // if (userMetadata) {
-    // const shelterAccountId = getShelterAccountId(userMetadata.publicAddress);
-
-    const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=5ee83180f121686526084263`;
+    const shelterAccountId = getShelterAccountId(user.publicAddress);
+    // const shelterAccountId = getShelterAccountId(
+    //   'fb9b34e032a94707e114023c44698716bef222d36310b48c7af02e5240c2b612'
+    // );
+    const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
 
     // Fetch data from the API
     fetch(apiUrl)
@@ -113,7 +119,6 @@ export default function PetListView() {
       })
       .then((data) => {
         // Assuming the API response contains an array of pets
-        /* The above code is defining a function called "setApiPets" in JavaScript. */
         setApiPets(data.pets); // Update the state with the fetched data
         console.log(data.pets);
 
@@ -131,10 +136,10 @@ export default function PetListView() {
       })
       .catch((error) => {
         console.error('Error fetching user pets:', error);
-        setIsApiLoading(false); // Set loading to false in case of an error
+        setIsApiLoading(false);
       });
     // }
-  }, [shelterAccountId, filters, sortBy]);
+  }, [filters, sortBy, user.publicAddress]);
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -168,6 +173,7 @@ export default function PetListView() {
         }}
       />
 
+      {/** 
       <Stack
         spacing={3}
         justifyContent="space-between"
@@ -187,7 +193,7 @@ export default function PetListView() {
 
         <PostSort sort={sortBy} onSort={handleSortBy} sortOptions={POST_SORT_OPTIONS} />
       </Stack>
-
+*/}
       <Tabs
         value={filters.publish}
         onChange={handleFilterPublish}

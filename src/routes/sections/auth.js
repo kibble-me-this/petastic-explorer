@@ -30,6 +30,12 @@ const FirebaseRegisterPage = lazy(() => import('src/pages/auth/firebase/register
 const FirebaseVerifyPage = lazy(() => import('src/pages/auth/firebase/verify'));
 const FirebaseForgotPasswordPage = lazy(() => import('src/pages/auth/firebase/forgot-password'));
 
+// MAGIC
+const MagicLoginPage = lazy(() => import('src/pages/auth/magic/login'));
+const MagicRegisterPage = lazy(() => import('src/pages/auth/magic/register'));
+const MagicVerifyPage = lazy(() => import('src/pages/auth/magic/verify'));
+const MagicForgotPasswordPage = lazy(() => import('src/pages/auth/magic/forgot-password'));
+
 // AUTH0
 const Auth0LoginPage = lazy(() => import('src/pages/auth/auth0/login'));
 const Auth0Callback = lazy(() => import('src/pages/auth/auth0/callback'));
@@ -185,7 +191,7 @@ const authMagicLink = {
       path: 'login',
       element: (
         <AuthModernLayout>
-          <FirebaseLoginPage />
+          <MagicLoginPage />
         </AuthModernLayout>
       ),
     },
@@ -193,7 +199,7 @@ const authMagicLink = {
       path: 'register',
       element: (
         <AuthModernLayout title="Your MagicLink Registration">
-          <FirebaseRegisterPage />
+          <MagicRegisterPage />
         </AuthModernLayout>
       ),
     },

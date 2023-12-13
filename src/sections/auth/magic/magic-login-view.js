@@ -7,6 +7,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -26,8 +27,9 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export default function AmplifyLoginView() {
-  const { login } = useAuthContext();
+export default function MagicLoginView() {
+  const { login, loginMagic, loginWithGoogle, loginWithGithub, loginWithTwitter } =
+    useAuthContext();
 
   const router = useRouter();
 
@@ -41,7 +43,6 @@ export default function AmplifyLoginView() {
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
@@ -62,7 +63,7 @@ export default function AmplifyLoginView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await login?.(data.email, data.password);
+      await loginMagic?.(data.email);
 
       router.push(returnTo || PATH_AFTER_LOGIN);
     } catch (error) {
@@ -72,14 +73,38 @@ export default function AmplifyLoginView() {
     }
   });
 
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle?.();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGithubLogin = async () => {
+    try {
+      await loginWithGithub?.();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleTwitterLogin = async () => {
+    try {
+      await loginWithTwitter?.();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5 }}>
-      <Typography variant="h4">Sign in to Petastic</Typography>
+      <Typography variant="h4">Sign in to Minimal</Typography>
 
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2">New user?</Typography>
 
-        <Link component={RouterLink} href={paths.auth.amplify.register} variant="subtitle2">
+        <Link component={RouterLink} href={paths.auth.firebase.register} variant="subtitle2">
           Create an account
         </Link>
       </Stack>
@@ -87,29 +112,14 @@ export default function AmplifyLoginView() {
   );
 
   const renderForm = (
-    <Stack spacing={3}>
+    <Stack spacing={2.5}>
       {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
 
       <RHFTextField name="email" label="Email address" />
 
-      <RHFTextField
-        name="password"
-        label="Password"
-        type={password.value ? 'text' : 'password'}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={password.onToggle} edge="end">
-                <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-
       <Link
         component={RouterLink}
-        href={paths.auth.amplify.forgotPassword}
+        href={paths.auth.firebase.forgotPassword}
         variant="body2"
         color="inherit"
         underline="always"
@@ -126,9 +136,40 @@ export default function AmplifyLoginView() {
         variant="contained"
         loading={isSubmitting}
       >
-        Login
+        hi
       </LoadingButton>
     </Stack>
+  );
+
+  const renderLoginOption = (
+    <div>
+      <Divider
+        sx={{
+          my: 2.5,
+          typography: 'overline',
+          color: 'text.disabled',
+          '&::before, ::after': {
+            borderTopStyle: 'dashed',
+          },
+        }}
+      >
+        OR
+      </Divider>
+
+      <Stack direction="row" justifyContent="center" spacing={2}>
+        <IconButton onClick={handleGoogleLogin}>
+          <Iconify icon="eva:google-fill" color="#DF3E30" />
+        </IconButton>
+
+        <IconButton color="inherit" onClick={handleGithubLogin}>
+          <Iconify icon="eva:github-fill" />
+        </IconButton>
+
+        <IconButton onClick={handleTwitterLogin}>
+          <Iconify icon="eva:twitter-fill" color="#1C9CEA" />
+        </IconButton>
+      </Stack>
+    </div>
   );
 
   return (
@@ -136,6 +177,8 @@ export default function AmplifyLoginView() {
       {renderHead}
 
       {renderForm}
+
+      {renderLoginOption}
     </FormProvider>
   );
 }

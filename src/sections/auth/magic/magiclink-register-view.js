@@ -11,15 +11,16 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
-// routes
-import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
-import { useSearchParams, useRouter } from 'src/routes/hooks';
-// config
-import { PATH_AFTER_LOGIN } from 'src/config-global';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
+// routes
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+import { RouterLink } from 'src/routes/components';
 // auth
+import { Magic } from 'magic-sdk';
+import { NearExtension } from '@magic-ext/near';
+import { OAuthExtension } from '@magic-ext/oauth';
 import { useAuthContext } from 'src/auth/hooks';
 // components
 import Iconify from 'src/components/iconify';
@@ -27,31 +28,31 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export default function FirebaseLoginView() {
-  const { login, loginWithGoogle, loginWithGithub, loginWithTwitter } = useAuthContext();
-
-  const router = useRouter();
+export default function FirebaseRegisterView() {
+  const { register, loginWithGoogle, loginWithGithub, loginWithTwitter } = useAuthContext();
 
   const [errorMsg, setErrorMsg] = useState('');
 
-  const searchParams = useSearchParams();
-
-  const returnTo = searchParams.get('returnTo');
+  const router = useRouter();
 
   const password = useBoolean();
 
-  const LoginSchema = Yup.object().shape({
+  const RegisterSchema = Yup.object().shape({
+    firstName: Yup.string().required('First name required'),
+    lastName: Yup.string().required('Last name required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   };
 
   const methods = useForm({
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver(RegisterSchema),
     defaultValues,
   });
 
@@ -63,9 +64,14 @@ export default function FirebaseLoginView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await login?.(data.email, data.password);
+      await register?.(data.email, data.password, data.firstName, data.lastName);
+      const searchParams = new URLSearchParams({
+        email: data.email,
+      }).toString();
 
-      router.push(returnTo || PATH_AFTER_LOGIN);
+      const href = `${paths.auth.firebase.verify}?${searchParams}`;
+
+      router.push(href);
     } catch (error) {
       console.error(error);
       reset();
@@ -98,22 +104,49 @@ export default function FirebaseLoginView() {
   };
 
   const renderHead = (
-    <Stack spacing={2} sx={{ mb: 5 }}>
-      <Typography variant="h4">Sign in to Petastic</Typography>
+    <Stack spacing={2} sx={{ mb: 5, position: 'relative' }}>
+      <Typography variant="h4">Get started absolutely free</Typography>
 
       <Stack direction="row" spacing={0.5}>
-        <Typography variant="body2">New user?</Typography>
+        <Typography variant="body2"> Already have an account? </Typography>
 
-        <Link component={RouterLink} href={paths.auth.firebase.register} variant="subtitle2">
-          Create an account
+        <Link href={paths.auth.firebase.login} component={RouterLink} variant="subtitle2">
+          Sign in
         </Link>
       </Stack>
     </Stack>
   );
 
+  const renderTerms = (
+    <Typography
+      component="div"
+      sx={{
+        color: 'text.secondary',
+        mt: 2.5,
+        typography: 'caption',
+        textAlign: 'center',
+      }}
+    >
+      {'By signing up, I agree to '}
+      <Link underline="always" color="text.primary">
+        Terms of Service
+      </Link>
+      {' and '}
+      <Link underline="always" color="text.primary">
+        Privacy Policy
+      </Link>
+      .
+    </Typography>
+  );
+
   const renderForm = (
     <Stack spacing={2.5}>
       {!!errorMsg && <Alert severity="error">{errorMsg}</Alert>}
+
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+        <RHFTextField name="firstName" label="First name" />
+        <RHFTextField name="lastName" label="Last name" />
+      </Stack>
 
       <RHFTextField name="email" label="Email address" />
 
@@ -132,17 +165,6 @@ export default function FirebaseLoginView() {
         }}
       />
 
-      <Link
-        component={RouterLink}
-        href={paths.auth.firebase.forgotPassword}
-        variant="body2"
-        color="inherit"
-        underline="always"
-        sx={{ alignSelf: 'flex-end' }}
-      >
-        Forgot password?
-      </Link>
-
       <LoadingButton
         fullWidth
         color="inherit"
@@ -151,7 +173,7 @@ export default function FirebaseLoginView() {
         variant="contained"
         loading={isSubmitting}
       >
-        Login
+        Create account
       </LoadingButton>
     </Stack>
   );
@@ -192,6 +214,8 @@ export default function FirebaseLoginView() {
       {renderHead}
 
       {renderForm}
+
+      {renderTerms}
 
       {renderLoginOption}
     </FormProvider>
