@@ -144,15 +144,15 @@ export default function PetListView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
-        heading="List"
+        heading="Our Pets"
         links={[
           {
             name: 'Dashboard',
-            href: paths.dashboard.root,
+            // href: paths.dashboard.root,
           },
           {
             name: 'Pets',
-            href: paths.dashboard.post.root,
+            // href: paths.dashboard.post.root,
           },
           {
             name: 'List',
@@ -160,6 +160,7 @@ export default function PetListView() {
         ]}
         action={
           <Button
+            disabled
             component={RouterLink}
             href={paths.dashboard.post.new}
             variant="contained"

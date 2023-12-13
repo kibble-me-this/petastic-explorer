@@ -174,7 +174,7 @@ export const dashboardRoutes = [
         ],
       },
       {
-        path: 'org-pets',
+        path: 'orgpets',
         children: [
           { element: <PetsPage />, index: true },
           { path: 'list', element: <PetsPage /> },

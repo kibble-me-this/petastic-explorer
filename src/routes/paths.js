@@ -160,7 +160,7 @@ export const paths = {
       },
     },
     orgpets: {
-      root: `${ROOTS.DASHBOARD}/org-pets`,
+      root: `${ROOTS.DASHBOARD}/orgpets`,
       new: `${ROOTS.DASHBOARD}/post/new`,
       details: (title) => `${ROOTS.DASHBOARD}/post/${paramCase(title)}`,
       edit: (title) => `${ROOTS.DASHBOARD}/post/${paramCase(title)}/edit`,

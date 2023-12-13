@@ -35,7 +35,7 @@ export default function PermissionDeniedView() {
         links={[
           {
             name: 'Dashboard',
-            href: paths.dashboard.root,
+            // href: paths.dashboard.root,
           },
           {
             name: 'Permission Denied',
