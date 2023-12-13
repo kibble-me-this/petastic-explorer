@@ -205,19 +205,19 @@ export const dashboardRoutes = [
       },
       { path: 'file-manager', element: <FileManagerPage /> },
       { path: 'mail', element: <MailPage /> },
-      // { path: 'chat', element: <ChatPage /> },
-      {
-        path: 'chat/:new', // Define the parameter in the route path
-        element: <ConditionalChatPage />, // Use the custom wrapper
-      },
-      {
-        path: 'chat', // Define the parameter in the route path
-        element: (
-          <AuthGuard>
-            <ChatPage />
-          </AuthGuard>
-        ), // Use the custom wrapper
-      },
+      { path: 'chat', element: <ChatPage /> },
+      // {
+      //   path: 'chat/:new', // Define the parameter in the route path
+      //   element: <ConditionalChatPage />, // Use the custom wrapper
+      // },
+      // {
+      //   path: 'chat', // Define the parameter in the route path
+      //   element: (
+      //     <AuthGuard>
+      //       <ChatPage />
+      //     </AuthGuard>
+      //   ), // Use the custom wrapper
+      // },
       { path: 'calendar', element: <CalendarPage /> },
       { path: 'kanban', element: <KanbanPage /> },
       { path: 'permission', element: <PermissionDeniedPage /> },

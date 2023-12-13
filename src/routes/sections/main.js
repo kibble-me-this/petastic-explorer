@@ -28,6 +28,7 @@ const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
 // BLOG
 const PostListPage = lazy(() => import('src/pages/post/list'));
 const PostDetailsPage = lazy(() => import('src/pages/post/details'));
+const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,7 @@ export const mainRoutes = [
       </MainLayout>
     ),
     children: [
+      { path: 'chat', element: <ChatPage /> },
       { path: 'about-us', element: <AboutPage /> },
       { path: 'contact-us', element: <ContactPage /> },
       { path: 'faqs', element: <FaqsPage /> },
