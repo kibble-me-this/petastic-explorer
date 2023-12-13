@@ -72,6 +72,12 @@ export const paths = {
       register: `${ROOTS.AUTH}/firebase/register`,
       forgotPassword: `${ROOTS.AUTH}/firebase/forgot-password`,
     },
+    magic: {
+      login: `${ROOTS.AUTH}/magiclink/login`,
+      verify: `${ROOTS.AUTH}/magiclink/verify`,
+      register: `${ROOTS.AUTH}/magiclink/register`,
+      forgotPassword: `${ROOTS.AUTH}/magiclink/forgot-password`,
+    },
     auth0: {
       login: `${ROOTS.AUTH}/auth0/login`,
     },

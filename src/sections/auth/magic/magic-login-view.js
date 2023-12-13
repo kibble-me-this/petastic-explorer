@@ -99,15 +99,7 @@ export default function MagicLoginView() {
 
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5 }}>
-      <Typography variant="h4">Sign in to Minimal</Typography>
-
-      <Stack direction="row" spacing={0.5}>
-        <Typography variant="body2">New user?</Typography>
-
-        <Link component={RouterLink} href={paths.auth.firebase.register} variant="subtitle2">
-          Create an account
-        </Link>
-      </Stack>
+      <Typography variant="h4">Sign in to Petastic</Typography>
     </Stack>
   );
 
@@ -117,17 +109,6 @@ export default function MagicLoginView() {
 
       <RHFTextField name="email" label="Email address" />
 
-      <Link
-        component={RouterLink}
-        href={paths.auth.firebase.forgotPassword}
-        variant="body2"
-        color="inherit"
-        underline="always"
-        sx={{ alignSelf: 'flex-end' }}
-      >
-        Forgot password?
-      </Link>
-
       <LoadingButton
         fullWidth
         color="inherit"
@@ -136,8 +117,15 @@ export default function MagicLoginView() {
         variant="contained"
         loading={isSubmitting}
       >
-        hi
+        Log In
       </LoadingButton>
+      <Stack direction="row" spacing={0.5}>
+        <Typography variant="body2">New user?</Typography>
+
+        <Link component={RouterLink} href={paths.auth.magic.register} variant="subtitle2">
+          Create an account
+        </Link>
+      </Stack>
     </Stack>
   );
 
@@ -178,7 +166,7 @@ export default function MagicLoginView() {
 
       {renderForm}
 
-      {renderLoginOption}
+      {/* renderLoginOption */}
     </FormProvider>
   );
 }

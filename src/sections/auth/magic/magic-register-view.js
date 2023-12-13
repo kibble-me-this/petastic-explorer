@@ -121,15 +121,9 @@ export default function MagicRegisterView() {
 
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5, position: 'relative' }}>
-      <Typography variant="h4">Get started absolutely free</Typography>
-
-      <Stack direction="row" spacing={0.5}>
-        <Typography variant="body2"> Already have an account? </Typography>
-
-        <Link href={paths.auth.firebase.login} component={RouterLink} variant="subtitle2">
-          Sign in
-        </Link>
-      </Stack>
+      <Typography variant="h4">
+        Let&apos;s unlock your pet parent superpawers and make every moment pet-tastic. 🦸‍♂️🐾🐶🐱
+      </Typography>
     </Stack>
   );
 
@@ -165,9 +159,11 @@ export default function MagicRegisterView() {
       </Stack>
 
       <RHFTextField name="email" label="Email address" />
-      <RHFTextField name="petPassport" label="Pet Passport" />
 
       {/** 
+        * <RHFTextField name="petPassport" label="Pet Passport" />
+
+     
       <RHFTextField
         name="password"
         label="Password"
@@ -193,6 +189,13 @@ export default function MagicRegisterView() {
       >
         Create account
       </LoadingButton>
+      <Stack direction="row" spacing={0.5}>
+        <Typography variant="body2"> Already have an account? </Typography>
+
+        <Link href={paths.auth.magic.login} component={RouterLink} variant="subtitle2">
+          Sign in
+        </Link>
+      </Stack>
     </Stack>
   );
 
@@ -233,9 +236,9 @@ export default function MagicRegisterView() {
 
       {renderForm}
 
-      {renderTerms}
+      {/* renderTerms */}
 
-      {renderLoginOption}
+      {/* renderLoginOption */}
     </FormProvider>
   );
 }
