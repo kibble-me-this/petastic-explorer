@@ -68,7 +68,16 @@ export default function PetCard({ user, filteredAndSortedPets, updateFilteredAnd
 
   const theme = useTheme();
 
-  const { name, avatar_file_name, breed, gender, status, shelter_name_common, age } = user;
+  const {
+    name,
+    pet_passport_id,
+    avatar_file_name,
+    breed,
+    gender,
+    status,
+    shelter_name_common,
+    age,
+  } = user;
 
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 

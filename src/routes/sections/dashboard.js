@@ -37,16 +37,23 @@ const UserListPage = lazy(() => import('src/pages/dashboard/user/list'));
 const UserAccountPage = lazy(() => import('src/pages/dashboard/user/account'));
 const UserCreatePage = lazy(() => import('src/pages/dashboard/user/new'));
 const UserEditPage = lazy(() => import('src/pages/dashboard/user/edit'));
+// PET
+const PetProfilePage = lazy(() => import('src/pages/dashboard/pet/profile'));
+const PetCardsPage = lazy(() => import('src/pages/dashboard/pet/cards'));
+const PetListPage = lazy(() => import('src/pages/dashboard/pet/list'));
+const PetAccountPage = lazy(() => import('src/pages/dashboard/pet/account'));
+const PetCreatePage = lazy(() => import('src/pages/dashboard/pet/new'));
+const PetEditPage = lazy(() => import('src/pages/dashboard/pet/edit'));
 // BLOG
 const BlogPostsPage = lazy(() => import('src/pages/dashboard/post/list'));
 const BlogPostPage = lazy(() => import('src/pages/dashboard/post/details'));
 const BlogNewPostPage = lazy(() => import('src/pages/dashboard/post/new'));
 const BlogEditPostPage = lazy(() => import('src/pages/dashboard/post/edit'));
-// PET
-const PetsPage = lazy(() => import('src/pages/dashboard/pet/list'));
-const PetPage = lazy(() => import('src/pages/dashboard/pet/details'));
-const NewPetPage = lazy(() => import('src/pages/dashboard/pet/new'));
-const EditPetPage = lazy(() => import('src/pages/dashboard/pet/edit'));
+// ORG-PET
+const PetsPage = lazy(() => import('src/pages/dashboard/orgpet/list'));
+const PetPage = lazy(() => import('src/pages/dashboard/orgpet/details'));
+const NewPetPage = lazy(() => import('src/pages/dashboard/orgpet/new'));
+const EditPetPage = lazy(() => import('src/pages/dashboard/orgpet/edit'));
 // JOB
 const JobDetailsPage = lazy(() => import('src/pages/dashboard/job/details'));
 const JobListPage = lazy(() => import('src/pages/dashboard/job/list'));
@@ -117,11 +124,7 @@ export const dashboardRoutes = [
         path: 'user',
         children: [
           {
-            element: (
-              <AuthGuard>
-                <UserProfilePage />
-              </AuthGuard>
-            ),
+            element: <UserProfilePage />,
             index: true,
           },
           {
@@ -133,6 +136,24 @@ export const dashboardRoutes = [
           { path: 'new', element: <UserCreatePage /> },
           { path: ':id/edit', element: <UserEditPage /> },
           { path: 'account', element: <UserAccountPage /> },
+        ],
+      },
+      {
+        path: 'pet',
+        children: [
+          {
+            element: <PetProfilePage />,
+            index: true,
+          },
+          {
+            path: 'profile',
+            element: <PetProfilePage />,
+          },
+          { path: 'cards', element: <PetCardsPage /> },
+          { path: 'list', element: <PetListPage /> },
+          { path: 'new', element: <PetCreatePage /> },
+          { path: ':id/edit', element: <PetEditPage /> },
+          { path: 'account', element: <PetAccountPage /> },
         ],
       },
       {

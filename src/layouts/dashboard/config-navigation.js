@@ -98,7 +98,7 @@ export function useNavData() {
           // USER
           {
             title: t('pets'),
-            path: paths.dashboard.user.cards,
+            path: paths.dashboard.pet.cards,
             icon: ICONS.user,
             // children: [
             //   { title: t('profile'), path: paths.dashboard.user.root },

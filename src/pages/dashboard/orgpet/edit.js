@@ -2,22 +2,22 @@ import { Helmet } from 'react-helmet-async';
 // routes
 import { useParams } from 'src/routes/hooks';
 // sections
-import { UserEditView } from 'src/sections/pet/view';
+import { PostEditView } from 'src/sections/blog/view';
 
 // ----------------------------------------------------------------------
 
-export default function UserEditPage() {
+export default function PostEditPage() {
   const params = useParams();
 
-  const { id } = params;
+  const { title } = params;
 
   return (
     <>
       <Helmet>
-        <title> Dashboard: Pet Edit</title>
+        <title> Dashboard: Post Edit</title>
       </Helmet>
 
-      <UserEditView id={`${id}`} />
+      <PostEditView title={`${title}`} />
     </>
   );
 }
