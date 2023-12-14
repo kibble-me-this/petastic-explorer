@@ -81,7 +81,7 @@ export default function Header() {
               <Searchbar />
             </Stack>
 
-            <Button sx={blueButton} variant="contained" href={paths.petsSignIn} rel="noopener">
+            <Button sx={blueButton} variant="contained" href={paths.login} rel="noopener">
               Sign In
             </Button>
 

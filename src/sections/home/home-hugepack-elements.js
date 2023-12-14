@@ -80,7 +80,7 @@ export default function HomeHugePackElements() {
         variant="outlined"
         target="_blank"
         rel="noopener"
-        href={paths.petsSignUp}
+        href={paths.register}
         endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
         sx={outlineButton}
       >

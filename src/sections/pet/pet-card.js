@@ -13,8 +13,10 @@ import Image from 'src/components/image';
 
 // ----------------------------------------------------------------------
 
-export default function UserCard({ user }) {
+export default function PetCard({ user }) {
   const theme = useTheme();
+
+  console.log(user);
 
   const mockUser = {
     pet_name: 'Fluffy',
@@ -110,6 +112,6 @@ export default function UserCard({ user }) {
   );
 }
 
-UserCard.propTypes = {
+PetCard.propTypes = {
   user: PropTypes.object,
 };

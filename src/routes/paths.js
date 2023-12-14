@@ -17,6 +17,8 @@ const ROOTS = {
 // ----------------------------------------------------------------------
 
 export const paths = {
+  login: `${ROOTS.AUTH}/magiclink/login`,
+  register: `${ROOTS.AUTH}/magiclink/register`,
   comingSoon: '/coming-soon',
   maintenance: '/maintenance',
   pricing: '/pricing',

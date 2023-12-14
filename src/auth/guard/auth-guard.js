@@ -9,6 +9,7 @@ import { useAuthContext } from '../hooks';
 // ----------------------------------------------------------------------
 
 const loginPaths = {
+  magic: paths.auth.magic.login,
   jwt: paths.auth.jwt.login,
   auth0: paths.auth.auth0.login,
   amplify: paths.auth.amplify.login,

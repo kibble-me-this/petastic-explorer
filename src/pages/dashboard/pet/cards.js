@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 // sections
-import { UserCardsView } from 'src/sections/pet/view';
+import { PetCardsView } from 'src/sections/pet/view';
 
 // ----------------------------------------------------------------------
 
-export default function UserCardsPage() {
+export default function PetCardsPage() {
   return (
     <>
       <Helmet>
         <title> Dashboard: Pet Cards</title>
       </Helmet>
 
-      <UserCardsView />
+      <PetCardsView />
     </>
   );
 }
