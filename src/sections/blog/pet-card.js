@@ -314,9 +314,10 @@ function ConfirmTransferDialog({
 
       // Prepare the request data including the new owner info
       const currentAccountId = current_owner_description.owner_id;
-      const newOwnerAccountId = generateVersion5UUID(data.email);
+      // const newOwnerAccountId = generateVersion5UUID(data.email);
       const newOwnerInfo = {
-        owner_id: newOwnerAccountId,
+        account_type: null,
+        owner_id: null, // newOwnerAccountId,
         issuer: null,
         trial_period: data.trial,
         public_address: null,
@@ -350,8 +351,8 @@ function ConfirmTransferDialog({
         const emailResponse = await sendEmail(
           userEmail,
           conversationId,
-          petPassport,
-          newOwnerAccountId
+          petPassport
+          // newOwnerAccountId
         );
 
         if (!emailResponse.success) {
