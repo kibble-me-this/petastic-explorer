@@ -46,7 +46,9 @@ import FormProvider, {
   // RHFUploadAvatar,
   // RHFAutocomplete,
 } from 'src/components/hook-form';
-import { handlePetAdoption, updatePetStatus, sendEmail } from './petastic-api';
+import generateVersion5UUID from '../../utils/uuidv5';
+
+import { handlePetAdoption, sendEmail } from './petastic-api';
 
 // ----------------------------------------------------------------------
 
@@ -312,8 +314,9 @@ function ConfirmTransferDialog({
 
       // Prepare the request data including the new owner info
       const currentAccountId = current_owner_description.owner_id;
+      const newOwnerAccountId = generateVersion5UUID(data.email);
       const newOwnerInfo = {
-        owner_id: '5ee83180f121686526084263abc', // Replace with the actual owner ID
+        owner_id: newOwnerAccountId,
         issuer: null,
         trial_period: data.trial,
         public_address: null,
@@ -322,6 +325,8 @@ function ConfirmTransferDialog({
         email: data.email,
         phone_number: data.phoneNumber,
       };
+
+      console.log('handlePetAdoption pet_passport_id: ', pet_passport_id);
 
       // Make the API request to handle pet adoption
       const handlePetAdoptionResponse = await handlePetAdoption(
@@ -339,10 +344,15 @@ function ConfirmTransferDialog({
         );
 
         // Send email using sendEmail function (replace with your service and template details)
-        const conversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4';
+        const conversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4'; // WIP call helper function to create conversationId
         const petPassport = pet_passport_id;
         const userEmail = data.email;
-        const emailResponse = await sendEmail(userEmail, conversationId, petPassport);
+        const emailResponse = await sendEmail(
+          userEmail,
+          conversationId,
+          petPassport,
+          newOwnerAccountId
+        );
 
         if (!emailResponse.success) {
           // Handle email sending error here

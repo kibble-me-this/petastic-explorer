@@ -10,6 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { fShortenNumber } from 'src/utils/format-number';
 // components
 import Image from 'src/components/image';
+import { use } from 'i18next';
 
 // ----------------------------------------------------------------------
 
@@ -19,12 +20,12 @@ export default function PetCard({ user }) {
   console.log(user);
 
   const mockUser = {
-    pet_name: 'Fluffy',
-    pet_avatar: 'https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/65516752/1/',
-    pet_breed: 'Golden Retriever',
-    pet_gender: 'Female',
-    pet_age: 'Young',
-    pet_weight: '50 LBS',
+    pet_name: user.name,
+    pet_avatar: user.avatar_file_name,
+    pet_breed: user.breed,
+    pet_gender: user.gender,
+    pet_age: user.age.life_stage,
+    pet_weight: user.weight,
   };
 
   const { pet_name, pet_avatar, pet_breed, pet_gender, pet_age, pet_weight } = mockUser;
