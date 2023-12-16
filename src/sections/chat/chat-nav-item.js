@@ -81,7 +81,7 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
   return (
     <ListItemButton
       disableGutters
-      onClick={handleClickConversation}
+      // onClick={handleClickConversation}
       sx={{
         py: 1.5,
         px: 2.5,
@@ -102,12 +102,12 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
         <>
           <ListItemText
             sx={{ ml: 2 }}
-            primary={displayName}
+            primary="pet_name" // {displayName}
             primaryTypographyProps={{
               noWrap: true,
               variant: 'subtitle2',
             }}
-            secondary={displayText}
+            secondary="convo_title" // {displayText}
             secondaryTypographyProps={{
               noWrap: true,
               component: 'span',
@@ -127,7 +127,8 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
                 color: 'text.disabled',
               }}
             >
-              {formatDistanceToNowStrict(new Date(lastActivity), {
+              {formatDistanceToNowStrict(new Date(), {
+                // lastActivity), {
                 addSuffix: false,
               })}
             </Typography>

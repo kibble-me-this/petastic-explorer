@@ -3,21 +3,20 @@ import { useState, useCallback } from 'react';
 // ----------------------------------------------------------------------
 
 export default function useCollapseNav() {
-  const [openMobile, setOpenMobile] = useState(true);
+  const [openMobile, setOpenMobile] = useState(false);
 
-  const [collapseDesktop, setCollapseDesktop] = useState(true);
+  const [collapseDesktop, setCollapseDesktop] = useState(false);
 
   const onCollapseDesktop = useCallback(() => {
     setCollapseDesktop((prev) => !prev);
   }, []);
 
   const onCloseDesktop = useCallback(() => {
-    // setCollapseDesktop(false);
-    setCollapseDesktop(true);
+    setCollapseDesktop(false);
   }, []);
 
   const onOpenMobile = useCallback(() => {
-    setOpenMobile(false);
+    setOpenMobile(true);
   }, []);
 
   const onCloseMobile = useCallback(() => {

@@ -28,7 +28,7 @@ import ChatNavSearchResults from './chat-nav-search-results';
 
 const NAV_WIDTH = 320;
 
-const NAV_COLLAPSE_WIDTH = 72;
+const NAV_COLLAPSE_WIDTH = 96;
 
 export default function ChatNav({ loading, contacts, conversations, selectedConversationId, pet }) {
   const theme = useTheme();
@@ -110,28 +110,28 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
     [handleClickAwaySearch, router]
   );
 
-  // const renderToggleBtn = (
-  //   <IconButton
-  //     onClick={onOpenMobile}
-  //     sx={{
-  //       left: 0,
-  //       top: 84,
-  //       zIndex: 9,
-  //       width: 32,
-  //       height: 32,
-  //       position: 'absolute',
-  //       borderRadius: `0 12px 12px 0`,
-  //       bgcolor: theme.palette.primary.main,
-  //       boxShadow: theme.customShadows.primary,
-  //       color: theme.palette.primary.contrastText,
-  //       '&:hover': {
-  //         bgcolor: theme.palette.primary.darker,
-  //       },
-  //     }}
-  //   >
-  //     <Iconify width={16} icon="solar:users-group-rounded-bold" />
-  //   </IconButton>
-  // );
+  const renderToggleBtn = (
+    <IconButton
+      onClick={onOpenMobile}
+      sx={{
+        left: 0,
+        top: 84,
+        zIndex: 9,
+        width: 32,
+        height: 32,
+        position: 'absolute',
+        borderRadius: `0 12px 12px 0`,
+        bgcolor: theme.palette.primary.main,
+        boxShadow: theme.customShadows.primary,
+        color: theme.palette.primary.contrastText,
+        '&:hover': {
+          bgcolor: theme.palette.primary.darker,
+        },
+      }}
+    >
+      <Iconify width={16} icon="solar:users-group-rounded-bold" />
+    </IconButton>
+  );
 
   const renderSkeleton = (
     <>
@@ -143,19 +143,16 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
 
   const renderList = (
     <>
-      {conversations.allIds.map((conversationId) => {
-        console.log('------> conversationId:', conversationId);
-        return (
-          <ChatNavItem
-            key={conversationId}
-            collapse={collapseDesktop}
-            conversation={conversations.byId[conversationId]}
-            selected={conversationId === selectedConversationId}
-            onCloseMobile={onCloseMobile}
-            pet={pet}
-          />
-        );
-      })}
+      {conversations.allIds.map((conversationId) => (
+        <ChatNavItem
+          key={conversationId}
+          collapse={collapseDesktop}
+          conversation={conversations.byId[conversationId]}
+          selected={conversationId === selectedConversationId}
+          onCloseMobile={onCloseMobile}
+          pet={pet}
+        />
+      ))}
     </>
   );
 
@@ -196,57 +193,36 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
           </>
         )}
 
-        {/** 
         <IconButton onClick={handleToggleNav}>
-          <Iconify
-            icon={collapseDesktop ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-back-fill'}
-          />
-        </IconButton>
-        */}
-
-        <IconButton>
           <Iconify
             icon={collapseDesktop ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-back-fill'}
           />
         </IconButton>
 
         {!collapseDesktop && (
-          <IconButton onClick={handleClickCompose}>
+          <IconButton disabled onClick={handleClickCompose}>
             <Iconify width={24} icon="solar:user-plus-bold" />
           </IconButton>
         )}
       </Stack>
 
-      <Box sx={{ p: 2.5, pt: 0 }}>{!collapseDesktop && renderSearchInput}</Box>
+      {/** <Box sx={{ p: 2.5, pt: 0 }}>{!collapseDesktop && renderSearchInput}</Box> */}
 
-      <Scrollbar sx={{ pb: 1 }}>
+      <Scrollbar sx={{ py: 3 }}>
         {searchContacts.query && renderListResults}
 
         {loading && renderSkeleton}
 
         {!searchContacts.query && !!conversations.allIds.length && renderList}
       </Scrollbar>
-
-      {/**
-      <Scrollbar sx={{ pb: 1 }}>
-        {searchContacts.query && <div style={{ pointerEvents: 'none' }}>{renderListResults}</div>}
-
-        {loading && <div style={{ pointerEvents: 'none' }}>{renderSkeleton}</div>}
-
-        {!searchContacts.query && !!conversations.allIds.length && (
-          <div style={{ pointerEvents: 'none' }}>{renderList}</div>
-        )}
-      </Scrollbar> 
-      */}
     </>
   );
 
   return (
     <>
-      {/* !mdUp && renderToggleBtn */}
+      {!mdUp && renderToggleBtn}
 
-      {/* mdUp ? ( */}
-      {true ? (
+      {mdUp ? (
         <Stack
           sx={{
             height: 1,
