@@ -35,14 +35,13 @@ const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 export const mainRoutes = [
   {
     element: (
-      <MainLayout>
+      <SimpleLayout>
         <Suspense fallback={<SplashScreen />}>
           <Outlet />
         </Suspense>
-      </MainLayout>
+      </SimpleLayout>
     ),
     children: [
-      { path: 'chat', element: <ChatPage /> },
       { path: 'about-us', element: <AboutPage /> },
       { path: 'contact-us', element: <ContactPage /> },
       { path: 'faqs', element: <FaqsPage /> },
@@ -91,6 +90,7 @@ export const mainRoutes = [
       </CompactLayout>
     ),
     children: [
+      { path: 'chat', element: <ChatPage /> },
       { path: 'coming-soon', element: <ComingSoonPage /> },
       { path: 'maintenance', element: <MaintenancePage /> },
       { path: '500', element: <Page500 /> },

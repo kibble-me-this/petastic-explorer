@@ -156,9 +156,6 @@ export default function ChatView() {
         width: 1,
         height: 1,
         overflow: 'hidden',
-        backgroundImage: 'url(/assets/background/chat_bg.svg)',
-        backgroundSize: '100% 100%', // Make the background image cover the entire Stack
-        backgroundRepeat: 'no-repeat', //
       }}
     >
       <ChatMessageList
@@ -246,6 +243,7 @@ export default function ChatView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
+      {/** 
       <Stack
         component={Paper}
         variant="outlined"
@@ -261,46 +259,48 @@ export default function ChatView() {
           backgroundRepeat: 'no-repeat', //
         }}
       >
-        {' '}
+      */}{' '}
+      <Stack
+        component={Card}
+        direction="row"
+        sx={{
+          backgroundColor: '#F2E1DE',
+          /// width: '40vh',
+          height: '80vh',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+          backgroundImage: 'url(/assets/background/overlay_4.jpg)',
+          backgroundSize: '100% 100%', // Stretch the background image to cover both width and height
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {renderNav}
+
         <Stack
-          component={Card}
-          direction="row"
           sx={{
-            backgroundColor: '#F2E1DE',
-            width: '40vh',
-            height: '72vh',
-            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Add your desired shadow settings here
+            width: 1,
+            height: 1,
+            overflow: 'hidden',
           }}
         >
-          {renderNav}
-
+          {renderHead}
           <Stack
+            direction="row"
             sx={{
               width: 1,
               height: 1,
               overflow: 'hidden',
+              borderTop: (theme) => `solid 1px ${theme.palette.divider}`,
             }}
           >
-            {renderHead}
-            <Stack
-              direction="row"
-              sx={{
-                width: 1,
-                height: 1,
-                overflow: 'hidden',
-                borderTop: (theme) => `solid 1px ${theme.palette.divider}`,
-                // backgroundImage: 'url(/assets/background/chat_bg.svg)',
-              }}
-            >
-              {renderMessages}
+            {renderMessages}
 
-              {details && (
-                <ChatRoom conversation={conversation} participants={participants} pet={pet} />
-              )}
-            </Stack>{' '}
-          </Stack>
+            {details && (
+              <ChatRoom conversation={conversation} participants={participants} pet={pet} />
+            )}
+          </Stack>{' '}
         </Stack>
       </Stack>
+      {/** </Stack> */}
     </Container>
   );
 }
