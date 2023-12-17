@@ -77,12 +77,14 @@ const handlePetAdoption = async (petPassportId, currentAccountId, newOwnerInfo) 
   }
 };
 // Function to send an email
-const sendEmail = async (to_email, conversationId, petPassport) => {
+const sendEmail = async (to_email, conversationId, petPassport, pet_image, pet_name) => {
   try {
     const templateParams = {
       to_email,
       conversationId,
       petPassport,
+      pet_image,
+      pet_name,
     };
 
     const result = await emailjs.send(

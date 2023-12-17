@@ -177,21 +177,23 @@ export default function ChatMessageItem({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-        <Avatar
-          alt={firstName}
-          src={avatarSrc}
-          sx={{
-            width: 20,
-            height: 20,
-            mr: 1,
-            // alignSelf: 'center',
-            ...(hasImage && {
-              // mr: 'auto',
-              mb: 1,
-              color: 'black',
-            }),
-          }}
-        />
+        {!me ? (
+          <Avatar
+            alt={firstName}
+            src={avatarSrc}
+            sx={{
+              width: 20,
+              height: 20,
+              mr: 1,
+              // alignSelf: 'center',
+              ...(hasImage && {
+                // mr: 'auto',
+                mb: 1,
+                color: 'black',
+              }),
+            }}
+          />
+        ) : null}
         {renderInfo}
       </div>
 

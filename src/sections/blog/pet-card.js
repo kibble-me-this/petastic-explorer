@@ -261,6 +261,8 @@ function ConfirmTransferDialog({
 }) {
   const [page, setPage] = useState(1);
 
+  console.log('this is pet: ', pet);
+
   // const mockPetData = {
   //   pet_passport_id: '12345', // Replace with a unique ID
   //   metadata: {
@@ -348,10 +350,15 @@ function ConfirmTransferDialog({
         const conversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4'; // WIP call helper function to create conversationId
         const petPassport = pet_passport_id;
         const userEmail = data.email;
+        const pet_name = pet.name;
+        const pet_image = pet.avatar_file_name;
+
         const emailResponse = await sendEmail(
           userEmail,
           conversationId,
-          petPassport
+          petPassport,
+          pet_image,
+          pet_name
           // newOwnerAccountId
         );
 

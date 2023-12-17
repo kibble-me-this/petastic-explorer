@@ -28,7 +28,7 @@ import ChatNavSearchResults from './chat-nav-search-results';
 
 const NAV_WIDTH = 320;
 
-const NAV_COLLAPSE_WIDTH = 96;
+const NAV_COLLAPSE_WIDTH = 72;
 
 export default function ChatNav({ loading, contacts, conversations, selectedConversationId, pet }) {
   const theme = useTheme();
@@ -199,11 +199,13 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
           />
         </IconButton>
 
+        {/*
         {!collapseDesktop && (
           <IconButton disabled onClick={handleClickCompose}>
             <Iconify width={24} icon="solar:user-plus-bold" />
           </IconButton>
         )}
+        */}
       </Stack>
 
       {/** <Box sx={{ p: 2.5, pt: 0 }}>{!collapseDesktop && renderSearchInput}</Box> */}

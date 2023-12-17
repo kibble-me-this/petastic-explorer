@@ -31,14 +31,35 @@ export default function ChatNavAccount() {
 
   return (
     <>
+      {/** 
       <Badge variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <Avatar
           src={user?.photoURL}
           alt={user?.displayName}
           onClick={popover.onOpen}
-          sx={{ cursor: 'pointer', width: 48, height: 48 }}
+          sx={{
+            cursor: 'pointer',
+            width: 48,
+            height: 48,
+            backgroundColor: 'white',
+            color: 'gray',
+          }}
         />
       </Badge>
+      */}
+
+      <Avatar
+        src={user?.photoURL}
+        alt={user?.displayName}
+        onClick={popover.onOpen}
+        sx={{
+          cursor: 'pointer',
+          width: 48,
+          height: 48,
+          backgroundColor: 'white',
+          color: 'gray',
+        }}
+      />
 
       <CustomPopover open={popover.open} onClose={popover.onClose} arrow="top-left" sx={{ p: 0 }}>
         <Stack
@@ -53,7 +74,7 @@ export default function ChatNavAccount() {
         >
           <ListItemText
             primary={user?.displayName}
-            secondary={user?.email}
+            // secondary={user?.email}
             secondaryTypographyProps={{ component: 'span' }}
           />
 
@@ -67,6 +88,7 @@ export default function ChatNavAccount() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Stack sx={{ p: 1 }}>
+          {/** 
           <MenuItem>
             <Badge
               variant={status}
@@ -98,13 +120,13 @@ export default function ChatNavAccount() {
               ))}
             </Select>
           </MenuItem>
-
-          <MenuItem>
+*/}
+          <MenuItem disabled>
             <Iconify icon="solar:user-id-bold" width={24} />
             Profile
           </MenuItem>
 
-          <MenuItem>
+          <MenuItem disabled>
             <Iconify icon="eva:settings-2-fill" width={24} />
             Settings
           </MenuItem>

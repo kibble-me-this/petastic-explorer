@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width" name="viewport" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection"
+    />
+    <title>Adoption Email Marka - Responsive</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:400"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Urbanist:800"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!--[if mso]>
+      <style>
+        * {
+          font-family: sans-serif !important;
+        }
+      </style>
+    <![endif]-->
+    <!--[if !mso]><!-->
+    <!-- <![endif]-->
+    <style>
+      html {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      * {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+      td {
+        vertical-align: top;
+        mso-table-lspace: 0pt !important;
+        mso-table-rspace: 0pt !important;
+      }
+      a {
+        text-decoration: none;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+      }
+      @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+        u ~ div .email-container {
+          min-width: 320px !important;
+        }
+      }
+      @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+        u ~ div .email-container {
+          min-width: 375px !important;
+        }
+      }
+      @media only screen and (min-device-width: 414px) {
+        u ~ div .email-container {
+          min-width: 414px !important;
+        }
+      }
+    </style>
+    <!--[if gte mso 9]>
+      <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG />
+          <o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings
+        ></xml
+      >
+    <![endif]-->
+    <style>
+      @media only screen and (max-device-width: 599px),
+        only screen and (max-width: 599px) {
+        .eh {
+          height: auto !important;
+        }
+        .desktop {
+          display: none !important;
+          height: 0 !important;
+          margin: 0 !important;
+          max-height: 0 !important;
+          overflow: hidden !important;
+          padding: 0 !important;
+          visibility: hidden !important;
+          width: 0 !important;
+        }
+        .mobile {
+          display: block !important;
+          width: auto !important;
+          height: auto !important;
+          float: none !important;
+        }
+        .email-container {
+          width: 100% !important;
+          margin: auto !important;
+        }
+        .stack-column,
+        .stack-column-center {
+          display: block !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          direction: ltr !important;
+        }
+        .wid-auto {
+          width: auto !important;
+        }
+        .table-w-full-mobile {
+          width: 100%;
+        }
+        .mobile-center {
+          text-align: center;
+        }
+        .mobile-center > table {
+          display: inline-block;
+          vertical-align: inherit;
+        }
+        .mobile-left {
+          text-align: left;
+        }
+        .mobile-left > table {
+          display: inline-block;
+          vertical-align: inherit;
+        }
+        .mobile-right {
+          text-align: right;
+        }
+        .mobile-right > table {
+          display: inline-block;
+          vertical-align: inherit;
+        }
+      }
+    </style>
+  </head>
+  <body
+    width="100%"
+    style="
+      background-color: #404040;
+      margin: 0;
+      padding: 0 !important;
+      mso-line-height-rule: exactly;
+    "
+  >
+    <div style="background-color: #404040">
+      <!--[if gte mso 9]>
+        <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+          <v:fill type="tile" color="#404040"
+        /></v:background>
+      <![endif]-->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td valign="top" align="center">
+            <table
+              bgcolor="#ffeeeb"
+              style="margin: 0 auto"
+              align="center"
+              id="brick_container"
+              cellspacing="0"
+              cellpadding="0"
+              border="0"
+              width="600"
+              class="email-container"
+            >
+              <tr>
+                <td width="600">
+                  <table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                      <td
+                        width="600"
+                        align="center"
+                        style="background-color: #ffeeeb"
+                        bgcolor="#ffeeeb"
+                      >
+                        <table
+                          width="100%"
+                          border="0"
+                          cellpadding="0"
+                          cellspacing="0"
+                        >
+                          <tr>
+                            <td width="100%">
+                              <table
+                                width="100%"
+                                cellspacing="0"
+                                cellpadding="0"
+                                border="0"
+                              >
+                                <tr>
+                                  <td
+                                    width="100%"
+                                    align="center"
+                                    style="
+                                      background-color: #f5e4e1;
+                                      padding-left: 24px;
+                                      padding-right: 24px;
+                                    "
+                                    bgcolor="#f5e4e1"
+                                  >
+                                    <table
+                                      width="100%"
+                                      border="0"
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                    >
+                                      <tr>
+                                        <td
+                                          height="12"
+                                          style="
+                                            height: 12px;
+                                            min-height: 12px;
+                                            line-height: 12px;
+                                          "
+                                        ></td>
+                                      </tr>
+                                      <tr>
+                                        <td align="center">
+                                          <div
+                                            style="
+                                              line-height: 20px;
+                                              text-align: center;
+                                            "
+                                          >
+                                            <span
+                                              style="
+                                                color: #979dad;
+                                                font-family: Arial, Arial,
+                                                  sans-serif;
+                                                font-size: 12px;
+                                                line-height: 20px;
+                                                text-align: center;
+                                              "
+                                              >View in browser</span
+                                            >
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td
+                                          height="12"
+                                          style="
+                                            height: 12px;
+                                            min-height: 12px;
+                                            line-height: 12px;
+                                          "
+                                        ></td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%" align="center">
+                              <table
+                                width="100%"
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                              >
+                                <tr>
+                                  <td
+                                    width="100%"
+                                    align="center"
+                                    style="
+                                      padding-left: 24px;
+                                      padding-right: 24px;
+                                    "
+                                  >
+                                    <table
+                                      width="100%"
+                                      border="0"
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                    >
+                                      <tr>
+                                        <td
+                                          height="24"
+                                          style="
+                                            height: 24px;
+                                            min-height: 24px;
+                                            line-height: 24px;
+                                          "
+                                        ></td>
+                                      </tr>
+                                      <tr>
+                                        <td align="center">
+                                          <table
+                                            cellspacing="0"
+                                            cellpadding="0"
+                                            border="0"
+                                          >
+                                            <tr>
+                                              <td width="78" align="center">
+                                                <img
+                                                  src="https://plugin.markaimg.com/public/908cf159/FvSZLMVFMHl2qEfDidcdaUpnJfsU0k.png"
+                                                  width="78"
+                                                  border="0"
+                                                  style="
+                                                    min-width: 78px;
+                                                    width: 78px;
+                                                    height: auto;
+                                                    display: block;
+                                                  "
+                                                />
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td
+                                          height="24"
+                                          style="
+                                            height: 24px;
+                                            min-height: 24px;
+                                            line-height: 24px;
+                                          "
+                                        ></td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              width="100%"
+                              align="center"
+                              style="
+                                vertical-align: middle;
+                                padding-left: 56px;
+                                padding-right: 56px;
+                              "
+                            >
+                              <table
+                                width="100%"
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                              >
+                                <tr>
+                                  <td
+                                    style="vertical-align: middle"
+                                    width="100%"
+                                  >
+                                    <table
+                                      width="100%"
+                                      cellspacing="0"
+                                      cellpadding="0"
+                                      border="0"
+                                    >
+                                      <tr>
+                                        <td width="100%" align="center">
+                                          <table
+                                            width="100%"
+                                            border="0"
+                                            cellpadding="0"
+                                            cellspacing="0"
+                                          >
+                                            <tr>
+                                              <td align="center">
+                                                <div style="text-align: center">
+                                                  <span
+                                                    style="
+                                                      color: #1c1c1c;
+                                                      font-weight: 700;
+                                                      font-family: Inter, Arial,
+                                                        sans-serif;
+                                                      font-size: 20px;
+                                                      line-height: 132%;
+                                                      text-align: center;
+                                                    "
+                                                    >Pet care,
+                                                    purrsonalized...</span
+                                                  >
+                                                </div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td
+                                                height="8"
+                                                style="
+                                                  height: 8px;
+                                                  min-height: 8px;
+                                                  line-height: 8px;
+                                                "
+                                              ></td>
+                                            </tr>
+                                            <tr>
+                                              <td align="center">
+                                                <div style="text-align: center">
+                                                  <span
+                                                    style="
+                                                      color: #121212;
+                                                      font-family: Inter, Arial,
+                                                        sans-serif;
+                                                      font-size: 14px;
+                                                      line-height: 140%;
+                                                      text-align: center;
+                                                    "
+                                                    >Petastic acts as your
+                                                    personal pet concierge,
+                                                    streamlining pet care
+                                                    uniquely for you.
+                                                    Effortlessly manage your
+                                                    pet's records and discover
+                                                    products and services
+                                                    curated to meet their
+                                                    specific requirements.
+                                                  </span>
+                                                </div>
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    height="40"
+                                    style="
+                                      height: 40px;
+                                      min-height: 40px;
+                                      line-height: 40px;
+                                    "
+                                  ></td>
+                                </tr>
+                                <tr>
+                                  <td align="center">
+                                    <table
+                                      cellspacing="0"
+                                      cellpadding="0"
+                                      border="0"
+                                    >
+                                      <tr>
+                                        <td style="vertical-align: middle">
+                                          <table
+                                            cellspacing="0"
+                                            cellpadding="0"
+                                            border="0"
+                                          >
+                                            <tr>
+                                              <td
+                                                align="center"
+                                                style="vertical-align: middle"
+                                              >
+                                                <table
+                                                  width="100%"
+                                                  border="0"
+                                                  cellpadding="0"
+                                                  cellspacing="0"
+                                                >
+                                                  <tr>
+                                                    <td
+                                                      style="
+                                                        vertical-align: middle;
+                                                      "
+                                                    >
+                                                      <table
+                                                        cellspacing="0"
+                                                        cellpadding="0"
+                                                        border="0"
+                                                      >
+                                                        <tr>
+                                                          <td
+                                                            style="
+                                                              border-radius: 12px;
+                                                            "
+                                                          >
+                                                            <table
+                                                              width="100%"
+                                                              border="0"
+                                                              cellpadding="0"
+                                                              cellspacing="0"
+                                                            >
+                                                              <tr>
+                                                                <td width="98">
+                                                                  <img
+                                                                    src="{{pet_avatar}}"
+                                                                    style="
+                                                                      max-height: 120px; /* Set the maximum height */
+                                                                      max-width: 100%; /* Allow width to scale proportionally */
+                                                                      border-radius: 12px
+                                                                        0px 0px
+                                                                        12px;
+                                                                      display: block;
+                                                                    "
+                                                                  />
+                                                                </td>
+                                                                <td width="181">
+                                                                  <table
+                                                                    cellspacing="0"
+                                                                    cellpadding="0"
+                                                                    border="0"
+                                                                  >
+                                                                    <tr>
+                                                                      <td
+                                                                        width="157"
+                                                                        style="
+                                                                          background-color: #ffffff;
+                                                                          border-radius: 0px
+                                                                            12px
+                                                                            12px
+                                                                            0px;
+                                                                          padding-left: 12px;
+                                                                          padding-right: 12px;
+                                                                        "
+                                                                        bgcolor="#ffffff"
+                                                                      >
+                                                                        <table
+                                                                          width="100%"
+                                                                          border="0"
+                                                                          cellpadding="0"
+                                                                          cellspacing="0"
+                                                                        >
+                                                                          <tr>
+                                                                            <td
+                                                                              height="12"
+                                                                              style="
+                                                                                height: 12px;
+                                                                                min-height: 12px;
+                                                                                line-height: 12px;
+                                                                              "
+                                                                            ></td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                            <td
+                                                                              width="100%"
+                                                                            >
+                                                                              <table
+                                                                                width="100%"
+                                                                                border="0"
+                                                                                cellpadding="0"
+                                                                                cellspacing="0"
+                                                                              >
+                                                                                <tr>
+                                                                                  <td
+                                                                                    width="100%"
+                                                                                  >
+                                                                                    <table
+                                                                                      width="100%"
+                                                                                      border="0"
+                                                                                      cellpadding="0"
+                                                                                      cellspacing="0"
+                                                                                    >
+                                                                                      <tr>
+                                                                                        <td
+                                                                                          width="100%"
+                                                                                        >
+                                                                                          <table
+                                                                                            width="100%"
+                                                                                            border="0"
+                                                                                            cellpadding="0"
+                                                                                            cellspacing="0"
+                                                                                          >
+                                                                                            <tr>
+                                                                                              <td>
+                                                                                                <div
+                                                                                                  style="
+                                                                                                    line-height: normal;
+                                                                                                    text-align: left;
+                                                                                                  "
+                                                                                                >
+                                                                                                  <span
+                                                                                                    style="
+                                                                                                      color: #121212;
+                                                                                                      font-weight: 800;
+                                                                                                      font-family: Urbanist,
+                                                                                                        Arial,
+                                                                                                        sans-serif;
+                                                                                                      font-size: 14px;
+                                                                                                      letter-spacing: 0.01em;
+                                                                                                      line-height: normal;
+                                                                                                      text-align: left;
+                                                                                                    "
+                                                                                                    >{{pet_name}}</span
+                                                                                                  >
+                                                                                                </div>
+                                                                                              </td>
+                                                                                            </tr>
+                                                                                          </table>
+                                                                                        </td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                        <td
+                                                                                          height="4"
+                                                                                          style="
+                                                                                            height: 4px;
+                                                                                            min-height: 4px;
+                                                                                            line-height: 4px;
+                                                                                          "
+                                                                                        ></td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                        <td
+                                                                                          width="100%"
+                                                                                        >
+                                                                                          <table
+                                                                                            width="100%"
+                                                                                            border="0"
+                                                                                            cellpadding="0"
+                                                                                            cellspacing="0"
+                                                                                          >
+                                                                                            <tr>
+                                                                                              <td>
+                                                                                                <div
+                                                                                                  style="
+                                                                                                    line-height: normal;
+                                                                                                    text-align: left;
+                                                                                                  "
+                                                                                                >
+                                                                                                <span
+                                                                                                style="
+                                                                                                  color: #121212;
+                                                                                                  font-family: Inter, Arial, sans-serif;
+                                                                                                  font-size: 12px;
+                                                                                                  letter-spacing: 0.01em;
+                                                                                                  line-height: normal;
+                                                                                                  text-align: left;
+                                                                                                  display: inline-block;
+                                                                                                  max-width: 100px; /* Set a maximum width for the container */
+                                                                                                  overflow: hidden;
+                                                                                                  white-space: nowrap;
+                                                                                                  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+                                                                                                "
+                                                                                              >
+                                                                                                </div>
+                                                                                              </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                              <td
+                                                                                                height="2"
+                                                                                                style="
+                                                                                                  height: 2px;
+                                                                                                  min-height: 2px;
+                                                                                                  line-height: 2px;
+                                                                                                "
+                                                                                              ></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                              <td>
+                                                                                                <div
+                                                                                                  style="
+                                                                                                    line-height: normal;
+                                                                                                    text-align: left;
+                                                                                                  "
+                                                                                                >
+                                                                                                  <span
+                                                                                                    style="
+                                                                                                      color: #121212;
+                                                                                                      font-family: Inter,
+                                                                                                        Arial,
+                                                                                                        sans-serif;
+                                                                                                      font-size: 12px;
+                                                                                                      line-height: normal;
+                                                                                                      text-align: left;
+                                                                                                    "
+                                                                                                    >{{pet_gender}}
+                                                                                                    •
+                                                                                                    {{pet_age}}
+                                                                                                  </span>
+                                                                                                </div>
+                                                                                              </td>
+                                                                                            </tr>
+                                                                                          </table>
+                                                                                        </td>
+                                                                                      </tr>
+                                                                                    </table>
+                                                                                  </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td
+                                                                                    height="12"
+                                                                                    style="
+                                                                                      height: 12px;
+                                                                                      min-height: 12px;
+                                                                                      line-height: 12px;
+                                                                                    "
+                                                                                  ></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                  <td>
+                                                                                    <table
+                                                                                      cellspacing="0"
+                                                                                      cellpadding="0"
+                                                                                      border="0"
+                                                                                    >
+                                                                                      <tr>
+                                                                                        <td
+                                                                                          class="JVc4zJsRosBY1f0ESAcdcnbgblOQvm invert-bg"
+                                                                                          style="
+                                                                                            background-repeat: no-repeat !important;
+                                                                                            background-position: center
+                                                                                              center !important;
+                                                                                            background-size: cover !important;
+                                                                                            border-radius: 48px;
+                                                                                            border-collapse: separate !important;
+                                                                                            padding-left: 12px;
+                                                                                            padding-right: 12px;
+                                                                                          "
+                                                                                          background="https://plugin.markaimg.com/public/908cf159/JVc4zJsRosBY1f0ESAcdcnbgblOQvm.png"
+                                                                                        >
+                                                                                          <!--[if gte mso 9]> <v:image xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style=" border: 0;display: inline-block; width: 109px; height:24px;" src="https://plugin.markaimg.com/public/908cf159/JVc4zJsRosBY1f0ESAcdcnbgblOQvm.png" /> <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style=" border: 0;display: inline-block;position: absolute; width: 109px; height:24px;"> <v:fill opacity="0%" color="#000" /> <v:textbox inset="0,0,0,0"> <![endif]-->
+                                                                                          <div>
+                                                                                            <table
+                                                                                              width="100%"
+                                                                                              border="0"
+                                                                                              cellpadding="0"
+                                                                                              cellspacing="0"
+                                                                                            >
+                                                                                              <tr>
+                                                                                                <td
+                                                                                                  height="4"
+                                                                                                  style="
+                                                                                                    height: 4px;
+                                                                                                    min-height: 4px;
+                                                                                                    line-height: 4px;
+                                                                                                  "
+                                                                                                ></td>
+                                                                                              </tr>
+                                                                                              <tr>
+                                                                                                <td>
+                                                                                                  <div
+                                                                                                    style="
+                                                                                                      line-height: 16px;
+                                                                                                      text-align: left;
+                                                                                                    "
+                                                                                                  >
+                                                                                                    <span
+                                                                                                      style="
+                                                                                                        color: #121212;
+                                                                                                        font-family: Inter,
+                                                                                                          Arial,
+                                                                                                          sans-serif;
+                                                                                                        font-size: 12px;
+                                                                                                        line-height: 16px;
+                                                                                                        text-align: left;
+                                                                                                      "
+                                                                                                      >{{shelter_name}}</span
+                                                                                                    >
+                                                                                                  </div>
+                                                                                                </td>
+                                                                                              </tr>
+                                                                                              <tr>
+                                                                                                <td
+                                                                                                  height="4"
+                                                                                                  style="
+                                                                                                    height: 4px;
+                                                                                                    min-height: 4px;
+                                                                                                    line-height: 4px;
+                                                                                                  "
+                                                                                                ></td>
+                                                                                              </tr>
+                                                                                            </table>
+                                                                                          </div>
+                                                                                          <!--[if gte mso 9]></v:textbox></v:fill></v:rect></v:image> <![endif]-->
+                                                                                        </td>
+                                                                                      </tr>
+                                                                                    </table>
+                                                                                  </td>
+                                                                                </tr>
+                                                                              </table>
+                                                                            </td>
+                                                                          </tr>
+                                                                          <tr>
+                                                                            <td
+                                                                              height="12"
+                                                                              style="
+                                                                                height: 12px;
+                                                                                min-height: 12px;
+                                                                                line-height: 12px;
+                                                                              "
+                                                                            ></td>
+                                                                          </tr>
+                                                                        </table>
+                                                                      </td>
+                                                                    </tr>
+                                                                  </table>
+                                                                </td>
+                                                              </tr>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                      </table>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td
+                                                      height="32"
+                                                      style="
+                                                        height: 32px;
+                                                        min-height: 32px;
+                                                        line-height: 32px;
+                                                      "
+                                                    ></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td align="center">
+                                                      <table
+                                                        cellspacing="0"
+                                                        cellpadding="0"
+                                                        border="0"
+                                                      >
+                                                        <tr>
+                                                          <td
+                                                            style="
+                                                              vertical-align: middle;
+                                                            "
+                                                          >
+                                                            <table
+                                                              cellspacing="0"
+                                                              cellpadding="0"
+                                                              border="0"
+                                                            >
+                                                              <tr>
+                                                                <td
+                                                                  align="center"
+                                                                  style="
+                                                                    vertical-align: middle;
+                                                                    background-color: #345bff;
+                                                                    border-radius: 12px;
+                                                                    padding-left: 16px;
+                                                                    padding-right: 16px;
+                                                                  "
+                                                                  bgcolor="#345bff"
+                                                                >
+                                                                  <table
+                                                                    width="100%"
+                                                                    border="0"
+                                                                    cellpadding="0"
+                                                                    cellspacing="0"
+                                                                  >
+                                                                    <tr>
+                                                                      <td
+                                                                        height="12"
+                                                                        style="
+                                                                          height: 12px;
+                                                                          min-height: 12px;
+                                                                          line-height: 12px;
+                                                                        "
+                                                                      ></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td
+                                                                        style="
+                                                                          vertical-align: middle;
+                                                                        "
+                                                                        align="center"
+                                                                      >
+                                                                        <div
+                                                                          style="
+                                                                            line-height: 20px;
+                                                                            text-align: left;
+                                                                          "
+                                                                        >
+                                                                          <a
+                                                                            href="https://dev-fetchai.petastic.com/chat?id={{conversation_id}}&petPassport={{pet_passport_id}}&email={{email}}&pet_name={{pet_name}}&pet_breed={{pet_breed}}&shelter_name={{shelter_name}}&pet_gender={{pet_gender}}&pet_age={{pet_age}}"
+                                                                          >
+                                                                            <span
+                                                                              style="
+                                                                                color: #ffffff;
+                                                                                font-weight: 700;
+                                                                                font-family: Inter,
+                                                                                  Arial,
+                                                                                  sans-serif;
+                                                                                font-size: 14px;
+                                                                                line-height: 20px;
+                                                                                text-align: left;
+                                                                              "
+                                                                            >
+                                                                              Give
+                                                                              it
+                                                                              a
+                                                                              whirl!
+                                                                            </span>
+                                                                          </a>
+                                                                        </div>
+                                                                      </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td
+                                                                        height="12"
+                                                                        style="
+                                                                          height: 12px;
+                                                                          min-height: 12px;
+                                                                          line-height: 12px;
+                                                                        "
+                                                                      ></td>
+                                                                    </tr>
+                                                                  </table>
+                                                                </td>
+                                                              </tr>
+                                                            </table>
+                                                          </td>
+                                                        </tr>
+                                                      </table>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    height="48"
+                                    style="
+                                      height: 48px;
+                                      min-height: 48px;
+                                      line-height: 48px;
+                                    "
+                                  ></td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="100%">
+                              <table
+                                width="100%"
+                                cellspacing="0"
+                                cellpadding="0"
+                                border="0"
+                              >
+                                <tr>
+                                  <td
+                                    width="100%"
+                                    style="
+                                      background-color: #f5e4e1;
+                                      padding-left: 24px;
+                                      padding-right: 24px;
+                                    "
+                                    bgcolor="#f5e4e1"
+                                  >
+                                    <table
+                                      width="100%"
+                                      border="0"
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                    >
+                                      <tr>
+                                        <td
+                                          width="100%"
+                                          align="center"
+                                          style="
+                                            padding-left: 24px;
+                                            padding-right: 24px;
+                                          "
+                                        >
+                                          <table
+                                            width="100%"
+                                            border="0"
+                                            cellpadding="0"
+                                            cellspacing="0"
+                                          >
+                                            <tr>
+                                              <td
+                                                height="24"
+                                                style="
+                                                  height: 24px;
+                                                  min-height: 24px;
+                                                  line-height: 24px;
+                                                "
+                                              ></td>
+                                            </tr>
+                                            <tr>
+                                              <td width="100%" align="center">
+                                                <table
+                                                  width="100%"
+                                                  border="0"
+                                                  cellpadding="0"
+                                                  cellspacing="0"
+                                                >
+                                                  <tr>
+                                                    <td align="center">
+                                                      <div
+                                                        style="
+                                                          text-align: center;
+                                                        "
+                                                      >
+                                                        <span
+                                                          style="
+                                                            color: #777777;
+                                                            font-family: Arial,
+                                                              Arial, sans-serif;
+                                                            font-size: 12px;
+                                                            line-height: 120%;
+                                                            text-align: center;
+                                                          "
+                                                          >© Petastic. All
+                                                          rights reserved.
+                                                        </span>
+                                                      </div>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td
+                                                      height="8"
+                                                      style="
+                                                        height: 8px;
+                                                        min-height: 8px;
+                                                        line-height: 8px;
+                                                      "
+                                                    ></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td align="center">
+                                                      <div
+                                                        style="
+                                                          text-align: center;
+                                                        "
+                                                      >
+                                                        <span
+                                                          style="
+                                                            color: #777777;
+                                                            font-family: Arial,
+                                                              Arial, sans-serif;
+                                                            font-size: 12px;
+                                                            line-height: 120%;
+                                                            text-align: center;
+                                                            text-decoration: underline;
+                                                          "
+                                                          >Unsubscribe</span
+                                                        >
+                                                      </div>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td
+                                                height="24"
+                                                style="
+                                                  height: 24px;
+                                                  min-height: 24px;
+                                                  line-height: 24px;
+                                                "
+                                              ></td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
