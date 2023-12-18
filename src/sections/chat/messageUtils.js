@@ -30,10 +30,10 @@ export async function sendLocalMessage(
       };
 
       // Update the conversation data to include the user's message
-      // setConversationData((prevConversationData) => ({
-      //   ...prevConversationData,
-      //   messages: [...prevConversationData.messages, userMessage],
-      // }));
+      setConversationData((prevConversationData) => ({
+        ...prevConversationData,
+        messages: [...prevConversationData.messages, userMessage],
+      }));
 
       // // Wrap the message object in an array with the n property
       const messageArray = [
@@ -82,10 +82,10 @@ export async function sendOpenaiMessage(
       };
 
       // Update the conversation data to include the user's message
-      // setConversationData((prevConversationData) => ({
-      //   ...prevConversationData,
-      //   messages: [...prevConversationData.messages, userMessage],
-      // }));
+      setConversationData((prevConversationData) => ({
+        ...prevConversationData,
+        messages: [...prevConversationData.messages, userMessage],
+      }));
 
       // Wrap the message object in an array with the n property
       const messageArray = [

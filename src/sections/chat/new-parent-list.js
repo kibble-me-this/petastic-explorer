@@ -104,13 +104,19 @@ export default function NewParentList({ post, onAiLoadingChange }) {
             sx={{ my: 1.5, ml: 1, mr: 0.5 }}
           >
             <Stack direction="column" alignItems="flex-start">
-              <Typography variant="chat_author">{title}</Typography>
-              <Typography
+              <TextMaxLine
+                line="1"
+                variant="chat_author"
+                sx={{ textTransform: 'none', textAlign: 'left' }}
+              >
+                {title}
+              </TextMaxLine>
+              <TextMaxLine
                 variant="chat_author"
                 sx={{ fontWeight: 'normal', textTransform: 'none', textAlign: 'left' }}
               >
                 {description}
-              </Typography>
+              </TextMaxLine>
             </Stack>
             <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#FFF' }} />{' '}
           </Stack>

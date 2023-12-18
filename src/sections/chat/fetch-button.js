@@ -68,7 +68,7 @@ export default function FetchButton({ value, onAiLoadingChange }) {
         onClick={handleButtonClick}
         disabled={buttonClicked}
       >
-        {buttonClicked ? 'Your Shelter is Earning 💰' : 'Loves it, I opt in❣️'}
+        {buttonClicked ? 'Your Shelter is Earning 💰' : 'Loves it, opt me in❣️'}
       </Button>
     </>
   );

@@ -21,7 +21,7 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
   const [conversationID, setConversationID] = useState('');
   const [petPassport, setPetPassport] = useState('');
   const [email, setEmail] = useState('');
-  const [buttonText, setButtonText] = useState('Activate Super Pawers 🦸‍♂️🐾');
+  const [buttonText, setButtonText] = useState('Activate Pet Passport');
 
   useEffect(() => {
     // Extract parameters from the URL when the component mounts
@@ -101,7 +101,9 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
             }
           }
 
-          const predefinedLocalMessage = `<b>Paws Before Profits</b> html login button`;
+          const predefinedLocalMessage = `<b>Paws Before Profits Co-op</b> <p>{acquired_from}</b> is part of the "Paws Before Profits Co-op" program. This means that 5% of all the purchases you make for {pet.name} will be donated to <b>{acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
+  
+          <p>All you have to opt in below (it's free).</p> html login button`;
           const messageArray2 = [
             {
               role: 'user',
@@ -138,6 +140,7 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
         sx={{
           borderColor: '#FFF',
           mt: 2,
+          fontSize: '12px',
           width: '100%',
           '&:disabled': {
             color: '#FFF',
