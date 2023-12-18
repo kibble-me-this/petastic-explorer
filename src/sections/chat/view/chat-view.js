@@ -267,7 +267,7 @@ export default function ChatView() {
           backgroundColor: '#F2E1DE',
           /// width: '40vh',
           height: '80vh',
-          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+          // boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
           backgroundImage: 'url(/assets/background/overlay_4.jpg)',
           backgroundSize: '100% 100%', // Stretch the background image to cover both width and height
           backgroundRepeat: 'no-repeat',
