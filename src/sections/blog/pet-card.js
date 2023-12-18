@@ -48,7 +48,7 @@ import FormProvider, {
 } from 'src/components/hook-form';
 import generateVersion5UUID from '../../utils/uuidv5';
 
-import { handlePetAdoption, sendEmail } from './petastic-api';
+import { handlePetAdoption, sendEmail } from '../../api/petastic-api';
 
 // ----------------------------------------------------------------------
 

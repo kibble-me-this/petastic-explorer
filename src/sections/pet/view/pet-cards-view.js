@@ -12,6 +12,7 @@ import EmptyContent from 'src/components/empty-content';
 import { useAuthContext } from 'src/auth/hooks';
 import PetCardList from '../pet-card-list';
 import { getShelterAccountId } from '../../blog/_mock';
+import { getPetsByAccountId } from '../../../api/petastic-api';
 
 export default function PetCardsView() {
   const settings = useSettingsContext();
@@ -20,33 +21,22 @@ export default function PetCardsView() {
   const [isApiLoading, setIsApiLoading] = useState(false);
   const { user } = useAuthContext();
 
+  // Usage example in a useEffect
   useEffect(() => {
     setIsApiLoading(true);
-
-    // if (userMetadata) {
-    const account_id = '5fe93b084e01702187737636'; // carlos@petastic.com
-    // const account_id = getShelterAccountId(user.publicAddress);
-
-    const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${account_id}`;
-
-    fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+    getPetsByAccountId(user.email)
       .then((data) => {
+        // Handle the fetched data here
+        console.log('Fetched pets:', data);
         setApiPets(data.pets);
-
         setIsApiLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching user pets:', error);
+        // Handle errors here
+        console.error('Error fetching pets:', error);
         setIsApiLoading(false);
       });
-    // }
-  }, [user.publicAddress]);
+  }, [user]);
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -80,7 +70,7 @@ export default function PetCardsView() {
       {apiPets.length === 0 ? (
         <EmptyContent filled title="No pets found." />
       ) : (
-        <PetCardList users={apiPets} isLoading={isApiLoading} />
+        <PetCardList key={apiPets.id} users={apiPets} isLoading={isApiLoading} />
       )}
     </Container>
   );

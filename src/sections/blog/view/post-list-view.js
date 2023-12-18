@@ -212,7 +212,7 @@ export default function PostListView() {
         ))}
       </Tabs>
 
-      <PostListHorizontal posts={dataFiltered} loading={isApiLoading} />
+      <PostListHorizontal key={dataFiltered.id} posts={dataFiltered} loading={isApiLoading} />
     </Container>
   );
 }

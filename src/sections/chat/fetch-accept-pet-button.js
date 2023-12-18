@@ -12,6 +12,8 @@ import { OAuthExtension } from '@magic-ext/oauth';
 import { sendToOpenAI, sendMockMessage } from '../../api/openai';
 // import { sendOpenaiMessage, sendLocalMessage } from './messageUtils'; // Adjust the import path
 
+import { handleCreateAccount, handlePetPassportTransfer } from '../../api/petastic-api';
+
 export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingChange }) {
   const { title } = value;
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -43,61 +45,78 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
       try {
         await magic.auth.loginWithMagicLink({ email });
 
-        const openaiMessage = `petPassport: ${petPassport}`;
-        const selectedConversationId = conversationID;
+        const magicIsLoggedIn = await magic.user.isLoggedIn();
+        if (magicIsLoggedIn) {
+          const magic_user = await magic.user.getMetadata();
+          const publicAddress = magic_user.publicAddress;
+          const magic_email = magic_user.email;
 
-        // Wrap the message object in an array with the n property
-        const messageArray = [
-          {
-            role: 'user',
-            content: openaiMessage,
-          },
-        ];
+          console.log('magic_user: ', magic_user);
 
-        // Make the API request to OpenAI here using sendToOpenAI
-        const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, fetchai);
-        // pet.name = 'cooper';
-        // setPet(pet);
-        if (openaiResponse) {
-          const petData = {};
+          const accountExists = await handleCreateAccount(magic_user);
+          console.log('accountExists: ', accountExists);
 
-          if (openaiResponse?.data?.props?.name) {
-            pet.name = openaiResponse?.data?.props?.name;
+          if (accountExists) {
+            const account_id = accountExists.account_id;
+            await handlePetPassportTransfer(account_id, petPassport);
           }
 
-          if (openaiResponse?.data?.props?.age?.life_stage) {
-            pet.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
+          const openaiMessage = `petPassport: ${petPassport}`;
+          const selectedConversationId = conversationID;
+
+          // Wrap the message object in an array with the n property
+          const messageArray = [
+            {
+              role: 'user',
+              content: openaiMessage,
+            },
+          ];
+
+          // Make the API request to OpenAI here using sendToOpenAI
+          const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, fetchai);
+          // pet.name = 'cooper';
+          // setPet(pet);
+          if (openaiResponse) {
+            const petData = {};
+
+            if (openaiResponse?.data?.props?.name) {
+              pet.name = openaiResponse?.data?.props?.name;
+            }
+
+            if (openaiResponse?.data?.props?.age?.life_stage) {
+              pet.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
+            }
+
+            if (openaiResponse?.data?.props?.breed) {
+              pet.breed = openaiResponse?.data?.props?.breed;
+            }
+
+            if (openaiResponse?.data?.props?.avatar) {
+              pet.avatar = openaiResponse?.data?.props?.avatar;
+            }
+
+            if (Object.keys(pet).length > 0) {
+              // Only set petData if it has properties
+              setPet(pet);
+            }
           }
 
-          if (openaiResponse?.data?.props?.breed) {
-            pet.breed = openaiResponse?.data?.props?.breed;
-          }
+          const predefinedLocalMessage = `<b>Paws Before Profits</b> html login button`;
+          const messageArray2 = [
+            {
+              role: 'user',
+              content: predefinedLocalMessage,
+            },
+          ];
 
-          if (openaiResponse?.data?.props?.avatar) {
-            pet.avatar = openaiResponse?.data?.props?.avatar;
-          }
+          await sendMockMessage(selectedConversationId, messageArray2, fetchai);
 
-          if (Object.keys(pet).length > 0) {
-            // Only set petData if it has properties
-            setPet(pet);
-          }
+          // Update the state to show "Transfer Complete" and disable the button
+          setButtonClicked(false);
+          onAiLoadingChange(false);
+          // Update the button text to "Transfer Complete"
+          setButtonText('Transfer Complete');
         }
-
-        const predefinedLocalMessage = `<b>Paws Before Profits</b> html login button`;
-        const messageArray2 = [
-          {
-            role: 'user',
-            content: predefinedLocalMessage,
-          },
-        ];
-
-        await sendMockMessage(selectedConversationId, messageArray2, fetchai);
-
-        // Update the state to show "Transfer Complete" and disable the button
-        setButtonClicked(false);
-        onAiLoadingChange(false);
-        // Update the button text to "Transfer Complete"
-        setButtonText('Transfer Complete');
 
         // Optionally, you can trigger other actions or update state based on the response
       } catch (error) {

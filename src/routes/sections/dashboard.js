@@ -70,24 +70,17 @@ const FileManagerPage = lazy(() => import('src/pages/dashboard/file-manager'));
 
 // Define a custom wrapper component for the ChatPage
 const ConditionalChatPage = () => {
-  const { new: someParam } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  console.log('someParam: ', someParam);
-  // Check if certain URL parameters are present
-  const shouldRequireAuth = someParam === 'new=adoption'; // Replace with your condition
-
-  if (!shouldRequireAuth) {
-    return (
-      <AuthGuard>
-        <ChatPage />
-      </AuthGuard>
-    );
+  if (id) {
+    navigate(`/dashboard/chat?id=${id}`);
+  } else {
+    return null; // Return null when 'id' is not present
   }
 
-  // If the condition is not met, you can redirect or render something else
-  // navigate('/someOtherRoute'); // Redirect to another route
-  return <ChatPage />; // or render an error message or another component
+  // Add a 'return null' statement for consistency
+  return null;
 };
 
 const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
@@ -226,7 +219,15 @@ export const dashboardRoutes = [
       },
       { path: 'file-manager', element: <FileManagerPage /> },
       { path: 'mail', element: <MailPage /> },
-      { path: 'chat', element: <ChatPage /> },
+      {
+        path: 'chat',
+        element: <ChatPage />,
+      },
+      {
+        path: 'chat/:id',
+        element: <ChatPage />,
+      },
+
       // {
       //   path: 'chat/:new', // Define the parameter in the route path
       //   element: <ConditionalChatPage />, // Use the custom wrapper

@@ -19,6 +19,7 @@ const ROOTS = {
 export const paths = {
   login: `${ROOTS.AUTH}/magiclink/login`,
   register: `${ROOTS.AUTH}/magiclink/register`,
+  open_chat: '/chat',
   comingSoon: '/coming-soon',
   maintenance: '/maintenance',
   pricing: '/pricing',
@@ -105,6 +106,8 @@ export const paths = {
     root: ROOTS.DASHBOARD,
     mail: `${ROOTS.DASHBOARD}/mail`,
     chat: `${ROOTS.DASHBOARD}/chat`,
+    // chat: `${ROOTS.DASHBOARD}/chat?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4`,
+
     chat_home: `/`,
     blank: `${ROOTS.DASHBOARD}/blank`,
     kanban: `${ROOTS.DASHBOARD}/kanban`,

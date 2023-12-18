@@ -49,7 +49,7 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
 
       await clickConversation(conversation.id);
 
-      router.push(`${paths.dashboard.chat}?id=${conversation.id}`);
+      router.push(`${paths.dashboard.chat}?id=${conversation.id}`); // ---------------------------------- IMPORTANT
     } catch (error) {
       console.error(error);
     }
@@ -81,7 +81,7 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
   return (
     <ListItemButton
       disableGutters
-      // onClick={handleClickConversation}
+      onClick={handleClickConversation} // ---------------------------------- IMPORTANT
       sx={{
         py: 1.5,
         px: 2.5,
