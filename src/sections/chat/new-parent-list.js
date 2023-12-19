@@ -41,7 +41,7 @@ export default function NewParentList({ post, onAiLoadingChange }) {
 
   const mdUp = useResponsive('up', 'md');
 
-  const { title, description } = post;
+  const { title, description, coverUrl } = post;
 
   const { user, fetchai } = useMockedUser();
 
@@ -51,7 +51,7 @@ export default function NewParentList({ post, onAiLoadingChange }) {
     onAiLoadingChange(true);
 
     try {
-      const openaiMessage = title; // Your predefined message
+      const openaiMessage = `${coverUrl}`; // Your predefined message
       const selectedConversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4';
 
       // Wrap the message object in an array with the n property
@@ -136,6 +136,7 @@ NewParentList.propTypes = {
   post: PropTypes.shape({
     description: PropTypes.string,
     title: PropTypes.string,
+    coverUrl: PropTypes.string,
   }),
   onAiLoadingChange: PropTypes.func,
 };

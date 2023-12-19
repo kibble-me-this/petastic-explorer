@@ -244,8 +244,11 @@ export default function ChatMessageInput({
     if (!sentHelloMessage) {
       const predefinedLocalMessage = `<b>Paws Before Profits</b> html login button`;
 
-      const predefinedMessage =
-        "Hi, I'm Fetch, your pet concierge. All pets are unique, and I've cracked the code on personalized pet care. 🤖</p> <p>I see you have a new addition to the family, congratulations!</p> <p>Click below to get your journey started.🤍 </p> html accept pet button";
+      const predefinedMessage = `<p><b>Hi, I'm Fetch, your pet concierge. </b></p> 
+      <p>All pets are unique, and I've cracked the code on personalized pet care. 🤖</p> 
+      <p>I see you have a new addition to the family, congratulations!</p> 
+      <p>Click below to get your journey started.🤍 </p> html accept pet button
+      `;
 
       timer = setTimeout(async () => {
         if (predefinedMessage) {

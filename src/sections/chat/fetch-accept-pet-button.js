@@ -76,8 +76,9 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
 
           // Make the API request to OpenAI here using sendToOpenAI
           const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, fetchai);
-          // pet.name = 'cooper';
-          // setPet(pet);
+
+          console.log('openaiResponse: ', openaiResponse);
+
           if (openaiResponse) {
             const petData = {};
 
@@ -97,13 +98,17 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
               pet.avatar = openaiResponse?.data?.props?.avatar;
             }
 
+            if (openaiResponse?.data?.props?.acquired_from) {
+              pet.acquired_from = openaiResponse?.data?.props?.acquired_from;
+            }
+
             if (Object.keys(pet).length > 0) {
               // Only set petData if it has properties
               setPet(pet);
             }
           }
 
-          const predefinedLocalMessage = `<b>Paws Before Profits Co-op</b> <p>{acquired_from}</b> is part of the "Paws Before Profits Co-op" program. This means that 5% of all the purchases you make for {pet.name} will be donated to <b>{acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
+          const predefinedLocalMessage = `<b>The "Paws Before Profits" Program</b> <p>${pet.acquired_from}</b> is part of the "Paws Before Profits Co-op" program. This means that 5% of all the purchases you make for ${pet.name} will be donated to <b>${pet.acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
   
           <p>All you have to opt in below (it's free).</p> html login button`;
           const messageArray2 = [

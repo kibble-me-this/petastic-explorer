@@ -95,7 +95,7 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
         },
         publish: propItem.star_rating, // Set publish as needed
         description: propItem.description, // Set description as needed
-        coverUrl: propItem.image, // Map the image to coverUrl (adjust as needed)
+        coverUrl: propItem.command, // Map the image to coverUrl (adjust as needed)
       }));
 
       // Render the array of messages using FoodInfo component and PostItemHorizontal
