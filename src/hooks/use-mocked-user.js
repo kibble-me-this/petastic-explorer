@@ -32,7 +32,7 @@ export function useMockedUser() {
 
   const fetchai = {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-    displayName: 'Fetch AI',
+    displayName: 'Fetch Ai',
     email: 'demo@minimals.cc',
     password: 'demo1234',
     photoURL: '/assets/images/avatars/fetch_white.svg',

@@ -8,6 +8,8 @@ import { useMockedUser } from 'src/hooks/use-mocked-user';
 import { Magic } from 'magic-sdk';
 import { NearExtension } from '@magic-ext/near';
 import { OAuthExtension } from '@magic-ext/oauth';
+import { chatButton } from 'src/theme/css';
+import Iconify from 'src/components/iconify';
 
 import { sendToOpenAI, sendMockMessage } from '../../api/openai';
 // import { sendOpenaiMessage, sendLocalMessage } from './messageUtils'; // Adjust the import path
@@ -135,24 +137,11 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
   return (
     <>
       <Button
-        color="inherit"
-        variant="outlined"
-        sx={{
-          borderColor: '#FFF',
-          mt: 2,
-          fontSize: '12px',
-          width: '100%',
-          '&:disabled': {
-            color: '#FFF',
-            borderColor: '#FFF',
-            background: 'none',
-          },
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
-          textOverflow: 'ellipsis',
-        }}
+        // color="inherit"
+        // variant="outlined"
+        sx={chatButton}
         onClick={handleButtonClick}
-        disabled={buttonClicked}
+        disabled={buttonClicked || buttonText === 'Transfer Complete'} // Disable the button if it's clicked or transfer is complete
       >
         {buttonClicked ? (
           <div
@@ -161,6 +150,11 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
               animation: 'scrollText 5s linear infinite',
+              // Custom styles to align with chatButton
+              color: chatButton.color, // Use color from chatButton
+              fontSize: chatButton.fontSize, // Use fontSize from chatButton
+              fontWeight: chatButton.fontWeight, // Use fontWeight from chatButton
+              backgroundColor: chatButton.backgroundColor,
             }}
           >
             Transferring Pet Passport...
@@ -168,6 +162,7 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
         ) : (
           buttonText
         )}
+        {buttonText === 'Transfer Complete' && <Iconify icon="eva:checkmark-fill" />}{' '}
       </Button>
       <style>
         {`

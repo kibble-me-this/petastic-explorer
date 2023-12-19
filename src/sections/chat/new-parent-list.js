@@ -87,38 +87,44 @@ export default function NewParentList({ post, onAiLoadingChange }) {
     <>
       <Stack direction="column" spacing={1} sx={{ mt: 1.5, mx: 0.5 }}>
         <Button
-          variant="outlined"
           onClick={handleButtonClick}
           style={{ display: 'block' }}
           sx={{
-            borderRadius: '12px', // You can adjust the value as needed
-            border: '1px solid #FFF',
+            borderRadius: '12px',
+            background: '#FFFFFF1F',
+            transition: 'background-color 0.3s', // Smooth transition for color change
+            '&:hover': {
+              background: '#FFFFFF3F', // 10% darker color
+            },
           }}
         >
           <Stack
             direction="row"
             alignItems="center"
             justifyContent="space-between"
-            // onClick={handleButton1Click}
-            style={{ display: 'flex' }}
             sx={{ my: 1.5, ml: 1, mr: 0.5 }}
           >
-            <Stack direction="column" alignItems="flex-start">
+            <Stack direction="column" alignItems="flex-start" sx={{ flexGrow: 1 }}>
               <TextMaxLine
                 line="1"
-                variant="chat_author"
-                sx={{ textTransform: 'none', textAlign: 'left' }}
+                variant="chat_body"
+                sx={{ width: '230px', fontWeight: '700', textTransform: 'none', textAlign: 'left' }}
               >
                 {title}
               </TextMaxLine>
               <TextMaxLine
-                variant="chat_author"
-                sx={{ fontWeight: 'normal', textTransform: 'none', textAlign: 'left' }}
+                variant="chat_body"
+                sx={{
+                  width: '230px',
+                  fontWeight: 'normal',
+                  textTransform: 'none',
+                  textAlign: 'left',
+                }}
               >
                 {description}
               </TextMaxLine>
             </Stack>
-            <Iconify width={24} icon="eva:arrow-ios-forward-fill" sx={{ color: '#FFF' }} />{' '}
+            <Iconify width={28} icon="eva:arrow-ios-forward-fill" sx={{ color: '#FFF' }} />
           </Stack>
         </Button>
       </Stack>

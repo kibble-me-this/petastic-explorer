@@ -46,6 +46,34 @@ export const blueButton = (theme) => ({
   },
 });
 
+export const chatButton = (theme) => ({
+  color: '#345BFF', // Updated text color
+  display: 'flex',
+  height: '36px',
+  padding: '8px 12px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '6px',
+  alignSelf: 'stretch',
+  borderRadius: '8px',
+  background: '#FFEEEB',
+  borderColor: '#FFF',
+  mt: 2,
+  fontSize: '14px',
+  width: '100%',
+  '&:hover': {
+    background: '#FDDCDA', // Darker background color on hover
+  },
+  '&:disabled': {
+    color: '#345BFF',
+    borderColor: '#FFF',
+    background: '#FFEEEB',
+  },
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+});
+
 export const outlineButton = (theme) => ({
   variant: 'outlined',
   size: 'large',

@@ -125,7 +125,7 @@ export const typography = {
   chat_author: {
     fontWeight: 700,
     lineHeight: '140%',
-    fontSize: pxToRem(12),
+    fontSize: pxToRem(14),
     fontFamily: interFont,
     letterSpacing: '0.412px',
     textTransform: 'none',

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useMockedUser } from 'src/hooks/use-mocked-user';
+import { chatButton } from 'src/theme/css';
 
 import { sendToOpenAI } from '../../api/openai';
 
@@ -55,16 +56,7 @@ export default function FetchButton({ value, onAiLoadingChange }) {
       <Button
         color="inherit"
         variant="outlined"
-        sx={{
-          borderColor: '#FFF',
-          mt: 2,
-          width: '100%',
-          '&:disabled': {
-            color: '#FFF',
-            borderColor: '#FFF',
-            background: 'none',
-          },
-        }}
+        sx={chatButton}
         onClick={handleButtonClick}
         disabled={buttonClicked}
       >

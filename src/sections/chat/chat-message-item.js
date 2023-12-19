@@ -72,7 +72,7 @@ export default function ChatMessageItem({
         // mb: 0.2,
         color: me ? 'black' : '#99ADFF',
         // fontWeight: '400', // Add this line for bold text
-        textTransform: 'uppercase', // Add this line for uppercase text
+        // textTransform: 'uppercase', // Add this line for uppercase text
         ...(hasImage && {
           mr: 'auto',
           mb: 1,
