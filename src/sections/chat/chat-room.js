@@ -18,6 +18,8 @@ import ChatRoomGroup from './chat-room-group';
 import ChatRoomSingle from './chat-room-single';
 import ChatRoomAttachments from './chat-room-attachments';
 
+import CartIcon from '../product/common/cart-icon';
+
 // ----------------------------------------------------------------------
 
 const NAV_WIDTH = 240;
@@ -189,7 +191,7 @@ export default function ChatRoom({ participants, conversation, pet }) {
     <IconButton
       onClick={handleToggleNav}
       sx={{
-        top: 12,
+        top: 58,
         right: 0,
         zIndex: 9,
         width: 32,
@@ -224,6 +226,9 @@ export default function ChatRoom({ participants, conversation, pet }) {
   return (
     <Box sx={{ position: 'relative' }}>
       {renderToggleBtn}
+      <CartIcon
+      // totalItems={checkout.totalItems}
+      />
 
       {lgUp ? (
         <Stack
