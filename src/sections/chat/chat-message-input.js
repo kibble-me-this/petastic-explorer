@@ -282,7 +282,7 @@ export default function ChatMessageInput({
           //   () => setOpenaiMessage('') // Callback to clear openaiMessage
           // );
         }
-      }, 3000); // 3 seconds delay
+      }, 5000); // 3 seconds delay
     }
 
     // Cleanup function to clear the timer if the component unmounts

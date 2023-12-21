@@ -39,7 +39,7 @@ export default function CartIcon({ totalItems }) {
     <>
       <Box
         // component={RouterLink}
-        // href={paths.product.checkout}
+        href={paths.product.checkout}
         disabled
         sx={{
           right: 0,

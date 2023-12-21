@@ -3,9 +3,13 @@ import React, { useState, useEffect } from 'react'; // Import useState and useEf
 
 // @mui
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 // components
 import Scrollbar from 'src/components/scrollbar';
 import Lightbox, { useLightBox } from 'src/components/lightbox';
+import { EmptyContentLogo } from 'src/components/empty-content';
+
 //
 import { useMessagesScroll } from './hooks';
 import ChatMessageItem from './chat-message-item';
@@ -30,8 +34,11 @@ export default function ChatMessageList({
   return (
     <>
       <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
-        <Box>
-          {messages.map((message, index) => (
+        {messages.length === 0 ? (
+          <EmptyContentLogo title="Fetching the future of pet care..." />
+        ) : (
+          // Render messages only if the messages array is not empty
+          messages.map((message, index) => (
             // Delay rendering of each message item using setTimeout
             <DelayedMessageItem
               key={message.id}
@@ -43,8 +50,8 @@ export default function ChatMessageList({
               setPet={setPet}
               onAiLoadingChange={onAiLoadingChange}
             />
-          ))}
-        </Box>
+          ))
+        )}
       </Scrollbar>
 
       <Lightbox
