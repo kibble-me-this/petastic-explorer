@@ -25,17 +25,17 @@ export default function ChatHeaderDetail({ participants, pet }) {
   if (participants[0].name === 'Lucian Obrien') {
     participants[0].name = 'Grilli • 3yo';
     participants[0].status = 'Shih Tzu';
-    participants[0].email = 'Kibble Balance';
+    participants[0].email = 'Kibble Rewards';
     participants[0].role = '$110 • 1600';
   } else if (participants[0].name === 'Deja Brady') {
     participants[0].name = 'Skril • 5yo';
     participants[0].status = 'Persian';
-    participants[0].email = 'Kibble Balance';
+    participants[0].email = 'Kibble Rewards';
     participants[0].role = '$110 • 1600';
   } else if (participants[0].name === 'Harrison Stein') {
     participants[0].name = 'Ollie • Adult';
     participants[0].status = 'Chihuahua Mix';
-    participants[0].email = 'Kibble Balance';
+    participants[0].email = 'Kibble Rewards';
     participants[0].role = '$110 • 1600';
   }
 

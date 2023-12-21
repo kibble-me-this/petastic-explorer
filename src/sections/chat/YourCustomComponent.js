@@ -8,6 +8,10 @@ import Typography from '@mui/material/Typography';
 import PetFoodCard from './food-item-card';
 import NewParentList from './new-parent-list';
 import PetCard from './pet-card';
+import JobItem from './job-item';
+
+import PetDNACard from './pet-dna-card';
+
 import FetchButton from './fetch-button';
 import FetchAcceptPetButton from './fetch-accept-pet-button';
 
@@ -120,6 +124,47 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
     return <div>{parse(messageContent.body)}</div>;
   }
 
+  if (messageContent.responseType === 'handle_dna_conversation') {
+    console.log('Called handle_dna_conversation');
+    if (Array.isArray(messageContent.prop)) {
+      // Modify the structure of messageContent.prop to match PostItemHorizontal prop types
+      const propItems = messageContent.prop.map((propItem) => ({
+        title: propItem.title, // Map the brand to title (adjust as needed)
+        createdAt: null, // Set createdAt as needed
+        totalViews: propItem.price_usd_mo, // Set totalViews as needed
+        totalComments: null, // Set totalComments as needed
+        totalShares: null, // Set totalShares as needed
+        author: {
+          name: null, // Set author name as needed
+          avatarUrl: propItem.image, // Map the image to avatarUrl (adjust as needed)
+        },
+        publish: propItem.star_rating, // Set publish as needed
+        description: propItem.description, // Set description as needed
+        coverUrl: propItem.command, // Map the image to coverUrl (adjust as needed)
+      }));
+
+      // Render the array of messages using FoodInfo component and PostItemHorizontal
+      const propContent = (
+        <div>
+          {messageContent.prop.map((subMessage, index) => (
+            <div key={index}>
+              <JobItem post={propItems[index]} onAiLoadingChange={onAiLoadingChange} />
+            </div>
+          ))}
+        </div>
+      );
+
+      // Return both body content and prop content
+      return (
+        <div style={{ marginTop: '12px' }}>
+          <div>{parse(messageContent.body)}</div>
+          {propContent}
+        </div>
+      );
+    }
+    return <div>{parse(messageContent.body)}</div>;
+  }
+
   // Check if the message content includes 'login' and return a button if it does
   if (messageContent.body.includes('html login button')) {
     return (
@@ -157,7 +202,7 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
 
   // Handle other response types or invalid response types
   // Example: display a message for unsupported types
-  return <div>Unsupported response type: {messageContent.responseType}</div>;
+  return <div>Unsupported response type: {messageContent.body}</div>;
 };
 
 YourCustomComponent.propTypes = {

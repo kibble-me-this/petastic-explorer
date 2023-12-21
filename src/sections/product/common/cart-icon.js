@@ -40,6 +40,7 @@ export default function CartIcon({ totalItems }) {
       <Box
         // component={RouterLink}
         // href={paths.product.checkout}
+        disabled
         sx={{
           right: 0,
           top: 12,
@@ -63,16 +64,13 @@ export default function CartIcon({ totalItems }) {
         </Badge>
       </Box>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        {' '}
         {/* Dialog component */}
-        <DialogTitle>Your Cart</DialogTitle> {/* DialogTitle component */}
+        <DialogTitle>Cart</DialogTitle> {/* DialogTitle component */}
         {/* Add your cart content here */}
         {/* For example, you can display the cart items and a "Close" button */}
         {/* Replace the content below with your actual cart content */}
-        <div>
-          <CheckoutCart />
-          <Button onClick={handleCloseDialog}>Close</Button> {/* Close button */}
-        </div>
+        <CheckoutCart />
+        {/* <Button onClick={handleCloseDialog}>Close</Button>  Close button */}
       </Dialog>
     </>
   );
