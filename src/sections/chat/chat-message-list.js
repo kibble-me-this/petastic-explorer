@@ -14,6 +14,7 @@ import { EmptyContentLogo } from 'src/components/empty-content';
 import { useMessagesScroll } from './hooks';
 import ChatMessageItem from './chat-message-item';
 
+
 // ----------------------------------------------------------------------
 
 export default function ChatMessageList({
@@ -31,11 +32,32 @@ export default function ChatMessageList({
 
   const lightbox = useLightBox(slides);
 
+  const loadingMessages = [
+    "Fetching X Blockchain X Pet Care ML X AI",
+
+    // Add more loading messages as needed
+  ];
+
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Update the loading message index in a rotating manner
+      setLoadingMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [loadingMessages.length]);
+
+  const loadingMessage = loadingMessages[loadingMessageIndex];
+
   return (
     <>
       <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
         {messages.length === 0 ? (
-          <EmptyContentLogo title="Fetching the future of pet care..." />
+          <EmptyContentLogo title={loadingMessage} />
         ) : (
           // Render messages only if the messages array is not empty
           messages.map((message, index) => (
@@ -116,3 +138,16 @@ DelayedMessageItem.propTypes = {
   setPet: PropTypes.number,
   onAiLoadingChange: PropTypes.func,
 };
+
+// Function to get a random loading message
+// function getRandomLoadingMessage() {
+//   const loadingMessages = [
+//     "Fetching the future of pet care...",
+//     "Loading your messages...",
+//     "Please wait...",
+//     // Add more loading messages as needed
+//   ];
+
+//   const randomIndex = Math.floor(Math.random() * loadingMessages.length);
+//   return loadingMessages[randomIndex];
+// }

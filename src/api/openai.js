@@ -6,19 +6,43 @@ import axios, { endpoints, fetcher } from '../utils/axios';
 const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 const ENVIRONMENT = process.env.REACT_APP_ENVIRONMENT;
 
-// const API_URL = 'http://localhost:3080/api/ai/petastic/chat';
-// const API_URL = process.env.REACT_APP_API_URL;
-
-// let isFirstCall = true; // Add this variable to track the first call
-
 // Define API URLs based on the environment
 const LOCAL_API_URL = process.env.REACT_APP_API_URL_LOCAL;
 const HOSTED_API_URL = process.env.REACT_APP_API_URL;
 
 const API_URL = ENVIRONMENT === 'local' ? LOCAL_API_URL : HOSTED_API_URL;
 
+async function initOrRetrieveSession(user) {
+  // Check if a session exists for the user
+  const response = await axios.get(`${API_URL}/get-session`, {
+    headers: {
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+    },
+  });
+
+  // If a session ID exists in the response, return it
+  if (response.data.sessionId) {
+    return response.data.sessionId;
+  }
+  
+  // If no session ID exists, create a session and return the ID
+  const createSessionResponse = await axios.get(`${API_URL}/set-session`, {
+    headers: {
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+    },
+  });
+  
+  return createSessionResponse.data.sessionId;
+}
+
 export async function sendToOpenAI(conversationId, message, user) {
   try {
+    // Initiate or retrieve the session for the user
+    const sessionId = await initOrRetrieveSession(user);
+
+    // Add the session ID to the message
+    message.sessionId = sessionId;
+
     // Check if the message is of the first type (text message)
     if (message[0]?.role === 'user' && message[0]?.content) {
       console.log('Text Message content:', message[0].content);
@@ -63,13 +87,13 @@ export async function sendToOpenAI(conversationId, message, user) {
       //   isFirstCall = false; // Mark the first call as done
       // }
 
-      // Send a request to the OpenAI API for text message
-      const response = await axios.post(API_URL, message, {
-        headers: {
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      });
+    // Send a request to the OpenAI API for text message
+    const response = await axios.post(`${API_URL}/petastic/chat`, message, {
+      headers: {
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
       // Check if the response contains a message
       if (response.data.content) {
