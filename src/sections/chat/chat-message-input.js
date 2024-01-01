@@ -398,8 +398,6 @@ export default function ChatMessageInput({
       try {
         // Set isLoading to true before making the request
         onAiLoadingChange(true);
-        console.log('setPEEEEt: ', setPet);
-        // setPet({ name: 'Charlie', lifeStage: 'Adult', breed: 'Shih Tzu' });
 
         if (event.key === 'Enter') {
           // Prevent the "Enter" key from creating a new line

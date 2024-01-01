@@ -33,7 +33,7 @@ export function EmptyContentLogo({ title, imgUrl, action, filled, description, s
       alignItems="center"
       justifyContent="center"
       sx={{
-        px: 3,
+        // mt: 2,
         height: 1,
         ...(filled && {
           borderRadius: 2,
@@ -48,7 +48,7 @@ export function EmptyContentLogo({ title, imgUrl, action, filled, description, s
         component="img"
         alt="empty content"
         src={imgUrl || '/logo/logo_single_outline.svg'}
-        sx={{ mt: 30, width: 1, maxWidth: 100 }}
+        sx={{ mt: 1, width: 1, maxWidth: 100 }}
       />
 
       {/* Display the animated title */}

@@ -33,7 +33,7 @@ export default function ChatMessageList({
   const lightbox = useLightBox(slides);
 
   const loadingMessages = [
-    "Fetching X Blockchain X Pet Care ML X AI",
+    "I'm Fetch. Your pet care concierge ❣️",
 
     // Add more loading messages as needed
   ];
@@ -55,7 +55,7 @@ export default function ChatMessageList({
 
   return (
     <>
-      <Scrollbar ref={messagesEndRef} sx={{ px: 3, py: 5, height: 1 }}>
+      <Scrollbar ref={messagesEndRef} sx={{ px: 2, py: 2, height: 1 }}>
         {messages.length === 0 ? (
           <EmptyContentLogo title={loadingMessage} />
         ) : (

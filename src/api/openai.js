@@ -14,11 +14,7 @@ const API_URL = ENVIRONMENT === 'local' ? LOCAL_API_URL : HOSTED_API_URL;
 
 async function initOrRetrieveSession(user) {
   // Check if a session exists for the user
-  const response = await axios.get(`${API_URL}/get-session`, {
-    headers: {
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-    },
-  });
+  const response = await axios.post(`${API_URL}/get-session`, { user });
 
   // If a session ID exists in the response, return it
   if (response.data.sessionId) {
@@ -26,11 +22,7 @@ async function initOrRetrieveSession(user) {
   }
   
   // If no session ID exists, create a session and return the ID
-  const createSessionResponse = await axios.get(`${API_URL}/set-session`, {
-    headers: {
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-    },
-  });
+  const createSessionResponse = await axios.post(`${API_URL}/set-session`, { user });
   
   return createSessionResponse.data.sessionId;
 }
