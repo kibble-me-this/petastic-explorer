@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import CardHeader from '@mui/material/CardHeader';
 import Card from '@mui/material/Card';
 // utils
-import { fNumber } from 'src/utils/format-number';
+import { fPercent } from 'src/utils/format-number';
 // components
 import Chart, { useChart } from 'src/components/chart';
 
@@ -49,8 +49,8 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
           name: { offsetY: -16 },
           value: { offsetY: 8 },
           total: {
-            label: 'Activation Rate %',
-            formatter: () => fNumber(chartSeries),
+            label: 'Activation Rate',
+            formatter: () => fPercent(chartSeries),
           },
         },
       },

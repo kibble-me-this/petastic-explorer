@@ -13,7 +13,7 @@ import { fShortenNumber } from 'src/utils/format-number';
 
 export default function BookingBooked({ title, subheader, data, ...other }) {
   // Create mock modifiedValues with new values for progress.value
-  const modifiedValues = [610000, 153, 85, 76, 34]; // Modify this array as needed
+  const modifiedValues = [671110, 185, 96, 90, 54]; // Modify this array as needed
 
   // Combine the original data with mock modifiedValues
   const modifiedData = data.map((progress, index) => ({

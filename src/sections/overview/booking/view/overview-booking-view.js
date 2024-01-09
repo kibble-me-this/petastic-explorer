@@ -52,19 +52,19 @@ export default function OverviewBookingView() {
         {/** TOP ROW */}
         <Grid xs={12} md={4}>
           <BookingTotalIncomes
-            title="Total Revenue"
-            total={0}
-            percent={0}
+            title="FetchAi Total Activations"
+            total={490}
+            percent={31}
             chart={{
               series: [
-                { x: 2016, y: 111 },
-                { x: 2017, y: 136 },
-                { x: 2018, y: 76 },
-                { x: 2019, y: 108 },
-                { x: 2020, y: 74 },
-                { x: 2021, y: 54 },
-                { x: 2022, y: 57 },
-                { x: 2023, y: 84 },
+                { x: 'W1', y: 18 },
+                { x: 'W2', y: 48 },
+                { x: 'W3', y: 196 },
+                { x: 'W4', y: 336 },
+                { x: 'W5', y: 444 },
+                { x: 'W6', y: 490 },
+                { x: 'W7', y: 0 },
+
               ],
             }}
           />
@@ -76,14 +76,14 @@ export default function OverviewBookingView() {
             percent={0}
             chart={{
               series: [
-                { x: 2016, y: 111 },
-                { x: 2017, y: 136 },
-                { x: 2018, y: 76 },
-                { x: 2019, y: 108 },
-                { x: 2020, y: 74 },
-                { x: 2021, y: 54 },
-                { x: 2022, y: 57 },
-                { x: 2023, y: 84 },
+                { x: 2016, y: 0 },
+                { x: 2017, y: 0 },
+                { x: 2018, y: 0 },
+                { x: 2019, y: 0 },
+                { x: 2020, y: 0 },
+                { x: 2021, y: 0 },
+                { x: 2022, y: 0 },
+                { x: 2023, y: 0 },
               ],
             }}
           />
@@ -113,11 +113,11 @@ export default function OverviewBookingView() {
           {/** NEW PARENT ACTIVATIONS */}
           <Grid xs={12} md={4}>
             <BookingAvailable
-              title="FetchAi Activations"
+              title="FetchAi Activations (all time)"
               chart={{
                 series: [
-                  { label: 'Activated', value: 272 },
-                  { label: 'Not Activated', value: 11 },
+                  { label: 'Activated', value: 490 },
+                  { label: 'Not Activated', value: 37 },
                 ],
               }}
             />
@@ -127,34 +127,35 @@ export default function OverviewBookingView() {
             <Grid xs={12} md={6}>
               <Stack orientation="column" spacing={1}>
                 <BookingCheckInWidgets
-                  title="FetchAi Engagement"
+                  title="FetchAi Engagement (all time)"
                   chart={{
                     series: [
                       {
-                        label: 'Time from Adoption --> first engagement',
+                        label: 'Cost per Activation ($)',
+                        type: 'USD',
+                        percent: 'N/A',
+                        total: 0.58,
+                      },
+                      {
+                        label: 'Time from Adoption >> Activation',
                         type: 'time',
-                        percent: 72,
-                        total: 1832,
+                        percent: -1,
+                        total: 1812,
                       },
                       {
                         label: 'Ave. Session Engagement (time)',
                         type: 'time',
-                        percent: 64,
-                        total: 363,
+                        percent: 1,
+                        total: 364,
                       },
                       {
                         label: 'Ave. Session Engagement (count)',
                         type: 'questions',
-                        percent: 64,
-                        total: 7,
+                        percent: -1,
+                        total: 7.1,
                       },
-                      {
-                        label: 'Total Pet Shelters Activated',
-                        type: 'shelters',
-                        percent: 64,
-                        total: 5,
-                      },
-                      { label: 'Buy it Now Clicks (Food)', type: 'clicks', percent: 72, total: 88 },
+
+                      { label: 'Buy it Now Clicks (Food)', type: 'clicks', percent: 1, total: 246 },
                     ],
                   }}
                 />
@@ -169,20 +170,21 @@ export default function OverviewBookingView() {
 
         {/** THIRD ROW */}
         <Grid container xs={12}>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             {' '}
             {/* Adjust xs and md values */}
             <BankingExpensesCategories
-              title="FetchAi New Parent Interactions (count)"
+              title="Top Parent Requests (all time)"
               chart={{
                 series: [
-                  { label: 'Get food recommendations', value: 124, guided: true },
-                  { label: 'Click food purchase', value: 88, guided: true },
-                  { label: 'Get grooming recommendations', value: 115, guided: true },
-                  { label: 'Get pet insurance quote', value: 65, guided: true },
-                  { label: 'Show pet records', value: 100, guided: true },
-                  { label: 'Find local groomer', value: 17, guided: false },
-                  { label: 'Find local dog parks', value: 10, guided: false },
+                  { label: 'Get food recommendations', value: 256, guided: true },
+                  { label: 'Get grooming recommendations', value: 129, guided: true },
+                  { label: 'Register location + microchip', value: 195, guided: true },
+                  { label: 'Click food purchase', value: 199, guided: true },
+                  { label: 'Get pet insurance quote', value: 178, guided: true },
+                  { label: 'Show pet records', value: 109, guided: true },
+                  { label: 'Find local groomer', value: 44, g2ided: false },
+                  { label: 'Find local dog parks', value: 22, guided: false },
                 ],
                 colors: [
                   theme.palette.primary.main,
@@ -204,27 +206,27 @@ export default function OverviewBookingView() {
           </Grid> */}
         </Grid>
 
-        <Grid xs={12}>
+        <Grid xs={8}>
           <BankingBalanceStatistics
             title="FetchAi Activations Weekly Cohorts"
-            // subheader="(+43% Income | +12% Expense) than last year"
+            subheader="Activated shelters = 5 | Activated States = 1 [NY]"
             chart={{
-              categories: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9'],
+              categories: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6(*)', 'W7', 'W8', 'W9'],
               series: [
                 {
                   type: 'Weekly',
                   data: [
                     {
                       name: 'Adoptable Pets',
-                      data: [18, 36, 158, 153, 0, 0, 0, 0, 0],
+                      data: [18, 36, 158, 153, 185, 161, 0, 0, 0],
                     },
                     {
                       name: 'Adoptions',
-                      data: [18, 30, 150, 85, 0, 0, 0, 0, 0],
+                      data: [18, 30, 150, 148, 156, 25, 0, 0, 0],
                     },
                     {
                       name: 'Activations',
-                      data: [18, 30, 148, 76, 0, 0, 0, 0, 0],
+                      data: [18, 30, 148, 138, 141, 15, 0, 0, 0],
                     },
                   ],
                 },

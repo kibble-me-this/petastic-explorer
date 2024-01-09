@@ -46,15 +46,20 @@ export default function BankingExpensesCategories({ title, subheader, chart, ...
         vertical: 7,
       },
       columnWidth: 140, // Adjust the width as needed
-      // Custom formatter for legend
       formatter: (seriesName, opts) => {
-        if (guidedLabels.includes(seriesName)) {
-          return `<b>Guided:</b> ${seriesName}`;
-        } // else if (nonGuidedLabels.includes(seriesName)) {
-            return `<b>Non-Guided:</b> ${seriesName}`;
-        // }
-        // return seriesName; // Handle other cases if needed
+        const matchedSeries = chart.series.find((item) => item.label === seriesName); // Renamed to 'matchedSeries'
+        if (matchedSeries) {
+          const { value } = matchedSeries;
+          if (guidedLabels.includes(seriesName)) {
+            return `<b>Guided:</b> ${seriesName} (${value})`;
+          } // No need for 'else' here
+          if (nonGuidedLabels.includes(seriesName)) {
+            return `<b>Non-Guided:</b> ${seriesName} (${value})`;
+          }
+        }
+        return seriesName; // Handle other cases if needed
       },
+      
     },
     tooltip: {
       fillSeriesColor: false,

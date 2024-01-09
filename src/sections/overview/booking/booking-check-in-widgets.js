@@ -1,14 +1,20 @@
 import PropTypes from 'prop-types';
 // @mui
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
+import Box from '@mui/material/Box';
+import Iconify from 'src/components/iconify';
+
+
+// utils
+import { fCurrency, fPercent } from 'src/utils/format-number';
+
 
 // hooks
-import { fNumber } from 'src/utils/format-number';
 import { format_seconds } from 'src/utils/format-time';
 import { useResponsive } from 'src/hooks/use-responsive';
 // components
@@ -102,7 +108,7 @@ export default function BookingCheckInWidgets({ title, chart, ...other }) {
       <CardHeader title={title} sx={{ mb: 8 }} />
       <Stack
         direction={{ xs: 'column', sm: 'column' }}
-        divider={<Divider orientation="horizontal" flexItem sx={{ borderStyle: 'dashed' }} />}
+        divider={<Divider orientation="horizontal" flexItem sx={{ borderStyle: 'solid', color:'black' }} />}
       >
         {series.map((item, index) => (
           <Stack
@@ -119,14 +125,61 @@ export default function BookingCheckInWidgets({ title, chart, ...other }) {
               pb: index === series.length - 1 ? 3 : undefined,
             }}
           >
-            <div>
-              <Typography variant="overline">{item.label}</Typography>
-              <Typography variant="h4" sx={{ mb: 0.5 }}>
-                <Typography variant="h4" sx={{ mb: 0.5 }}>
-                  {item.type === 'time' ? format_seconds(item.total) : format_count(item.total, item.type)}
-                </Typography>{' '}
-              </Typography>
-            </div>
+<div>
+  <Typography variant="overline">{item.label}</Typography>
+
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div>
+    <Typography variant="h4" sx={{ mb: 0.5 }}>
+  <Typography variant="h4" sx={{ mb: 0.5 }}>
+    {(() => {
+      if (item.type === 'time') {
+        return format_seconds(item.total);
+      }
+      if (item.type === 'USD') {
+        return fCurrency(item.total);
+      }
+      return format_count(item.total, item.type);
+    })()}
+  </Typography>{' '}
+</Typography>
+    </div>
+  
+    <div style={{ display: 'flex', alignItems: 'right' }}>
+      <Iconify
+        icon={item.percent < 0 ? 'eva:trending-down-fill' : 'eva:trending-up-fill'}
+        sx={{
+          ml: 4,
+          mr: 1,
+          p: 0.5,
+          width: 20,
+          height: 20,
+          borderRadius: '50%',
+          color: 'success.main',
+          bgcolor: alpha(theme.palette.success.main, 0.16),
+          ...(item.percent < 0 && {
+            color: 'error.main',
+            bgcolor: alpha(theme.palette.error.main, 0.16),
+          }),
+        }}
+      />
+  
+      <Typography variant="subtitle2" component="div" noWrap>
+        {item.percent > 0 && '+'}
+  
+        {fPercent(item.percent)}
+  
+        <Box component="span" sx={{ color: 'text.secondary', typography: 'caption' }}>
+          {' than last week'}
+        </Box>
+      </Typography>
+    </div>
+  </div>
+</div>
+
+
+  
+
           </Stack>
         ))}
       </Stack>
@@ -137,4 +190,5 @@ export default function BookingCheckInWidgets({ title, chart, ...other }) {
 BookingCheckInWidgets.propTypes = {
   title: PropTypes.string,
   chart: PropTypes.object,
+  percent: PropTypes.number,
 };
