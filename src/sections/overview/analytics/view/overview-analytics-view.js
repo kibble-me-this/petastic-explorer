@@ -110,6 +110,7 @@ export default function OverviewAnalyticsView() {
                   type: 'line',
                   fill: 'solid',
                   data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+                  curve: 'straight', // Set the curve option to 'straight'
                 },
               ],
             }}

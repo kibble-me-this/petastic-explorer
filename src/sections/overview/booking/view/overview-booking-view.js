@@ -9,6 +9,17 @@ import {
   BookingIllustration,
   CheckInIllustration,
   CheckoutIllustration,
+  AvatarShape,
+  SeoIllustration,
+  UploadIllustration,
+  ForbiddenIllustration,
+  MotivationIllustration,
+  SeverErrorIllustration,
+  ComingSoonIllustration,
+  MaintenanceIllustration,
+  PageNotFoundIllustration,
+  OrderCompleteIllustration,
+  UpgradeStorageIllustration,
 } from 'src/assets/illustrations';
 // components
 import { useSettingsContext } from 'src/components/settings';
@@ -27,6 +38,31 @@ import BookingCustomerReviews from '../booking-customer-reviews';
 
 const SPACING = 3;
 
+const shelterAdoptionsCategories = [
+  'w1',
+  'w2',
+  'w3',
+  'w4',
+  'w5',
+  'w6',
+  'w7',
+  'w8',
+  'w9',
+  'w10',
+  'w11',
+];
+const adoptedData = [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35];
+const onboardedData = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30];
+const activeSheltersData = [1, 2, 5, 5, 8, 12, 12, 12, 12, 16, 16];
+
+const petsAdopted = adoptedData.map((value, index) => value * activeSheltersData[index]);
+const fetchNewUsers = onboardedData.map((value, index) => value * activeSheltersData[index]);
+
+const maxActiveShelters = Math.max(...activeSheltersData); // Find the maximum value
+
+const totalPetsAdopted = petsAdopted.reduce((acc, value) => acc + value, 0); // Sum of petsAdopted
+const totalFetchNewUsers = fetchNewUsers.reduce((acc, value) => acc + value, 0); // Sum of fetchNewUsers
+
 export default function OverviewBookingView() {
   const theme = useTheme();
 
@@ -37,27 +73,52 @@ export default function OverviewBookingView() {
       <Grid container spacing={SPACING} disableEqualOverflow>
         <Grid xs={12} md={4}>
           <BookingWidgetSummary
-            title="Total Booking"
-            total={714000}
-            icon={<BookingIllustration />}
+            title="Fetch Users (active)"
+            total={totalFetchNewUsers}
+            icon={<img alt="icon" src="/assets/icons/components/ic_avatar.svg" />}
           />
         </Grid>
 
         <Grid xs={12} md={4}>
-          <BookingWidgetSummary title="Sold" total={311000} icon={<CheckInIllustration />} />
+          <BookingWidgetSummary
+            title="Shelters (active)"
+            total={maxActiveShelters}
+            icon={<img alt="icon" src="/assets/icons/components/ic_icons.svg" />}
+          />
         </Grid>
 
         <Grid xs={12} md={4}>
-          <BookingWidgetSummary title="Canceled" total={124000} icon={<CheckoutIllustration />} />
+          <BookingWidgetSummary
+            title="Registered Shelters"
+            total={12400}
+            icon={<img alt="icon" src="/assets/icons/components/ic_tabs.svg" />}
+          />
         </Grid>
 
         <Grid container xs={12}>
           <Grid container xs={12} md={8}>
             <Grid xs={12} md={6}>
               <BookingTotalIncomes
-                title="Total Incomes"
+                title="Total Revenue"
                 total={18765}
-                percent={2.6}
+                percent={100}
+                chart={{
+                  series: [
+                    { x: 2016, y: 111 },
+                    { x: 2017, y: 136 },
+                    { x: 2018, y: 76 },
+                    { x: 2019, y: 108 },
+                    { x: 2020, y: 74 },
+                    { x: 2021, y: 54 },
+                    { x: 2022, y: 57 },
+                    { x: 2023, y: 84 },
+                  ],
+                }}
+              />
+              <BookingTotalIncomes
+                title="MRR"
+                total={18765}
+                percent={100}
                 chart={{
                   series: [
                     { x: 2016, y: 111 },
@@ -74,10 +135,10 @@ export default function OverviewBookingView() {
             </Grid>
 
             <Grid xs={12} md={6}>
-              <BookingBooked title="Booked" data={_bookingsOverview} />
+              <BookingBooked title="Fetch User KPIs" data={_bookingsOverview} />
             </Grid>
 
-            <Grid xs={12}>
+            {/* <Grid xs={12}>
               <BookingCheckInWidgets
                 chart={{
                   series: [
@@ -86,87 +147,92 @@ export default function OverviewBookingView() {
                   ],
                 }}
               />
-            </Grid>
+            </Grid> */}
 
-            <Grid xs={12}>
+            {/* <Grid xs={12}>
               <BookingStatistics
-                title="Statistics"
+                title="Shelter Adoptions"
                 subheader="(+43% Sold | +12% Canceled) than last year"
                 chart={{
                   colors: [theme.palette.primary.main, theme.palette.error.light],
-                  categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                  categories: ['w1', 'w2', 'w3', 'w4', 'w5', 'w6', 'w7', 'w8', 'w9', 'w10', 'w11'],
+
                   series: [
-                    {
-                      type: 'Week',
-                      data: [
-                        {
-                          name: 'Sold',
-                          data: [10, 41, 35, 151, 49, 62, 69, 91, 48],
-                        },
-                        {
-                          name: 'Canceled',
-                          data: [10, 34, 13, 56, 77, 88, 99, 77, 45],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'Month',
-                      data: [
-                        {
-                          name: 'Sold',
-                          data: [148, 91, 69, 62, 49, 51, 35, 41, 10],
-                        },
-                        {
-                          name: 'Canceled',
-                          data: [45, 77, 99, 88, 77, 56, 13, 34, 10],
-                        },
-                      ],
-                    },
+                    // {
+                    //   type: 'Week',
+                    //   data: [
+                    //     {
+                    //       name: 'Sold',
+                    //       data: [10, 41, 35, 151, 49, 62, 69, 91, 100, 55, 66],
+                    //     },
+                    //     {
+                    //       name: 'Canceled',
+                    //       data: [10, 34, 13, 56, 77, 88, 99, 77, 45, 66, 77],
+                    //     },
+                    //   ],
+                    // },
+                    // {
+                    //   type: 'Month',
+                    //   data: [
+                    //     {
+                    //       name: 'Sold',
+                    //       data: [148, 91, 69, 62, 49, 51, 35, 41, 10],
+                    //     },
+                    //     {
+                    //       name: 'Canceled',
+                    //       data: [45, 77, 99, 88, 77, 56, 13, 34, 10],
+                    //     },
+                    //   ],
+                    // },
                     {
                       type: 'Year',
                       data: [
                         {
-                          name: 'Sold',
-                          data: [76, 42, 29, 41, 27, 138, 117, 86, 63],
+                          name: 'Adopted',
+                          data: [10, 41, 35, 151, 49, 62, 69, 91, 100, 55, 66],
                         },
                         {
-                          name: 'Canceled',
-                          data: [80, 55, 34, 114, 80, 130, 15, 28, 55],
+                          name: 'Onboarded',
+                          data: [10, 34, 13, 56, 77, 88, 99, 77, 45, 66, 77],
+                        },
+                        {
+                          name: 'Active Shelters',
+                          data: [10, 34, 13, 56, 77, 88, 99, 77, 45, 66, 77],
                         },
                       ],
                     },
                   ],
                 }}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Grid xs={12} md={4}>
             <BookingAvailable
-              title="Tours Available"
+              title="Fetch Activation Rate"
               chart={{
                 series: [
-                  { label: 'Sold out', value: 120 },
-                  { label: 'Available', value: 66 },
+                  { label: 'Adopted', value: totalPetsAdopted },
+                  { label: 'Onboarded', value: totalFetchNewUsers },
                 ],
               }}
             />
 
-            <BookingCustomerReviews
+            {/* <BookingCustomerReviews
               title="Customer Reviews"
               subheader={`${_bookingReview.length} Reviews`}
               list={_bookingReview}
               sx={{ mt: SPACING }}
-            />
+            /> */}
           </Grid>
         </Grid>
 
-        <Grid xs={12}>
+        {/* <Grid xs={12}>
           <BookingNewest title="Newest Booking" subheader="12 Booking" list={_bookingNew} />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12}>
-          <BookingDetails
+          {/* <BookingDetails
             title="Booking Details"
             tableData={_bookings}
             tableLabels={[
@@ -177,7 +243,80 @@ export default function OverviewBookingView() {
               { id: 'status', label: 'Status' },
               { id: '' },
             ]}
+          /> */}
+
+          <BookingStatistics
+            title="Shelter Network Launch"
+            // subheader="(+43% Sold | +12% Canceled) than last year"
+            chart={{
+              colors: [theme.palette.primary.main, theme.palette.error.light],
+              categories: shelterAdoptionsCategories,
+
+              series: [
+                {
+                  type: 'Year',
+                  data: [
+                    {
+                      name: 'Adopted Pets',
+                      data: petsAdopted, // Use the global array here
+                    },
+                    {
+                      name: 'Onboarded Users',
+                      data: fetchNewUsers, // Use the global array here
+                    },
+                    {
+                      name: 'Active Shelters',
+                      data: [], // Use the global array here
+                    },
+                  ],
+                },
+              ],
+              series2: [
+                {
+                  type: 'Year',
+                  data: [
+                    {
+                      name: 'Active Shelters',
+                      data: activeSheltersData, // Use the global array here
+                    },
+                  ],
+                },
+              ],
+            }}
+            height="365"
           />
+          {/* <BookingStatistics
+            title="Active Shelters"
+            subheader="(+43% Sold | +12% Canceled) than last year"
+            chart={{
+              colors: [theme.palette.primary.main, theme.palette.error.light],
+              categories: shelterAdoptionsCategories,
+
+              series: [
+                {
+                  type: 'Year',
+                  data: [
+                    {
+                      name: 'Active Shelters',
+                      data: activeSheltersData, // Use the global array here
+                    },
+                  ],
+                },
+              ],
+              series2: [
+                {
+                  type: 'Year',
+                  data: [
+                    {
+                      name: 'Active Shelters',
+                      data: activeSheltersData, // Use the global array here
+                    },
+                  ],
+                },
+              ],
+            }}
+            height="200"
+          /> */}
         </Grid>
       </Grid>
     </Container>

@@ -95,7 +95,7 @@ export default function BookingTotalIncomes({
       }}
       {...other}
     >
-      <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
+      <Stack direction="row" justifyContent="space-between" sx={{ my: 1 }}>
         <div>
           <Box sx={{ mb: 1, typography: 'subtitle2' }}>{title}</Box>
           <Box sx={{ typography: 'h3' }}>{fCurrency(total)}</Box>
@@ -115,7 +115,7 @@ export default function BookingTotalIncomes({
         </div>
       </Stack>
 
-      <Chart type="line" series={[{ data: series }]} options={chartOptions} height={118} />
+      {/* <Chart type="line" series={[{ data: series }]} options={chartOptions} height={118} /> */}
     </Stack>
   );
 }

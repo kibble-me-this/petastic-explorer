@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 // utils
-import { fShortenNumber } from 'src/utils/format-number';
+import { fNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ export default function BookingWidgetSummary({ title, total, icon, sx, ...other 
       {...other}
     >
       <Box>
-        <Box sx={{ mb: 1, typography: 'h3' }}>{fShortenNumber(total)}</Box>
+        <Box sx={{ mb: 1, typography: 'h3' }}>{fNumber(total)}</Box>
         <Box sx={{ color: 'text.secondary', typography: 'subtitle2' }}>{title}</Box>
       </Box>
 

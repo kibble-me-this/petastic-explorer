@@ -7,11 +7,14 @@ import CardHeader from '@mui/material/CardHeader';
 import Card from '@mui/material/Card';
 import LinearProgress from '@mui/material/LinearProgress';
 // utils
-import { fShortenNumber } from 'src/utils/format-number';
+import { fShortenNumber, fCurrency, fNumber, fData } from 'src/utils/format-number';
+import { fTimestamp } from 'src/utils/format-time';
 
 // ----------------------------------------------------------------------
 
 export default function BookingBooked({ title, subheader, data, ...other }) {
+  console.log(data);
+
   return (
     <Card {...other}>
       <CardHeader title={title} subheader={subheader} />
@@ -26,12 +29,16 @@ export default function BookingBooked({ title, subheader, data, ...other }) {
               sx={{ mb: 1 }}
             >
               <Box sx={{ typography: 'overline' }}>{progress.status}</Box>
-              <Box sx={{ typography: 'subtitle1' }}>{fShortenNumber(progress.value)}</Box>
+              <Box sx={{ typography: 'subtitle1' }}>
+                {progress.status === 'CPA ($)'
+                  ? fCurrency(progress.value)
+                  : fShortenNumber(progress.value)}
+              </Box>{' '}
             </Stack>
 
             <LinearProgress
               variant="determinate"
-              value={progress.value}
+              // value={progress.value}
               color={
                 (progress.status === 'Pending' && 'warning') ||
                 (progress.status === 'Canceled' && 'error') ||

@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import CardHeader from '@mui/material/CardHeader';
 import Card from '@mui/material/Card';
 // utils
-import { fNumber } from 'src/utils/format-number';
+import { fPercent } from 'src/utils/format-number';
 // components
 import Chart, { useChart } from 'src/components/chart';
 
@@ -22,17 +22,24 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
     options,
   } = chart;
 
+  console.log(series);
+
+  const adoptedPets = series.find((item) => item.label === 'Adopted');
+  const fetchNewUsers = series.find((item) => item.label === 'Onboarded');
+  const activationRate = (fetchNewUsers.value / adoptedPets.value) * 100;
+
   const total = sumBy(series, 'value');
 
-  const chartSeries = (series.filter((i) => i.label === 'Sold out')[0].value / total) * 100;
+  const chartSeries =
+    (series.filter((i) => i.label === 'Onboarded')[0].value / adoptedPets.value) * 100;
 
   const chartOptions = useChart({
     legend: {
       show: false,
     },
-    grid: {
-      padding: { top: -32, bottom: -32 },
-    },
+    // grid: {
+    //   padding: { top: -32, bottom: -32 },
+    // },
     fill: {
       type: 'gradient',
       gradient: {
@@ -49,8 +56,8 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
           name: { offsetY: -16 },
           value: { offsetY: 8 },
           total: {
-            label: 'Tours',
-            formatter: () => fNumber(total),
+            label: 'Activation Rate',
+            formatter: () => fPercent(activationRate),
           },
         },
       },
@@ -60,11 +67,11 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
 
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} sx={{ mb: 8 }} />
+      <CardHeader title={title} subheader={subheader} sx={{ mb: 1 }} />
 
-      <Chart type="radialBar" series={[chartSeries]} options={chartOptions} height={310} />
+      <Chart type="radialBar" series={[chartSeries]} options={chartOptions} height={235} />
 
-      <Stack spacing={2} sx={{ p: 5 }}>
+      {/* <Stack spacing={2} sx={{ p: 5 }}>
         {series.map((item) => (
           <Stack
             key={item.label}
@@ -81,7 +88,7 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
                 height: 16,
                 bgcolor: alpha(theme.palette.grey[500], 0.16),
                 borderRadius: 0.75,
-                ...(item.label === 'Sold out' && {
+                ...(item.label === 'Adopted' && {
                   bgcolor: colors[1],
                 }),
               }}
@@ -90,7 +97,7 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
             {item.value} Tours
           </Stack>
         ))}
-      </Stack>
+      </Stack> */}
     </Card>
   );
 }
