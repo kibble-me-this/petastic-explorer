@@ -244,18 +244,23 @@ export default function ChatMessageInput({
     if (!sentHelloMessage) {
       const predefinedLocalMessage = `<b>Paws Before Profits</b> html login button`;
 
-      const predefinedMessage = `<p><b>Hi, I'm Fetch, your pet concierge. </b></p> 
+      const predefinedMessage1 = `<p><b>Hi, I'm Fetch, your pet concierge. </b></p> 
       <p>All pets are unique, and I've cracked the code on personalized pet care. 🤖</p> 
       <p>I see you have a new addition to the family, congratulations!</p> 
       <p>Click below to get your journey started.🤍 </p> html accept pet button
       `;
 
+      const predefinedMessage2 = `<b>👋 Hi there!</b> I just received a notification from <b>Kosmas' Garden Of Angeles Rescue</b> that you've added a new member to your family. 
+      I'm here and ready to assist you with personalized pet care for <b>Winston</b> and to help fund other pets in need through Petastic's shared giving community of shelters and rescues. 🤍
+      <p><b>Click below to get started.</b></p> html accept pet button
+      `;
+
       timer = setTimeout(async () => {
-        if (predefinedMessage) {
+        if (predefinedMessage2) {
           setSentHelloMessage(true);
 
           await sendLocalMessage(
-            predefinedMessage,
+            predefinedMessage2,
             selectedConversationId,
             setPet,
             pet,

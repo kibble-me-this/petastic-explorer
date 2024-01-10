@@ -155,7 +155,7 @@ export default function ChatMessageItem({
   const renderBody = (
     <Stack
       sx={{
-        p: 2,
+        p: 1.5,
         minWidth: 48,
         maxWidth: 320,
         borderRadius: 2.5,

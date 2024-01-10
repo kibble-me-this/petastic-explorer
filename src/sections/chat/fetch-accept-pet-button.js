@@ -108,9 +108,9 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
             }
           }
 
-          const predefinedLocalMessage = `<b>The "Paws Before Profits" Program</b> <p>${pet.acquired_from}</b> is part of the "Paws Before Profits Co-op" program. This means that 5% of all the purchases you make for ${pet.name} will be donated to <b>${pet.acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
+          const predefinedLocalMessage = `<b>The "Paws Before Profits" Co-Op</b> <p>${pet.acquired_from}</b> is part of the "Paws Before Profits Co-op" program. This means that 5% of all the purchases you make for ${pet.name} will be donated to <b>${pet.acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
   
-          <p>All you have to opt in below (it's free).</p> html login button`;
+          <p>It's free for you and entitles you to free shipping. All you have to opt in below. </p> html login button`;
           const messageArray2 = [
             {
               role: 'user',

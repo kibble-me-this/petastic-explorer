@@ -17,10 +17,19 @@ import Skeleton from '@mui/material/Skeleton'; // Import Skeleton component
 export default function ChatRoomSingle({ participant, pet }) {
   const collapse = useBoolean(true);
 
-  const { name, avatarUrl, role, address, phoneNumber, email } = participant;
-  const { _address, setAddress } = useBoolean(false);
-  const { _email, setEmail } = useBoolean(false);
-  const { _phoneNumber, setPhoneNumber } = useBoolean(false);
+  const participantMockData = {
+    name: 'Carlos Herrera',
+    avatarUrl: 'https://example.com/avatar.jpg',
+    role: 'Pet Owner',
+    address: '360 NW 360 Ave, Miami, FL, USA',
+    phoneNumber: '+1 (310) 880-8673',
+    email: 'carlos@petastic.com',
+  };
+
+  const { name, avatarUrl, role, address, phoneNumber, email } = participantMockData; // participant;
+  const { _address, setAddress } = useBoolean(true);
+  const { _email, setEmail } = useBoolean(true);
+  const { _phoneNumber, setPhoneNumber } = useBoolean(true);
 
   const renderInfo = (
     <Stack alignItems="center" sx={{ py: 5 }}>
@@ -82,7 +91,7 @@ export default function ChatRoomSingle({ participant, pet }) {
       }}
     >
       {/* Address with Skeleton */}
-      {_address ? (
+      {true ? (
         <Stack direction="row">
           <Iconify icon="mingcute:location-fill" />
           <Typography variant="body2">{address}</Typography>
@@ -98,7 +107,7 @@ export default function ChatRoomSingle({ participant, pet }) {
       )}
 
       {/* Phone Number with Skeleton */}
-      {_phoneNumber ? (
+      {true ? (
         <Stack direction="row">
           <Iconify icon="solar:phone-bold" />
           <Typography variant="body2">{phoneNumber}</Typography>
@@ -111,7 +120,7 @@ export default function ChatRoomSingle({ participant, pet }) {
       )}
 
       {/* Email with Skeleton */}
-      {_email ? (
+      {true ? (
         <Stack direction="row">
           <Iconify icon="fluent:mail-24-filled" />
           <Typography variant="body2" noWrap>

@@ -19,7 +19,7 @@ export default function FetchButton({ value, onAiLoadingChange }) {
       onAiLoadingChange(true);
 
       try {
-        const openaiMessage = 'Yes, please opt me in to the Paws Before Profits program ❤️.'; // Your predefined message
+        const openaiMessage = 'Yes, please opt me in to the Paws Before Profits program ❤️. I would love to suppport my shelter.'; // Your predefined message
         const selectedConversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4';
 
         // Wrap the message object in an array with the n property
@@ -60,7 +60,7 @@ export default function FetchButton({ value, onAiLoadingChange }) {
         onClick={handleButtonClick}
         disabled={buttonClicked}
       >
-        {buttonClicked ? 'Your Shelter is Earning 💰' : 'Loves it, opt me in❣️'}
+        {buttonClicked ? 'Your Shelter is Earning 💰' : 'Love it .... opt me in❣️'}
       </Button>
     </>
   );

@@ -22,6 +22,8 @@ export default function ChatHeaderDetail({ participants, pet }) {
   console.log('participants:', participants);
   console.log('pet:', pet);
 
+  pet.kibble_balance = '$10 • 1600';
+
   if (participants[0].name === 'Lucian Obrien') {
     participants[0].name = 'Grilli • 3yo';
     participants[0].status = 'Shih Tzu';

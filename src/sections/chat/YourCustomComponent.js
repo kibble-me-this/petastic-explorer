@@ -11,6 +11,7 @@ import PetCard from './pet-card';
 import JobItem from './job-item';
 
 import PetDNACard from './pet-dna-card';
+import ProductFilters from './product-filters';
 
 import FetchButton from './fetch-button';
 import FetchAcceptPetButton from './fetch-accept-pet-button';
@@ -32,12 +33,14 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
 
     // Handle invalid messageContent here (e.g., display an error message)
     return (
-      <div>
-        {reactStringReplace(parse(messageContent.body), '--react-component--', (match, index) => (
-          <>
-            {/* Create an array of PetCard components with mapped propItems */}
-            <PetCard user={userData} /> {/* Pass the same user data to UserCard */}
-          </>
+      <div style={{ paddingTop: '8px' }}>
+      {reactStringReplace(parse(messageContent.body), '--react-component--', (match, index) => (
+        <div style={{ paddingTop: '8px' }}>
+          {/* Create an array of PetCard components with mapped propItems */}
+          <div style={{ paddingTop: '8px', paddingBottom: '8px' }}>
+            <PetCard xs={{py: 5}} user={userData} /> {/* Pass the same user data to UserCard */}
+          </div>
+        </div>
         ))}
       </div>
     );
@@ -88,20 +91,20 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
     if (Array.isArray(messageContent.prop)) {
       // Modify the structure of messageContent.prop to match PostItemHorizontal prop types
       const propItems = messageContent.prop.map((propItem) => ({
-        title: propItem.title, // Map the brand to title (adjust as needed)
-        createdAt: null, // Set createdAt as needed
-        totalViews: propItem.price_usd_mo, // Set totalViews as needed
-        totalComments: null, // Set totalComments as needed
-        totalShares: null, // Set totalShares as needed
+        title: propItem.title,
+        createdAt: null,
+        totalViews: propItem.price_usd_mo,
+        totalComments: null,
+        totalShares: null,
         author: {
-          name: null, // Set author name as needed
-          avatarUrl: propItem.image, // Map the image to avatarUrl (adjust as needed)
+          name: null,
+          avatarUrl: propItem.image,
         },
-        publish: propItem.star_rating, // Set publish as needed
-        description: propItem.description, // Set description as needed
-        coverUrl: propItem.command, // Map the image to coverUrl (adjust as needed)
+        publish: propItem.star_rating,
+        description: propItem.description,
+        coverUrl: propItem.command,
       }));
-
+  
       // Render the array of messages using FoodInfo component and PostItemHorizontal
       const propContent = (
         <div>
@@ -112,17 +115,71 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
           ))}
         </div>
       );
-
+  
       // Return both body content and prop content
       return (
         <div style={{ marginTop: '12px' }}>
-          <div>{parse(messageContent.body)}</div>
+          <div>{parse(messageContent.body)}</div> 
+          <ProductFilters
+            open
+            canReset
+            filters={{ priceRange: [65, 125] }} // Provide initial filter values
+          />
+          </div>
+      );
+    }
+    return <div>{parse(messageContent.body)}</div>;
+  }
+
+  if (messageContent.responseType === 'handle_submit_budget') {
+    console.log('Called handle_submit_budget');
+    if (Array.isArray(messageContent.prop)) {
+      // Modify the structure of messageContent.prop to match PostItemHorizontal prop types
+      const propItems = messageContent.prop.map((propItem) => ({
+        title: propItem.title,
+        createdAt: null,
+        totalViews: propItem.price_usd_mo,
+        totalComments: null,
+        totalShares: null,
+        author: {
+          name: null,
+          avatarUrl: propItem.image,
+        },
+        publish: propItem.star_rating,
+        description: propItem.description,
+        coverUrl: propItem.command,
+      }));
+  
+      // Render the array of messages using FoodInfo component and PostItemHorizontal
+      const propContent = (
+        <div>
+          {messageContent.prop.map((subMessage, index) => (
+            <div key={index}>
+              <NewParentList post={propItems[index]} onAiLoadingChange={onAiLoadingChange} />
+            </div>
+          ))}
+        </div>
+      );
+  
+      // const replacedBody = reactStringReplace(parse(messageContent.body), '--react-component--', (match, index) =>
+      // index === 0 ? <div style={{ paddingTop: '8px' }}><PetCard/></div> : match
+      // );
+
+      // console.log('Replaced body:', replacedBody);
+  
+      // Return both body content and prop content
+      return (
+        <div style={{ marginTop: '12px' }}>
+          <div>{messageContent.body}</div> 
+
           {propContent}
         </div>
       );
     }
     return <div>{parse(messageContent.body)}</div>;
   }
+  
+  
 
   if (messageContent.responseType === 'handle_dna_conversation') {
     console.log('Called handle_dna_conversation');
