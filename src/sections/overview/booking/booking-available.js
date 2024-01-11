@@ -37,9 +37,9 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
     legend: {
       show: false,
     },
-    // grid: {
-    //   padding: { top: -32, bottom: -32 },
-    // },
+    grid: {
+      padding: { top: -32, bottom: -32 },
+    },
     fill: {
       type: 'gradient',
       gradient: {
@@ -51,12 +51,12 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
     },
     plotOptions: {
       radialBar: {
-        hollow: { size: '64%' },
+        hollow: { size: '55%' },
         dataLabels: {
           name: { offsetY: -16 },
           value: { offsetY: 8 },
           total: {
-            label: 'Activation Rate',
+            label: 'UAR',
             formatter: () => fPercent(activationRate),
           },
         },
@@ -67,9 +67,9 @@ export default function BookingAvailable({ title, subheader, chart, ...other }) 
 
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} sx={{ mb: 1 }} />
+      <CardHeader title={title} subheader={subheader} sx={{ mb: 0 }} />
 
-      <Chart type="radialBar" series={[chartSeries]} options={chartOptions} height={235} />
+      <Chart type="radialBar" series={[chartSeries]} options={chartOptions} height={235}  sx={{ m: 4}}/>
 
       {/* <Stack spacing={2} sx={{ p: 5 }}>
         {series.map((item) => (

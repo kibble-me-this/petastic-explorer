@@ -82,15 +82,16 @@ export default function BookingTotalIncomes({
   return (
     <Stack
       sx={{
-        ...bgGradient({
-          direction: '135deg',
-          startColor: alpha(theme.palette[color].light, 0.2),
-          endColor: alpha(theme.palette[color].main, 0.2),
-        }),
+        // ...bgGradient({
+        //   direction: '135deg',
+        //   startColor: alpha(theme.palette[color].light, 0.2),
+        //   endColor: alpha(theme.palette[color].main, 0.2),
+        // }),
         p: 3,
         borderRadius: 2,
         color: `${color}.darker`,
         backgroundColor: 'common.white',
+        
         ...sx,
       }}
       {...other}

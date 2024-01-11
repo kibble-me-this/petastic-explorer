@@ -51,9 +51,9 @@ const shelterAdoptionsCategories = [
   'w10',
   'w11',
 ];
-const adoptedData = [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35];
-const onboardedData = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30];
-const activeSheltersData = [1, 2, 5, 5, 8, 12, 12, 12, 12, 16, 16];
+const adoptedData = [18, 18, 31, 34, 34, 35, 36, 12, 18, 28, 28];
+const onboardedData = [18, 18, 30, 31, 33, 28, 27, 5, 16, 22, 25];
+const activeSheltersData = [1, 2, 5, 5, 5, 10, 10, 10, 10, 12, 12];
 
 const petsAdopted = adoptedData.map((value, index) => value * activeSheltersData[index]);
 const fetchNewUsers = onboardedData.map((value, index) => value * activeSheltersData[index]);
@@ -89,8 +89,8 @@ export default function OverviewBookingView() {
 
         <Grid xs={12} md={4}>
           <BookingWidgetSummary
-            title="Registered Shelters"
-            total={12400}
+            title="Shelters (registered)"
+            total={14338}
             icon={<img alt="icon" src="/assets/icons/components/ic_tabs.svg" />}
           />
         </Grid>
@@ -101,7 +101,7 @@ export default function OverviewBookingView() {
               <BookingTotalIncomes
                 title="Total Revenue"
                 total={18765}
-                percent={100}
+                percent={346}
                 chart={{
                   series: [
                     { x: 2016, y: 111 },
@@ -117,7 +117,7 @@ export default function OverviewBookingView() {
               />
               <BookingTotalIncomes
                 title="MRR"
-                total={18765}
+                total={16548}
                 percent={100}
                 chart={{
                   series: [
@@ -131,12 +131,30 @@ export default function OverviewBookingView() {
                     { x: 2023, y: 84 },
                   ],
                 }}
+                sx={{my:1}}
               />
             </Grid>
 
+
+
             <Grid xs={12} md={6}>
-              <BookingBooked title="Fetch User KPIs" data={_bookingsOverview} />
-            </Grid>
+            <BookingAvailable
+              title="Fetch Activation Rate"
+              chart={{
+                series: [
+                  { label: 'Adopted', value: totalPetsAdopted },
+                  { label: 'Onboarded', value: totalFetchNewUsers },
+                ],
+              }}
+            />
+
+            {/* <BookingCustomerReviews
+              title="Customer Reviews"
+              subheader={`${_bookingReview.length} Reviews`}
+              list={_bookingReview}
+              sx={{ mt: SPACING }}
+            /> */}
+          </Grid>
 
             {/* <Grid xs={12}>
               <BookingCheckInWidgets
@@ -208,23 +226,8 @@ export default function OverviewBookingView() {
           </Grid>
 
           <Grid xs={12} md={4}>
-            <BookingAvailable
-              title="Fetch Activation Rate"
-              chart={{
-                series: [
-                  { label: 'Adopted', value: totalPetsAdopted },
-                  { label: 'Onboarded', value: totalFetchNewUsers },
-                ],
-              }}
-            />
-
-            {/* <BookingCustomerReviews
-              title="Customer Reviews"
-              subheader={`${_bookingReview.length} Reviews`}
-              list={_bookingReview}
-              sx={{ mt: SPACING }}
-            /> */}
-          </Grid>
+              <BookingBooked title="Fetch User KPIs" data={_bookingsOverview} />
+            </Grid>
         </Grid>
 
         {/* <Grid xs={12}>

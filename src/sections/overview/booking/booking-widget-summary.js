@@ -16,6 +16,9 @@ export default function BookingWidgetSummary({ title, total, icon, sx, ...other 
         justifyContent: 'space-between',
         p: 2,
         pl: 3,
+        backgroundImage: `url(/assets/background/overlay_2.svg)`, // Add the background image here
+        backgroundSize: 'cover', // Optional: Set the background size
+        backgroundRepeat: 'no-repeat',
         ...sx,
       }}
       {...other}
