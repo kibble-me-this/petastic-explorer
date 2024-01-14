@@ -3,11 +3,11 @@ import { _mock } from './_mock';
 // APP
 // ----------------------------------------------------------------------
 
-export const _appRelated = ['California', 'Texas', 'Florida', 'New York',  'Pennsylvania'].map(
+export const _appRelated = ['California', 'Texas','New York',  'Florida',  'Pennsylvania'].map(
   (name, index) => {
-    const system = [2, 4].includes(index) ? 'Windows' : 'Mac';
+    // const system = [2, 4].includes(index) ? 'Windows' : 'Mac';
 
-    const price = [2, 4].includes(index) ? _mock.number.price(index) : 0;
+    // const price = [2, 4].includes(index) ? _mock.number.price(index) : 0;
 
     const shortcut =
       (name === 'California' && '/assets/icons/app/state-flags/california-171909.svg') ||
@@ -18,20 +18,20 @@ export const _appRelated = ['California', 'Texas', 'Florida', 'New York',  'Penn
       '/assets/icons/app/ic_github.svg';
 
     const totalReviews =
-      (name === 'California' && 68214) ||
-      (name === 'Florida' && 31400) ||
-      (name === 'New York' && 29473) ||
-      (name === 'Texas' && 57056) ||
-      (name === 'Pennsylvania' && 24559) ||
+      (name === 'California' && 93802) ||
+      (name === 'Florida' && 40848) ||
+      (name === 'New York' && 42031) ||
+      (name === 'Texas' && 76020) ||
+      (name === 'Pennsylvania' && 35561) ||
       '/assets/icons/app/ic_github.svg';  
 
     return {
       id: _mock.id(index),
       name,
-      price,
-      system,
+      // price,
+      // system,
       shortcut,
-      ratingNumber: _mock.number.rating(index),
+      // ratingNumber: _mock.number.rating(index),
       totalReviews
     };
   }
@@ -73,31 +73,31 @@ const topDogs = [
     id: "customId1",
     name: "Labrador Retriever",
     avatarUrl: "url/to/avatar3.jpg",
-    totalFavorites: 24420,
+    totalFavorites: 72906,
   },
   {
     id: "customId2",
     name: "Pit Bull Terrier",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 20845,
+    totalFavorites: 46009,
   },
   {
     id: "customId3",
     name: "German Shepherd Dog",
     avatarUrl: "url/to/avatar1.jpg",
-    totalFavorites: 12897,
+    totalFavorites: 22112,
   },
   {
     id: "customId4",
     name: "Chihuahua",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 8910,
+    totalFavorites: 20385,
   },
   {
     id: "customId5",
     name: "Hound",
     avatarUrl: "url/to/avatar1.jpg",
-    totalFavorites: 8046,
+    totalFavorites: 15098,
   },
 
 ];
@@ -107,31 +107,31 @@ const topCats = [
     id: "customId1",
     name: "Domestic Short Hair",
     avatarUrl: "url/to/avatar1.jpg",
-    totalFavorites: 25697,
+    totalFavorites: 55210,
   },
   {
     id: "customId2",
     name: "Tabby",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 12321,
+    totalFavorites: 22322,
   },
   {
     id: "customId3",
     name: "Domestic Medium Hair",
     avatarUrl: "url/to/avatar3.jpg",
-    totalFavorites: 10291,
+    totalFavorites: 19599,
   },
   {
     id: "customId4",
     name: "TaDomestic Medium Hair",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 5705,
+    totalFavorites: 10705,
   },
   {
     id: "customId5",
     name: "Siamese",
     avatarUrl: "url/to/avatar3.jpg",
-    totalFavorites: 2331,
+    totalFavorites: 7443,
   },
 ];
 

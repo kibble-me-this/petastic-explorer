@@ -81,10 +81,10 @@ import AppWidget from '../../overview/app/app-widget';
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
-  ...bgGradient({
-    color: alpha(theme.palette.background.default, 0),
-    imgUrl: '/assets/background/overlay_4.jpg',
-  }),
+  // ...bgGradient({
+  //   color: alpha(theme.palette.background.default, 0),
+  //   imgUrl: '/assets/background/overlay_4.jpg',
+  // }),
   position: 'relative',
   overflow: 'hidden',
 
@@ -235,7 +235,7 @@ export default function UserListView() {
   const [loadingMaxValues, setLoadingMaxValues] = useState(true);
 
   // const [backgroundImage, setBackgroundImage] = useState('/assets/background/overlay_3.jpg');
-  const [backgroundImage, setBackgroundImage] = useState('/assets/background/overlay_4.jpg');
+  const [backgroundImage, setBackgroundImage] = useState('');
 
 
   // useEffect(() => {
@@ -363,10 +363,17 @@ export default function UserListView() {
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Pets"
-                percent={((totalMaxPets-438510)/438510)*100}
+                percent={((totalMaxPets-601001)/601001)*100}
                 total={totalMaxPets}
                 chart={{
-                  series: [15000, 28000, 35000, 72000, 80000, 100000, 100010, 100020],
+                  series: [48300,
+                    35000,
+                    72000,
+                    80000,
+                    100000,
+                    100010,
+                    162491,
+                    192966,],
                 }}
                 loading={loadingMaxValues}
               />
@@ -375,11 +382,18 @@ export default function UserListView() {
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Dogs"
-                percent={((totalMaxDogs-290510)/290510)*100}
+                percent={((totalMaxDogs-386841)/386841)*100}
                 total={totalMaxDogs}
                 chart={{
                   colors: [theme2.palette.info.light, theme2.palette.info.main],
-                  series: [15000, 28000, 35000, 72000, 80000, 100000, 100010, 100020],
+                  series: [33504,
+                    24278,
+                    49943,
+                    55493,
+                    69366,
+69373,
+82664,
+84506,]
                 }}
                 loading={loadingMaxValues}
               />
@@ -388,11 +402,18 @@ export default function UserListView() {
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Cats"
-                percent={((totalMaxCats-188510)/188510)*100}
+                percent={((totalMaxCats-214160)/214160)*100}
                 total={totalMaxCats}
                 chart={{
                   colors: [theme2.palette.warning.light, theme2.palette.warning.main],
-                  series: [15000, 28000, 35000, 72000, 80000, 100000, 100010, 100020],
+                  series: [14796,
+                    10722,
+                    22057,
+                    24507,
+                    30634,
+                    30637,
+                    79827,
+                    108460,],
                 }}
                 loading={loadingMaxValues}
               />
@@ -401,7 +422,7 @@ export default function UserListView() {
             <Grid xs={12} md={6} lg={8}>
               <AppAreaInstalled
                 title="The Pet's Network (population growth) "
-                subheader="(+59%) than last 60 days"
+                subheader="(+81%) than last 60 days"
                 chart={{
                   categories: [
                     'Jan',
@@ -434,6 +455,7 @@ export default function UserListView() {
                             238500,
                             338500,
                             438510,
+                            601001,
                             totalMaxPets,
                           ],
                         },
