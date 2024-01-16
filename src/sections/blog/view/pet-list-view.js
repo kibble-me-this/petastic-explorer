@@ -242,7 +242,8 @@ export default function PetListView() {
 const applyFilter = ({ inputData, filters, sortBy }) => {
   const { publish } = filters;
 
-  console.log(publish);
+  console.log('Calling applyFilter filters: ', publish);
+  console.log('Calling applyFilter inpuData: ', inputData);
 
   if (sortBy === 'latest') {
     inputData = orderBy(inputData, ['createdAt'], ['desc']);
@@ -262,6 +263,10 @@ const applyFilter = ({ inputData, filters, sortBy }) => {
     inputData.forEach((post) => {
       // Extract the type from the post
       const type = post.type;
+      const status = post.status;
+
+      console.log('Calling applyFilter inpuData.type: ', type);
+      console.log('Calling applyFilter inpuData.status: ', status);
 
       // Check if the post is related to a dog
       if (
@@ -271,7 +276,7 @@ const applyFilter = ({ inputData, filters, sortBy }) => {
         publish === 'dog'
       ) {
         // Check if the post status does not include 'adopted'
-        if (!post.status.includes('adopted')) {
+        if (typeof status === 'undefined' || status.includes('adoptable')) {
           filteredData.push(post);
         }
       }
@@ -282,13 +287,13 @@ const applyFilter = ({ inputData, filters, sortBy }) => {
         publish === 'cat'
       ) {
         // Check if the post status does not include 'adopted'
-        if (!post.status.includes('adopted')) {
+        if (typeof status === 'undefined' || status.includes('adoptable')) {
           filteredData.push(post);
         }
       }
 
       // Check if the post is adopted
-      if (post.status.includes('adopted') && publish === 'adopted') {
+      if (typeof status !== 'undefined' && status.includes('adopted') && publish === 'adopted') {
         filteredData.push(post);
       }
     });
