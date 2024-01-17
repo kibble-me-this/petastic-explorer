@@ -27,7 +27,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 // import PostSearch from '../post-search';
 import PetListHorizontal from '../pet-list-horizontal';
 
-import { getShelterAccountId } from '../_mock';
+import { getShelterAccountId1 } from '../_mock';
 
 // ----------------------------------------------------------------------
 
@@ -103,7 +103,7 @@ export default function PetListView() {
     setIsApiLoading(true);
 
     // if (userMetadata) {
-    const shelterAccountId = getShelterAccountId(user.publicAddress);
+    const shelterAccountId = getShelterAccountId1(user.publicAddress);
     // const shelterAccountId = getShelterAccountId(
     //   'fb9b34e032a94707e114023c44698716bef222d36310b48c7af02e5240c2b612'
     // );
