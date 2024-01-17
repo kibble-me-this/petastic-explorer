@@ -57,7 +57,7 @@ export default function PetListView() {
   // const { shelterAccountId, setShelterAccountId } = useState('5ee83180f121686526084263');
 
   const [apiPets, setApiPets] = useState([]);
-  // const [ownerName, setOwnerName] = useState('');
+  const [ownerName, setOwnerName] = useState('');
   const [isApiLoading, setIsApiLoading] = useState(true);
   // const [fetchError, setFetchError] = useState(null); // Rename the variable here
 
@@ -122,7 +122,7 @@ export default function PetListView() {
         setApiPets(data.pets); // Update the state with the fetched data
         console.log(data.pets);
 
-        // setOwnerName(data.shelter_name_common);
+        setOwnerName(data.shelter_name_common);
         // setIsApiLoading(false); // Set loading to false after data is fetched
 
         // Apply filtering and sorting logic to apiPets and store the result in filteredAndSortedPets
@@ -144,7 +144,7 @@ export default function PetListView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
-        heading="Our Pets"
+        heading={`Our Pets - ${ownerName}`}
         links={[
           {
             name: 'Dashboard',
