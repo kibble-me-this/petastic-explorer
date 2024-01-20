@@ -25,6 +25,13 @@ import Iconify from 'src/components/iconify';
 export default function PostDetailsHero({ title, author, coverUrl, createdAt }) {
   const theme = useTheme();
 
+  console.log("PostDetailsHero title: ", title);
+  console.log("PostDetailsHero author: ", author);
+  console.log("PostDetailsHero coverUrl: ", coverUrl);
+  console.log("PostDetailsHero createdAt: ", createdAt);
+
+  author = "carlos herrera";
+
   const smUp = useResponsive('up', 'sm');
 
   return (
@@ -90,7 +97,7 @@ export default function PostDetailsHero({ title, author, coverUrl, createdAt }) 
             </Stack>
           )}
 
-          <SpeedDial
+          {/* <SpeedDial
             direction={smUp ? 'left' : 'up'}
             ariaLabel="Share post"
             icon={<Iconify icon="solar:share-bold" />}
@@ -110,7 +117,7 @@ export default function PostDetailsHero({ title, author, coverUrl, createdAt }) 
                 FabProps={{ color: 'default' }}
               />
             ))}
-          </SpeedDial>
+          </SpeedDial> */}
         </Stack>
       </Container>
     </Box>

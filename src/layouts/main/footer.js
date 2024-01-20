@@ -26,7 +26,7 @@ const LINKS = [
     children: [
       {
         name: 'Blog',
-        href: '/?id=e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+        href: paths.post.root,
         style: { pointerEvents: 'none' },
       },
       {
