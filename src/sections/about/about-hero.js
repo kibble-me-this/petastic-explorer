@@ -21,7 +21,7 @@ export default function AboutHero() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundImage:
-          'url(/assets/background/overlay_1.svg), url(/assets/images/about/hero.jpg)',
+          'url(/assets/background/overlay_1.svg), url(/assets/images/about/AdobeStock_419866083.jpeg)',
       }}
     >
       <Container component={MotionContainer}>
@@ -46,15 +46,16 @@ export default function AboutHero() {
 
           <m.div variants={varFade().inRight}>
             <Typography
-              variant="h4"
+              variant="h3"
               sx={{
                 mt: 3,
                 color: 'common.white',
-                fontWeight: 'fontWeightSemiBold',
+                // fontWeight: 'fontWeightSemiBold',
               }}
             >
-              Let&apos;s work together and
-              <br /> make awesome site easily
+              We are a tiny team with a giant ambition to deliver 
+              <br/>personalized pet care to all our furry friends worldwide 
+
             </Typography>
           </m.div>
         </Box>

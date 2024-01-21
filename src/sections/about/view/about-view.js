@@ -27,13 +27,12 @@ export default function AboutView() {
 
       <AboutVision />
 
-      <AboutTeam />
 
-      <AboutTestimonials />
+      {/* <AboutTestimonials /> */}
 
       <ContactHero />
 
-      <Container sx={{ py: 10 }}>
+      {/* <Container sx={{ py: 10 }}>
         <Box
           gap={10}
           display="grid"
@@ -44,7 +43,7 @@ export default function AboutView() {
         >
           <ContactForm />
         </Box>
-      </Container>
+      </Container> */}
     </>
   );
 }

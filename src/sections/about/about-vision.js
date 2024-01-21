@@ -18,9 +18,10 @@ export default function AboutVision() {
 
   const renderImg = (
     <Image
-      src="/assets/images/about/vision.jpg"
+      src="/assets/images/about/miami-ww2.jpg"
       alt="about-vision"
-      overlay={alpha(theme.palette.grey[900], 0.48)}
+      overlay={alpha(theme.palette.grey[900], 0.58)}
+      ratio="16/9"
     />
   );
 
@@ -34,12 +35,12 @@ export default function AboutVision() {
         width: 1,
         zIndex: 9,
         bottom: 0,
-        opacity: 0.48,
+        opacity: 0.58,
         position: 'absolute',
         py: { xs: 1.5, md: 2.5 },
       }}
     >
-      {['ibm', 'lya', 'spotify', 'netflix', 'hbo', 'amazon'].map((logo) => (
+      {['purina', 'tiny', 'near', 'amazon', 'ev3', 'bff'].map((logo) => (
         <Box
           component={m.img}
           key={logo}
@@ -79,26 +80,36 @@ export default function AboutVision() {
             borderRadius: 2,
             display: 'flex',
             overflow: 'hidden',
-            position: 'relative',
             alignItems: 'center',
             justifyContent: 'center',
+            position: 'relative', // Ensure stacking context
           }}
         >
           {renderImg}
-
           {renderLogo}
-
-          <Fab sx={{ position: 'absolute', zIndex: 9 }}>
-            <Iconify icon="solar:play-broken" width={24} />
-          </Fab>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              textAlign: 'center',
+              zIndex: 1, // Ensure text is above the image
+            }}
+          >
+            <m.div variants={varFade().inRight}>
+              <Typography variant="h2" sx={{ mb: 3, opacity: 0.58, color: 'common.white' }}>
+                Our Backers
+              </Typography>
+            </m.div>
+            <m.div variants={varFade().inUp}>
+              <Typography variant="h3" sx={{ maxWidth: 800, mx: 'auto', opacity: 0.58, color: 'common.white' }}>
+                Our vision offering the best product nulla vehicula tortor scelerisque ultrices
+                malesuada.
+              </Typography>
+            </m.div>
+          </Box>
         </Box>
-
-        <m.div variants={varFade().inUp}>
-          <Typography variant="h3" sx={{ textAlign: 'center', maxWidth: 800, mx: 'auto' }}>
-            Our vision offering the best product nulla vehicula tortor scelerisque ultrices
-            malesuada.
-          </Typography>
-        </m.div>
       </Container>
     </Box>
   );

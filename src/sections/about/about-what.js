@@ -10,12 +10,18 @@ import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
+// _mock
+import { _appFeatured, _appAuthors, _appInstalled, _appRelated, _appInvoices } from 'src/_mock';
 // utils
 import { fPercent } from 'src/utils/format-number';
 // components
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { MotionViewport, varFade } from 'src/components/animate';
+//
+import ListView from 'src/sections/_examples/mui/list-view';
+import AppFeatured from '../overview/app/app-featured';
+
 
 // ----------------------------------------------------------------------
 
@@ -53,7 +59,7 @@ export default function AboutWhat() {
               <m.div variants={varFade().inUp}>
                 <Image
                   alt="our office 2"
-                  src="/assets/images/about/what_2.png"
+                  src="/assets/images/about/love.png"
                   ratio="1/1"
                   sx={{ borderRadius: 3, boxShadow: shadow }}
                 />
@@ -64,7 +70,7 @@ export default function AboutWhat() {
               <m.div variants={varFade().inUp}>
                 <Image
                   alt="our office 1"
-                  src="/assets/images/about/what_1.png"
+                  src="/assets/images/about/gigi4.jpg"
                   ratio="3/4"
                   sx={{ borderRadius: 3, boxShadow: shadow }}
                 />
@@ -76,7 +82,7 @@ export default function AboutWhat() {
         <Grid xs={12} md={6} lg={5}>
           <m.div variants={varFade().inRight}>
             <Typography variant="h2" sx={{ mb: 3 }}>
-              What is Minimal?
+              Our Mission
             </Typography>
           </m.div>
 
@@ -86,15 +92,15 @@ export default function AboutWhat() {
                 color: theme.palette.mode === 'light' ? 'text.secondary' : 'common.white',
               }}
             >
-              Our theme is the most advanced and user-friendly theme you will find on the market, we
-              have documentation and video to help set your site really easily, pre-installed demos
-              you can import in one click and everything from the theme options to page content can
-              be edited from the front-end. This is the theme you are looking for.
+At Petastic, we firmly believe that every pet possesses unique needs, and traditional &#x27;one-size-fits-all&#x27; pet care falls short.
+Our mission is to make pet care personalized, less confusing, and financially accessible to all, harnessing the power of blockchain and AI trained in pet care.
+
+
             </Typography>
           </m.div>
 
-          <Stack spacing={3} sx={{ my: 5 }}>
-            {SKILLS.map((progress, index) => (
+          <Stack spacing={3} sx={{ my: 2 }}>
+            {/* {SKILLS.map((progress, index) => (
               <Box component={m.div} key={progress.label} variants={varFade().inRight}>
                 <Stack direction="row" alignItems="center" sx={{ mb: 1 }}>
                   <Typography variant="subtitle2" sx={{ flexGrow: 1, textAlign: 'left' }}>
@@ -112,7 +118,10 @@ export default function AboutWhat() {
                   value={progress.value}
                 />
               </Box>
-            ))}
+            ))} */}
+
+          {/* <AppFeatured list={_appFeatured} /> */}
+            {/* <ListView/> */}
           </Stack>
 
           <m.div variants={varFade().inRight}>
@@ -122,7 +131,7 @@ export default function AboutWhat() {
               size="large"
               endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
             >
-              Our Work
+              Give it a whirlie-poo
             </Button>
           </m.div>
         </Grid>
