@@ -15,24 +15,14 @@ import { MotionContainer, varFade } from 'src/components/animate';
 
 const CONTACTS = [
   {
-    country: 'Bali',
+    country: 'Los Angeles',
     address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(239) 555-0108',
+    // phoneNumber: '(239) 555-0108',
   },
   {
-    country: 'London',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(319) 555-0115',
-  },
-  {
-    country: 'Prague',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(252) 555-0126',
-  },
-  {
-    country: 'Moscow',
-    address: '508 Bridle',
-    phoneNumber: '(307) 555-0133',
+    country: 'Miami',
+    address: '360 NW 27th St, Miami, F',
+    // phoneNumber: '(319) 555-0115',
   },
 ];
 

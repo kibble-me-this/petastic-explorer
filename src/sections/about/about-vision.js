@@ -35,12 +35,12 @@ export default function AboutVision() {
         width: 1,
         zIndex: 9,
         bottom: 0,
-        opacity: 0.58,
+        opacity: 0.88,
         position: 'absolute',
         py: { xs: 1.5, md: 2.5 },
       }}
     >
-      {['purina', 'tiny', 'near', 'amazon', 'ev3', 'bff'].map((logo) => (
+      {['purina', 'tiny',  'a100x', 'ev3', 'bff','near',].map((logo) => (
         <Box
           component={m.img}
           key={logo}
@@ -91,22 +91,20 @@ export default function AboutVision() {
             sx={{
               position: 'absolute',
               top: '50%',
-              left: '50%',
+              left: '49.5%',
               transform: 'translate(-50%, -50%)',
               textAlign: 'center',
               zIndex: 1, // Ensure text is above the image
             }}
           >
             <m.div variants={varFade().inRight}>
-              <Typography variant="h2" sx={{ mb: 3, opacity: 0.58, color: 'common.white' }}>
+              <Typography variant="h2" sx={{ mb: 2, opacity: 0.88, color: 'common.white' }}>
                 Our Backers
               </Typography>
             </m.div>
             <m.div variants={varFade().inUp}>
-              <Typography variant="h3" sx={{ maxWidth: 800, mx: 'auto', opacity: 0.58, color: 'common.white' }}>
-                Our vision offering the best product nulla vehicula tortor scelerisque ultrices
-                malesuada.
-              </Typography>
+              <Typography variant="h3" sx={{ maxWidth: 800, mx: 'auto', opacity: 0.80, color: 'common.white' }}>
+              Steadfast supporters of our mission to simplify pet care for all with the power of open data and community.              </Typography>
             </m.div>
           </Box>
         </Box>

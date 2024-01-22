@@ -27,10 +27,9 @@ export default function AboutView() {
 
       <AboutVision />
 
-
       {/* <AboutTestimonials /> */}
 
-      <ContactHero />
+      {/* <ContactHero /> */}
 
       {/* <Container sx={{ py: 10 }}>
         <Box

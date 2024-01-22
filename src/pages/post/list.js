@@ -8,7 +8,7 @@ export default function PostListHomePage() {
   return (
     <>
       <Helmet>
-        <title> Post: List</title>
+        <title>Petastic - Blog</title>
       </Helmet>
 
       <PostListHomeView />
