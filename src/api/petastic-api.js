@@ -196,14 +196,28 @@ const handlePetPassportTransfer = async (new_account_id, pet_passport_id) => {
 };
 
 // Function to send an email
-const sendEmail = async (to_email, conversationId, petPassport, pet_image, pet_name) => {
+const sendEmail = async (
+  to_email,
+  conversation_id,
+  pet_passport_id,
+  pet_name,
+  pet_avatar,
+  pet_breed,
+  pet_gender,
+  pet_age,
+  shelter_name
+) => {
   try {
     const templateParams = {
       to_email,
-      conversationId,
-      petPassport,
-      pet_image,
+      conversation_id,
+      pet_passport_id,
       pet_name,
+      pet_avatar,
+      pet_breed,
+      pet_gender,
+      pet_age,
+      shelter_name,
     };
 
     const result = await emailjs.send(

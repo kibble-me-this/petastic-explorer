@@ -346,20 +346,29 @@ function ConfirmTransferDialog({
             : p
         );
 
+        console.log(pet);
+
         // Send email using sendEmail function (replace with your service and template details)
         const conversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4'; // WIP call helper function to create conversationId
         const petPassport = pet_passport_id;
         const userEmail = data.email;
         const pet_name = pet.name;
         const pet_image = pet.avatar_file_name;
+        const pet_breed = pet.breed;
+        const pet_gender = pet.gender;
+        const pet_age = pet.age.life_stage;
+        const shelter_name = pet.shelter_name_common;
 
         const emailResponse = await sendEmail(
           userEmail,
           conversationId,
           petPassport,
+          pet_name,
           pet_image,
-          pet_name
-          // newOwnerAccountId
+          pet_breed,
+          pet_gender,
+          pet_age,
+          shelter_name
         );
 
         if (!emailResponse.success) {
