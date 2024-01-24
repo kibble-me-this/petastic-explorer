@@ -30,7 +30,7 @@ async function initOrRetrieveSession(user) {
 export async function sendToOpenAI(conversationId, message, user) {
   try {
     // Initiate or retrieve the session for the user
-    const sessionId = await initOrRetrieveSession(user);
+    const sessionId = "hello" // await initOrRetrieveSession(user);
 
     // Add the session ID to the message
     message.sessionId = sessionId;
