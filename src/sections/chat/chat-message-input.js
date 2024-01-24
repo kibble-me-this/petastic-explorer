@@ -46,10 +46,20 @@ export default function ChatMessageInput({
   const location = useLocation();
 
   // Use the URLSearchParams API to extract the petPassport value from the URL
-  const petPassport = useMemo(() => {
+  const queryParams = useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
-    return searchParams.get('petPassport') || ''; // Provide a default value if not found
+
+    const params = Array.from(searchParams.entries()).reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    return params;
   }, [location.search]);
+
+  const petPassport = queryParams.petPassport;
+  const petName = queryParams.pet_name;
+  const shelterName = queryParams.shelter_name;
 
   const { user, fetchai } = useMockedUser();
 
@@ -250,10 +260,10 @@ export default function ChatMessageInput({
       <p>Click below to get your journey started.🤍 </p> html accept pet button
       `;
 
-      const predefinedMessage2 = `<b>👋 Hi there!</b> I just received a notification from <b>Kosmas' Garden Of Angeles Rescue</b> that you've added a new member to your family. 
-      I'm here and ready to assist you with personalized pet care for <b>Winston</b> and to help fund other pets in need through Petastic's shared giving community of shelters and rescues. 🤍
+      const predefinedMessage2 = `<b>👋 Hi there!</b> I just received a notification from <b>${shelterName}</b> that you've added a new member to your family. 
+      I'm here and ready to assist you with personalized pet care for <b>${petName}</b> and to help fund other pets in need through Petastic's shared giving community of shelters and rescues. 🤍
       <p><b>Click below to get started.</b></p> html accept pet button
-      `;
+    `;
 
       timer = setTimeout(async () => {
         if (predefinedMessage2) {
@@ -307,6 +317,8 @@ export default function ChatMessageInput({
     // clearOpenaiMessage,
     setPet,
     pet,
+    petName,
+    shelterName,
   ]);
 
   // const handleSendOpenaiMessage = useCallback(
