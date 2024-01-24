@@ -20,17 +20,17 @@ async function initOrRetrieveSession(user) {
   if (response.data.sessionId) {
     return response.data.sessionId;
   }
-  
+
   // If no session ID exists, create a session and return the ID
   const createSessionResponse = await axios.post(`${API_URL}/set-session`, { user });
-  
+
   return createSessionResponse.data.sessionId;
 }
 
 export async function sendToOpenAI(conversationId, message, user) {
   try {
     // Initiate or retrieve the session for the user
-    const sessionId = "hello" // await initOrRetrieveSession(user);
+    const sessionId = await initOrRetrieveSession(user);
 
     // Add the session ID to the message
     message.sessionId = sessionId;
@@ -79,13 +79,13 @@ export async function sendToOpenAI(conversationId, message, user) {
       //   isFirstCall = false; // Mark the first call as done
       // }
 
-    // Send a request to the OpenAI API for text message
-    const response = await axios.post(`${API_URL}/petastic/chat`, message, {
-      headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
+      // Send a request to the OpenAI API for text message
+      const response = await axios.post(`${API_URL}/petastic/chat`, message, {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
       // Check if the response contains a message
       if (response.data.content) {
