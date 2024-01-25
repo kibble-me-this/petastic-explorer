@@ -32,7 +32,6 @@ export default function CheckoutView() {
           <CheckoutSteps activeStep={checkout.activeStep} steps={PRODUCT_CHECKOUT_STEPS} />
         </Grid>
       </Grid>
-
       {checkout.completed ? (
         <CheckoutOrderComplete
           open={checkout.completed}

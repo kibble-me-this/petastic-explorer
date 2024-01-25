@@ -55,7 +55,6 @@ export default function CheckoutCart() {
           )}
         </Card>
 
-        {/** 
         <Button
           component={RouterLink}
           href={paths.product.root}
@@ -63,8 +62,7 @@ export default function CheckoutCart() {
           startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
         >
           Continue Shopping
-        </Button> 
-        */}
+        </Button>
       </Grid>
 
       <Grid xs={12} md={4}>
@@ -83,7 +81,7 @@ export default function CheckoutCart() {
           disabled={empty}
           onClick={checkout.onNextStep}
         >
-          Check Out
+          Check
         </Button>
       </Grid>
     </Grid>
