@@ -1,6 +1,6 @@
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -8,6 +8,9 @@ import Container from '@mui/material/Container';
 // routes
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+// auth
+import { RoleBasedGuard } from 'src/auth/guard';
+import { useAuthContext } from 'src/auth/hooks';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // _mock
@@ -26,6 +29,9 @@ import Iconify from 'src/components/iconify';
 import EmptyContent from 'src/components/empty-content';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+
+import { getShelterAccountId } from '../../blog/_mock';
+
 //
 import JobList from '../job-list';
 import JobSort from '../job-sort';
@@ -48,6 +54,12 @@ const defaultFilters = {
 export default function JobListView() {
   const settings = useSettingsContext();
 
+  const [isApiLoading, setIsApiLoading] = useState(true);
+
+  const [apiShelters, setApiShelters] = useState([]);
+
+  const { user, logout } = useAuthContext();
+
   const openFilters = useBoolean();
 
   const [sortBy, setSortBy] = useState('latest');
@@ -60,7 +72,8 @@ export default function JobListView() {
   const [filters, setFilters] = useState(defaultFilters);
 
   const dataFiltered = applyFilter({
-    inputData: _jobs,
+    // inputData: _jobs,
+    inputData: apiShelters,
     filters,
     sortBy,
   });
@@ -68,6 +81,74 @@ export default function JobListView() {
   const canReset = !isEqual(defaultFilters, filters);
 
   const notFound = !dataFiltered.length && canReset;
+
+  useEffect(() => {
+    setIsApiLoading(true);
+
+    // if (userMetadata) {
+    const shelterAccountIds = getShelterAccountId(user.publicAddress);
+
+    console.log('shelterAccountIds: ', shelterAccountIds);
+
+    // Create an array to store promises for fetching data
+    const fetchPromises = shelterAccountIds.map((shelterAccountId) => {
+      const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
+
+      console.log('in here');
+      console.log('apiUrl:', apiUrl);
+
+      // Fetch data from the API and return the promise
+      return fetch(apiUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw Error('Network response was not ok');
+          }
+          return response.json(); // Parse the JSON response
+        })
+        .then((responseData) => {
+          console.log('responseData: ', responseData);
+
+          // Check if responseData has the expected structure
+          if (responseData && responseData.pets && Array.isArray(responseData.pets)) {
+            // Inside your useEffect, update how you set the state
+            const shelterData = {
+              shelterAccountId,
+              commonName: responseData.shelter_name_common,
+              numPets: responseData.pets.length,
+              pets: responseData.pets,
+            };
+            return shelterData;
+          } // else {
+          // Handle unexpected response structure
+          console.error('Unexpected API response structure:', responseData);
+          // Handle this case as needed, e.g., set default values or show an error message.
+          return null;
+          // }
+        })
+        .catch((error) => {
+          console.error('Error fetching user pets:', error);
+          return null;
+        });
+    });
+
+    console.log('fetchPromises: ', fetchPromises);
+
+    // Use Promise.all to wait for all API calls to complete
+    Promise.all(fetchPromises)
+      .then((results) => {
+        // Filter out any null values (responses that had errors)
+        const validShelters = results.filter((shelterData) => shelterData !== null);
+
+        // Set the shelter links in your component state
+        setApiShelters(validShelters); // Update the state with the shelter links
+        setIsApiLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching user pets:', error);
+        setIsApiLoading(false);
+      });
+    // }
+  }, [user.publicAddress]);
 
   const handleFilters = useCallback((name, value) => {
     setFilters((prevState) => ({
@@ -162,21 +243,21 @@ export default function JobListView() {
         links={[
           { name: 'Dashboard', href: paths.dashboard.root },
           {
-            name: 'Job',
+            name: 'Org',
             href: paths.dashboard.job.root,
           },
           { name: 'List' },
         ]}
-        action={
-          <Button
-            component={RouterLink}
-            href={paths.dashboard.job.new}
-            variant="contained"
-            startIcon={<Iconify icon="mingcute:add-line" />}
-          >
-            New Job
-          </Button>
-        }
+        // action={
+        //   // <Button
+        //   //   component={RouterLink}
+        //   //   href={paths.dashboard.job.new}
+        //   //   variant="contained"
+        //   //   startIcon={<Iconify icon="mingcute:add-line" />}
+        //   // >
+        //   //   New Org
+        //   // </Button>
+        // }
         sx={{
           mb: { xs: 3, md: 5 },
         }}
@@ -188,7 +269,7 @@ export default function JobListView() {
           mb: { xs: 3, md: 5 },
         }}
       >
-        {renderFilters}
+        {/* {renderFilters} */}
 
         {canReset && renderResults}
       </Stack>
@@ -203,43 +284,45 @@ export default function JobListView() {
 // ----------------------------------------------------------------------
 
 const applyFilter = ({ inputData, filters, sortBy }) => {
-  const { employmentTypes, experience, roles, locations, benefits } = filters;
+  // const { employmentTypes, experience, roles, locations, benefits } = filters;
+
+  console.log('JobsListView applyFilter inputData: ', inputData);
 
   // SORT BY
-  if (sortBy === 'latest') {
-    inputData = orderBy(inputData, ['createdAt'], ['desc']);
-  }
+  // if (sortBy === 'latest') {
+  //   inputData = orderBy(inputData, ['createdAt'], ['desc']);
+  // }
 
-  if (sortBy === 'oldest') {
-    inputData = orderBy(inputData, ['createdAt'], ['asc']);
-  }
+  // if (sortBy === 'oldest') {
+  //   inputData = orderBy(inputData, ['createdAt'], ['asc']);
+  // }
 
-  if (sortBy === 'popular') {
-    inputData = orderBy(inputData, ['totalViews'], ['desc']);
-  }
+  // if (sortBy === 'popular') {
+  //   inputData = orderBy(inputData, ['totalViews'], ['desc']);
+  // }
 
-  // FILTERS
-  if (employmentTypes.length) {
-    inputData = inputData.filter((job) =>
-      job.employmentTypes.some((item) => employmentTypes.includes(item))
-    );
-  }
+  // // FILTERS
+  // if (employmentTypes.length) {
+  //   inputData = inputData.filter((job) =>
+  //     job.employmentTypes.some((item) => employmentTypes.includes(item))
+  //   );
+  // }
 
-  if (experience !== 'all') {
-    inputData = inputData.filter((job) => job.experience === experience);
-  }
+  // if (experience !== 'all') {
+  //   inputData = inputData.filter((job) => job.experience === experience);
+  // }
 
-  if (roles.length) {
-    inputData = inputData.filter((job) => roles.includes(job.role));
-  }
+  // if (roles.length) {
+  //   inputData = inputData.filter((job) => roles.includes(job.role));
+  // }
 
-  if (locations.length) {
-    inputData = inputData.filter((job) => job.locations.some((item) => locations.includes(item)));
-  }
+  // if (locations.length) {
+  //   inputData = inputData.filter((job) => job.locations.some((item) => locations.includes(item)));
+  // }
 
-  if (benefits.length) {
-    inputData = inputData.filter((job) => job.benefits.some((item) => benefits.includes(item)));
-  }
+  // if (benefits.length) {
+  //   inputData = inputData.filter((job) => job.benefits.some((item) => benefits.includes(item)));
+  // }
 
   return inputData;
 };

@@ -6,8 +6,11 @@ import { _mock } from './_mock';
 // ----------------------------------------------------------------------
 
 export const JOB_DETAILS_TABS = [
-  { value: 'content', label: 'Job Content' },
-  { value: 'candidates', label: 'Candidates' },
+  // { value: 'content', label: 'Job Content' },
+  { value: 'pets', label: 'Pets' },
+  { value: 'dogs', label: 'Dogs' },
+  { value: 'cats', label: 'Cats' },
+  { value: 'adopted', label: 'Adopted' },
 ];
 
 export const JOB_SKILL_OPTIONS = [

@@ -8,7 +8,7 @@ export default function JobListPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard: Job List</title>
+        <title> Dashboard: Org List</title>
       </Helmet>
 
       <JobListView />

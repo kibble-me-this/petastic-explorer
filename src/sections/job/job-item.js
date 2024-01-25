@@ -25,8 +25,12 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 export default function JobItem({ job, onView, onEdit, onDelete }) {
   const popover = usePopover();
 
-  const { id, title, company, createdAt, candidates, experience, employmentTypes, salary, role } =
-    job;
+  // const { id, title, company, createdAt, candidates, experience, employmentTypes, salary, role } =
+  // job;
+
+  console.log('JobItem job: ', job);
+
+  const { id, shelterAccountId, commonName, numPets } = job;
 
   return (
     <>
@@ -37,20 +41,30 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
 
         <Stack sx={{ p: 3, pb: 2 }}>
           <Avatar
-            alt={company.name}
-            src={company.logo}
+            // alt={company.name}
+            // src={company.logo}
             variant="rounded"
             sx={{ width: 48, height: 48, mb: 2 }}
           />
 
           <ListItemText
             sx={{ mb: 1 }}
+            // primary={
+            //   <Link component={RouterLink} href={paths.dashboard.job.details(id)} color="inherit">
+            //     {title}
+            //   </Link>
+            // }
+            // secondary={`Posted date: ${fDate(createdAt)}`}
             primary={
-              <Link component={RouterLink} href={paths.dashboard.job.details(id)} color="inherit">
-                {title}
+              <Link
+                component={RouterLink}
+                href={paths.dashboard.job.details(shelterAccountId)}
+                color="inherit"
+              >
+                {commonName}
               </Link>
             }
-            secondary={`Posted date: ${fDate(createdAt)}`}
+            // secondary={`Posted date: ${fDate(createdAt)}`}
             primaryTypographyProps={{
               typography: 'subtitle1',
             }}
@@ -69,7 +83,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
             sx={{ color: 'primary.main', typography: 'caption' }}
           >
             <Iconify width={16} icon="solar:users-group-rounded-bold" />
-            {candidates.length} Candidates
+            {numPets} Pets
           </Stack>
         </Stack>
 
@@ -77,22 +91,22 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
 
         <Box rowGap={1.5} display="grid" gridTemplateColumns="repeat(2, 1fr)" sx={{ p: 3 }}>
           {[
-            {
-              label: experience,
-              icon: <Iconify width={16} icon="carbon:skill-level-basic" sx={{ flexShrink: 0 }} />,
-            },
-            {
-              label: employmentTypes.join(', '),
-              icon: <Iconify width={16} icon="solar:clock-circle-bold" sx={{ flexShrink: 0 }} />,
-            },
-            {
-              label: salary.negotiable ? 'Negotiable' : fCurrency(salary.price),
-              icon: <Iconify width={16} icon="solar:wad-of-money-bold" sx={{ flexShrink: 0 }} />,
-            },
-            {
-              label: role,
-              icon: <Iconify width={16} icon="solar:user-rounded-bold" sx={{ flexShrink: 0 }} />,
-            },
+            // {
+            //   label: experience,
+            //   icon: <Iconify width={16} icon="carbon:skill-level-basic" sx={{ flexShrink: 0 }} />,
+            // },
+            // {
+            //   label: employmentTypes.join(', '),
+            //   icon: <Iconify width={16} icon="solar:clock-circle-bold" sx={{ flexShrink: 0 }} />,
+            // },
+            // {
+            //   label: salary.negotiable ? 'Negotiable' : fCurrency(salary.price),
+            //   icon: <Iconify width={16} icon="solar:wad-of-money-bold" sx={{ flexShrink: 0 }} />,
+            // // },
+            // {
+            //   label: role,
+            //   icon: <Iconify width={16} icon="solar:user-rounded-bold" sx={{ flexShrink: 0 }} />,
+            // },
           ].map((item) => (
             <Stack
               key={item.label}

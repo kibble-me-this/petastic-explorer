@@ -14,6 +14,8 @@ import JobItem from './job-item';
 export default function JobList({ jobs }) {
   const router = useRouter();
 
+  console.log('JobList jobs: ', jobs);
+
   const handleView = useCallback(
     (id) => {
       router.push(paths.dashboard.job.details(id));

@@ -153,19 +153,6 @@ export function useNavData() {
           //   ],
           // },
 
-          // JOB
-          // {
-          //   title: t('job'),
-          //   path: paths.dashboard.job.root,
-          //   icon: ICONS.job,
-          //   children: [
-          //     { title: t('list'), path: paths.dashboard.job.root },
-          //     { title: t('details'), path: paths.dashboard.job.demo.details },
-          //     { title: t('create'), path: paths.dashboard.job.new },
-          //     { title: t('edit'), path: paths.dashboard.job.demo.edit },
-          //   ],
-          // },
-
           // TOUR
           // {
           //   title: t('tour'),
@@ -262,6 +249,18 @@ export function useNavData() {
       {
         subheader: t(t('organizations')),
         items: [
+          // JOB
+          {
+            title: t('my orgs'),
+            path: paths.dashboard.job.root,
+            icon: ICONS.job,
+            children: [
+              { title: t('list'), path: paths.dashboard.job.root },
+              // { title: t('details'), path: paths.dashboard.job.demo.details },
+              // { title: t('create'), path: paths.dashboard.job.new },
+              // { title: t('edit'), path: paths.dashboard.job.demo.edit },
+            ],
+          },
           // BLOG
           {
             title: t('our pets'),
