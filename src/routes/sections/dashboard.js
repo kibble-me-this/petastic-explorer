@@ -108,11 +108,11 @@ export const dashboardRoutes = [
     ),
     children: [
       { element: <IndexPage />, index: true },
-      { path: 'ecommerce', element: <OverviewEcommercePage /> },
-      { path: 'analytics', element: <OverviewAnalyticsPage /> },
+      // { path: 'ecommerce', element: <OverviewEcommercePage /> },
+      // { path: 'analytics', element: <OverviewAnalyticsPage /> },
       { path: 'banking', element: <OverviewBankingPage /> },
-      { path: 'booking', element: <OverviewBookingPage /> },
-      { path: 'file', element: <OverviewFilePage /> },
+      // { path: 'booking', element: <OverviewBookingPage /> },
+      // { path: 'file', element: <OverviewFilePage /> },
       {
         path: 'user',
         children: [
@@ -159,24 +159,24 @@ export const dashboardRoutes = [
           { path: ':id/edit', element: <ProductEditPage /> },
         ],
       },
-      {
-        path: 'order',
-        children: [
-          { element: <OrderListPage />, index: true },
-          { path: 'list', element: <OrderListPage /> },
-          { path: ':id', element: <OrderDetailsPage /> },
-        ],
-      },
-      {
-        path: 'invoice',
-        children: [
-          { element: <InvoiceListPage />, index: true },
-          { path: 'list', element: <InvoiceListPage /> },
-          { path: ':id', element: <InvoiceDetailsPage /> },
-          { path: ':id/edit', element: <InvoiceEditPage /> },
-          { path: 'new', element: <InvoiceCreatePage /> },
-        ],
-      },
+      // {
+      //   path: 'order',
+      //   children: [
+      //     { element: <OrderListPage />, index: true },
+      //     { path: 'list', element: <OrderListPage /> },
+      //     { path: ':id', element: <OrderDetailsPage /> },
+      //   ],
+      // },
+      // {
+      //   path: 'invoice',
+      //   children: [
+      //     { element: <InvoiceListPage />, index: true },
+      //     { path: 'list', element: <InvoiceListPage /> },
+      //     { path: ':id', element: <InvoiceDetailsPage /> },
+      //     { path: ':id/edit', element: <InvoiceEditPage /> },
+      //     { path: 'new', element: <InvoiceCreatePage /> },
+      //   ],
+      // },
       {
         path: 'post',
         children: [
@@ -207,18 +207,18 @@ export const dashboardRoutes = [
           { path: ':id/edit', element: <JobEditPage /> },
         ],
       },
-      {
-        path: 'tour',
-        children: [
-          { element: <TourListPage />, index: true },
-          { path: 'list', element: <TourListPage /> },
-          { path: ':id', element: <TourDetailsPage /> },
-          { path: 'new', element: <TourCreatePage /> },
-          { path: ':id/edit', element: <TourEditPage /> },
-        ],
-      },
-      { path: 'file-manager', element: <FileManagerPage /> },
-      { path: 'mail', element: <MailPage /> },
+      // {
+      //   path: 'tour',
+      //   children: [
+      //     { element: <TourListPage />, index: true },
+      //     { path: 'list', element: <TourListPage /> },
+      //     { path: ':id', element: <TourDetailsPage /> },
+      //     { path: 'new', element: <TourCreatePage /> },
+      //     { path: ':id/edit', element: <TourEditPage /> },
+      //   ],
+      // },
+      // { path: 'file-manager', element: <FileManagerPage /> },
+      // { path: 'mail', element: <MailPage /> },
       {
         path: 'chat',
         element: <ChatPage />,
