@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useReducer, useCallback, useMemo } from 'react';
+import { useEffect, useReducer, useCallback, useMemo, useState } from 'react';
 // utils
 import { Magic } from 'magic-sdk';
 import { NearExtension } from '@magic-ext/near';
@@ -57,17 +57,38 @@ const STORAGE_KEY = 'accessToken';
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [magic, setMagic] = useState(null); // Create a state to hold the magic instance
+
+  useEffect(() => {
+    // Initialize the magic instance here
+    const magicInstance = new Magic(process.env.REACT_APP_MAGIC_PUBLISHABLE_KEY, {
+      extensions: [new NearExtension({ rpcUrl: '' })],
+    });
+    setMagic(magicInstance); // Store it in state
+  }, []);
 
   const initialize = useCallback(async () => {
     try {
       const accessToken = sessionStorage.getItem(STORAGE_KEY);
 
-      if (accessToken && isValidToken(accessToken)) {
+      // if (accessToken && isValidToken(accessToken)) {
+      if (accessToken) {
         setSession(accessToken);
 
-        const response = await axios.get(endpoints.auth.me);
+        let user = null;
 
-        const { user } = response.data;
+        if (magic) {
+          const magicIsLoggedIn = await magic.user.isLoggedIn();
+          if (magicIsLoggedIn) {
+            user = await magic.user.getMetadata();
+            dispatch({
+              type: 'LOGIN',
+              payload: {
+                user,
+              },
+            });
+          }
+        }
 
         dispatch({
           type: 'INITIAL',
@@ -92,7 +113,7 @@ export function AuthProvider({ children }) {
         },
       });
     }
-  }, []);
+  }, [magic]);
 
   useEffect(() => {
     initialize();
@@ -119,42 +140,46 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
-  const loginMagic = useCallback(async (email) => {
-    console.log('Calling loginMagic:', email);
-    try {
-      const magic = new Magic(process.env.REACT_APP_MAGIC_PUBLISHABLE_KEY, {
-        extensions: [new NearExtension({ rpcUrl: '' })],
-      });
+  const loginMagic = useCallback(
+    async (email) => {
+      console.log('Calling loginMagic:', email);
+      try {
+        if (magic) {
+          // Check if the magic instance exists in the state
+          // Send the Magic link to the user's email
+          const res = await magic.auth.loginWithMagicLink({ email });
+          const accessToken = await magic.user.getIdToken();
+          setSession(accessToken);
 
-      // Send the Magic link to the user's email
-      await magic.auth.loginWithMagicLink({ email });
+          // Check if the user is logged in
+          const magicIsLoggedIn = await magic.user.isLoggedIn();
+          if (magicIsLoggedIn) {
+            // If the user is logged in, retrieve user metadata
+            const user = await magic.user.getMetadata();
+            const publicAddress = user.publicAddress;
 
-      // Check if the user is logged in
-      const magicIsLoggedIn = await magic.user.isLoggedIn();
-      if (magicIsLoggedIn) {
-        // If the user is logged in, retrieve user metadata
-        const user = await magic.user.getMetadata();
-        const publicAddress = user.publicAddress;
+            console.log('userMetadata', user);
 
-        console.log('userMetadata', user);
+            // You can now use this user metadata or NEAR public address as needed
 
-        // You can now use this user metadata or NEAR public address as needed
+            // Update the session with the NEAR public address or any other necessary data
+            // setSession(publicAddress);
 
-        // Update the session with the NEAR public address or any other necessary data
-        // setSession(publicAddress);
-
-        // Update the context to reflect the user's authentication status
-        dispatch({
-          type: 'LOGIN',
-          payload: {
-            user, // Use the actual user data received from getMetadata
-          },
-        });
+            // Update the context to reflect the user's authentication status
+            dispatch({
+              type: 'LOGIN',
+              payload: {
+                user, // Use the actual user data received from getMetadata
+              },
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Magic login error:', error);
       }
-    } catch (error) {
-      console.error('Magic login error:', error);
-    }
-  }, []);
+    },
+    [magic]
+  );
 
   // REGISTER
   const register = useCallback(async (email, password, firstName, lastName) => {

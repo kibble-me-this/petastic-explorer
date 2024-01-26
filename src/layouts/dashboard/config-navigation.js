@@ -251,7 +251,7 @@ export function useNavData() {
         items: [
           // JOB
           {
-            title: t('my orgs'),
+            title: t('org pets'),
             path: paths.dashboard.job.root,
             icon: ICONS.job,
             children: [
@@ -262,29 +262,29 @@ export function useNavData() {
             ],
           },
           // BLOG
-          {
-            title: t('our pets'),
-            path: paths.dashboard.orgpets.root,
-            icon: ICONS.user,
-            // children: [
-            //   { title: t('list'), path: paths.dashboard.post.root },
-            //   { title: t('details'), path: paths.dashboard.post.demo.details },
-            //   { title: t('create'), path: paths.dashboard.post.new },
-            //   { title: t('edit'), path: paths.dashboard.post.demo.edit },
-            // ],
-          },
-          {
-            // default roles : All roles can see this entry.
-            // roles: ['user'] Only users can see this item.
-            // roles: ['admin'] Only admin can see this item.
-            // roles: ['admin', 'manager'] Only admin/manager can see this item.
-            // Reference from 'src/guards/RoleBasedGuard'.
-            title: t('item_by_roles'),
-            path: paths.dashboard.permission,
-            icon: ICONS.lock,
-            roles: ['admin', 'manager'],
-            caption: t('only_admin_can_see_this_item'),
-          },
+          // {
+          //   title: t('our pets'),
+          //   path: paths.dashboard.orgpets.root,
+          //   icon: ICONS.user,
+          //   // children: [
+          //   //   { title: t('list'), path: paths.dashboard.post.root },
+          //   //   { title: t('details'), path: paths.dashboard.post.demo.details },
+          //   //   { title: t('create'), path: paths.dashboard.post.new },
+          //   //   { title: t('edit'), path: paths.dashboard.post.demo.edit },
+          //   // ],
+          // },
+          // {
+          //   // default roles : All roles can see this entry.
+          //   // roles: ['user'] Only users can see this item.
+          //   // roles: ['admin'] Only admin can see this item.
+          //   // roles: ['admin', 'manager'] Only admin/manager can see this item.
+          //   // Reference from 'src/guards/RoleBasedGuard'.
+          //   title: t('item_by_roles'),
+          //   path: paths.dashboard.permission,
+          //   icon: ICONS.lock,
+          //   roles: ['admin', 'manager'],
+          //   caption: t('only_admin_can_see_this_item'),
+          // },
 
           // {
           //   title: t('menu_level'),
