@@ -242,12 +242,12 @@ export default function JobListView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
-        heading="List"
+        heading="Organizations"
         links={[
           { name: 'Dashboard', href: paths.dashboard.root },
           {
-            name: 'Org',
-            href: paths.dashboard.job.root,
+            name: 'My Orgs',
+            href: paths.dashboard.org.root,
           },
           { name: 'List' },
         ]}
@@ -255,7 +255,7 @@ export default function JobListView() {
           <Button
             disabled
             component={RouterLink}
-            href={paths.dashboard.job.new}
+            href={paths.dashboard.org.new}
             variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}
           >

@@ -55,10 +55,10 @@ const PetPage = lazy(() => import('src/pages/dashboard/orgpet/details'));
 const NewPetPage = lazy(() => import('src/pages/dashboard/orgpet/new'));
 const EditPetPage = lazy(() => import('src/pages/dashboard/orgpet/edit'));
 // JOB
-const JobDetailsPage = lazy(() => import('src/pages/dashboard/job/details'));
-const JobListPage = lazy(() => import('src/pages/dashboard/job/list'));
-const JobCreatePage = lazy(() => import('src/pages/dashboard/job/new'));
-const JobEditPage = lazy(() => import('src/pages/dashboard/job/edit'));
+const JobDetailsPage = lazy(() => import('src/pages/dashboard/org/details'));
+const JobListPage = lazy(() => import('src/pages/dashboard/org/list'));
+const JobCreatePage = lazy(() => import('src/pages/dashboard/org/new'));
+const JobEditPage = lazy(() => import('src/pages/dashboard/org/edit'));
 // TOUR
 const TourDetailsPage = lazy(() => import('src/pages/dashboard/tour/details'));
 const TourListPage = lazy(() => import('src/pages/dashboard/tour/list'));
@@ -198,7 +198,7 @@ export const dashboardRoutes = [
         ],
       },
       {
-        path: 'job',
+        path: 'org',
         children: [
           { element: <JobListPage />, index: true },
           { path: 'list', element: <JobListPage /> },

@@ -199,8 +199,8 @@ export default function JobDetailsView({ id }) {
       />
 
       <JobDetailsToolbar
-        backLink={paths.dashboard.job.root}
-        editLink={paths.dashboard.job.edit(`${currentJob?.id}`)}
+        backLink={paths.dashboard.org.root}
+        editLink={paths.dashboard.org.edit(`${currentJob?.id}`)}
         liveLink="#"
         publish={publish || ''}
         onChangePublish={handleChangePublish}

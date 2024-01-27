@@ -58,7 +58,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
             primary={
               <Link
                 component={RouterLink}
-                href={paths.dashboard.job.details(shelterAccountId)}
+                href={paths.dashboard.org.details(shelterAccountId)}
                 color="inherit"
               >
                 {commonName}
