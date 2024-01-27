@@ -5,6 +5,7 @@ import { useCallback, useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Skeleton from '@mui/material/Skeleton';
 // routes
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -81,6 +82,8 @@ export default function JobListView() {
   const canReset = !isEqual(defaultFilters, filters);
 
   const notFound = !dataFiltered.length && canReset;
+
+  const numberOfSkeletonItems = 5;
 
   useEffect(() => {
     setIsApiLoading(true);
@@ -248,16 +251,17 @@ export default function JobListView() {
           },
           { name: 'List' },
         ]}
-        // action={
-        //   // <Button
-        //   //   component={RouterLink}
-        //   //   href={paths.dashboard.job.new}
-        //   //   variant="contained"
-        //   //   startIcon={<Iconify icon="mingcute:add-line" />}
-        //   // >
-        //   //   New Org
-        //   // </Button>
-        // }
+        action={
+          <Button
+            disabled
+            component={RouterLink}
+            href={paths.dashboard.job.new}
+            variant="contained"
+            startIcon={<Iconify icon="mingcute:add-line" />}
+          >
+            New Org
+          </Button>
+        }
         sx={{
           mb: { xs: 3, md: 5 },
         }}
@@ -274,9 +278,7 @@ export default function JobListView() {
         {canReset && renderResults}
       </Stack>
 
-      {notFound && <EmptyContent filled title="No Data" sx={{ py: 10 }} />}
-
-      <JobList jobs={dataFiltered} />
+      <JobList jobs={isApiLoading ? [] : dataFiltered} isApiLoading={isApiLoading} />
     </Container>
   );
 }

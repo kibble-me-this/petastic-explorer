@@ -56,13 +56,13 @@ export default function JobDetailsToolbar({
           </Tooltip>
         )}
 
-        <Tooltip title="Edit">
+        {/* <Tooltip title="Edit">
           <IconButton component={RouterLink} href={editLink}>
             <Iconify icon="solar:pen-bold" />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
 
-        <LoadingButton
+        {/* <LoadingButton
           color="inherit"
           variant="contained"
           loading={!publish}
@@ -72,7 +72,7 @@ export default function JobDetailsToolbar({
           sx={{ textTransform: 'capitalize' }}
         >
           {publish}
-        </LoadingButton>
+        </LoadingButton> */}
       </Stack>
 
       <CustomPopover
