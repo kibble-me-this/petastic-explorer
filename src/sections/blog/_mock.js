@@ -72,13 +72,13 @@ export const emailPublicAddressArray = [
     shelters: [
       {
         shelterId: '5ee83180f121686526084263',
-        shelterName: 'Animal Haven', // Replace with the actual shelter name
+        shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
       },
       {
         shelterId: '5ee83180fb01683673939629',
-        shelterName: 'Animal Haven',
-        shelter_name_common: 'Animal Haven',
+        shelterName: 'Strong Paws',
+        shelter_name_common: 'Strong Paws',
       },
       {
         shelterId: '5ee83180f8a1683475024978',
@@ -92,6 +92,18 @@ export const emailPublicAddressArray = [
       },
     ],
   },
+  {
+    publicAddress: '6fb865589bd69bd1ac01f0f5c331274156d79c4aeda4e3d6f57d570be327d321',
+    email: 'meagan@strongpawsrescue.org',
+    shelters: [
+      {
+        shelterId: '5ee83180fb01683673939629',
+        shelterName: 'Strong Paws',
+        shelter_name_common: 'Strong Paws',
+      },
+    ],
+  },
+
   {
     publicAddress: '45bc1ecbfd50a5777f5c4dfe41e09e64d0cef8ab2930218d78cb4d00e4702bf1',
     email: 'carlos+haven@petastic.com',
@@ -198,6 +210,8 @@ export const emailPublicAddressArray = [
         shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
       },
+
+      
     ],
   },
   // Add more user objects with their respective shelters as needed
