@@ -88,19 +88,17 @@ export default function JobListView() {
   useEffect(() => {
     setIsApiLoading(true);
 
-    // if (userMetadata) {
     const shelterAccountIds = getShelterAccountId(user.publicAddress);
-
     console.log('shelterAccountIds: ', shelterAccountIds);
 
-    // Create an array to store promises for fetching data
-    const fetchPromises = shelterAccountIds.map((shelterAccountId) => {
-      const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
 
+  
+    const fetchShelterData = (shelterAccountId) => {
+      const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
+  
       console.log('in here');
       console.log('apiUrl:', apiUrl);
-
-      // Fetch data from the API and return the promise
+  
       return fetch(apiUrl)
         .then((response) => {
           if (!response.ok) {
@@ -110,7 +108,7 @@ export default function JobListView() {
         })
         .then((responseData) => {
           console.log('responseData: ', responseData);
-
+  
           // Check if responseData has the expected structure
           if (responseData && responseData.pets && Array.isArray(responseData.pets)) {
             // Inside your useEffect, update how you set the state
@@ -121,27 +119,31 @@ export default function JobListView() {
               pets: responseData.pets,
             };
             return shelterData;
-          } // else {
+          }
+  
           // Handle unexpected response structure
           console.error('Unexpected API response structure:', responseData);
           // Handle this case as needed, e.g., set default values or show an error message.
           return null;
-          // }
         })
         .catch((error) => {
           console.error('Error fetching user pets:', error);
           return null;
         });
-    });
-
+    };
+  
+    const shelterAccountIdsArray = Array.isArray(shelterAccountIds) ? shelterAccountIds : [shelterAccountIds];
+  
+    const fetchPromises = shelterAccountIdsArray.map(fetchShelterData);
+  
     console.log('fetchPromises: ', fetchPromises);
-
+  
     // Use Promise.all to wait for all API calls to complete
     Promise.all(fetchPromises)
       .then((results) => {
         // Filter out any null values (responses that had errors)
         const validShelters = results.filter((shelterData) => shelterData !== null);
-
+  
         // Set the shelter links in your component state
         setApiShelters(validShelters); // Update the state with the shelter links
         setIsApiLoading(false);
@@ -150,8 +152,9 @@ export default function JobListView() {
         console.error('Error fetching user pets:', error);
         setIsApiLoading(false);
       });
-    // }
   }, [user.publicAddress]);
+  
+  
 
   const handleFilters = useCallback((name, value) => {
     setFilters((prevState) => ({
