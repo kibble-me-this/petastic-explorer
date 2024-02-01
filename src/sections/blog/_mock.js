@@ -103,7 +103,17 @@ export const emailPublicAddressArray = [
       },
     ],
   },
-
+  {
+    publicAddress: '',
+    email: 'brixiesrescue@icloud.com',
+    shelters: [
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
+      },
+    ],
+  },
   {
     publicAddress: '45bc1ecbfd50a5777f5c4dfe41e09e64d0cef8ab2930218d78cb4d00e4702bf1',
     email: 'carlos+haven@petastic.com',
@@ -153,6 +163,11 @@ export const emailPublicAddressArray = [
         shelterId: '5ee83180f271685767429993',
         shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
       },
     ],
   },
@@ -210,7 +225,11 @@ export const emailPublicAddressArray = [
         shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
       },
-
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
+      },
       
     ],
   },
