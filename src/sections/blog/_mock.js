@@ -72,13 +72,13 @@ export const emailPublicAddressArray = [
     shelters: [
       {
         shelterId: '5ee83180f121686526084263',
-        shelterName: 'Animal Haven', // Replace with the actual shelter name
+        shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
       },
       {
         shelterId: '5ee83180fb01683673939629',
-        shelterName: 'Animal Haven',
-        shelter_name_common: 'Animal Haven',
+        shelterName: 'Strong Paws',
+        shelter_name_common: 'Strong Paws',
       },
       {
         shelterId: '5ee83180f8a1683475024978',
@@ -89,6 +89,28 @@ export const emailPublicAddressArray = [
         shelterId: '5ee83180f271685767429993',
         shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
+      },
+    ],
+  },
+  {
+    publicAddress: '6fb865589bd69bd1ac01f0f5c331274156d79c4aeda4e3d6f57d570be327d321',
+    email: 'meagan@strongpawsrescue.org',
+    shelters: [
+      {
+        shelterId: '5ee83180fb01683673939629',
+        shelterName: 'Strong Paws',
+        shelter_name_common: 'Strong Paws',
+      },
+    ],
+  },
+  {
+    publicAddress: '',
+    email: 'brixiesrescue@icloud.com',
+    shelters: [
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
       },
     ],
   },
@@ -141,6 +163,11 @@ export const emailPublicAddressArray = [
         shelterId: '5ee83180f271685767429993',
         shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
       },
     ],
   },
@@ -198,6 +225,12 @@ export const emailPublicAddressArray = [
         shelterName: 'Animal Haven',
         shelter_name_common: 'Animal Haven',
       },
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
+      },
+      
     ],
   },
   // Add more user objects with their respective shelters as needed

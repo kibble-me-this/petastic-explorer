@@ -81,6 +81,8 @@ export default function PetCard({ user, filteredAndSortedPets, updateFilteredAnd
     age,
   } = user;
 
+  const statusToUse = status || 'adoptable';
+
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -92,7 +94,7 @@ export default function PetCard({ user, filteredAndSortedPets, updateFilteredAnd
           <Box style={{ display: 'flex', alignItems: 'center' }}>
             <Label
               onClick={popover.onOpen}
-              color={(status === 'adoptable' && 'info') || 'success'}
+              color={(statusToUse === 'adoptable' && 'info') || 'success'}
               endIcon={<Iconify icon="eva:more-vertical-fill" sx={{ height: '10px' }} />}
               sx={{
                 display: 'flex',
@@ -103,7 +105,7 @@ export default function PetCard({ user, filteredAndSortedPets, updateFilteredAnd
                 ml: 2,
               }}
             >
-              {status}
+              {statusToUse}
             </Label>
           </Box>
 

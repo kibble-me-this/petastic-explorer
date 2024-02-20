@@ -5,6 +5,7 @@ import { useCallback, useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Skeleton from '@mui/material/Skeleton';
 // routes
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -82,22 +83,20 @@ export default function JobListView() {
 
   const notFound = !dataFiltered.length && canReset;
 
+  const numberOfSkeletonItems = 5;
+
   useEffect(() => {
     setIsApiLoading(true);
 
-    // if (userMetadata) {
     const shelterAccountIds = getShelterAccountId(user.publicAddress);
-
     console.log('shelterAccountIds: ', shelterAccountIds);
 
-    // Create an array to store promises for fetching data
-    const fetchPromises = shelterAccountIds.map((shelterAccountId) => {
+    const fetchShelterData = (shelterAccountId) => {
       const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
 
       console.log('in here');
       console.log('apiUrl:', apiUrl);
 
-      // Fetch data from the API and return the promise
       return fetch(apiUrl)
         .then((response) => {
           if (!response.ok) {
@@ -118,18 +117,24 @@ export default function JobListView() {
               pets: responseData.pets,
             };
             return shelterData;
-          } // else {
+          }
+
           // Handle unexpected response structure
           console.error('Unexpected API response structure:', responseData);
           // Handle this case as needed, e.g., set default values or show an error message.
           return null;
-          // }
         })
         .catch((error) => {
           console.error('Error fetching user pets:', error);
           return null;
         });
-    });
+    };
+
+    const shelterAccountIdsArray = Array.isArray(shelterAccountIds)
+      ? shelterAccountIds
+      : [shelterAccountIds];
+
+    const fetchPromises = shelterAccountIdsArray.map(fetchShelterData);
 
     console.log('fetchPromises: ', fetchPromises);
 
@@ -147,7 +152,6 @@ export default function JobListView() {
         console.error('Error fetching user pets:', error);
         setIsApiLoading(false);
       });
-    // }
   }, [user.publicAddress]);
 
   const handleFilters = useCallback((name, value) => {
@@ -243,21 +247,22 @@ export default function JobListView() {
         links={[
           { name: 'Dashboard', href: paths.dashboard.root },
           {
-            name: 'Org',
-            href: paths.dashboard.job.root,
+            name: 'My Orgs',
+            href: paths.dashboard.org.root,
           },
           { name: 'List' },
         ]}
-        // action={
-        //   // <Button
-        //   //   component={RouterLink}
-        //   //   href={paths.dashboard.job.new}
-        //   //   variant="contained"
-        //   //   startIcon={<Iconify icon="mingcute:add-line" />}
-        //   // >
-        //   //   New Org
-        //   // </Button>
-        // }
+        action={
+          <Button
+            disabled
+            component={RouterLink}
+            href={paths.dashboard.org.new}
+            variant="contained"
+            startIcon={<Iconify icon="mingcute:add-line" />}
+          >
+            New Org
+          </Button>
+        }
         sx={{
           mb: { xs: 3, md: 5 },
         }}
@@ -274,9 +279,7 @@ export default function JobListView() {
         {canReset && renderResults}
       </Stack>
 
-      {notFound && <EmptyContent filled title="No Data" sx={{ py: 10 }} />}
-
-      <JobList jobs={dataFiltered} />
+      <JobList jobs={isApiLoading ? [] : dataFiltered} isApiLoading={isApiLoading} />
     </Container>
   );
 }

@@ -35,7 +35,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
   return (
     <>
       <Card>
-        <IconButton onClick={popover.onOpen} sx={{ position: 'absolute', top: 8, right: 8 }}>
+        <IconButton disabled onClick={popover.onOpen} sx={{ position: 'absolute', top: 8, right: 8 }}>
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
 
@@ -58,7 +58,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
             primary={
               <Link
                 component={RouterLink}
-                href={paths.dashboard.job.details(shelterAccountId)}
+                href={paths.dashboard.org.details(shelterAccountId)}
                 color="inherit"
               >
                 {commonName}

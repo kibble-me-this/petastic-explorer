@@ -252,10 +252,10 @@ export function useNavData() {
           // JOB
           {
             title: t('org pets'),
-            path: paths.dashboard.job.root,
-            icon: ICONS.job,
+            path: paths.dashboard.org.root,
+            icon: ICONS.dashboard,
             children: [
-              { title: t('list'), path: paths.dashboard.job.root },
+              { title: t('list'), path: paths.dashboard.org.root },
               // { title: t('details'), path: paths.dashboard.job.demo.details },
               // { title: t('create'), path: paths.dashboard.job.new },
               // { title: t('edit'), path: paths.dashboard.job.demo.edit },
