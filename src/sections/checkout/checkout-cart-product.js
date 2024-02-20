@@ -39,7 +39,7 @@ export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncre
           >
             size: <Label sx={{ ml: 0.5 }}> {size} </Label>
             <Divider orientation="vertical" sx={{ mx: 1, height: 16 }} />
-            <ColorPreview colors={colors} />
+            {/* <ColorPreview colors={colors} /> */}
           </Stack>
         </Stack>
       </TableCell>

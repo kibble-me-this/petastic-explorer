@@ -66,6 +66,11 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
       onCreate({
         name: data.name,
         phoneNumber: data.phoneNumber,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        country: data.country,
+        zip: data.zipCode,
         fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.country}, ${data.zipCode}`,
         addressType: data.addressType,
         primary: data.primary,

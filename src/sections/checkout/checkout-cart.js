@@ -1,24 +1,24 @@
-// @mui
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
-// routes
-import { paths } from 'src/routes/paths';
-// components
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import EmptyContent from 'src/components/empty-content';
-//
+import { usePlaceOrder } from 'src/api/product';
+import { paths } from 'src/routes/paths';
+
 import { useCheckoutContext } from './context';
 import CheckoutSummary from './checkout-summary';
 import CheckoutCartProductList from './checkout-cart-product-list';
 
-// ----------------------------------------------------------------------
-
 export default function CheckoutCart() {
   const checkout = useCheckoutContext();
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderResult, setOrderResult] = useState(null);
+  const placeOrder = usePlaceOrder();
 
   const empty = !checkout.items.length;
 
@@ -41,7 +41,7 @@ export default function CheckoutCart() {
           {empty ? (
             <EmptyContent
               title="Cart is Empty!"
-              description="Look like you have no items in your shopping cart."
+              description="Looks like you have no items in your shopping cart."
               imgUrl="/assets/icons/empty/ic_cart.svg"
               sx={{ pt: 5, pb: 10 }}
             />
@@ -79,9 +79,10 @@ export default function CheckoutCart() {
           type="submit"
           variant="contained"
           disabled={empty}
+          // onClick={handlePlaceOrder} // Call the handlePlaceOrder function
           onClick={checkout.onNextStep}
         >
-          Check
+          Check Out
         </Button>
       </Grid>
     </Grid>

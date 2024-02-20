@@ -15,9 +15,13 @@ import { OrderCompleteIllustration } from 'src/assets/illustrations';
 import Iconify from 'src/components/iconify';
 import { varFade } from 'src/components/animate';
 
+import { useCheckoutContext } from './context';
+
 // ----------------------------------------------------------------------
 
 export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) {
+  const checkout = useCheckoutContext();
+
   const renderContent = (
     <Stack
       spacing={5}
@@ -36,7 +40,7 @@ export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) 
         Thanks for placing order
         <br />
         <br />
-        <Link>01dc1370-3df6-11eb-b378-0242ac130002</Link>
+        <Link>{checkout.orderNumer}</Link>
         <br />
         <br />
         We will send you a notification within 5 days when it ships.

@@ -24,8 +24,21 @@ import { useCheckoutContext } from '../checkout/context';
 export default function ProductItem({ product }) {
   const { onAddToCart } = useCheckoutContext();
 
-  const { id, name, coverUrl, price, colors, available, sizes, priceSale, newLabel, saleLabel } =
-    product;
+  const {
+    product_id: id,
+    name,
+    main_image: coverUrl,
+    price,
+    colors,
+    status: available,
+    sizes,
+    original_retail_price: priceSale,
+    newLabel,
+    saleLabel,
+  } = product;
+
+  const formattedPrice = price / 100;
+  const formattedPriceSale = priceSale ? priceSale / 100 : null;
 
   const linkTo = paths.product.details(id);
 
@@ -35,9 +48,9 @@ export default function ProductItem({ product }) {
       name,
       coverUrl,
       available,
-      price,
-      colors: [colors[0]],
-      size: sizes[0],
+      price: formattedPrice,
+      // colors: [colors[0]],
+      // size: sizes[0],
       quantity: 1,
     };
     try {
@@ -47,25 +60,25 @@ export default function ProductItem({ product }) {
     }
   };
 
-  const renderLabels = (newLabel.enabled || saleLabel.enabled) && (
-    <Stack
-      direction="row"
-      alignItems="center"
-      spacing={1}
-      sx={{ position: 'absolute', zIndex: 9, top: 16, right: 16 }}
-    >
-      {newLabel.enabled && (
-        <Label variant="filled" color="info">
-          {newLabel.content}
-        </Label>
-      )}
-      {saleLabel.enabled && (
-        <Label variant="filled" color="error">
-          {saleLabel.content}
-        </Label>
-      )}
-    </Stack>
-  );
+  // const renderLabels = (newLabel.enabled || saleLabel.enabled) && (
+  //   <Stack
+  //     direction="row"
+  //     alignItems="center"
+  //     spacing={1}
+  //     sx={{ position: 'absolute', zIndex: 9, top: 16, right: 16 }}
+  //   >
+  //     {newLabel.enabled && (
+  //       <Label variant="filled" color="info">
+  //         {newLabel.content}
+  //       </Label>
+  //     )}
+  //     {saleLabel.enabled && (
+  //       <Label variant="filled" color="error">
+  //         {saleLabel.content}
+  //       </Label>
+  //     )}
+  //   </Stack>
+  // );
 
   const renderImg = (
     <Box sx={{ position: 'relative', p: 1 }}>
@@ -116,16 +129,16 @@ export default function ProductItem({ product }) {
       </Link>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <ColorPreview colors={colors} />
+        {/* <ColorPreview colors={colors} /> */}
 
         <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
           {priceSale && (
             <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-              {fCurrency(priceSale)}
+              {fCurrency(formattedPriceSale)}
             </Box>
           )}
 
-          <Box component="span">{fCurrency(price)}</Box>
+          <Box component="span">{fCurrency(formattedPrice)}</Box>
         </Stack>
       </Stack>
     </Stack>
@@ -139,7 +152,7 @@ export default function ProductItem({ product }) {
         },
       }}
     >
-      {renderLabels}
+      {/* {renderLabels} */}
 
       {renderImg}
 

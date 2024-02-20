@@ -9,6 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Iconify from 'src/components/iconify';
 import FormProvider from 'src/components/hook-form';
 //
+import { usePlaceOrder } from 'src/api/product';
 import { useCheckoutContext } from './context';
 import CheckoutSummary from './checkout-summary';
 import CheckoutDelivery from './checkout-delivery';
@@ -48,8 +49,8 @@ const PAYMENT_OPTIONS = [
   },
   {
     value: 'cash',
-    label: 'Cash',
-    description: 'Pay with cash when your order is delivered.',
+    label: 'Kibble',
+    description: 'Pay with Kibble Rewards when your account.',
   },
 ];
 
@@ -61,6 +62,7 @@ const CARDS_OPTIONS = [
 
 export default function CheckoutPayment() {
   const checkout = useCheckoutContext();
+  const placeOrder = usePlaceOrder();
 
   const PaymentSchema = Yup.object().shape({
     payment: Yup.string().required('Payment is required'),
@@ -83,11 +85,30 @@ export default function CheckoutPayment() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      console.log('CheckoutPayment :: onSubmit');
+
+      // Transform checkout.items to the expected format for placeOrder
+      const zincItems = checkout.items.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      }));
+
+      const zincShippingAddress = checkout.billing;
+      const zincOrderTotal = checkout.subTotal;
+
+      // Assuming placeOrder accepts an array of items and a billing address
+      console.log('handlePlaceOrder call placeOrder: ');
+      const result = await placeOrder(zincItems, zincShippingAddress, zincOrderTotal);
+      console.log('handlePlaceOrder result: ', result);
+
+      // If placeOrder is successful, proceed with the next steps
+      checkout.orderNumber = result.request_id;
       checkout.onNextStep();
       checkout.onReset();
       console.info('DATA', data);
     } catch (error) {
-      console.error(error);
+      console.error('Error placing order(s):', error);
+      // Handle error, such as showing a message to the user
     }
   });
 

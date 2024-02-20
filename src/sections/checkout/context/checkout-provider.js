@@ -187,6 +187,7 @@ export function CheckoutProvider({ children }) {
       onCreateBilling,
       onApplyDiscount,
       onApplyShipping,
+      orderNumber: '',
       //
       onBackStep,
       onNextStep,
