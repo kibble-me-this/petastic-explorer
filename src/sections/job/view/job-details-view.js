@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useCallback, useState, useEffect } from 'react';
 // @mui
 import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
+import Card from '@mui/material/Card';
+import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 
@@ -11,7 +12,16 @@ import Button from '@mui/material/Button';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 // _mock
-import { _jobs, JOB_PUBLISH_OPTIONS, JOB_DETAILS_TABS } from 'src/_mock';
+import {
+  _jobs,
+  JOB_PUBLISH_OPTIONS,
+  JOB_DETAILS_TABS,
+  _userAbout,
+  _userFeeds,
+  _userFriends,
+  _userGallery,
+  _userFollowers,
+} from 'src/_mock';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -23,6 +33,10 @@ import JobDetailsToolbar from '../job-details-toolbar';
 import JobDetailsContent from '../job-details-content';
 import JobDetailsCandidates from '../job-details-candidates';
 import PetListHorizontal from '../../blog/pet-list-horizontal';
+import ProfileCover from '../../user/profile-cover';
+import ProfileHome from '../../user/profile-home';
+import ProfileGallery from '../../user/profile-gallery';
+import ProfileFollowers from '../../user/profile-followers';
 
 // ----------------------------------------------------------------------
 
@@ -165,10 +179,42 @@ export default function JobDetailsView({ id }) {
     </Tabs>
   );
 
+  const TABS = [
+    {
+      value: 'profile',
+      label: 'Profile',
+      icon: <Iconify icon="solar:user-id-bold" width={24} />,
+    },
+    {
+      value: 'pets',
+      label: 'Pets',
+      icon: <Iconify icon="solar:heart-bold" width={24} />,
+    },
+    {
+      value: 'fosters',
+      label: 'Fosters',
+      icon: <Iconify icon="solar:users-group-rounded-bold" width={24} />,
+    },
+    {
+      value: 'shop',
+      label: 'Shop',
+      icon: <Iconify icon="solar:gallery-wide-bold" width={24} />,
+    },
+  ];
+
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+      <JobDetailsToolbar
+        backLink={paths.dashboard.job.root}
+        editLink={paths.dashboard.job.edit(`${currentJob?.id}`)}
+        liveLink="#"
+        publish={publish || ''}
+        onChangePublish={handleChangePublish}
+        publishOptions={JOB_PUBLISH_OPTIONS}
+      />
+
       <CustomBreadcrumbs
-        heading={`Our Pets - ${ownerName}`}
+        // heading={`Our Pets - ${ownerName}`}
         links={[
           {
             name: 'Dashboard',
@@ -198,26 +244,91 @@ export default function JobDetailsView({ id }) {
         }}
       />
 
-      <JobDetailsToolbar
-        backLink={paths.dashboard.job.root}
-        editLink={paths.dashboard.job.edit(`${currentJob?.id}`)}
-        liveLink="#"
-        publish={publish || ''}
-        onChangePublish={handleChangePublish}
-        publishOptions={JOB_PUBLISH_OPTIONS}
-      />
-      {renderTabs}
+      {/* {renderTabs} */}
 
       {/* {currentTab === 'content' && <JobDetailsContent job={currentJob} />} */}
 
       {/* {currentTab === 'candidates' && <JobDetailsCandidates candidates={currentJob?.candidates} />} */}
 
-      <PetListHorizontal
+      {/* <PetListHorizontal
         posts={dataFiltered}
         loading={isApiLoading}
         filteredAndSortedPets={filteredAndSortedPets}
         updateFilteredAndSortedPets={updateFilteredAndSortedPets}
-      />
+      /> */}
+
+      {/* <CustomBreadcrumbs
+        heading="Profile"
+        links={[
+          { name: 'Dashboard', href: paths.dashboard.root },
+          { name: 'User', href: paths.dashboard.user.root },
+          { name: user?.displayName },
+        ]}
+        sx={{
+          mb: { xs: 3, md: 5 },
+        }}
+      /> */}
+
+      <Card
+        sx={{
+          mb: 3,
+          height: 290,
+        }}
+      >
+        <ProfileCover
+          role={_userAbout.role}
+          name={ownerName}
+          // avatarUrl={user?.photoURL}
+          coverUrl={_userAbout.coverUrl}
+        />
+
+        <Tabs
+          value={currentTab}
+          onChange={handleChangeTab}
+          sx={{
+            width: 1,
+            bottom: 0,
+            zIndex: 9,
+            position: 'absolute',
+            bgcolor: 'background.paper',
+            [`& .${tabsClasses.flexContainer}`]: {
+              pr: { md: 3 },
+              justifyContent: {
+                sm: 'center',
+                md: 'flex-end',
+              },
+            },
+          }}
+        >
+          {TABS.map((tab) => (
+            <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
+          ))}
+        </Tabs>
+      </Card>
+
+      {currentTab === 'profile' && <ProfileHome info={_userAbout} posts={_userFeeds} />}
+
+      {currentTab === 'fosters' && <ProfileFollowers followers={_userFollowers} />}
+
+      {currentTab === 'pets' && (
+        // <ProfileFriends
+        //   friends={_userFriends}
+        //   searchFriends={searchFriends}
+        //   onSearchFriends={handleSearchFriends}
+        // />
+        <>
+          {renderTabs}
+
+          <PetListHorizontal
+            posts={dataFiltered}
+            loading={isApiLoading}
+            filteredAndSortedPets={filteredAndSortedPets}
+            updateFilteredAndSortedPets={updateFilteredAndSortedPets}
+          />
+        </>
+      )}
+
+      {currentTab === 'shop' && <ProfileGallery gallery={_userGallery} />}
     </Container>
   );
 }

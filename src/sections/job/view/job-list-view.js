@@ -239,7 +239,7 @@ export default function JobListView() {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
-        heading="List"
+        heading="Orgs"
         links={[
           { name: 'Dashboard', href: paths.dashboard.root },
           {
