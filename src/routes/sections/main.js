@@ -49,15 +49,22 @@ export const mainRoutes = [
         path: '/',
         children: [{ element: <HomePage />, index: true }],
       },
-      {
-        path: 'product',
-        children: [
-          { element: <ProductListPage />, index: true },
-          { path: 'list', element: <ProductListPage /> },
-          { path: ':id', element: <ProductDetailsPage /> },
-          { path: 'checkout', element: <ProductCheckoutPage /> },
-        ],
-      },
+      // {
+      //   // element: (
+      //   //   <SimpleLayout>
+      //   //     <Suspense fallback={<SplashScreen />}>
+      //   //       <Outlet />
+      //   //     </Suspense>
+      //   //   </SimpleLayout>
+      //   // ),
+      //   path: 'product',
+      //   children: [
+      //     { element: <ProductListPage />, index: true },
+      //     { path: 'list', element: <ProductListPage /> },
+      //     { path: ':id', element: <ProductDetailsPage /> },
+      //     { path: 'checkout', element: <ProductCheckoutPage /> },
+      //   ],
+      // },
       {
         path: 'post',
         children: [
@@ -68,19 +75,19 @@ export const mainRoutes = [
       },
     ],
   },
-  {
-    element: (
-      <SimpleLayout>
-        <Suspense fallback={<SplashScreen />}>
-          <Outlet />
-        </Suspense>
-      </SimpleLayout>
-    ),
-    children: [
-      { path: 'pricing', element: <PricingPage /> },
-      { path: 'payment', element: <PaymentPage /> },
-    ],
-  },
+  // {
+  //   element: (
+  //     <SimpleLayout>
+  //       <Suspense fallback={<SplashScreen />}>
+  //         <Outlet />
+  //       </Suspense>
+  //     </SimpleLayout>
+  //   ),
+  //   children: [
+  //     { path: 'pricing', element: <PricingPage /> },
+  //     { path: 'payment', element: <PaymentPage /> },
+  //   ],
+  // },
   {
     element: (
       <CompactLayout>
@@ -91,7 +98,7 @@ export const mainRoutes = [
     ),
     children: [
       { path: 'chat', element: <ChatPage /> },
-      { path: 'coming-soon', element: <ComingSoonPage /> },
+      // { path: 'coming-soon', element: <ComingSoonPage /> },
       { path: 'maintenance', element: <MaintenancePage /> },
       { path: '500', element: <Page500 /> },
       { path: '404', element: <Page404 /> },

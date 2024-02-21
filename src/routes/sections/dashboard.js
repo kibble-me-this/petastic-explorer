@@ -59,6 +59,9 @@ const JobDetailsPage = lazy(() => import('src/pages/dashboard/org/details'));
 const JobListPage = lazy(() => import('src/pages/dashboard/org/list'));
 const JobCreatePage = lazy(() => import('src/pages/dashboard/org/new'));
 const JobEditPage = lazy(() => import('src/pages/dashboard/org/edit'));
+const ProductListPageCO = lazy(() => import('src/pages/product/list'));
+const ProductDetailsPageCO = lazy(() => import('src/pages/product/details'));
+const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
 // TOUR
 const TourDetailsPage = lazy(() => import('src/pages/dashboard/tour/details'));
 const TourListPage = lazy(() => import('src/pages/dashboard/tour/list'));
@@ -205,6 +208,15 @@ export const dashboardRoutes = [
           { path: ':id', element: <JobDetailsPage /> },
           { path: 'new', element: <JobCreatePage /> },
           { path: ':id/edit', element: <JobEditPage /> },
+          {
+            path: 'products',
+            children: [
+              { element: <ProductListPageCO />, index: true },
+              { path: 'list', element: <ProductListPageCO /> },
+              { path: ':id', element: <ProductDetailsPageCO /> },
+              { path: 'checkout', element: <ProductCheckoutPage /> },
+            ],
+          },
         ],
       },
       // {

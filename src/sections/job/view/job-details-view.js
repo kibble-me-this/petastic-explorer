@@ -29,6 +29,8 @@ import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
 //
+import { ProductShopView } from 'src/sections/product/view';
+
 import JobDetailsToolbar from '../job-details-toolbar';
 import JobDetailsContent from '../job-details-content';
 import JobDetailsCandidates from '../job-details-candidates';
@@ -328,7 +330,9 @@ export default function JobDetailsView({ id }) {
         </>
       )}
 
-      {currentTab === 'shop' && <ProfileGallery gallery={_userGallery} />}
+      {/* {currentTab === 'shop' && <ProfileGallery gallery={_userGallery} />} */}
+
+      {currentTab === 'shop' && <ProductShopView />}
     </Container>
   );
 }
