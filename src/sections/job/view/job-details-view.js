@@ -59,7 +59,7 @@ export default function JobDetailsView({ id }) {
 
   const [publish, setPublish] = useState(currentJob?.publish);
 
-  const [currentTab, setCurrentTab] = useState('candidates');
+  const [currentTab, setCurrentTab] = useState('pets');
 
   const [isApiLoading, setIsApiLoading] = useState(true);
 
@@ -183,11 +183,6 @@ export default function JobDetailsView({ id }) {
 
   const TABS = [
     {
-      value: 'profile',
-      label: 'Profile',
-      icon: <Iconify icon="solar:user-id-bold" width={24} />,
-    },
-    {
       value: 'pets',
       label: 'Pets',
       icon: <Iconify icon="solar:heart-bold" width={24} />,
@@ -202,6 +197,11 @@ export default function JobDetailsView({ id }) {
       label: 'Shop',
       icon: <Iconify icon="solar:gallery-wide-bold" width={24} />,
     },
+    {
+      value: 'profile',
+      label: 'Profile',
+      icon: <Iconify icon="solar:user-id-bold" width={24} />,
+    },
   ];
 
   return (
@@ -215,7 +215,7 @@ export default function JobDetailsView({ id }) {
         publishOptions={JOB_PUBLISH_OPTIONS}
       />
 
-      <CustomBreadcrumbs
+      {/* <CustomBreadcrumbs
         // heading={`Our Pets - ${ownerName}`}
         links={[
           {
@@ -244,7 +244,7 @@ export default function JobDetailsView({ id }) {
         sx={{
           mb: { xs: 3, md: 5 },
         }}
-      />
+      /> */}
 
       {/* {renderTabs} */}
 
@@ -274,14 +274,15 @@ export default function JobDetailsView({ id }) {
       <Card
         sx={{
           mb: 3,
-          height: 290,
+          height: 250,
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
         }}
       >
         <ProfileCover
           role={_userAbout.role}
           name={ownerName}
           // avatarUrl={user?.photoURL}
-          coverUrl={_userAbout.coverUrl}
+          coverUrl="/assets/background/hero.jpg"
         />
 
         <Tabs

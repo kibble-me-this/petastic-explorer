@@ -31,7 +31,7 @@ export default function ProfileFollowers({ followers }) {
   return (
     <>
       <Typography variant="h4" sx={{ my: 5 }}>
-        Followers
+        Fosters
       </Typography>
 
       <Box
@@ -108,7 +108,7 @@ function FollowerItem({ follower, selected, onSelected }) {
         onClick={onSelected}
         sx={{ flexShrink: 0, ml: 1.5 }}
       >
-        {selected ? 'Followed' : 'Follow'}
+        {selected ? 'Active' : 'Available'}
       </Button>
     </Card>
   );

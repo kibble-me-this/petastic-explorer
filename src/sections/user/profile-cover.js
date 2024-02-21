@@ -17,11 +17,11 @@ export default function ProfileCover({ name, avatarUrl, role, coverUrl }) {
     <Box
       sx={{
         ...bgGradient({
-          color: alpha(theme.palette.primary.darker, 0.8),
+          color: alpha(theme.palette.background.default, 0),
           imgUrl: coverUrl,
         }),
-        height: 1,
-        color: 'common.white',
+        height: 0.8,
+        color: 'common.black',
       }}
     >
       <Stack
@@ -41,7 +41,7 @@ export default function ProfileCover({ name, avatarUrl, role, coverUrl }) {
             mx: 'auto',
             width: { xs: 64, md: 128 },
             height: { xs: 64, md: 128 },
-            border: `solid 2px ${theme.palette.common.white}`,
+            border: `solid 2px ${theme.palette.divider}`,
           }}
         />
 

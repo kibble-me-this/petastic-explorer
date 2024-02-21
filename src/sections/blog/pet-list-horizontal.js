@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 // @mui
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
 //
 import { PetItemSkeleton } from './pet-skeleton';

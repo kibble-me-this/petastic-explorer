@@ -36,7 +36,7 @@ export function useCustomSWR(productIds, ...args) {
 export function useGetProducts() {
   const productIds = [
     'B01IO8YVX6',
-    'B006HSSBIW',
+    // 'B006HSSBIW',
     // 'B0002DGL26',
     // 'B09158614F',
     // 'B00B9G3ZJM',
@@ -52,20 +52,25 @@ export function useGetProducts() {
     // 'B01KTNNJWI',
     // 'B000634CK0',
     // 'B09NWFJR7P',
-    // 'B07SD8SQWK',
+    'B07SD8SQWK',
     // 'B01DLS2EX8',
     // 'B01DLS2F0A',
     // 'B01DLS2EYW',
     // 'B08615R732',
     // 'B09VT4JN7W',
-    // 'B07ZGMGTCJ',
+    'B07ZGMGTCJ',
     // 'B071RVWGYJ',
     // 'B094FR5R5D',
     // 'B072MPKF5X',
     // 'B079FHJMMG',
     // 'B009WADXCG',
-    // 'B000261OFM',
+    'B000261OFM',
     // 'B002ZJB4PO',
+    // 'B01DCG0GPC',
+    // 'B00J4YY0O0',
+    // 'B002YD8FK8',
+    // 'B0753NHZVQ',
+    // 'B018IZAL6G',
   ];
   const { data, isLoading, error, isValidating } = useCustomSWR(productIds);
 
