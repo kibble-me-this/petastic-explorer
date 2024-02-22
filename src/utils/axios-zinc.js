@@ -6,7 +6,11 @@ import { HOST_API } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: HOST_API });
+// const axiosInstance = axios.create({ baseURL: HOST_API });
+
+const ZINC_API = 'https://api.zinc.io';
+
+const axiosInstance = axios.create({ baseURL: ZINC_API });
 
 axiosInstance.interceptors.response.use(
   (res) => res,

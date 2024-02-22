@@ -209,7 +209,7 @@ export const dashboardRoutes = [
           { path: 'new', element: <JobCreatePage /> },
           { path: ':id/edit', element: <JobEditPage /> },
           {
-            path: 'products',
+            path: 'product',
             children: [
               { element: <ProductListPageCO />, index: true },
               { path: 'list', element: <ProductListPageCO /> },

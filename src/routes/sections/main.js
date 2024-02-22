@@ -50,13 +50,6 @@ export const mainRoutes = [
         children: [{ element: <HomePage />, index: true }],
       },
       // {
-      //   // element: (
-      //   //   <SimpleLayout>
-      //   //     <Suspense fallback={<SplashScreen />}>
-      //   //       <Outlet />
-      //   //     </Suspense>
-      //   //   </SimpleLayout>
-      //   // ),
       //   path: 'product',
       //   children: [
       //     { element: <ProductListPage />, index: true },
@@ -98,7 +91,7 @@ export const mainRoutes = [
     ),
     children: [
       { path: 'chat', element: <ChatPage /> },
-      // { path: 'coming-soon', element: <ComingSoonPage /> },
+      { path: 'coming-soon', element: <ComingSoonPage /> },
       { path: 'maintenance', element: <MaintenancePage /> },
       { path: '500', element: <Page500 /> },
       { path: '404', element: <Page404 /> },

@@ -22,28 +22,30 @@ export const paths = {
   open_chat: '/chat',
   comingSoon: '/coming-soon',
   maintenance: '/maintenance',
-  pricing: '/pricing',
-  payment: '/payment',
+  // pricing: '/pricing',
+  // payment: '/payment',
   about: '/about-us',
   contact: '/contact-us',
   faqs: '/faqs',
   page403: '/403',
   page404: '/404',
   page500: '/500',
-  components: '/components',
+  // components: '/components',
   explorer: 'https://explorer.petastic.com/',
   petsSignIn: 'https://my.petastic.com/login',
   petsSignUp: 'https://my.petastic.com/register',
-  docs: 'https://docs.minimals.cc',
-  changelog: 'https://docs.minimals.cc/changelog',
-  zoneUI: 'https://mui.com/store/items/zone-landing-page/',
-  minimalUI: 'https://mui.com/store/items/minimal-dashboard/',
-  freeUI: 'https://mui.com/store/items/minimal-dashboard-free/',
-  figma:
-    'https://www.figma.com/file/kAYnYYdib0aQPNKZpgJT6J/%5BPreview%5D-Minimal-Web.v5.0.0?type=design&node-id=0%3A1&t=Al4jScQq97Aly0Mn-1',
+  // docs: 'https://docs.minimals.cc',
+  // changelog: 'https://docs.minimals.cc/changelog',
+  // zoneUI: 'https://mui.com/store/items/zone-landing-page/',
+  // minimalUI: 'https://mui.com/store/items/minimal-dashboard/',
+  // freeUI: 'https://mui.com/store/items/minimal-dashboard-free/',
+  // figma:
+  //   'https://www.figma.com/file/kAYnYYdib0aQPNKZpgJT6J/%5BPreview%5D-Minimal-Web.v5.0.0?type=design&node-id=0%3A1&t=Al4jScQq97Aly0Mn-1',
   product: {
-    root: `/product`,
-    checkout: `/product/checkout`,
+    // root: `/product`,
+    // checkout: `/product/checkout`,
+    root: `${ROOTS.DASHBOARD}/org/product`,
+    checkout: `${ROOTS.DASHBOARD}/org/product/checkout`,
     details: (id) => `/product/${id}`,
     demo: {
       details: `/product/${MOCK_ID}`,
@@ -56,6 +58,7 @@ export const paths = {
       details: `/post/${paramCase(MOCK_TITLE)}`,
     },
   },
+
   // AUTH
   auth: {
     amplify: {
@@ -85,6 +88,7 @@ export const paths = {
       login: `${ROOTS.AUTH}/auth0/login`,
     },
   },
+
   authDemo: {
     classic: {
       login: `${ROOTS.AUTH_DEMO}/classic/login`,
@@ -101,6 +105,7 @@ export const paths = {
       verify: `${ROOTS.AUTH_DEMO}/modern/verify`,
     },
   },
+
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,

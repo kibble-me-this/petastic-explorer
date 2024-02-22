@@ -20,6 +20,8 @@ import { varHover } from 'src/components/animate';
 import { useSnackbar } from 'src/components/snackbar';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
+import { PATH_AFTER_LOGOUT } from 'src/config-global';
+
 // ----------------------------------------------------------------------
 
 const OPTIONS = [
@@ -56,7 +58,7 @@ export default function AccountPopover() {
     try {
       await logout();
       popover.onClose();
-      router.replace('/');
+      router.replace(PATH_AFTER_LOGOUT);
     } catch (error) {
       console.error(error);
       enqueueSnackbar('Unable to logout!', { variant: 'error' });
