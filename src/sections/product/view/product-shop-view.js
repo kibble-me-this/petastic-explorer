@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
 import { useCallback, useState } from 'react';
@@ -44,7 +45,7 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function ProductShopView() {
+export default function ProductShopView({ userId }) {
   const settings = useSettingsContext();
 
   const checkout = useCheckoutContext();
@@ -59,7 +60,7 @@ export default function ProductShopView() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const { products, productsLoading, productsEmpty } = useGetProducts();
+  const { products, productsLoading, productsEmpty } = useGetProducts(userId);
 
   const { searchResults, searchLoading } = useSearchProducts(debouncedQuery);
 
@@ -179,6 +180,10 @@ export default function ProductShopView() {
     </Container>
   );
 }
+
+ProductShopView.propTypes = {
+  userId: PropTypes.string.isRequired,
+};
 
 // ----------------------------------------------------------------------
 

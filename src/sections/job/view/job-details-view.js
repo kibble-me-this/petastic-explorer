@@ -207,7 +207,7 @@ export default function JobDetailsView({ id }) {
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <JobDetailsToolbar
-        backLink={paths.dashboard.job.root}
+        backLink={paths.dashboard.org.root}
         editLink={paths.dashboard.job.edit(`${currentJob?.id}`)}
         liveLink="#"
         publish={publish || ''}
@@ -333,7 +333,7 @@ export default function JobDetailsView({ id }) {
 
       {/* {currentTab === 'shop' && <ProfileGallery gallery={_userGallery} />} */}
 
-      {currentTab === 'shop' && <ProductShopView />}
+      {currentTab === 'shop' && <ProductShopView userId={id} />}
     </Container>
   );
 }
