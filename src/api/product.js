@@ -39,7 +39,7 @@ export function useGetProducts(orgId) {
     {
       id: '5ee83180f121686526084263',
       name: 'Animal Haven',
-      products: ['B01IO8YVX6', 'B006HSSBIW'], // Example product IDs for Organization 1
+      products: ['B00BVUBB9C', 'B07P488YBD'], // Example product IDs for Organization 1
     },
     {
       id: '5ee83180fb01683673939629',
@@ -134,12 +134,12 @@ export function useGetProducts(orgId) {
     {
       id: '5ee83180f271685767429993',
       name: 'Muddy Paws Rescue',
-      products: [],
+      products: ['B00BVUBB9', 'B07P488YBD', 'B00BVUBB9C'],
     },
     {
       id: '5fe931824271705684215701',
       name: 'Muddy Paws Rescue',
-      products: [],
+      products: ['B00BVUBB9', 'B07P488YBD', 'B00BVUBB9C'],
     },
   ];
 

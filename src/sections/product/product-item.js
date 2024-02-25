@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 // @mui
 import Fab from '@mui/material/Fab';
@@ -6,6 +8,11 @@ import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import MenuItem from '@mui/material/MenuItem';
+import { formHelperTextClasses } from '@mui/material/FormHelperText';
+import Select from '@mui/material/Select';
+
 // routes
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -16,6 +23,8 @@ import Label from 'src/components/label';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { ColorPreview } from 'src/components/color-utils';
+import FormProvider, { RHFSelect } from 'src/components/hook-form';
+
 //
 import { useCheckoutContext } from '../checkout/context';
 
@@ -23,15 +32,28 @@ import { useCheckoutContext } from '../checkout/context';
 
 export default function ProductItem({ product }) {
   const { onAddToCart } = useCheckoutContext();
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const [selectedVariant, setSelectedVariant] = useState('');
+
+  useEffect(() => {
+    const initialVariant = constructVariantLabel(product); // Change this to whatever initial value you want
+    setSelectedVariant(initialVariant);
+  }, [product]);
+
+  const handleVariantChange = (event) => {
+    setSelectedVariant(event.target.value);
+  };
 
   const {
     product_id: id,
+    brand,
+    title,
     name,
     main_image: coverUrl,
     price,
     colors,
     status: available,
-    sizes,
     original_retail_price: priceSale,
     newLabel,
     saleLabel,
@@ -49,6 +71,7 @@ export default function ProductItem({ product }) {
       coverUrl,
       available,
       price: formattedPrice,
+      size: selectedSize,
       // colors: [colors[0]],
       // size: sizes[0],
       quantity: 1,
@@ -79,6 +102,24 @@ export default function ProductItem({ product }) {
   //     )}
   //   </Stack>
   // );
+
+  const renderLabels = (
+    <Stack
+      direction="row"
+      alignItems="center"
+      spacing={1}
+      sx={{ position: 'absolute', zIndex: 9, top: 16, right: 16 }}
+    >
+      {/* <Label variant="filled" color="info">
+        hello{' '}
+      </Label> */}
+      {priceSale && (
+        <Label variant="filled" color="error">
+          {(((formattedPriceSale - formattedPrice) / formattedPriceSale) * 100).toFixed(0)}% Off
+        </Label>
+      )}
+    </Stack>
+  );
 
   const renderImg = (
     <Box sx={{ position: 'relative', p: 1 }}>
@@ -124,13 +165,19 @@ export default function ProductItem({ product }) {
 
   const renderContent = (
     <Stack spacing={2.5} sx={{ p: 3, pt: 2 }}>
-      <Link component={RouterLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
-        {name}
+      <Link
+        component={RouterLink}
+        href={linkTo}
+        color="inherit"
+        variant="subtitle2"
+        noWrap
+        sx={{ textDecoration: 'none', color: 'inherit', pointerEvents: 'none', cursor: 'default' }}
+      >
+        {brand}
+        <Typography sx={{ whiteSpace: 'break-spaces' }}>{title}</Typography>
       </Link>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        {/* <ColorPreview colors={colors} /> */}
-
         <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
           {priceSale && (
             <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
@@ -141,6 +188,19 @@ export default function ProductItem({ product }) {
           <Box component="span">{fCurrency(formattedPrice)}</Box>
         </Stack>
       </Stack>
+
+      {product.all_variants.length > 1 && (
+        <Stack direction="column" alignItems="center" spacing={2}>
+          <Select value={selectedVariant} onChange={handleVariantChange} sx={{ width: '100%' }}>
+            <MenuItem value={selectedVariant}>{selectedVariant}</MenuItem>
+            {product.all_variants.map((variant) => (
+              <MenuItem key={variant.product_id} value={constructVariantLabel(variant)}>
+                {constructVariantLabel(variant)}
+              </MenuItem>
+            ))}
+          </Select>
+        </Stack>
+      )}
     </Stack>
   );
 
@@ -152,7 +212,7 @@ export default function ProductItem({ product }) {
         },
       }}
     >
-      {/* {renderLabels} */}
+      {renderLabels}
 
       {renderImg}
 
@@ -164,3 +224,8 @@ export default function ProductItem({ product }) {
 ProductItem.propTypes = {
   product: PropTypes.object,
 };
+
+function constructVariantLabel(variant) {
+  const dimensionValues = variant.variant_specifics.map((spec) => spec.value);
+  return `${dimensionValues.join(' | ')}`;
+}
