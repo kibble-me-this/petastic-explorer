@@ -12,10 +12,11 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import { formHelperTextClasses } from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
-
 // routes
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+// api
+import { useGetProduct, useGetProducts } from 'src/api/product';
 // utils
 import { fCurrency } from 'src/utils/format-number';
 // components
@@ -35,45 +36,73 @@ export default function ProductItem({ product }) {
   const [selectedSize, setSelectedSize] = useState(null);
 
   const [selectedVariant, setSelectedVariant] = useState('');
+  const [coverUrlState, setCoverUrlState] = useState(''); // Renamed to avoid conflict
+  const [titleState, setTitleState] = useState(''); // State for title
+  const [priceState, setPriceState] = useState(''); // State for price
+  const [priceSaleState, setPriceSaleState] = useState('');
+  const [productIdState, setProductIdState] = useState(''); // State for product_id
 
-  useEffect(() => {
-    const initialVariant = constructVariantLabel(product); // Change this to whatever initial value you want
-    setSelectedVariant(initialVariant);
-  }, [product]);
+  const handleProductData = (data) => {
+    console.log('------  data:', data);
 
-  const handleVariantChange = (event) => {
-    setSelectedVariant(event.target.value);
+    const {
+      product_id: newProductId, // New variable for product_id
+      brand,
+      title: newTitle,
+      name,
+      main_image: newCoverUrl,
+      price: newPriceSale, // New variable for price
+      colors,
+      status: available,
+      original_retail_price: newPrice, // New variable for priceSale
+      newLabel,
+      saleLabel,
+    } = data[0];
+
+    // Update states with new values
+    setProductIdState(newProductId);
+
+    setCoverUrlState(newCoverUrl);
+    setTitleState(newTitle);
+    setPriceState(newPrice / 100);
+    setPriceSaleState(newPriceSale / 100);
   };
 
+  const { productData } = useGetProduct(selectedVariant, handleProductData);
+
+  useEffect(() => {
+    const initialVariant = constructVariantLabel(product);
+    setSelectedVariant(initialVariant[0]);
+  }, [product]);
+
+  const handleChange = (event) => {
+    setSelectedVariant(event.target.value);
+    console.log('Selected Variant:', event.target.value);
+  };
   const {
     product_id: id,
     brand,
     title,
     name,
-    main_image: coverUrl,
-    price,
+    main_image: originalCoverUrl,
+    price: priceSale,
     colors,
     status: available,
-    original_retail_price: priceSale,
+    original_retail_price: price,
     newLabel,
     saleLabel,
   } = product;
-
-  const formattedPrice = price / 100;
-  const formattedPriceSale = priceSale ? priceSale / 100 : null;
 
   const linkTo = paths.product.details(id);
 
   const handleAddCart = async () => {
     const newProduct = {
-      id,
-      name,
-      coverUrl,
+      id: productIdState, // Save productIdState as id
+      titleState,
+      coverUrlState,
       available,
-      price: formattedPrice,
-      size: selectedSize,
-      // colors: [colors[0]],
-      // size: sizes[0],
+      price: priceSaleState,
+      // size: selectedSize,
       quantity: 1,
     };
     try {
@@ -83,26 +112,6 @@ export default function ProductItem({ product }) {
     }
   };
 
-  // const renderLabels = (newLabel.enabled || saleLabel.enabled) && (
-  //   <Stack
-  //     direction="row"
-  //     alignItems="center"
-  //     spacing={1}
-  //     sx={{ position: 'absolute', zIndex: 9, top: 16, right: 16 }}
-  //   >
-  //     {newLabel.enabled && (
-  //       <Label variant="filled" color="info">
-  //         {newLabel.content}
-  //       </Label>
-  //     )}
-  //     {saleLabel.enabled && (
-  //       <Label variant="filled" color="error">
-  //         {saleLabel.content}
-  //       </Label>
-  //     )}
-  //   </Stack>
-  // );
-
   const renderLabels = (
     <Stack
       direction="row"
@@ -110,12 +119,9 @@ export default function ProductItem({ product }) {
       spacing={1}
       sx={{ position: 'absolute', zIndex: 9, top: 16, right: 16 }}
     >
-      {/* <Label variant="filled" color="info">
-        hello{' '}
-      </Label> */}
-      {priceSale && (
+      {priceSaleState && (
         <Label variant="filled" color="error">
-          {(((formattedPriceSale - formattedPrice) / formattedPriceSale) * 100).toFixed(0)}% Off
+          {(((priceState - priceSaleState) / priceState) * 100).toFixed(0)}% Off
         </Label>
       )}
     </Stack>
@@ -148,8 +154,8 @@ export default function ProductItem({ product }) {
 
       <Tooltip title={!available && 'Out of stock'} placement="bottom-end">
         <Image
-          alt={name}
-          src={coverUrl}
+          // alt={name}
+          src={coverUrlState}
           ratio="1/1"
           sx={{
             borderRadius: 1.5,
@@ -174,28 +180,26 @@ export default function ProductItem({ product }) {
         sx={{ textDecoration: 'none', color: 'inherit', pointerEvents: 'none', cursor: 'default' }}
       >
         {brand}
-        <Typography sx={{ whiteSpace: 'break-spaces' }}>{title}</Typography>
+        <Typography sx={{ whiteSpace: 'break-spaces' }}>{titleState}</Typography>
       </Link>
-
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
-          {priceSale && (
+          {/* {priceSaleState && (
             <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-              {fCurrency(formattedPriceSale)}
+              {fCurrency(priceState)}
             </Box>
-          )}
+          )} */}
 
-          <Box component="span">{fCurrency(formattedPrice)}</Box>
+          <Box component="span">{fCurrency(priceSaleState)}</Box>
         </Stack>
       </Stack>
-
       {product.all_variants.length > 1 && (
         <Stack direction="column" alignItems="center" spacing={2}>
-          <Select value={selectedVariant} onChange={handleVariantChange} sx={{ width: '100%' }}>
+          <Select value={selectedVariant} onChange={handleChange} sx={{ width: '100%' }}>
             <MenuItem value={selectedVariant}>{selectedVariant}</MenuItem>
             {product.all_variants.map((variant) => (
-              <MenuItem key={variant.product_id} value={constructVariantLabel(variant)}>
-                {constructVariantLabel(variant)}
+              <MenuItem key={variant.product_id} value={variant.product_id}>
+                {constructVariantLabel(variant)[1]}
               </MenuItem>
             ))}
           </Select>
@@ -212,7 +216,7 @@ export default function ProductItem({ product }) {
         },
       }}
     >
-      {renderLabels}
+      {/* {renderLabels} */}
 
       {renderImg}
 
@@ -227,5 +231,6 @@ ProductItem.propTypes = {
 
 function constructVariantLabel(variant) {
   const dimensionValues = variant.variant_specifics.map((spec) => spec.value);
-  return `${dimensionValues.join(' | ')}`;
+  // return `${variant.product_id} | ${dimensionValues.join(' | ')}`;
+  return [variant.product_id, dimensionValues.join(' | ')];
 }

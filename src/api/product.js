@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 // utils
 import { fetcherProduct, fetcherOrder, fetcher, endpoints } from 'src/utils/axios-zinc';
 
@@ -83,52 +83,52 @@ export function useGetProducts(orgId) {
         'B00007J6CX',
         'B006OVQV1G',
         'B09F8NLGCD',
-        'B09F89LYPN',
+        // 'B09F89LYPN',
         'B09V65VY5J',
-        'B07GL8SLKY',
-        'B089LLHMQL',
+        // 'B07GL8SLKY',
+        // 'B089LLHMQL',
         'B06ZZ4679J',
-        'B0BNP527D2',
-        'B09P32SSRL',
+        // 'B0BNP527D2',
+        // 'B09P32SSRL',
         'B08749HDV7',
-        'B08742YDKK',
+        // 'B08742YDKK',
         'B08746LRDJ',
-        'B0874CH399',
-        'B087423VBW',
-        'B08WTNQPZP',
-        'B08WT8HZZH',
-        'B08WTF8Q2S',
-        'B0873XV1R7',
-        'B0873ZD5HY',
-        'B09ZDR3ZK7',
-        'B08WTBH61N',
-        'B08WTT7HGQ',
-        'B08WTFWHB5',
-        'B0873WP8VQ',
-        'B0874DYTYX',
-        'B0873VL5KL',
-        'B0874BNKHH',
+        // 'B0874CH399',
+        // 'B087423VBW',
+        // 'B08WTNQPZP',
+        // 'B08WT8HZZH',
+        // 'B08WTF8Q2S',
+        // 'B0873XV1R7',
+        // 'B0873ZD5HY',
+        // 'B09ZDR3ZK7',
+        // 'B08WTBH61N',
+        // 'B08WTT7HGQ',
+        // 'B08WTFWHB5',
+        // 'B0873WP8VQ',
+        // 'B0874DYTYX',
+        // 'B0873VL5KL',
+        // 'B0874BNKHH',
         'B0873XTSPB',
-        'B0873ZZMZ1',
+        // 'B0873ZZMZ1',
         'B0BLT6PY1P',
         'B002SSIQZI',
-        'B0BLTTLG31',
-        'B000XS6RJW',
-        'B0BLT6XXBZ',
-        'B0BHRZMHW3',
-        'B0BLT7NXLW',
+        // 'B0BLTTLG31',
+        // 'B000XS6RJW',
+        // 'B0BLT6XXBZ',
+        // 'B0BHRZMHW3',
+        // 'B0BLT7NXLW',
         'B003YVMUFK',
-        'B0CNS61JJZ',
-        'B00VRJU2Y2',
-        'B0CNS5XLJT',
-        'B00063434K',
-        'B004P3970C',
-        'B004HFRMEQ',
-        'B0733LNDFV',
-        'B0CNS5FR2N',
+        // 'B0CNS61JJZ',
+        // 'B00VRJU2Y2',
+        // 'B0CNS5XLJT',
+        // 'B00063434K',
+        // 'B004P3970C',
+        // 'B004HFRMEQ',
+        // 'B0733LNDFV',
+        // 'B0CNS5FR2N',
         'B01BI31WCC',
         'B083X3WWHT',
-        'B083X4GVYF',
+        // 'B083X4GVYF',
       ],
     },
     {
@@ -170,20 +170,58 @@ export function useGetProducts(orgId) {
 
 // ----------------------------------------------------------------------
 
-export function useGetProduct(productId) {
+// export function useGetProduct(productId) {
+//   const URL = productId ? [endpoints.product.details, { params: { productId } }] : null;
+
+//   // const { data, isLoading, error, isValidating } = useSWR(URL, fetcher);
+//   const { data, isLoading, error, isValidating } = useCustomSWR([productId]);
+//   console.log('here: ', data);
+
+//   const memoizedValue = useMemo(
+//     () => ({
+//       product: data?.product,
+//       productLoading: isLoading,
+//       productError: error,
+//       productValidating: isValidating,
+//     }),
+//     [data?.product, error, isLoading, isValidating]
+//   );
+
+//   return memoizedValue;
+// }
+
+export function useGetProduct(productId, callback = () => {}) {
+  console.log('useGetProduct productId: ', productId);
   const URL = productId ? [endpoints.product.details, { params: { productId } }] : null;
 
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher);
+  // Fetch data using SWR
+  const { data, isLoading, error, isValidating } = useCustomSWR([productId]);
 
+  console.log('useGetProduct data before useEffect: ', data);
+
+  // Execute the callback function whenever data is fetched or updated
+  useEffect(() => {
+    console.log('useGetProduct in useEffect: ', data);
+
+    if (data) {
+      callback(data);
+    }
+  }, [data, callback]);
+
+  console.log('useGetProduct data after useEffect: ', data);
+
+  // Memoize the return value to optimize performance
   const memoizedValue = useMemo(
     () => ({
-      product: data?.product,
+      product: data,
       productLoading: isLoading,
       productError: error,
       productValidating: isValidating,
     }),
-    [data?.product, error, isLoading, isValidating]
+    [data, error, isLoading, isValidating]
   );
+
+  console.log('useGetProduct memoizedValue: ', memoizedValue);
 
   return memoizedValue;
 }
