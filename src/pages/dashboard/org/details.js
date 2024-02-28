@@ -14,7 +14,7 @@ export default function JobDetailsPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard: Job Details</title>
+        <title> Dashboard: Organization Details</title>
       </Helmet>
 
       <JobDetailsView id={`${id}`} />

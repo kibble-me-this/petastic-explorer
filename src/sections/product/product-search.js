@@ -118,6 +118,7 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
           </Box>
         );
       }}
+      disabled
     />
   );
 }

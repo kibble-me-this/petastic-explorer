@@ -14,16 +14,28 @@ const API_URL = ENVIRONMENT === 'local' ? LOCAL_API_URL : HOSTED_API_URL;
 
 async function initOrRetrieveSession(user) {
   // Check if a session exists for the user
+  // const response = await axios.get(`${API_URL}/get-session`, {
+  //   headers: {
+  //     Authorization: `Bearer ${OPENAI_API_KEY}`,
+  //   },
+  // });
+
   const response = await axios.post(`${API_URL}/get-session`, { user });
 
   // If a session ID exists in the response, return it
   if (response.data.sessionId) {
     return response.data.sessionId;
   }
-
+  
   // If no session ID exists, create a session and return the ID
-  const createSessionResponse = await axios.post(`${API_URL}/set-session`, { user });
+  // const createSessionResponse = await axios.get(`${API_URL}/set-session`, {
+  //   headers: {
+  //     Authorization: `Bearer ${OPENAI_API_KEY}`,
+  //   },
+  // });
 
+  const createSessionResponse = await axios.post(`${API_URL}/set-session`, { user });
+  
   return createSessionResponse.data.sessionId;
 }
 
@@ -79,13 +91,13 @@ export async function sendToOpenAI(conversationId, message, user) {
       //   isFirstCall = false; // Mark the first call as done
       // }
 
-      // Send a request to the OpenAI API for text message
-      const response = await axios.post(`${API_URL}/petastic/chat`, message, {
-        headers: {
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      });
+    // Send a request to the OpenAI API for text message
+    const response = await axios.post(`${API_URL}/petastic/chat`, message, {
+      headers: {
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
       // Check if the response contains a message
       if (response.data.content) {

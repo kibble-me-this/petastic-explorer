@@ -239,6 +239,7 @@ export default function ProductFilters({
           </Badge>
         }
         onClick={onOpen}
+        disabled
       >
         Filters
       </Button>

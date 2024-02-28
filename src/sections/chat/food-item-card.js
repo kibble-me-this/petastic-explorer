@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 // @mui
 import Box from '@mui/material/Box';
@@ -29,14 +31,42 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { outlineButton } from 'src/theme/css';
 import { Typography } from '@mui/material';
 
-// ----------------------------------------------------------------------
+import { useCheckoutContext } from '../checkout/context';
+
+
+// ---------------------------------------------------------------------
 
 export default function PetFoodCard({ post }) {
+  const { onAddToCart } = useCheckoutContext();
+
   const popover = usePopover();
 
   const router = useRouter();
 
   const mdUp = useResponsive('up', 'md');
+
+  const [coverUrlState, setCoverUrlState] = useState(''); // Renamed to avoid conflict
+  const [titleState, setTitleState] = useState('hi'); // State for title
+  const [priceState, setPriceState] = useState('44'); // State for price
+  const [priceSaleState, setPriceSaleState] = useState('46.98');
+  const [productIdState, setProductIdState] = useState('B0BMDXNDD2'); // State for product_id
+
+  const handleAddCart = async () => {
+    const newProduct = {
+      id: productIdState, // Save productIdState as id
+      titleState,
+      coverUrlState,
+      // available,
+      price: priceSaleState,
+      // size: selectedSize,
+      quantity: 1,
+    };
+    try {
+      onAddToCart(newProduct);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const {
     title,
@@ -191,14 +221,15 @@ export default function PetFoodCard({ post }) {
           // target="_blank"
           // rel="noopener"
           // href={paths.petsSignUp}
+          onClick={handleAddCart}
           // endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
           sx={{
-            borderColor: 'black', // Change to your desired color
+            borderColor: 'red', // Change to your desired color
             mx: 2,
             mb: 2,
           }}
         >
-          Buy now
+          Add to Cart
         </Button>
       </Stack>
 

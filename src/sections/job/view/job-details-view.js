@@ -306,7 +306,8 @@ export default function JobDetailsView({ id }) {
           {currentTab === 'profile' && <ProfileHome info={_userAbout} posts={_userFeeds} />}
 
           {TABS.map((tab) => (
-            <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
+            <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label}   disabled={tab.value === 'profile'}
+            />
           ))}
         </Tabs>
       </Card>

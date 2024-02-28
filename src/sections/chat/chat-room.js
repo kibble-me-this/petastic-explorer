@@ -18,6 +18,7 @@ import ChatRoomGroup from './chat-room-group';
 import ChatRoomSingle from './chat-room-single';
 import ChatRoomAttachments from './chat-room-attachments';
 
+import { useCheckoutContext } from '../checkout/context';
 import CartIcon from '../product/common/cart-icon';
 
 // ----------------------------------------------------------------------
@@ -25,6 +26,9 @@ import CartIcon from '../product/common/cart-icon';
 const NAV_WIDTH = 240;
 
 export default function ChatRoom({ participants, conversation, pet }) {
+
+  const checkout = useCheckoutContext();
+
   const theme = useTheme();
 
   const lgUp = useResponsive('up', 'lg');
@@ -205,9 +209,7 @@ export default function ChatRoom({ participants, conversation, pet }) {
   return (
     <Box sx={{ position: 'relative' }}>
       {renderToggleBtn}
-      <CartIcon
-      // totalItems={checkout.totalItems}
-      />
+      <CartIcon totalItems={checkout.totalItems}/>
 
       {lgUp ? (
         <Stack

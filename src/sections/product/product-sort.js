@@ -26,6 +26,7 @@ export default function ProductSort({ sort, onSort, sortOptions }) {
           />
         }
         sx={{ fontWeight: 'fontWeightSemiBold' }}
+        disabled
       >
         Sort By:
         <Box component="span" sx={{ ml: 0.5, fontWeight: 'fontWeightBold' }}>

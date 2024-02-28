@@ -41,6 +41,7 @@ export default function ProductItem({ product }) {
   const [priceState, setPriceState] = useState(''); // State for price
   const [priceSaleState, setPriceSaleState] = useState('');
   const [productIdState, setProductIdState] = useState(''); // State for product_id
+  const [availableValueState, setAvailableState] = useState(true); 
 
   const handleProductData = (data) => {
     console.log('------  data:', data);
@@ -59,6 +60,8 @@ export default function ProductItem({ product }) {
       saleLabel,
     } = data[0];
 
+    const availableValue = newPriceSale && newPriceSale !== '' ? available : false;
+
     // Update states with new values
     setProductIdState(newProductId);
 
@@ -66,6 +69,8 @@ export default function ProductItem({ product }) {
     setTitleState(newTitle);
     setPriceState(newPrice / 100);
     setPriceSaleState(newPriceSale / 100);
+    setAvailableState(availableValue);
+
   };
 
   const { productData } = useGetProduct(selectedVariant, handleProductData);
@@ -100,7 +105,7 @@ export default function ProductItem({ product }) {
       id: productIdState, // Save productIdState as id
       titleState,
       coverUrlState,
-      available,
+      availableValueState,
       price: priceSaleState,
       // size: selectedSize,
       quantity: 1,
@@ -119,9 +124,14 @@ export default function ProductItem({ product }) {
       spacing={1}
       sx={{ position: 'absolute', zIndex: 9, top: 16, right: 16 }}
     >
-      {priceSaleState && (
+      {/* {priceSaleState && (
         <Label variant="filled" color="error">
           {(((priceState - priceSaleState) / priceState) * 100).toFixed(0)}% Off
+        </Label>
+      )} */}
+            {!availableValueState && (
+        <Label variant="filled" color="error">
+    {(!availableValueState && 'Out of Stock')}
         </Label>
       )}
     </Stack>
@@ -129,7 +139,7 @@ export default function ProductItem({ product }) {
 
   const renderImg = (
     <Box sx={{ position: 'relative', p: 1 }}>
-      {!!available && (
+      {!!availableValueState && (
         <Fab
           color="warning"
           size="medium"
@@ -152,20 +162,18 @@ export default function ProductItem({ product }) {
         </Fab>
       )}
 
-      <Tooltip title={!available && 'Out of stock'} placement="bottom-end">
-        <Image
-          // alt={name}
-          src={coverUrlState}
-          ratio="1/1"
-          sx={{
-            borderRadius: 1.5,
-            ...(!available && {
-              opacity: 0.48,
-              filter: 'grayscale(1)',
-            }),
-          }}
-        />
-      </Tooltip>
+<Tooltip title={!availableValueState ? 'Out of stock' : ''} placement="bottom-end">
+<Image
+  // alt={name}
+  src={coverUrlState}
+  ratio="1/1"
+  sx={{
+    borderRadius: 1.5,
+    opacity: !availableValueState ? 0.48 : 1, // Adjust opacity based on availability
+    filter: !availableValueState ? 'grayscale(1)' : 'none', // Apply grayscale filter if product is out of stock
+  }}
+/>
+</Tooltip>
     </Box>
   );
 
@@ -216,7 +224,7 @@ export default function ProductItem({ product }) {
         },
       }}
     >
-      {/* {renderLabels} */}
+      {renderLabels}
 
       {renderImg}
 
