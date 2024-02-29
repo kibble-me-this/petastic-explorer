@@ -22,11 +22,14 @@ export default function CheckoutSummary({
   discount,
   subTotal,
   shipping,
+  kibble,
   //
   onEdit,
   onApplyDiscount,
 }) {
   const displayShipping = shipping !== null ? 'Free' : '-';
+  const displayKibble = kibble !== null ? 'Available' : '-';
+
 
   return (
     <Card sx={{ mb: 3 }}>
@@ -65,6 +68,17 @@ export default function CheckoutSummary({
               {shipping ? fCurrency(shipping) : displayShipping}
             </Typography>
           </Stack>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Stack direction="row" alignItems="center">
+            <Typography variant="body2" sx={{ color: 'success.main' }}>
+              Kibble Rewards
+            </Typography>
+            <Iconify icon="solar:wad-of-money-bold" width={16} sx={{ ml: 1, color: 'success.main' }} />
+          </Stack>
+          <Typography variant="subtitle2" sx={{ color: 'success.main' }}>
+            {kibble ? fCurrency(kibble) : displayKibble}
+          </Typography>
+        </Stack>
 
           <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -106,6 +120,8 @@ CheckoutSummary.propTypes = {
   total: PropTypes.number,
   discount: PropTypes.number,
   shipping: PropTypes.number,
+  kibble: PropTypes.number,
+
   subTotal: PropTypes.number,
   onEdit: PropTypes.func,
   onApplyDiscount: PropTypes.func,

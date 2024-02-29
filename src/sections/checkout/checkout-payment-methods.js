@@ -19,7 +19,7 @@ import PaymentNewCardDialog from '../payment/payment-new-card-dialog';
 
 // ----------------------------------------------------------------------
 
-export default function CheckoutPaymentMethods({ options, cardOptions, ...other }) {
+export default function CheckoutPaymentMethods({ options, cardOptions, setSelectedPaymentOption, ...other }) {
   const { control } = useFormContext();
 
   const newCard = useBoolean();
@@ -44,6 +44,7 @@ export default function CheckoutPaymentMethods({ options, cardOptions, ...other 
                   isCredit={option.value === 'credit' && field.value === 'credit'}
                   onClick={() => {
                     field.onChange(option.value);
+                    setSelectedPaymentOption(option.value); // Pass the selected payment option back up
                   }}
                 />
               ))}
@@ -66,6 +67,7 @@ export default function CheckoutPaymentMethods({ options, cardOptions, ...other 
 CheckoutPaymentMethods.propTypes = {
   cardOptions: PropTypes.array,
   options: PropTypes.array,
+  setSelectedPaymentOption: PropTypes.func.isRequired,
 };
 
 // ----------------------------------------------------------------------
@@ -73,9 +75,12 @@ CheckoutPaymentMethods.propTypes = {
 function OptionItem({ option, cardOptions, selected, isCredit, onOpen, ...other }) {
   const { value, label, description } = option;
 
+
+
   return (
     <Paper
       variant="outlined"
+      // onClick={handleClick}
       key={value}
       sx={{
         p: 2.5,
@@ -101,7 +106,7 @@ function OptionItem({ option, cardOptions, selected, isCredit, onOpen, ...other 
                 </>
               )}
               {value === 'paypal' && <Iconify icon="logos:paypal" width={24} />}
-              {value === 'cash' && <Iconify icon="solar:wad-of-money-bold" width={32} />}
+              {value === 'token' && <Iconify icon="solar:wad-of-money-bold" width={32} />}
             </Stack>
           </Stack>
         }

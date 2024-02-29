@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,7 +12,13 @@ import Iconify from 'src/components/iconify';
 import FormProvider from 'src/components/hook-form';
 //
 import { usePlaceOrder } from 'src/api/product';
+import { useAuthContext } from 'src/auth/hooks';
+
+import { fCurrency, fNumber } from 'src/utils/format-number';
+
 import { useCheckoutContext } from './context';
+
+
 import CheckoutSummary from './checkout-summary';
 import CheckoutDelivery from './checkout-delivery';
 import CheckoutBillingInfo from './checkout-billing-info';
@@ -36,23 +44,7 @@ const DELIVERY_OPTIONS = [
   },
 ];
 
-const PAYMENT_OPTIONS = [
-  {
-    value: 'paypal',
-    label: 'Pay with Paypal',
-    description: 'You will be redirected to PayPal website to complete your purchase securely.',
-  },
-  {
-    value: 'credit',
-    label: 'Credit / Debit Card',
-    description: 'We support Mastercard, Visa, Discover and Stripe.',
-  },
-  {
-    value: 'cash',
-    label: 'Kibble',
-    description: 'Pay with Kibble Rewards when your account.',
-  },
-];
+
 
 const CARDS_OPTIONS = [
   { value: 'ViSa1', label: '**** **** **** 1212 - Jimmy Holland' },
@@ -61,6 +53,37 @@ const CARDS_OPTIONS = [
 ];
 
 export default function CheckoutPayment() {
+  const { user } = useAuthContext();
+  const [selectedPaymentOption, setSelectedPaymentOption] = useState('');
+
+
+    // Check if user exists and has a publicAddress
+if (user) {
+  // Add a mock value for anymalTokenBalance
+  user.anymalTokenBalance = 100; // Mock value, replace with your desired value
+}
+
+  const PAYMENT_OPTIONS = [
+    {
+      value: 'paypal',
+      label: 'Pay with Paypal',
+      description: 'You will be redirected to PayPal website to complete your purchase securely.',
+    },
+    {
+      value: 'credit',
+      label: 'Credit / Debit Card',
+      description: 'We support Mastercard, Visa, Discover and Stripe.',
+    },
+    {
+      value: 'token',
+      label: 'Pay with Kibble Rewards',
+      description: `You've earned ${fNumber(user?.anymalTokenBalance || 0)} Kibble 🐱🐶🐾` ,
+      caption: `(~${fCurrency(user?.anymalTokenBalance || 0)} USD)`,
+    },
+  ];
+
+
+
   const checkout = useCheckoutContext();
   const placeOrder = usePlaceOrder();
 
@@ -122,6 +145,7 @@ export default function CheckoutPayment() {
             cardOptions={CARDS_OPTIONS}
             options={PAYMENT_OPTIONS}
             sx={{ my: 3 }}
+            setSelectedPaymentOption={setSelectedPaymentOption} 
           />
 
           <Button
@@ -138,10 +162,12 @@ export default function CheckoutPayment() {
           <CheckoutBillingInfo billing={checkout.billing} onBackStep={checkout.onBackStep} />
 
           <CheckoutSummary
-            total={checkout.total}
+            total={selectedPaymentOption === 'token' ? fCurrency('0') :checkout.total}
             subTotal={checkout.subTotal}
             discount={checkout.discount}
             shipping={checkout.shipping}
+            kibble={selectedPaymentOption === 'token' ? checkout.total: null}
+            selectedPaymentOption={selectedPaymentOption} 
             onEdit={() => checkout.onGotoStep(0)}
           />
 
