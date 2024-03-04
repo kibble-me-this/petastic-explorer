@@ -4,8 +4,11 @@ import { Outlet } from 'react-router-dom';
 import MainLayout from 'src/layouts/main';
 import SimpleLayout from 'src/layouts/simple';
 import CompactLayout from 'src/layouts/compact';
+
 // components
 import { SplashScreen, LoadingScreen } from 'src/components/loading-screen';
+import AuthModernLayout from 'src/layouts/auth/modern';
+
 
 // ----------------------------------------------------------------------
 
@@ -30,24 +33,28 @@ const PostListPage = lazy(() => import('src/pages/post/list'));
 const PostDetailsPage = lazy(() => import('src/pages/post/details'));
 const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 
+const MagicLoginPage = lazy(() => import('src/pages/auth/magic/login'));
+
+
+
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
   {
     element: (
-      <MainLayout>
+      <AuthModernLayout>
         <Suspense fallback={<SplashScreen />}>
           <Outlet />
         </Suspense>
-      </MainLayout>
+      </AuthModernLayout>
     ),
     children: [
-      { path: 'about-us', element: <AboutPage /> },
-      { path: 'contact-us', element: <ContactPage /> },
-      { path: 'faqs', element: <FaqsPage /> },
+
       {
         path: '/',
-        children: [{ element: <HomePage />, index: true }],
+        children: [{ element:       
+          <MagicLoginPage />
+        , index: true }],
       },
       // {
       //   path: 'product',
@@ -91,6 +98,9 @@ export const mainRoutes = [
     ),
     children: [
       { path: 'chat', element: <ChatPage /> },
+      { path: 'checkout', element: <ProductCheckoutPage /> },
+
+
       { path: 'coming-soon', element: <ComingSoonPage /> },
       { path: 'maintenance', element: <MaintenancePage /> },
       { path: '500', element: <Page500 /> },

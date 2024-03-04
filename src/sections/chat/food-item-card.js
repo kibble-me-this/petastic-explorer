@@ -144,7 +144,7 @@ export default function PetFoodCard({ post }) {
                     pb: 0.3,
                   }}
                 >
-                  Score
+                  Breed Score
                 </Typography>
               </Box>
 

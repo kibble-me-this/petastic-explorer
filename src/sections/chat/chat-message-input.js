@@ -261,7 +261,7 @@ export default function ChatMessageInput({
       `;
 
       const predefinedMessage2 = `<b>👋 Hi there!</b> I just received a notification from <b>${shelterName}</b> that you've added a new member to your family. 
-      I'm here and ready to assist you with personalized pet care for <b>${petName}</b> and to help fund other pets in need through Petastic's shared giving community of shelters and rescues. 🤍
+      I'm here and ready to assist you with personalized pet care for <b>${petName}</b> and to help fund other pets in need through Petastic's shared giving community. 🤍
       <p><b>Click below to get started.</b></p> html accept pet button
     `;
 

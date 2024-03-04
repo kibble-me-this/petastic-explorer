@@ -5,13 +5,16 @@ import { alpha } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
+import { useMockedUser } from 'src/hooks/use-mocked-user';
+
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
 import { chatButton } from 'src/theme/css';
-
-
 import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
+
+import { sendToOpenAI } from '../../api/openai';
+
 
 // ----------------------------------------------------------------------
 
@@ -86,6 +89,8 @@ export default function ProductFilters({
   filters: initialFilters, // Use initialFilters instead of filters directly
   canReset,
 }) {
+  const { user, fetchai } = useMockedUser();
+
   const marksLabel = [...Array(21)].map((_, index) => {
     const value = index * 10;
     const firstValue = index === 0 ? `$${value}` : `${value}`;
@@ -134,6 +139,46 @@ export default function ProductFilters({
     }
   };
 
+  const handleSubmitBudget = async () => {
+
+    // onAiLoadingChange(true);
+
+    const minPrice = filters.priceRange[0];
+    const maxPrice = filters.priceRange[1];
+
+    try {
+      // Example message formatting, adjust as needed
+      const openaiMessage = `My budget range is from $${minPrice} to $${maxPrice}.`;
+      const selectedConversationId = 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4';
+      const messageArray = [
+        {
+          role: 'user',
+          content: openaiMessage,
+        },
+      ];
+
+      console.log('OpenAI Message:', openaiMessage);
+      const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, user);
+
+      // Make the API request to OpenAI here using sendToOpenAI
+      // Replace this with your actual API call
+      // const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, user);
+
+      // Log the message for demonstration
+
+
+      // Trigger other actions or update state based on the response if needed
+
+      // Optionally, you can trigger other actions or update state based on the response
+
+      // onAiLoadingChange(false);
+
+
+    } catch (error) {
+      console.error('OpenAI API Error:', error);
+    }
+  };
+
   return (
     <>
     <Paper sx={{ backgroundColor: 'white', p: 2, borderRadius: 1 }}>
@@ -171,9 +216,8 @@ export default function ProductFilters({
         />
       </Stack>
     </Paper>
-    <Button
-        sx={chatButton}>Submit Budget
-        </Button>
+    <Button sx={chatButton} onClick={handleSubmitBudget}>Submit Budget</Button>
+
 
           
 </>

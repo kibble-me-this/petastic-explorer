@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+
 // @mui
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
@@ -11,12 +13,17 @@ import { RouterLink } from 'src/routes/components';
 // ----------------------------------------------------------------------
 
 export default function CartIcon({ totalItems }) {
+  const location = useLocation();
+  const isChatPage = location.pathname === '/chat';
+  const checkoutPath = isChatPage ? paths.open_checkout : paths.product.checkout;
+
   return (
     <Box
       component={RouterLink}
-      href={paths.product.checkout}
+      // href={paths.product.checkout}
+      href={checkoutPath}
       sx={{
-        right: 10,
+        right: 0,
         top: 112,
         zIndex: 999,
         display: 'flex',

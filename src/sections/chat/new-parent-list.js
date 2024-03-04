@@ -41,7 +41,7 @@ export default function NewParentList({ post, onAiLoadingChange }) {
 
   const mdUp = useResponsive('up', 'md');
 
-  const { title, description, coverUrl } = post;
+  const { title, description, coverUrl, publish } = post;
 
   const { user, fetchai } = useMockedUser();
 
@@ -97,7 +97,8 @@ export default function NewParentList({ post, onAiLoadingChange }) {
               background: '#FFFFFF3F', // 10% darker color
             },
           }}
-        >
+          disabled={!publish}
+          >
           <Stack
             direction="row"
             alignItems="center"
@@ -115,8 +116,8 @@ export default function NewParentList({ post, onAiLoadingChange }) {
               <TextMaxLine
                 variant="chat_body"
                 sx={{
-                  width: '230px',
-                  fontWeight: 'normal',
+                  width: '240px',
+                  fontWeight: 'light',
                   textTransform: 'none',
                   textAlign: 'left',
                 }}
@@ -124,8 +125,11 @@ export default function NewParentList({ post, onAiLoadingChange }) {
                 {description}
               </TextMaxLine>
             </Stack>
-            <Iconify width={28} icon="eva:arrow-ios-forward-fill" sx={{ color: '#FFF' }} />
-          </Stack>
+            <Iconify
+  width={28}
+  icon={!publish ? 'eva:lock-fill' : 'eva:arrow-ios-forward-fill'}
+  sx={{ color: '#FFF' }}
+/>          </Stack>
         </Button>
       </Stack>
     </>
@@ -137,6 +141,8 @@ NewParentList.propTypes = {
     description: PropTypes.string,
     title: PropTypes.string,
     coverUrl: PropTypes.string,
+    publish: PropTypes.bool,
+
   }),
   onAiLoadingChange: PropTypes.func,
 };

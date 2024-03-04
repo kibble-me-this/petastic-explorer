@@ -100,7 +100,7 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
           name: null,
           avatarUrl: propItem.image,
         },
-        publish: propItem.star_rating,
+        publish: propItem.enabled,
         description: propItem.description,
         coverUrl: propItem.command,
       }));
@@ -145,7 +145,7 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
           name: null,
           avatarUrl: propItem.image,
         },
-        publish: propItem.star_rating,
+        publish: propItem.enabled,
         description: propItem.description,
         coverUrl: propItem.command,
       }));
