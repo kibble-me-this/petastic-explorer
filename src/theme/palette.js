@@ -108,6 +108,7 @@ export function palette(mode) {
     text: {
       primary: GREY[800],
       secondary: '#343A40',
+      blue: '#345BFF',
       disabled: GREY[500],
     },
     background: {

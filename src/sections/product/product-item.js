@@ -7,9 +7,14 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Rating from '@mui/material/Rating';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
+import Chip from '@mui/material/Chip';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+
 import { formHelperTextClasses } from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
 // routes
@@ -18,7 +23,7 @@ import { RouterLink } from 'src/routes/components';
 // api
 import { useGetProduct, useGetProducts } from 'src/api/product';
 // utils
-import { fCurrency } from 'src/utils/format-number';
+import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components
 import Label from 'src/components/label';
 import Image from 'src/components/image';
@@ -41,7 +46,10 @@ export default function ProductItem({ product }) {
   const [priceState, setPriceState] = useState(''); // State for price
   const [priceSaleState, setPriceSaleState] = useState('');
   const [productIdState, setProductIdState] = useState(''); // State for product_id
-  const [availableValueState, setAvailableState] = useState(true); 
+  const [availableValueState, setAvailableState] = useState(true);
+  const [totalRatings, setTotalRatings] = useState('3');
+  const [totalReviews, setTotalReviews] = useState('100');
+
 
   const handleProductData = (data) => {
     console.log('------  data:', data);
@@ -58,9 +66,13 @@ export default function ProductItem({ product }) {
       original_retail_price: newPrice, // New variable for priceSale
       newLabel,
       saleLabel,
+      stars,
+      review_count,
     } = data[0];
 
     const availableValue = newPriceSale && newPriceSale !== '' ? available : false;
+
+
 
     // Update states with new values
     setProductIdState(newProductId);
@@ -70,6 +82,9 @@ export default function ProductItem({ product }) {
     setPriceState(newPrice / 100);
     setPriceSaleState(newPriceSale / 100);
     setAvailableState(availableValue);
+    setTotalRatings(stars);
+    setTotalReviews(review_count);
+
 
   };
 
@@ -84,6 +99,7 @@ export default function ProductItem({ product }) {
     setSelectedVariant(event.target.value);
     console.log('Selected Variant:', event.target.value);
   };
+
   const {
     product_id: id,
     brand,
@@ -96,6 +112,8 @@ export default function ProductItem({ product }) {
     original_retail_price: price,
     newLabel,
     saleLabel,
+    stars,
+    review_count
   } = product;
 
   const linkTo = paths.product.details(id);
@@ -125,15 +143,29 @@ export default function ProductItem({ product }) {
       sx={{ position: 'absolute', zIndex: 9, top: 16, right: 16 }}
     >
       {/* {priceSaleState && (
-        <Label variant="filled" color="error">
-          {(((priceState - priceSaleState) / priceState) * 100).toFixed(0)}% Off
+        <Label variant="filled" color="success">
+          +{(3).toFixed(0)}% Cash Back
         </Label>
       )} */}
-            {!availableValueState && (
+      {!availableValueState && (
         <Label variant="filled" color="error">
-    {(!availableValueState && 'Out of Stock')}
+          {(!availableValueState && 'Out of Stock')}
         </Label>
       )}
+    </Stack>
+  );
+
+  const renderRating = (
+    <Stack
+      direction="row"
+      alignItems="center"
+      sx={{
+        color: 'text.disabled',
+        typography: 'body2',
+      }}
+    >
+      <Rating size="small" value={totalRatings} precision={0.1} readOnly sx={{ mr: 1 }} />
+      {`(${fShortenNumber(totalReviews)} reviews)`}
     </Stack>
   );
 
@@ -162,18 +194,18 @@ export default function ProductItem({ product }) {
         </Fab>
       )}
 
-<Tooltip title={!availableValueState ? 'Out of stock' : ''} placement="bottom-end">
-<Image
-  // alt={name}
-  src={coverUrlState}
-  ratio="1/1"
-  sx={{
-    borderRadius: 1.5,
-    opacity: !availableValueState ? 0.48 : 1, // Adjust opacity based on availability
-    filter: !availableValueState ? 'grayscale(1)' : 'none', // Apply grayscale filter if product is out of stock
-  }}
-/>
-</Tooltip>
+      <Tooltip title={!availableValueState ? 'Out of stock' : ''} placement="bottom-end">
+        <Image
+          // alt={name}
+          src={coverUrlState}
+          ratio="1/1"
+          sx={{
+            borderRadius: 1.5,
+            opacity: !availableValueState ? 0.48 : 1, // Adjust opacity based on availability
+            filter: !availableValueState ? 'grayscale(1)' : 'none', // Apply grayscale filter if product is out of stock
+          }}
+        />
+      </Tooltip>
     </Box>
   );
 
@@ -189,16 +221,42 @@ export default function ProductItem({ product }) {
       >
         {brand}
         <Typography sx={{ whiteSpace: 'break-spaces' }}>{titleState}</Typography>
+        {renderRating}
+
       </Link>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
+
+        <Stack direction="column" spacing={0.5} sx={{ typography: 'subtitle1' }}>
           {/* {priceSaleState && (
             <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
               {fCurrency(priceState)}
             </Box>
           )} */}
 
-          <Box component="span">{fCurrency(priceSaleState)}</Box>
+          <Stack direction="row" spacing={2.5} alignItems="center" justifyContent="space-between">
+            < Box component="span">{fCurrency(priceSaleState)}</Box>
+            <Box component="span" >
+              <Chip
+                variant='outlined'
+                icon={<img src="/assets/icons/brands/ic_amazon_match.svg" alt="Amazon Icon" />}
+                label="Price match"
+                sx={{
+                  borderRadius: 12, // This will override the Chip's default border radius
+                  border: '1px solid #F0F0F0',
+                  bgcolor: '#F0F0F0',
+                }}
+              />
+            </Box>
+          </Stack>
+          {/* < Box component="span">{fCurrency(priceSaleState)}</Box> */}
+
+
+          <Box component="span"> <Typography variant="caption" sx={{ color: 'text.blue' }}>{(3).toFixed(0)}% Kibble Cash Back</Typography>
+
+
+          </Box>
+
+
         </Stack>
       </Stack>
       {product.all_variants.length > 1 && (
