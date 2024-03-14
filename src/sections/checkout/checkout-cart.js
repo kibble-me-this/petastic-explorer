@@ -55,14 +55,14 @@ export default function CheckoutCart() {
           )}
         </Card>
 
-        <Button
+        {/* <Button
           component={RouterLink}
           href={paths.product.root}
           color="inherit"
           startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
         >
           Continue Shopping
-        </Button>
+        </Button> */}
       </Grid>
 
       <Grid xs={12} md={4}>

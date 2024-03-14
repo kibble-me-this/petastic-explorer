@@ -245,27 +245,24 @@ export default function ChatMessageInput({
   // Define sentHelloMessage and setSentHelloMessage
   const [sentHelloMessage, setSentHelloMessage] = useState(false);
 
-  // Add this useEffect to send a predefined message to OpenAI once
+  const predefinedMessage1 = `<p><b>Hi, I'm Fetch, your pet concierge. </b></p> 
+  <p>All pets are unique, and I've cracked the code on personalized pet care. 🤖</p> 
+  <p>I see you have a new addition to the family, congratulations!</p> 
+  <p>Click below to get your journey started.🤍 </p> html accept pet button
+  `;
+
+  const predefinedMessage2 = `<b>👋 Hi there!</b> I just received a notification from <b>${shelterName}</b> that you've added a new member to your family. 
+  I'm here and ready to assist you with personalized pet care for <b>${petName}</b> and to help fund other pets in need through Petastic's shared giving community. 🤍
+  <p><b>Click below to get started.</b></p> html accept pet button
+`;
+
   useEffect(() => {
-    let timer; // Declare the timer variable
+    // Check if the flag exists in local storage
+    const flag = localStorage.getItem('predefinedMessageSent');
 
-    console.log('pet in useEffect', pet);
-
-    if (!sentHelloMessage) {
-      const predefinedLocalMessage = `<b>Paws Before Profits</b> html login button`;
-
-      const predefinedMessage1 = `<p><b>Hi, I'm Fetch, your pet concierge. </b></p> 
-      <p>All pets are unique, and I've cracked the code on personalized pet care. 🤖</p> 
-      <p>I see you have a new addition to the family, congratulations!</p> 
-      <p>Click below to get your journey started.🤍 </p> html accept pet button
-      `;
-
-      const predefinedMessage2 = `<b>👋 Hi there!</b> I just received a notification from <b>${shelterName}</b> that you've added a new member to your family. 
-      I'm here and ready to assist you with personalized pet care for <b>${petName}</b> and to help fund other pets in need through Petastic's shared giving community. 🤍
-      <p><b>Click below to get started.</b></p> html accept pet button
-    `;
-
-      timer = setTimeout(async () => {
+    // If the flag is not set, send the predefined message and set the flag in local storage
+    if (flag !== 'true') {
+      const timer = setTimeout(async () => {
         if (predefinedMessage2) {
           setSentHelloMessage(true);
 
@@ -279,47 +276,37 @@ export default function ChatMessageInput({
             myContact,
             setConversationData,
             onAiLoadingChange,
-            // clearOpenaiMessage,
-            () => setOpenaiMessage('') // Callback to clear openaiMessage
+            () => setOpenaiMessage('')
           );
 
-          // await sendLocalMessage(
-          //   predefinedLocalMessage,
-          //   selectedConversationId,
-          //   setPet,
-          //   pet,
-          //   fetchContact,
-          //   conversationData,
-          //   myContact,
-          //   setConversationData,
-          //   onAiLoadingChange,
-          //   // clearOpenaiMessage,
-          //   () => setOpenaiMessage('') // Callback to clear openaiMessage
-          // );
+          // Set the flag in local storage to indicate that the predefined message has been sent
+          localStorage.setItem('predefinedMessageSent', 'true');
         }
-      }, 5000); // 3 seconds delay
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
     }
 
-    // Cleanup function to clear the timer if the component unmounts
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
+    // Return undefined if the condition isn't met
+    return undefined;
   }, [
-    sentHelloMessage,
+    predefinedMessage2,
     selectedConversationId,
     fetchContact,
     conversationData,
     myContact,
     setConversationData,
     onAiLoadingChange,
-    // clearOpenaiMessage,
     setPet,
     pet,
     petName,
     shelterName,
   ]);
+
+
+
 
   // const handleSendOpenaiMessage = useCallback(
   //   async (event) => {
