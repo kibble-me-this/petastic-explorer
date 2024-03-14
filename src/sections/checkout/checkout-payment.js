@@ -57,18 +57,18 @@ export default function CheckoutPayment() {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState('');
 
 
-    // Check if user exists and has a publicAddress
-if (user) {
-  // Add a mock value for anymalTokenBalance
-  user.anymalTokenBalance = 100; // Mock value, replace with your desired value
-}
+  // Check if user exists and has a publicAddress
+  if (user) {
+    // Add a mock value for anymalTokenBalance
+    user.anymalTokenBalance = 100; // Mock value, replace with your desired value
+  }
 
   const PAYMENT_OPTIONS = [
-    {
-      value: 'paypal',
-      label: 'Pay with Paypal',
-      description: 'You will be redirected to PayPal website to complete your purchase securely.',
-    },
+    // {
+    //   value: 'paypal',
+    //   label: 'Pay with Paypal',
+    //   description: 'You will be redirected to PayPal website to complete your purchase securely.',
+    // },
     {
       value: 'credit',
       label: 'Credit / Debit Card',
@@ -76,8 +76,9 @@ if (user) {
     },
     {
       value: 'token',
-      label: 'Pay with Kibble Rewards',
-      description: `You've earned ${fNumber(user?.anymalTokenBalance || 0)} Kibble 🐱🐶🐾` ,
+      label: 'Pay with Kibble Cash',
+      // description: `You've earned ${fNumber(user?.anymalTokenBalance || 0)} Kibble 🐱🐶🐾`,
+      description: `You've earned 100 ($100 USD) Kibble 🐱🐶🐾`,
       caption: `(~${fCurrency(user?.anymalTokenBalance || 0)} USD)`,
     },
   ];
@@ -145,7 +146,7 @@ if (user) {
             cardOptions={CARDS_OPTIONS}
             options={PAYMENT_OPTIONS}
             sx={{ my: 3 }}
-            setSelectedPaymentOption={setSelectedPaymentOption} 
+            setSelectedPaymentOption={setSelectedPaymentOption}
           />
 
           <Button
@@ -162,12 +163,12 @@ if (user) {
           <CheckoutBillingInfo billing={checkout.billing} onBackStep={checkout.onBackStep} />
 
           <CheckoutSummary
-            total={selectedPaymentOption === 'token' ? fCurrency('0') :checkout.total}
+            total={selectedPaymentOption === 'token' ? fCurrency('0') : checkout.total}
             subTotal={checkout.subTotal}
             discount={checkout.discount}
             shipping={checkout.shipping}
-            kibble={selectedPaymentOption === 'token' ? checkout.total: null}
-            selectedPaymentOption={selectedPaymentOption} 
+            kibble={selectedPaymentOption === 'token' ? checkout.total : null}
+            selectedPaymentOption={selectedPaymentOption}
             onEdit={() => checkout.onGotoStep(0)}
           />
 

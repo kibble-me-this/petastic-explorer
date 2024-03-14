@@ -69,16 +69,16 @@ export default function CheckoutSummary({
             </Typography>
           </Stack>
           <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Stack direction="row" alignItems="center">
-            <Typography variant="body2" sx={{ color: 'success.main' }}>
-              Kibble Rewards
+            <Stack direction="row" alignItems="center">
+              <Typography variant="body2" sx={{ color: 'success.main' }}>
+                Kibble Cash
+              </Typography>
+              <Iconify icon="solar:wad-of-money-bold" width={16} sx={{ ml: 1, color: 'success.main' }} />
+            </Stack>
+            <Typography variant="subtitle2" sx={{ color: 'success.main' }}>
+              {kibble ? fCurrency(kibble) : displayKibble}
             </Typography>
-            <Iconify icon="solar:wad-of-money-bold" width={16} sx={{ ml: 1, color: 'success.main' }} />
           </Stack>
-          <Typography variant="subtitle2" sx={{ color: 'success.main' }}>
-            {kibble ? fCurrency(kibble) : displayKibble}
-          </Typography>
-        </Stack>
 
           <Divider sx={{ borderStyle: 'dashed' }} />
 

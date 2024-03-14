@@ -110,7 +110,7 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
 
           const predefinedLocalMessage = `<b>The "Paws Before Profits" Co-Op</b> <p>${pet.acquired_from}</b> is part of the "Paws Before Profits" program. This means that 3% of all the purchases you make for ${pet.name} will be donated to <b>${pet.acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
   
-          <p>It's free for you, and you will receive 100 Kibble Rewards ($100 USD) that you can use towards your purchases. All you have to do is opt in below. </p> html login button`;
+          <p>It's free for you, and you will receive 100 Kibble Cash ($100 USD) that you can use towards your purchases. All you have to do is opt in below. </p> html login button`;
           const messageArray2 = [
             {
               role: 'user',
