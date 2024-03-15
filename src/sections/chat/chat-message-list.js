@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react'; // Import useState and useEffect
+import React, { useState, useEffect, useRef } from 'react'; // Import useState, useEffect, and useRef
 
 // @mui
 import Box from '@mui/material/Box';
@@ -14,7 +14,6 @@ import { EmptyContentLogo } from 'src/components/empty-content';
 import { useMessagesScroll } from './hooks';
 import ChatMessageItem from './chat-message-item';
 
-
 // ----------------------------------------------------------------------
 
 export default function ChatMessageList({
@@ -24,7 +23,12 @@ export default function ChatMessageList({
   setPet,
   onAiLoadingChange,
 }) {
-  const { messagesEndRef } = useMessagesScroll(messages);
+  const { messagesEndRef, scrollMessagesToBottom } = useMessagesScroll(messages);
+
+  useEffect(() => {
+    // Scroll to the bottom whenever the messages array changes
+    scrollMessagesToBottom();
+  }, [messages, scrollMessagesToBottom]);
 
   const slides = messages
     .filter((message) => message.contentType === 'image')
@@ -32,17 +36,12 @@ export default function ChatMessageList({
 
   const lightbox = useLightBox(slides);
 
-  const loadingMessages = [
-    "I'm Fetch. Your pet care concierge ❣️",
-
-    // Add more loading messages as needed
-  ];
+  const loadingMessages = ["I'm Fetch. Your pet care concierge ❣️"];
 
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Update the loading message index in a rotating manner
       setLoadingMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
     }, 1000);
 
@@ -59,15 +58,12 @@ export default function ChatMessageList({
         {messages.length === 0 ? (
           <EmptyContentLogo title={loadingMessage} />
         ) : (
-          // Render messages only if the messages array is not empty
           messages.map((message, index) => (
-            // Delay rendering of each message item using setTimeout
-            <DelayedMessageItem
+            <ChatMessageItem
               key={message.id}
               message={message}
               participants={participants}
               onOpenLightbox={() => lightbox.onOpen(message.body)}
-              delay={index * 1}
               pet={pet}
               setPet={setPet}
               onAiLoadingChange={onAiLoadingChange}
@@ -93,61 +89,3 @@ ChatMessageList.propTypes = {
   setPet: PropTypes.func,
   onAiLoadingChange: PropTypes.array,
 };
-
-// DelayedMessageItem component to render message items with a delay
-function DelayedMessageItem({
-  message,
-  participants,
-  onOpenLightbox,
-  delay,
-  pet,
-  setPet,
-  onAiLoadingChange,
-}) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, delay);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [delay]);
-
-  return isVisible ? (
-    <ChatMessageItem
-      key={message.id}
-      message={message}
-      participants={participants}
-      onOpenLightbox={onOpenLightbox}
-      pet={pet}
-      setPet={setPet}
-      onAiLoadingChange={onAiLoadingChange}
-    />
-  ) : null;
-}
-
-DelayedMessageItem.propTypes = {
-  message: PropTypes.object,
-  participants: PropTypes.array,
-  onOpenLightbox: PropTypes.func,
-  delay: PropTypes.number,
-  pet: PropTypes.array,
-  setPet: PropTypes.number,
-  onAiLoadingChange: PropTypes.func,
-};
-
-// Function to get a random loading message
-// function getRandomLoadingMessage() {
-//   const loadingMessages = [
-//     "Fetching the future of pet care...",
-//     "Loading your messages...",
-//     "Please wait...",
-//     // Add more loading messages as needed
-//   ];
-
-//   const randomIndex = Math.floor(Math.random() * loadingMessages.length);
-//   return loadingMessages[randomIndex];
-// }
