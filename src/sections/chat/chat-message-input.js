@@ -501,10 +501,10 @@ export default function ChatMessageInput({
         disabled={disabled}
         endAdornment={
           <Stack direction="row" sx={{ flexShrink: 0 }}>
-            <IconButton onClick={handleAttach}>
+            <IconButton disabled onClick={handleAttach}>
               <Iconify icon="solar:gallery-add-bold" />
             </IconButton>
-            <IconButton onClick={handleAttach}>
+            <IconButton disabled onClick={handleAttach}>
               <Iconify icon="eva:attach-2-fill" />
             </IconButton>
           </Stack>

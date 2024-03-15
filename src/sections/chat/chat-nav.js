@@ -193,7 +193,8 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
           </>
         )}
 
-        <IconButton onClick={handleToggleNav}>
+        <IconButton disabled onClick={handleToggleNav}>
+
           <Iconify
             icon={collapseDesktop ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-back-fill'}
           />

@@ -71,12 +71,12 @@ export default function ChatRoom({ participants, conversation, pet }) {
           attachments: [
             {
               id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b1',
-              name: 'vaccination-card.pdf',
+              name: 'vaccination-cards.pdf',
               path: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
               preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
               size: 48000000,
-              createdAt: '2023-10-23T14:38:44.497Z',
-              modifiedAt: '2023-10-23T14:38:44.497Z',
+              createdAt: '2024-02-23T14:38:44.497Z',
+              modifiedAt: '2024-02-23T14:38:44.497Z',
               type: 'pdf',
             },
           ],
@@ -94,12 +94,12 @@ export default function ChatRoom({ participants, conversation, pet }) {
               path: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
               preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
               size: 12000000,
-              createdAt: '2023-10-20T11:38:44.497Z',
-              modifiedAt: '2023-10-20T11:38:44.497Z',
+              createdAt: '2024-02-23T11:38:44.497Z',
+              modifiedAt: '2024-02-23T11:38:44.497Z',
               type: 'pdf',
             },
           ],
-          createdAt: '2023-10-23T12:30:15.280Z',
+          createdAt: '2024-02-23T12:30:15.280Z',
           senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
         },
         {
@@ -113,8 +113,27 @@ export default function ChatRoom({ participants, conversation, pet }) {
               path: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
               preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
               size: 12000000,
-              createdAt: '2023-10-20T11:38:44.497Z',
-              modifiedAt: '2023-10-20T11:38:44.497Z',
+              createdAt: '2024-02-23T11:38:44.497Z',
+              modifiedAt: '2024-02-23T11:38:44.497Z',
+              type: 'pdf',
+            },
+          ],
+          createdAt: '2023-10-23T12:30:15.280Z',
+          senderId: '8864c717-587d-472a-929a-8e5f298024da-0',
+        },
+        {
+          id: '356342c6-49be-4d7f-be93-78e89f1f5d97',
+          body: 'The concert was a mesmerizing experience, with the music filling the venue and the crowd cheering in delight.',
+          contentType: 'text',
+          attachments: [
+            {
+              id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4',
+              name: 'Feeding Profile',
+              path: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
+              preview: 'https://www.cloud.com/s/c218bo6kjuqyv66/money-popup-crack.pdf',
+              size: 12000000,
+              createdAt: '2024-02-23T11:38:44.497Z',
+              modifiedAt: '2024-02-23T11:38:44.497Z',
               type: 'pdf',
             },
           ],
@@ -209,7 +228,7 @@ export default function ChatRoom({ participants, conversation, pet }) {
   return (
     <Box sx={{ position: 'relative' }}>
       {renderToggleBtn}
-      <CartIcon totalItems={checkout.totalItems}/>
+      <CartIcon totalItems={checkout.totalItems} />
 
       {lgUp ? (
         <Stack

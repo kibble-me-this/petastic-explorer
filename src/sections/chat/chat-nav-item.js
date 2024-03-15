@@ -71,15 +71,16 @@ export default function ChatNavItem({ selected, collapse, conversation, onCloseM
   const renderSingle = (
     <Badge key={status} variant={status} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
       {pet.avatar ? (
-        <Avatar alt={name} src={pet.avatar} sx={{ width: 32, height: 32 }} />
+        <Avatar disabled alt={name} src={pet.avatar} sx={{ width: 32, height: 32 }} />
       ) : (
-        <Skeleton variant="circular" width={32} height={32} /> // Display Skeleton if 'pet.avatar' is empty
+        <Skeleton variant="circular" width={32} height={32} />
       )}
     </Badge>
   );
 
   return (
     <ListItemButton
+      disabled
       disableGutters
       onClick={handleClickConversation} // ---------------------------------- IMPORTANT
       sx={{
