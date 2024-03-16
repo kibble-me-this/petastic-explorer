@@ -4,7 +4,7 @@ import { useEffect, useReducer, useCallback, useMemo, useState } from 'react';
 import { Magic } from 'magic-sdk';
 import { NearExtension } from '@magic-ext/near';
 import { OAuthExtension } from '@magic-ext/oauth';
-import axios, { endpoints } from 'src/utils/axios';
+import { axiosInstance, endpoints } from 'src/utils/axios';
 //
 import { AuthContext } from './auth-context';
 import { isValidToken, setSession } from './utils';
@@ -126,7 +126,7 @@ export function AuthProvider({ children }) {
       password,
     };
 
-    const response = await axios.post(endpoints.auth.login, data);
+    const response = await axiosInstance.post(endpoints.auth.login, data);
 
     const { accessToken, user } = response.data;
 
@@ -190,7 +190,7 @@ export function AuthProvider({ children }) {
       lastName,
     };
 
-    const response = await axios.post(endpoints.auth.register, data);
+    const response = await axiosInstance.post(endpoints.auth.register, data);
 
     const { accessToken, user } = response.data;
 

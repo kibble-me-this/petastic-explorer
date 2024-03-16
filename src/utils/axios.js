@@ -2,18 +2,27 @@ import React, { useState } from 'react';
 
 import axios from 'axios';
 // config
-import { HOST_API } from 'src/config-global';
+import {
+  HOST_API,
+  ANYML_HOST_API,
+  ZINC_HOST_API,
+  ZINC_HOST_API_KEY
+} from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({ baseURL: HOST_API });
+const axiosInstanceANYML = axios.create({ baseURL: ANYML_HOST_API });
+const axiosInstanceZINC = axios.create({ baseURL: ZINC_HOST_API });
 
 axiosInstance.interceptors.response.use(
   (res) => res,
   (error) => Promise.reject((error.response && error.response.data) || 'Something went wrongs')
 );
 
-export default axiosInstance;
+// export default axiosInstance;
+export { axiosInstance, axiosInstanceANYML, axiosInstanceZINC };
+
 
 // ----------------------------------------------------------------------
 
@@ -47,6 +56,10 @@ const orderData = {
   },
 };
 
+// ====================
+// MINIMAL API
+// ====================
+
 export const fetcher = async (args) => {
   const [url, config] = Array.isArray(args) ? args : [args];
 
@@ -55,15 +68,49 @@ export const fetcher = async (args) => {
   return res.data;
 };
 
+export const postRequest = async (url, data, config = {}) => {
+  try {
+    const response = await axiosInstance.post(url, data, config);
+    return response.data;
+  } catch (error) {
+    throw (error.response && error.response.data) || 'Something went wrong';
+  }
+};
+
+// ====================
+// ANYMAL API
+// ====================
+
+export const fetcherANYML = async (args) => {
+  const [url, config] = Array.isArray(args) ? args : [args];
+
+  const res = await axiosInstanceANYML.get(url, { ...config });
+
+  return res.data;
+};
+
+export const postRequestANYML = async (url, data, config = {}) => {
+  try {
+    const response = await axiosInstanceANYML.post(url, data, config);
+    return response.data;
+  } catch (error) {
+    throw (error.response && error.response.data) || 'Something went wrong';
+  }
+};
+
+
+// ====================
+// ZINC API
+// ====================
+
 export const fetcherProduct = async (productIds) => {
-  const zincAPIClientToken = '494887CF5BB27A2600581C3A';
   const headers = new Headers({
-    Authorization: `Basic ${btoa(`${zincAPIClientToken}:`)}`,
+    Authorization: `Basic ${btoa(`${ZINC_HOST_API_KEY}:`)}`,
   });
 
   try {
     const dataPromises = productIds.map(async (productId) => {
-      const url = `https://api.zinc.io/v1/products/${productId}?retailer=amazon`;
+      const url = `${ZINC_HOST_API}/v1/products/${productId}?retailer=amazon`;
       const response = await fetch(url, { headers });
 
       if (!response.ok) {
@@ -80,7 +127,8 @@ export const fetcherProduct = async (productIds) => {
     throw (error.response && error.response.data) || 'Something went wrong';
   }
 };
-const zincApiKey = '494887CF5BB27A2600581C3A';
+// const zincApiKey = '494887CF5BB27A2600581C3A';
+
 export const fetcherOrder = async (args, products, shippingAddress, subTotal) => {
   const [data, headers, url, config] = Array.isArray(args) ? args : [args];
 
@@ -109,7 +157,7 @@ export const fetcherOrder = async (args, products, shippingAddress, subTotal) =>
     const response = await axiosInstance.post('/v1/orders', updatedOrderData, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${btoa(`${zincApiKey}:`)}`,
+        Authorization: `Basic ${btoa(`${ZINC_HOST_API_KEY}:`)}`,
       },
     });
 

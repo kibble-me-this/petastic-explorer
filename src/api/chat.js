@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import keyBy from 'lodash/keyBy';
 import useSWR, { mutate } from 'swr';
 // utils
-import axios, { endpoints, fetcher } from '../utils/axios';
+import { axiosInstance, endpoints, fetcher } from '../utils/axios';
 
 import {
   _id,
@@ -941,7 +941,7 @@ export async function sendMessage(conversationId, messageData) {
    * Work on server
    */
   // const data = { conversationId, messageData };
-  // await axios.put(endpoints.chat, data);
+  // await axiosInstance.put(endpoints.chat, data);
 
   /**
    * Work in local
@@ -974,9 +974,9 @@ export async function sendMessage(conversationId, messageData) {
       const conversations = currentConversations.map((conversation) =>
         conversation.id === conversationId
           ? {
-              ...conversation,
-              messages: [...conversation.messages, messageData],
-            }
+            ...conversation,
+            messages: [...conversation.messages, messageData],
+          }
           : conversation
       );
 
@@ -997,7 +997,7 @@ export async function createConversation(conversationData) {
    * Work on server
    */
   const data = { conversationData };
-  const res = await axios.post(endpoints.chat, data);
+  const res = await axiosInstance.post(endpoints.chat, data);
 
   /**
    * Work in local
@@ -1024,7 +1024,7 @@ export async function clickConversation(conversationId) {
 
   try {
     // Fetch and assign data to currentData
-    const response = await axios.get(URL, { params: { conversationId, endpoint: 'mark-as-seen' } });
+    const response = await axiosInstance.get(URL, { params: { conversationId, endpoint: 'mark-as-seen' } });
     const fetchedData = response.data; // Adjust this based on your actual response structure
 
     // Ensure fetchedData is defined and contains 'conversations' property

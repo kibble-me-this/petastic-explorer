@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import useSWR, { mutate } from 'swr';
 // utils
-import { fetcher, endpoints } from 'src/utils/axios';
+import { fetcher, postRequest, endpoints } from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
-const URL = endpoints.calendar;
+const URL = endpoints.fosters;
 
 const options = {
   revalidateIfStale: false,
@@ -17,19 +17,20 @@ export function useGetFosters() {
   const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
 
   const memoizedValue = useMemo(() => {
-    const fosters = data?.fosters.map((foster) => ({
+    // Process the data if needed
+    const processedFosters = data?.fosters.map((foster) => ({
       ...foster,
       textColor: foster.color,
     }));
 
     return {
-      fosters: fosters || [],
-      eventsLoading: isLoading,
-      eventsError: error,
-      eventsValidating: isValidating,
-      eventsEmpty: !isLoading && !data?.fosters.length,
+      fosters: processedFosters || [],
+      isLoading,
+      error,
+      isValidating,
+      isEmpty: !isLoading && !data?.fosters.length,
     };
-  }, [data?.fosters, error, isLoading, isValidating]);
+  }, [data?.fosters, isLoading, error, isValidating]);
 
   return memoizedValue;
 }
@@ -37,79 +38,74 @@ export function useGetFosters() {
 // ----------------------------------------------------------------------
 
 export async function createFoster(eventData) {
-  /**
-   * Work on server
-   */
-  // const data = { eventData };
-  // await axios.post(URL, data);
+  try {
+    // Call the backend API to create a new foster
+    const response = await axios.post(URL, eventData);
 
-  /**
-   * Work in local
-   */
-  mutate(
-    URL,
-    (currentData) => {
-      const fosters = [...currentData.fosters, eventData];
+    // Extract the newly created foster from the response
+    const newFoster = response.data;
 
-      return {
+    // Update the local data with the new foster
+    mutate(
+      FOSTERS_URL,
+      (currentData) => ({
         ...currentData,
-        fosters,
-      };
-    },
-    false
-  );
+        fosters: [...currentData.fosters, newFoster],
+      }),
+      false
+    );
+
+    // Optionally, return the new foster data for further processing
+    return newFoster;
+  } catch (error) {
+    console.error('Error creating foster:', error);
+    throw error; // Rethrow the error for error handling
+  }
 }
 
 // ----------------------------------------------------------------------
 
 export async function updateFoster(eventData) {
-  /**
-   * Work on server
-   */
-  // const data = { eventData };
-  // await axios.put(endpoints.calendar, data);
+  try {
+    // Call the backend API to update the foster
+    await axios.put(`${FOSTERS_URL}/${eventData.id}`, eventData);
 
-  /**
-   * Work in local
-   */
-  mutate(
-    URL,
-    (currentData) => {
-      const fosters = currentData.fosters.map((foster) =>
-        foster.id === eventData.id ? { ...foster, ...eventData } : foster
-      );
-
-      return {
+    // Update the local data with the updated foster
+    mutate(
+      FOSTERS_URL,
+      (currentData) => ({
         ...currentData,
-        fosters,
-      };
-    },
-    false
-  );
+        fosters: currentData.fosters.map((foster) =>
+          foster.id === eventData.id ? { ...foster, ...eventData } : foster
+        ),
+      }),
+      false
+    );
+  } catch (error) {
+    console.error('Error updating foster:', error);
+    throw error; // Rethrow the error for error handling
+  }
 }
 
 // ----------------------------------------------------------------------
 
 export async function deleteFoster(eventId) {
-  /**
-   * Work on server
-   */
-  // const data = { eventId };
-  // await axios.patch(endpoints.calendar, data);
+  try {
+    // Call the backend API to delete the foster
+    await axios.delete(`${FOSTERS_URL}/${eventId}`);
 
-  /**
-   * Work in local
-   */
-  mutate(
-    URL,
-    (currentData) => {
-      const fosters = currentData.fosters.filter((foster) => foster.id !== eventId);
-
-      return {
+    // Update the local data by removing the deleted foster
+    mutate(
+      FOSTERS_URL,
+      (currentData) => ({
         ...currentData,
-        fosters,
-      };
-    },
-    false
-  );
+        fosters: currentData.fosters.filter((foster) => foster.id !== eventId),
+      }),
+      false
+    );
+  } catch (error) {
+    console.error('Error deleting foster:', error);
+    throw error; // Rethrow the error for error handling
+  }
 }
+

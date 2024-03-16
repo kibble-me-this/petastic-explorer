@@ -7,6 +7,11 @@ import { paths } from 'src/routes/paths';
 export const HOST_API = process.env.REACT_APP_HOST_API;
 export const ASSETS_API = process.env.REACT_APP_ASSETS_API;
 
+export const ANYML_HOST_API = process.env.ANYML_HOST_API;
+// export const ANYML_ASSETS_API = process.env.ANYML_ASSETS_API;
+export const ZINC_HOST_API = process.env.ZINC_HOST_API;
+export const ZINC_HOST_API_KEY = process.env.ZINC_HOST_API_KEY;
+
 export const LOCAL_SERVER_URL = 'http://localhost:3080/';
 
 export const FIREBASE_API = {
