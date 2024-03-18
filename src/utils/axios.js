@@ -14,7 +14,7 @@ import {
 
 const axiosInstance = axios.create({ baseURL: HOST_API });
 const axiosInstanceANYML = axios.create({
-  baseURL: process.env.REACT_APP_ENVIRONMENT === 'local' ? ANYML_HOST_API_LOCAL : ANYML_HOST_API
+  baseURL: process.env.REACT_APP_ENVIRONMENT === 'local' ? ANYML_HOST_API_LOCAL : ANYML_HOST_API_LOCAL
 });
 const axiosInstanceZINC = axios.create({ baseURL: ZINC_HOST_API });
 
