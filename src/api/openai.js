@@ -14,13 +14,7 @@ const HOSTED_API_URL = process.env.REACT_APP_API_URL;
 
 const API_URL = ENVIRONMENT === 'local' ? LOCAL_API_URL : HOSTED_API_URL;
 
-async function initOrRetrieveSession(user) {
-  // Check if a session exists for the user
-  // const response = await axiosInstance.get(`${API_URL}/get-session`, {
-  //   headers: {
-  //     Authorization: `Bearer ${OPENAI_API_KEY}`,
-  //   },
-  // });
+export async function initOrRetrieveSession(user) {
 
   const response = await axiosInstance.post(`${API_URL}/get-session`, { user });
 
@@ -28,13 +22,6 @@ async function initOrRetrieveSession(user) {
   if (response.data.sessionId) {
     return response.data.sessionId;
   }
-
-  // If no session ID exists, create a session and return the ID
-  // const createSessionResponse = await axiosInstance.get(`${API_URL}/set-session`, {
-  //   headers: {
-  //     Authorization: `Bearer ${OPENAI_API_KEY}`,
-  //   },
-  // });
 
   const createSessionResponse = await axiosInstance.post(`${API_URL}/set-session`, { user });
 

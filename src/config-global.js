@@ -8,6 +8,8 @@ export const HOST_API = process.env.REACT_APP_HOST_API;
 export const ASSETS_API = process.env.REACT_APP_ASSETS_API;
 
 export const ANYML_HOST_API = process.env.ANYML_HOST_API;
+export const ANYML_HOST_API_LOCAL = 'https://uot4ttu72a.execute-api.us-east-1.amazonaws.com';
+
 // export const ANYML_ASSETS_API = process.env.ANYML_ASSETS_API;
 export const ZINC_HOST_API = process.env.ZINC_HOST_API;
 export const ZINC_HOST_API_KEY = process.env.ZINC_HOST_API_KEY;
@@ -39,5 +41,5 @@ export const AUTH0_API = {
 export const MAPBOX_API = process.env.REACT_APP_MAPBOX_API;
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL
-export const PATH_AFTER_LOGIN = paths.dashboard.pet.cards; // as '/dashboard'
-export const PATH_AFTER_LOGOUT = paths.login; // as '/dashboard'
+export const PATH_AFTER_LOGIN = paths.dashboard.pet.cards;
+export const PATH_AFTER_LOGOUT = paths.login;

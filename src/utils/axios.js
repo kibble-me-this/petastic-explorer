@@ -5,6 +5,7 @@ import axios from 'axios';
 import {
   HOST_API,
   ANYML_HOST_API,
+  ANYML_HOST_API_LOCAL,
   ZINC_HOST_API,
   ZINC_HOST_API_KEY
 } from 'src/config-global';
@@ -12,7 +13,9 @@ import {
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({ baseURL: HOST_API });
-const axiosInstanceANYML = axios.create({ baseURL: ANYML_HOST_API });
+const axiosInstanceANYML = axios.create({
+  baseURL: process.env.REACT_APP_ENVIRONMENT === 'local' ? ANYML_HOST_API_LOCAL : ANYML_HOST_API
+});
 const axiosInstanceZINC = axios.create({ baseURL: ZINC_HOST_API });
 
 axiosInstance.interceptors.response.use(
@@ -82,12 +85,16 @@ export const postRequest = async (url, data, config = {}) => {
 // ====================
 
 export const fetcherANYML = async (args) => {
-  const [url, config] = Array.isArray(args) ? args : [args];
+  const [url, params, config] = Array.isArray(args) ? args : [args, null, {}];
 
-  const res = await axiosInstanceANYML.get(url, { ...config });
+  const res = await axiosInstanceANYML.get(url, {
+    params,
+    ...config
+  });
 
   return res.data;
 };
+
 
 export const postRequestANYML = async (url, data, config = {}) => {
   try {
@@ -194,4 +201,5 @@ export const endpoints = {
     details: '/api/product/details',
     search: '/api/product/search',
   },
+  fosters: '/default/handleGetFosters',
 };

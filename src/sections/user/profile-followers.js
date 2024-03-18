@@ -7,12 +7,18 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
+// api
+import { useGetFosters } from 'src/api/fosters';
 // components
 import Iconify from 'src/components/iconify';
 
+
 // ----------------------------------------------------------------------
 
-export default function ProfileFollowers({ followers }) {
+export default function ProfileFollowers({ followers, account_id }) {
+
+  const { fosters, isLoading } = useGetFosters(account_id);
+
   const _mockFollowed = followers.slice(4, 8).map((i) => i.id);
 
   const [followed, setFollowed] = useState(_mockFollowed);
@@ -43,7 +49,7 @@ export default function ProfileFollowers({ followers }) {
           md: 'repeat(3, 1fr)',
         }}
       >
-        {followers.map((follower) => (
+        {fosters.map((follower) => (
           <FollowerItem
             key={follower.id}
             follower={follower}
@@ -58,6 +64,7 @@ export default function ProfileFollowers({ followers }) {
 
 ProfileFollowers.propTypes = {
   followers: PropTypes.array,
+  account_id: PropTypes.string,
 };
 
 // ----------------------------------------------------------------------
@@ -80,7 +87,7 @@ function FollowerItem({ follower, selected, onSelected }) {
         secondary={
           <>
             <Iconify icon="mingcute:location-fill" width={16} sx={{ flexShrink: 0, mr: 0.5 }} />
-            {country} country country country country country country country country country
+            {country}
           </>
         }
         primaryTypographyProps={{
