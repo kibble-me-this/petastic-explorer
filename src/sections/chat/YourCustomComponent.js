@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import PetFoodCard from './food-item-card';
+import PetInsuranceCard from './pet-insurance-card';
+
 import NewParentList from './new-parent-list';
 import PetCard from './pet-card';
 import JobItem from './job-item';
@@ -34,14 +36,43 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
     // Handle invalid messageContent here (e.g., display an error message)
     return (
       <div style={{ paddingTop: '8px' }}>
-      {reactStringReplace(parse(messageContent.body), '--react-component--', (match, index) => (
-        <div style={{ paddingTop: '8px' }}>
-          {/* Create an array of PetCard components with mapped propItems */}
-          <div style={{ paddingTop: '8px', paddingBottom: '8px' }}>
-            <PetCard xs={{py: 5}} user={userData} /> {/* Pass the same user data to UserCard */}
+        {reactStringReplace(parse(messageContent.body), '--react-component--', (match, index) => (
+          <div style={{ paddingTop: '8px' }}>
+            {/* Create an array of PetCard components with mapped propItems */}
+            <div style={{ paddingTop: '8px', paddingBottom: '8px' }}>
+              <PetCard xs={{ py: 5 }} user={userData} /> {/* Pass the same user data to UserCard */}
+            </div>
           </div>
-        </div>
         ))}
+      </div>
+    );
+  }
+
+  if (messageContent.responseType === 'handle_get_pet_insurance') {
+    console.log('Value in messageContent: ', messageContent);
+
+    // Define your user data
+    const prop = {
+      title: "propItem.title",
+      createdAt: null,
+      totalViews: messageContent.prop.price,
+      totalComments: null,
+      totalShares: null,
+      author: {
+        name: null,
+        avatarUrl: "propItem.image",
+      },
+      publish: "propItem.enabled",
+      description: messageContent.prop.quantity,
+      coverUrl: "propItem.command",
+    };
+
+
+
+    // Handle invalid messageContent here (e.g., display an error message)
+    return (
+      <div style={{ paddingTop: '8px' }}>
+        <PetInsuranceCard post={prop} /> {/* Pass the propItem as post */}
       </div>
     );
   }
@@ -104,7 +135,7 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
         description: propItem.description,
         coverUrl: propItem.command,
       }));
-  
+
       // Render the array of messages using FoodInfo component and PostItemHorizontal
       const propContent = (
         <div>
@@ -115,17 +146,17 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
           ))}
         </div>
       );
-  
+
       // Return both body content and prop content
       return (
         <div style={{ marginTop: '12px' }}>
-          <div>{parse(messageContent.body)}</div> 
+          <div>{parse(messageContent.body)}</div>
           <ProductFilters
             open
             canReset
             filters={{ priceRange: [65, 125] }} // Provide initial filter values
           />
-          </div>
+        </div>
       );
     }
     return <div>{parse(messageContent.body)}</div>;
@@ -149,7 +180,7 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
         description: propItem.description,
         coverUrl: propItem.command,
       }));
-  
+
       // Render the array of messages using FoodInfo component and PostItemHorizontal
       const propContent = (
         <div>
@@ -160,17 +191,17 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
           ))}
         </div>
       );
-  
+
       // const replacedBody = reactStringReplace(parse(messageContent.body), '--react-component--', (match, index) =>
       // index === 0 ? <div style={{ paddingTop: '8px' }}><PetCard/></div> : match
       // );
 
       // console.log('Replaced body:', replacedBody);
-  
+
       // Return both body content and prop content
       return (
         <div style={{ marginTop: '12px' }}>
-          <div>{messageContent.body}</div> 
+          <div>{messageContent.body}</div>
 
           {propContent}
         </div>
@@ -178,8 +209,8 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
     }
     return <div>{parse(messageContent.body)}</div>;
   }
-  
-  
+
+
 
   if (messageContent.responseType === 'handle_dna_conversation') {
     console.log('Called handle_dna_conversation');
