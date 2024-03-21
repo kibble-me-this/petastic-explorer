@@ -30,17 +30,17 @@ const DELIVERY_OPTIONS = [
   {
     value: 0,
     label: 'Free',
-    description: '5-7 Days delivery',
+    description: '2-3 Days delivery',
   },
-  {
-    value: 10,
-    label: 'Standard',
-    description: '3-5 Days delivery',
-  },
+  // {
+  //   value: 10,
+  //   label: 'Standard',
+  //   description: '3-5 Days delivery',
+  // },
   {
     value: 20,
     label: 'Express',
-    description: '2-3 Days delivery',
+    description: '1 Day delivery',
   },
 ];
 
@@ -78,7 +78,7 @@ export default function CheckoutPayment() {
       value: 'token',
       label: 'Pay with Kibble Cash',
       // description: `You've earned ${fNumber(user?.anymalTokenBalance || 0)} Kibble 🐱🐶🐾`,
-      description: `You've earned 100 ($100 USD) Kibble 🐱🐶🐾`,
+      description: `You've earned 5000 ($5000 USD) Kibble 🐱🐶🐾`,
       caption: `(~${fCurrency(user?.anymalTokenBalance || 0)} USD)`,
     },
   ];

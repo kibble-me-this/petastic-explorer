@@ -28,7 +28,7 @@ export default function CheckoutSummary({
   onApplyDiscount,
 }) {
   const displayShipping = shipping !== null ? 'Free' : '-';
-  const displayKibble = kibble !== null ? 'Available' : '-';
+  const displayKibble = kibble !== null ? '5,000 Available' : '-';
 
 
   return (
@@ -89,12 +89,12 @@ export default function CheckoutSummary({
                 {fCurrency(total)}
               </Typography>
               <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
-                (VAT included if applicable)
+                (Tax included if applicable)
               </Typography>
             </Box>
           </Stack>
 
-          {onApplyDiscount && (
+          {/* {onApplyDiscount && (
             <TextField
               fullWidth
               placeholder="Discount codes / Gifts"
@@ -109,7 +109,7 @@ export default function CheckoutSummary({
                 ),
               }}
             />
-          )}
+          )} */}
         </Stack>
       </CardContent>
     </Card>

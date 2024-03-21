@@ -1,12 +1,14 @@
 import orderBy from 'lodash/orderBy';
 import PropTypes from 'prop-types';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, Fragment } from 'react';
 // @mui
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
 
 // routes
 import { paths } from 'src/routes/paths';
@@ -59,7 +61,7 @@ export default function JobDetailsView({ id }) {
 
   const [publish, setPublish] = useState(currentJob?.publish);
 
-  const [currentTab, setCurrentTab] = useState('pets');
+  const [currentTab, setCurrentTab] = useState('shop');
 
   const [isApiLoading, setIsApiLoading] = useState(true);
 
@@ -204,6 +206,9 @@ export default function JobDetailsView({ id }) {
     },
   ];
 
+  const disabledTabs = ['profile', 'pets', 'fosters'];
+
+
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <JobDetailsToolbar
@@ -284,32 +289,51 @@ export default function JobDetailsView({ id }) {
           // avatarUrl={user?.photoURL}
           coverUrl="/assets/background/hero.jpg"
         />
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
-        <Tabs
-          value={currentTab}
-          onChange={handleChangeTab}
-          sx={{
-            width: 1,
-            bottom: 0,
-            zIndex: 9,
-            position: 'absolute',
-            bgcolor: 'background.paper',
-            [`& .${tabsClasses.flexContainer}`]: {
-              pr: { md: 3 },
-              justifyContent: {
-                sm: 'center',
-                md: 'flex-end',
+          <Tabs
+            value={currentTab}
+            onChange={handleChangeTab}
+            sx={{
+              width: 1,
+              bottom: 0,
+              zIndex: 9,
+              position: 'absolute',
+              bgcolor: 'background.paper',
+              [`& .${tabsClasses.flexContainer}`]: {
+                pr: { md: 3 },
+                justifyContent: {
+                  sm: 'center',
+                  md: 'flex-end',
+                },
               },
-            },
-          }}
-        >
-          {currentTab === 'profile' && <ProfileHome info={_userAbout} posts={_userFeeds} />}
+            }}
+          >
+            {currentTab === 'profile' && <ProfileHome info={_userAbout} posts={_userFeeds} />}
 
-          {TABS.map((tab) => (
-            <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} disabled={tab.value === 'profile'}
-            />
-          ))}
-        </Tabs>
+            {TABS.map((tab, index) => (
+              <Fragment key={tab.value}>
+                <Tab
+                  value={tab.value}
+                  icon={tab.icon}
+                  label={tab.label}
+                  disabled={disabledTabs.includes(tab.value)}
+                />
+                {/* Add the "Beta" label next to the "Shop" tab */}
+                {index === 1 && (
+                  <Label
+                    sx={{ fontWeight: 'bold', color: 'info.main', ml: 1 }} // Adjust ml for spacing
+                  >
+                    Alpha ❣️
+                  </Label>
+                )}
+              </Fragment>
+            ))}
+          </Tabs>
+
+        </Box>
+
+
       </Card>
 
       {currentTab === 'fosters' && <ProfileFollowers followers={_userFollowers} account_id={id} />}
