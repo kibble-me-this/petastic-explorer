@@ -30,7 +30,7 @@ export default function CheckoutCartProductList({
   return (
     <TableContainer sx={{ overflow: 'unset' }}>
       <Scrollbar>
-        <Table sx={{ minWidth: 720 }}>
+        <Table >
           <TableHeadCustom headLabel={TABLE_HEAD} />
 
           <TableBody>
