@@ -53,18 +53,19 @@ const YourCustomComponent = ({ messageContent, pet, setPet, onAiLoadingChange })
 
     // Define your user data
     const prop = {
-      title: "propItem.title",
+      petName: messageContent.prop.petName,
+      petCoverUrl: messageContent.prop.petAvatar,
       createdAt: null,
-      totalViews: messageContent.prop.price,
+      premium: messageContent.prop.price,
       totalComments: null,
       totalShares: null,
       author: {
         name: null,
-        avatarUrl: "propItem.image",
+        avatarUrl: messageContent.prop.petAvatar,
       },
       publish: "propItem.enabled",
       description: messageContent.prop.quantity,
-      coverUrl: "propItem.command",
+
     };
 
 

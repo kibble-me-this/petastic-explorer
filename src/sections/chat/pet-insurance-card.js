@@ -45,11 +45,35 @@ export default function PetInsuranceCard({ post }) {
 
   const mdUp = useResponsive('up', 'md');
 
+  const {
+    petName,
+    premium,
+    petCoverUrl,
+    author,
+    publish,
+
+    createdAt,
+
+    totalShares,
+    totalComments,
+    description,
+  } = post;
+
   const [coverUrlState, setCoverUrlState] = useState(''); // Renamed to avoid conflict
-  const [titleState, setTitleState] = useState('hi'); // State for title
-  const [priceState, setPriceState] = useState('44'); // State for price
-  const [priceSaleState, setPriceSaleState] = useState('46.98');
-  const [productIdState, setProductIdState] = useState('B0BMDXNDD2'); // State for product_id
+  const [titleState, setTitleState] = useState('Rainwalk Insurance'); // State for title
+  const [priceState, setPriceState] = useState(''); // State for price
+  const [priceSaleState, setPriceSaleState] = useState('');
+  const [productIdState, setProductIdState] = useState('rainwalk'); // State for product_id
+
+
+
+
+  useEffect(() => {
+    // Move the setCoverUrlState call inside useEffect to run only once after component mount
+    setCoverUrlState(petCoverUrl);
+    setPriceSaleState(premium);
+
+  }, [petCoverUrl, premium]);
 
   const handleAddCart = async () => {
     const newProduct = {
@@ -68,17 +92,8 @@ export default function PetInsuranceCard({ post }) {
     }
   };
 
-  const {
-    title,
-    author,
-    publish,
-    coverUrl,
-    createdAt,
-    totalViews,
-    totalShares,
-    totalComments,
-    description,
-  } = post;
+
+
 
   return (
     <>
@@ -86,134 +101,102 @@ export default function PetInsuranceCard({ post }) {
         component={Card}
         direction="column"
         sx={{
-          marginTop: 1, // Add margin on top (adjust the value as needed)
+          marginTop: 1,
+          minWidth: 150
         }}
       >
-        <Stack direction="row">
+        <Stack direction="row" spacing={1} justifyContent="space-between" alignItems="center">
           {' '}
           <Box
             sx={{
-              // width: 180,
-              height: 135,
+              width: 108, // Set width to 108px
+              height: 108,
               position: 'relative',
               flexShrink: 0,
-              p: 2,
+
+              m: 2,
+              background: 'gray',
+              borderRadius: 2,
             }}
           >
-            <Image alt={title} src={coverUrl} sx={{ height: 1, borderRadius: 1 }} />
-          </Box>
+            <Image
+              alt={petName}
+              src={petCoverUrl}
+              sx={{
+                width: '100%', // Ensure the image fills its container
+                height: '100%', // Ensure the image fills its container
+                borderRadius: 2
+              }}
+            />          </Box>
           <Stack
             sx={{
               p: (theme) => theme.spacing(2, 2, 1, 1),
-              flexGrow: 1, // Allow the text stack to grow to fill available space
+              flexGrow: 1,
             }}
           >
-            <Stack direction="row" alignItems="center" justifyContent="space-between">
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    backgroundColor: '#00A76F',
-                    borderRadius: '4px',
-                    justifyContent: 'center',
-                    marginRight: '4px', // Add margin to separate the elements
-                    mb: 0.5,
-                  }}
-                >
-                  <Typography
-                    variant="chat_caption"
-                    sx={{
-                      color: 'white',
-                      fontSize: '9px',
-                      fontWeight: 'normal',
-                      px: 0.8,
-                      py: 0.2,
-                    }}
-                  >
-                    {fData(publish)}
-                  </Typography>
-                </Box>
 
-                <Typography
-                  variant="chat_caption"
-                  sx={{
-                    color: '#00A76F',
-                    fontSize: '9px',
-                    fontWeight: 'normal',
-                    pb: 0.3,
-                  }}
-                >
-                  Pet Insurance
-                </Typography>
-              </Box>
-
-              <Box
-                component="span"
-                sx={{ typography: 'caption', color: 'text.red', fontSize: '10px' }}
-              >
-                {fDate(createdAt)}
-              </Box>
-            </Stack>
 
             <Stack spacing={0.5}>
-              <Link
-                color="inherit"
-                component={RouterLink}
-                href={paths.dashboard.post.details(title)}
-                sx={{ fontSize: '10px' }}
-              >
-                <TextMaxLine variant="chat_body" line={2}>
-                  {title}
-                </TextMaxLine>
-              </Link>
+
+              <TextMaxLine variant="chat_body" line={2} sx={{ fontWeight: 'bold' }}>
+                {petName}&lsquo;s Insurance
+              </TextMaxLine>
               <TextMaxLine variant="chat_author" sx={{ color: '#808080', fontWeight: '400' }}>
-                by {description}
+                by Rainwalk
               </TextMaxLine>{' '}
               <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <TextMaxLine variant="chat_author" sx={{ color: '#000', fontWeight: '400' }}>
-                  {fCurrency(totalViews)}
+                  {fCurrency(premium)}
                 </TextMaxLine>
                 <TextMaxLine variant="chat_author" sx={{ color: '#808080', fontWeight: '400' }}>
                   /mo
                 </TextMaxLine>
               </Box>
             </Stack>
-            {/** 
-            <Stack direction="row" alignItems="center">
-              <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-                <Iconify icon="eva:more-horizontal-fill" />
-              </IconButton>
 
-              <Stack
-                spacing={1.5}
-                direction="row"
-                justifyContent="flex-end"
-                sx={{
-                  typography: 'caption',
-                  color: 'text.disabled',
-                  fontSize: '10px',
-                }}
-              >
-                <Stack direction="row" alignItems="center">
-                  <Iconify icon="eva:message-circle-fill" width={16} sx={{ mr: 0.5 }} />
-                  {fShortenNumber(totalComments)}
-                </Stack>
 
-                <Stack direction="row" alignItems="center">
-                  <Iconify icon="solar:eye-bold" width={16} sx={{ mr: 0.5 }} />
-                  {fShortenNumber(totalViews)}
-                </Stack>
 
-                <Stack direction="row" alignItems="center">
-                  <Iconify icon="solar:share-bold" width={16} sx={{ mr: 0.5 }} />
-                  {fShortenNumber(totalShares)}
-                </Stack>
-              </Stack>
-            </Stack>
-            */}
           </Stack>
         </Stack>
+        <Box
+          sx={{
+            backgroundColor: '#F0F0F0',
+            borderRadius: 2,
+            p: 2,
+            mx: 2,
+            mb: 2,
+          }}
+        >
+          {/* Stack of horizontal rows */}
+          <Stack direction="column" spacing={1}>
+            {/* Row 1 */}
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="chat_author">Start Date</Typography>
+              <Typography variant="chat_body">01/01/24</Typography>
+            </Stack>
+            {/* Row 2 */}
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="chat_author">Term</Typography>
+              <Typography variant="chat_body">Monthly</Typography>
+            </Stack>
+            {/* Row 3 */}
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="chat_author">Deductable</Typography>
+              <Typography variant="chat_body">$500</Typography>
+            </Stack>
+            {/* Row 4 */}
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="chat_author">Annual Limit</Typography>
+              <Typography variant="chat_body">$10,000</Typography>
+            </Stack>
+            {/* Row 5 */}
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="chat_author">Co-insurance</Typography>
+              <Typography variant="chat_body">90%</Typography>
+            </Stack>
+          </Stack>
+        </Box>
+
         <Button
           size="small"
           color="inherit"
@@ -233,42 +216,7 @@ export default function PetInsuranceCard({ post }) {
         </Button>
       </Stack>
 
-      <CustomPopover
-        open={popover.open}
-        onClose={popover.onClose}
-        arrow="bottom-center"
-        sx={{ width: 140 }}
-      >
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-            router.push(paths.dashboard.post.details(title));
-          }}
-        >
-          <Iconify icon="solar:eye-bold" />
-          View
-        </MenuItem>
 
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-            router.push(paths.dashboard.post.edit(title));
-          }}
-        >
-          <Iconify icon="solar:pen-bold" />
-          Edit
-        </MenuItem>
-
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-          }}
-          sx={{ color: 'error.main' }}
-        >
-          <Iconify icon="solar:trash-bin-trash-bold" />
-          Delete
-        </MenuItem>
-      </CustomPopover>
     </>
   );
 }
@@ -276,13 +224,13 @@ export default function PetInsuranceCard({ post }) {
 PetInsuranceCard.propTypes = {
   post: PropTypes.shape({
     author: PropTypes.object,
-    coverUrl: PropTypes.string,
+    petCoverUrl: PropTypes.string,
     createdAt: PropTypes.instanceOf(Date),
     description: PropTypes.string,
     publish: PropTypes.string,
-    title: PropTypes.string,
+    petName: PropTypes.string,
     totalComments: PropTypes.number,
     totalShares: PropTypes.number,
-    totalViews: PropTypes.number,
+    premium: PropTypes.number,
   }),
 };

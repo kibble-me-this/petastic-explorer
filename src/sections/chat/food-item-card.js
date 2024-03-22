@@ -45,11 +45,29 @@ export default function PetFoodCard({ post }) {
 
   const mdUp = useResponsive('up', 'md');
 
+  const {
+    title,
+    author,
+    publish,
+    coverUrl,
+    createdAt,
+    totalViews,
+    totalShares,
+    totalComments,
+    description,
+  } = post;
+
   const [coverUrlState, setCoverUrlState] = useState(''); // Renamed to avoid conflict
-  const [titleState, setTitleState] = useState('hi'); // State for title
-  const [priceState, setPriceState] = useState('44'); // State for price
-  const [priceSaleState, setPriceSaleState] = useState('46.98');
+  const [titleState, setTitleState] = useState(''); // State for title
+  const [priceState, setPriceState] = useState(''); // State for price
+  const [priceSaleState, setPriceSaleState] = useState('');
   const [productIdState, setProductIdState] = useState('B0BMDXNDD2'); // State for product_id
+
+  useEffect(() => {
+    // Move the setCoverUrlState call inside useEffect to run only once after component mount
+    setCoverUrlState(coverUrl);
+    setPriceSaleState(totalViews);
+  }, [coverUrl, totalViews]);
 
   const handleAddCart = async () => {
     const newProduct = {
@@ -67,18 +85,6 @@ export default function PetFoodCard({ post }) {
       console.error(error);
     }
   };
-
-  const {
-    title,
-    author,
-    publish,
-    coverUrl,
-    createdAt,
-    totalViews,
-    totalShares,
-    totalComments,
-    description,
-  } = post;
 
   return (
     <>
@@ -157,16 +163,16 @@ export default function PetFoodCard({ post }) {
             </Stack>
 
             <Stack spacing={0.5}>
-              <Link
+              {/* <Link
                 color="inherit"
                 component={RouterLink}
                 href={paths.dashboard.post.details(title)}
                 sx={{ fontSize: '10px' }}
-              >
-                <TextMaxLine variant="chat_body" line={2}>
-                  {title}
-                </TextMaxLine>
-              </Link>
+              > */}
+              <TextMaxLine variant="chat_body" line={2}>
+                {title}
+              </TextMaxLine>
+              {/* </Link> */}
               <TextMaxLine variant="chat_author" sx={{ color: '#808080', fontWeight: '400' }}>
                 by {description}
               </TextMaxLine>{' '}
@@ -233,42 +239,7 @@ export default function PetFoodCard({ post }) {
         </Button>
       </Stack>
 
-      <CustomPopover
-        open={popover.open}
-        onClose={popover.onClose}
-        arrow="bottom-center"
-        sx={{ width: 140 }}
-      >
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-            router.push(paths.dashboard.post.details(title));
-          }}
-        >
-          <Iconify icon="solar:eye-bold" />
-          View
-        </MenuItem>
 
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-            router.push(paths.dashboard.post.edit(title));
-          }}
-        >
-          <Iconify icon="solar:pen-bold" />
-          Edit
-        </MenuItem>
-
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-          }}
-          sx={{ color: 'error.main' }}
-        >
-          <Iconify icon="solar:trash-bin-trash-bold" />
-          Delete
-        </MenuItem>
-      </CustomPopover>
     </>
   );
 }
