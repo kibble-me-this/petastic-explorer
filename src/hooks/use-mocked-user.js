@@ -15,16 +15,17 @@ import { _mock } from 'src/_mock';
 export function useMockedUser() {
   const user = {
     id: '8864c717-587d-472a-929a-8e5f298024da-0',
-    displayName: 'You',
-    email: 'demo@minimals.cc',
+    legalName: 'Nicolaus Copernicus',
+    displayName: 'Me',
+    email: 'investor@petastic.com',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+40 777666555',
+    phoneNumber: '+1 303-555-0101',
     country: 'United States',
-    address: '90210 Broadway Blvd',
-    state: 'California',
-    city: 'San Francisco',
-    zipCode: '94116',
+    address: '123 Main St',
+    state: 'Colorado',
+    city: 'Denver',
+    zipCode: '80202',
     about: 'Praesent turpis. Phasellus viverra nulla ut metus varius laoreet. Phasellus tempus.',
     role: 'admin',
     isPublic: true,
@@ -32,7 +33,7 @@ export function useMockedUser() {
 
   const fetchai = {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7b2',
-    displayName: 'Fetch Ai',
+    displayName: 'Petastic Ai',
     email: 'demo@minimals.cc',
     password: 'demo1234',
     photoURL: '/assets/images/avatars/fetch_white.svg',

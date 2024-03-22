@@ -69,7 +69,6 @@ export default function ChatView() {
     setIsAiLoading(isLoading);
   };
 
-  // Step 1: State to hold the message text
   const [inputMessage, setInputMessage] = useState('');
 
   const participants = conversation
@@ -96,7 +95,6 @@ export default function ChatView() {
   const handleButton1Click = () => {
     setInputMessage(`i need a food recommendation for a ${pet.breed}`);
 
-    // Call the function to set the button text
     setShowButton1(false);
     setShowButton2(false);
   };
@@ -107,7 +105,6 @@ export default function ChatView() {
     setShowButton2(false);
   };
   const handleInputTyping = (text) => {
-    // When the user is typing, clear the inputMessage to prevent it from being reset
     setInputMessage('');
 
     if (text.trim() !== '') {
@@ -165,14 +162,14 @@ export default function ChatView() {
         setPet={setPet}
         onAiLoadingChange={handleAiLoadingChange}
       />
-      {/** 
+      *
       <Stack direction="column" spacing={1} sx={{ mx: 2, mb: 2 }}>
         <Button
           variant="outlined"
           onClick={handleButton1Click}
           style={{ display: showButton1 ? 'block' : 'none' }}
           sx={{
-            borderRadius: '12px', // You can adjust the value as needed
+            borderRadius: '12px',
             border: '1px solid #D0C0BD',
           }}
         >
@@ -224,7 +221,7 @@ export default function ChatView() {
           </Stack>
         </Button>
       </Stack>
-      */}
+
       <ChatMessageInput
         recipients={recipients}
         onAddRecipients={handleAddRecipients}
@@ -243,34 +240,18 @@ export default function ChatView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'xl'}>
-      {/** 
-      <Stack
-        component={Paper}
-        variant="outlined"
-        alignItems="center"
-        spacing={{ xs: 3, md: 5 }}
-        sx={{
-          // borderRadius: 2,
-          bgcolor: 'unset',
-          border: 'none', // Specify the border style here
-          p: { xs: 4, md: 12 },
-          backgroundImage: 'url(/assets/background/fetch.svg)',
-          backgroundSize: '100% 100%', // Make the background image cover the entire Stack
-          backgroundRepeat: 'no-repeat', //
-        }}
-      >
-      */}{' '}
+
       <Stack
         component={Card}
         direction="row"
         sx={{
-          backgroundColor: '#F2E1DE',
-          /// width: '40vh',
-          height: '82vh',
-          // boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+          height: '92vh',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
           backgroundImage: 'url(/assets/background/overlay_5.jpg)',
-          backgroundSize: '100% 100%', // Stretch the background image to cover both width and height
+          backgroundSize: '100% 100%',
           backgroundRepeat: 'no-repeat',
+          borderRadius: 0,
+
         }}
       >
         {renderNav}
@@ -295,12 +276,11 @@ export default function ChatView() {
             {renderMessages}
 
             {details && (
-              <ChatRoom conversation={conversation} participants={participants} pet={pet} />
+              <ChatRoom conversation={conversation} user={user} participants={participants} pet={pet} />
             )}
           </Stack>{' '}
         </Stack>
       </Stack>
-      {/** </Stack> */}
     </Container>
   );
 }

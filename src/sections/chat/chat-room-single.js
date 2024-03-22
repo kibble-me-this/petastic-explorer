@@ -14,38 +14,29 @@ import Skeleton from '@mui/material/Skeleton'; // Import Skeleton component
 
 // ----------------------------------------------------------------------
 
-export default function ChatRoomSingle({ participant, pet }) {
+export default function ChatRoomSingle({ user, participant, pet }) {
   const collapse = useBoolean(true);
 
-  const participantMockData = {
-    name: 'Carlos Herrera',
-    avatarUrl: 'https://example.com/avatar.jpg',
-    role: 'Pet Owner',
-    address: '360 NW 360 Ave, Miami, FL, USA',
-    phoneNumber: '+1 (310) 880-8673',
-    email: 'carlos@petastic.com',
-  };
+  const { legalName, address, city, state, zipCode, phoneNumber, email } = user
+  const { name, avatar, breed } = pet
 
-  const { name, avatarUrl, role, address, phoneNumber, email } = participantMockData; // participant;
-  const { _address, setAddress } = useBoolean(true);
-  const { _email, setEmail } = useBoolean(true);
-  const { _phoneNumber, setPhoneNumber } = useBoolean(true);
+  const fullAddress = `${address}\n${city}, ${state}, ${zipCode}`;
 
-  const renderInfo = (
+  const renderPetInfo = (
     <Stack alignItems="center" sx={{ py: 5 }}>
-      {pet.avatar ? (
-        <Avatar alt={pet.name} src={pet.avatar} sx={{ width: 96, height: 96, mb: 2 }} />
+      {avatar ? (
+        <Avatar alt={name} src={avatar} sx={{ width: 96, height: 96, mb: 2 }} />
       ) : (
         <Skeleton variant="circular" width={96} height={96} />
       )}
-      {pet.name ? (
-        <Typography variant="subtitle1">{pet.name}</Typography>
+      {name ? (
+        <Typography variant="subtitle1">{name}</Typography>
       ) : (
         <Skeleton variant="text" width={120} height={24} />
       )}
-      {pet.breed ? (
+      {breed ? (
         <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
-          {pet.breed}
+          {breed}
         </Typography>
       ) : (
         <Skeleton variant="text" width={150} height={18} />
@@ -90,11 +81,26 @@ export default function ChatRoomSingle({ participant, pet }) {
         },
       }}
     >
+      {/* LegalName with Skeleton */}
+      {true ? (
+        <Stack direction="row">
+          <Iconify icon="solar:user-rounded-bold" />
+          <Typography variant="body2">{legalName}</Typography>
+        </Stack>
+      ) : (
+        <Stack direction="row">
+          <Iconify icon="solar:phone-bold" />
+          <Skeleton variant="text" width={100} />
+        </Stack>
+      )}
+
       {/* Address with Skeleton */}
       {true ? (
         <Stack direction="row">
           <Iconify icon="mingcute:location-fill" />
-          <Typography variant="body2">{address}</Typography>
+          <Typography variant="body2">
+            {fullAddress}
+          </Typography>
         </Stack>
       ) : (
         <Stack direction="row">
@@ -107,6 +113,7 @@ export default function ChatRoomSingle({ participant, pet }) {
       )}
 
       {/* Phone Number with Skeleton */}
+
       {true ? (
         <Stack direction="row">
           <Iconify icon="solar:phone-bold" />
@@ -138,7 +145,7 @@ export default function ChatRoomSingle({ participant, pet }) {
 
   return (
     <>
-      {renderInfo}
+      {renderPetInfo}
       {renderBtn}
       <div>
         <Collapse in={collapse.value}>{renderContent}</Collapse>
@@ -148,6 +155,7 @@ export default function ChatRoomSingle({ participant, pet }) {
 }
 
 ChatRoomSingle.propTypes = {
+  user: PropTypes.array,
   participant: PropTypes.object,
   pet: PropTypes.array,
 };

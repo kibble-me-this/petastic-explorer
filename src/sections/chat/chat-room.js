@@ -25,7 +25,7 @@ import CartIcon from '../product/common/cart-icon';
 
 const NAV_WIDTH = 240;
 
-export default function ChatRoom({ participants, conversation, pet }) {
+export default function ChatRoom({ participants, user, conversation, pet }) {
 
   const checkout = useCheckoutContext();
 
@@ -182,7 +182,7 @@ export default function ChatRoom({ participants, conversation, pet }) {
       {group ? (
         <ChatRoomGroup participants={participants} />
       ) : (
-        <ChatRoomSingle participant={participants[0]} pet={pet} />
+        <ChatRoomSingle user={user} participant={participants[0]} pet={pet} />
       )}
 
       <ChatRoomAttachments attachments={attachments} />
@@ -268,6 +268,7 @@ export default function ChatRoom({ participants, conversation, pet }) {
 
 ChatRoom.propTypes = {
   conversation: PropTypes.object,
+  user: PropTypes.array,
   participants: PropTypes.array,
   pet: PropTypes.array,
 };
