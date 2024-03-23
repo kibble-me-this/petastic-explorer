@@ -112,6 +112,7 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
 
   const renderToggleBtn = (
     <IconButton
+      disabled
       onClick={onOpenMobile}
       sx={{
         left: 0,

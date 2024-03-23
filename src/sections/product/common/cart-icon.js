@@ -24,7 +24,7 @@ export default function CartIcon({ totalItems }) {
       href={checkoutPath}
       sx={{
         right: 0,
-        top: 112,
+        top: 20,
         zIndex: 999,
         display: 'flex',
         cursor: 'pointer',
@@ -32,7 +32,7 @@ export default function CartIcon({ totalItems }) {
         color: 'text.primary',
         borderTopLeftRadius: 16,
         borderBottomLeftRadius: 16,
-        bgcolor: 'background.paper',
+        bgcolor: 'common.success',
         padding: (theme) => theme.spacing(1, 3, 1, 2),
         boxShadow: (theme) => theme.customShadows.dropdown,
         transition: (theme) => theme.transitions.create(['opacity']),

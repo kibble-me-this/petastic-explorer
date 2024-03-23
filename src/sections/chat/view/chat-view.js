@@ -69,6 +69,7 @@ export default function ChatView() {
     setIsAiLoading(isLoading);
   };
 
+  // Step 1: State to hold the message text
   const [inputMessage, setInputMessage] = useState('');
 
   const participants = conversation
@@ -95,6 +96,7 @@ export default function ChatView() {
   const handleButton1Click = () => {
     setInputMessage(`i need a food recommendation for a ${pet.breed}`);
 
+    // Call the function to set the button text
     setShowButton1(false);
     setShowButton2(false);
   };
@@ -105,6 +107,7 @@ export default function ChatView() {
     setShowButton2(false);
   };
   const handleInputTyping = (text) => {
+    // When the user is typing, clear the inputMessage to prevent it from being reset
     setInputMessage('');
 
     if (text.trim() !== '') {
@@ -162,14 +165,14 @@ export default function ChatView() {
         setPet={setPet}
         onAiLoadingChange={handleAiLoadingChange}
       />
-      *
+      {/** 
       <Stack direction="column" spacing={1} sx={{ mx: 2, mb: 2 }}>
         <Button
           variant="outlined"
           onClick={handleButton1Click}
           style={{ display: showButton1 ? 'block' : 'none' }}
           sx={{
-            borderRadius: '12px',
+            borderRadius: '12px', // You can adjust the value as needed
             border: '1px solid #D0C0BD',
           }}
         >
@@ -221,7 +224,7 @@ export default function ChatView() {
           </Stack>
         </Button>
       </Stack>
-
+      */}
       <ChatMessageInput
         recipients={recipients}
         onAddRecipients={handleAddRecipients}
@@ -245,7 +248,8 @@ export default function ChatView() {
         component={Card}
         direction="row"
         sx={{
-          height: '92vh',
+          mt: 1,
+          height: '90vh',
           boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
           backgroundImage: 'url(/assets/background/overlay_5.jpg)',
           backgroundSize: '100% 100%',

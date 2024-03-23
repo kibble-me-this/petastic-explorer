@@ -6,159 +6,73 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import AvatarGroup, { avatarGroupClasses } from '@mui/material/AvatarGroup';
-import Typography from '@mui/material/Typography';
-import Skeleton from '@mui/material/Skeleton'; // Import the Skeleton component.
-
 // utils
-import { fToNow } from 'src/utils/format-time';
+import { fKibble } from 'src/utils/format-number';
 // components
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function ChatHeaderDetail({ participants, pet }) {
-  const group = participants.length > 1;
+export default function ChatHeaderDetail({ pet }) {
 
-  console.log('participants:', participants);
-  console.log('pet:', pet);
+  pet = {
 
-  pet.kibble_balance = '100KBL ($100)';
+    id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7b4",
+    status: "online",
+    name: "Raley",
+    age: "Senior",
+    breed: "Maltese",
+    opt_in: "true",
+    kibble_balance: "2000",
+    avatarUrl: "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/69301534/1/",
 
-  if (participants[0].name === 'Lucian Obrien') {
-    participants[0].name = 'Grilli • 3yo';
-    participants[0].status = 'Shih Tzu';
-    participants[0].email = 'Kibble Cash';
-    participants[0].role = '$110 • 1600';
-  } else if (participants[0].name === 'Deja Brady') {
-    participants[0].name = 'Skril • 5yo';
-    participants[0].status = 'Persian';
-    participants[0].email = 'Kibble Cash';
-    participants[0].role = '$110 • 1600';
-  } else if (participants[0].name === 'Harrison Stein') {
-    participants[0].name = 'Ollie • Adult';
-    participants[0].status = 'Chihuahua Mix';
-    participants[0].email = 'Kibble Cash';
-    participants[0].role = '$110 • 1600';
-  }
-
-  const singleParticipant = participants[0];
-
-  const renderGroup = (
-    <AvatarGroup
-      max={3}
-      sx={{
-        [`& .${avatarGroupClasses.avatar}`]: {
-          width: 32,
-          height: 32,
-        },
-      }}
-    >
-      {participants.map((participant) => (
-        <Avatar key={participant.id} alt={participant.name} src={participant} />
-      ))}
-    </AvatarGroup>
-  );
+  };
 
   const renderSingle = (
-    <Stack
-      flexGrow={1}
-      direction="row"
-      alignItems="center"
-      justifyContent="space-between"
-      spacing={2}
-    >
+    <Stack flexGrow={1} direction="row" alignItems="center" spacing={2}>
+      <Badge
+        variant={pet.status}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Avatar src={pet.avatarUrl} alt={pet.name} />
+      </Badge>
+
       <ListItemText
-        primary={
-          pet.name ? (
-            `${pet.name} • ${pet.lifeStage}`
-          ) : (
-            <Skeleton variant="text" width={100} /> // Display Skeleton if 'pet.name' is empty
-          )
-        }
+        primary={`${pet.name} • ${pet.age}`}
         secondary={
-          pet.breed ? (
-            pet.breed
-          ) : (
-            <Skeleton variant="text" width={80} /> // Display Skeleton if 'pet.breed' is empty
-          )
-        }
-        primaryTypographyProps={{
-          component: Typography,
-          variant: 'chat_body',
-          style: {
-            fontWeight: 'bold',
-          },
-        }}
-        secondaryTypographyProps={{
-          component: Typography,
-          variant: 'chat_body',
-          ...(singleParticipant.status !== 'offline' && {
-            textTransform: 'capitalize',
-          }),
-          style: {
-            fontWeight: 'normal',
-          },
-        }}
-      />
-      <ListItemText
-        primary={singleParticipant.email}
-        primaryTypographyProps={{
-          component: Typography,
-          variant: 'chat_body',
-          style: {
-            fontWeight: 'normal',
-          },
-        }}
-        // secondary={
-        //   singleParticipant.role === 'offline'
-        //     ? fToNow(singleParticipant.lastActivity)
-        //     : singleParticipant.role
-        // }
-        secondary={
-          pet.kibble_balance ? (
-            pet.kibble_balance
-          ) : (
-            <Skeleton variant="text" width={100} sx={{ marginLeft: 'auto' }} /> // Align to the right edge
-          )
+          pet.opt_in === 'trueho'
+            ? fKibble(pet.kibble_balance)
+            : fKibble(pet.kibble_balance)
         }
         secondaryTypographyProps={{
-          component: Typography,
-          variant: 'chat_body',
-          ...(singleParticipant.role !== 'offline' && {
+          component: 'span',
+          ...(pet.status !== 'offline' && {
             textTransform: 'capitalize',
           }),
-          style: {
-            fontWeight: 'normal',
-          },
         }}
-        style={{ textAlign: 'right' }}
       />
     </Stack>
   );
 
   return (
     <>
-      {group ? renderGroup : renderSingle}
+      {renderSingle}
 
-      <Stack flexGrow={0.2} />
+      <Stack flexGrow={1} />
 
-      {/** 
       <IconButton>
         <Iconify icon="solar:phone-bold" />
       </IconButton>
       <IconButton>
         <Iconify icon="solar:videocamera-record-bold" />
       </IconButton>
-
       <IconButton>
         <Iconify icon="eva:more-vertical-fill" />
       </IconButton>
-      */}
     </>
   );
 }
 
 ChatHeaderDetail.propTypes = {
-  participants: PropTypes.array,
   pet: PropTypes.array,
 };

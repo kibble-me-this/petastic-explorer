@@ -6,7 +6,7 @@ import { HeaderSimple as Header } from '../_common';
 export default function SimpleLayout({ children }) {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
       {children}
     </>

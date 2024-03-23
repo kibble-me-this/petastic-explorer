@@ -31,6 +31,11 @@ export function fData(number) {
   return format;
 }
 
+export function fKibble(number) {
+  const thousandFormatted = number ? fNumber(number) : '';
+  return `${thousandFormatted} \u24C0ibble`;
+}
+
 function result(format, key = '.00') {
   const isInteger = format.includes(key);
 

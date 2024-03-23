@@ -193,7 +193,7 @@ export default function ChatRoom({ participants, user, conversation, pet }) {
     <IconButton
       onClick={handleToggleNav}
       sx={{
-        top: 58,
+        top: 10,
         right: 0,
         zIndex: 9,
         width: 32,
@@ -217,10 +217,10 @@ export default function ChatRoom({ participants, user, conversation, pet }) {
       {lgUp ? (
         <Iconify
           width={16}
-          icon={collapseDesktop ? 'eva:arrow-ios-back-fill' : 'eva:arrow-ios-forward-fill'}
+          icon={collapseDesktop ? 'eva:folder-add-fill' : 'eva:folder-add-fill'}
         />
       ) : (
-        <Iconify width={16} icon="eva:arrow-ios-back-fill" />
+        <Iconify width={16} icon="eva:folder-add-fill" />
       )}
     </IconButton>
   );

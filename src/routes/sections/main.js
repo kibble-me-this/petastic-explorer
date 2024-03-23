@@ -52,9 +52,11 @@ export const mainRoutes = [
 
       {
         path: '/',
-        children: [{ element:       
-          <MagicLoginPage />
-        , index: true }],
+        children: [{
+          element:
+            <MagicLoginPage />
+          , index: true
+        }],
       },
       // {
       //   path: 'product',
@@ -90,11 +92,11 @@ export const mainRoutes = [
   // },
   {
     element: (
-      <CompactLayout>
+      <SimpleLayout>
         <Suspense fallback={<SplashScreen />}>
           <Outlet />
         </Suspense>
-      </CompactLayout>
+      </SimpleLayout>
     ),
     children: [
       { path: 'chat', element: <ChatPage /> },
