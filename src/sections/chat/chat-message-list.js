@@ -36,27 +36,36 @@ export default function ChatMessageList({
 
   const lightbox = useLightBox(slides);
 
+  const loadingTitleText = ["CONFIDENTIAL :: INVESTOR DEMO"];
   const loadingMessages = ["I'm Fetch. Your pet care concierge ❣️"];
 
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+  const [loadingTitleIndex, setLoadingTitleIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const messageInterval = setInterval(() => {
       setLoadingMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
     }, 1000);
 
+    const titleInterval = setInterval(() => {
+      setLoadingTitleIndex((prevIndex) => (prevIndex + 1) % loadingTitleText.length);
+    }, 1000);
+
     return () => {
-      clearInterval(interval);
+      clearInterval(messageInterval);
+      clearInterval(titleInterval);
     };
-  }, [loadingMessages.length]);
+  }, [loadingMessages.length, loadingTitleText.length]);
 
   const loadingMessage = loadingMessages[loadingMessageIndex];
+  const loadingTitle = loadingTitleText[loadingTitleIndex];
+
 
   return (
     <>
       <Scrollbar ref={messagesEndRef} sx={{ px: 2, py: 2, height: 1 }}>
         {messages.length === 0 ? (
-          <EmptyContentLogo title={loadingMessage} />
+          <EmptyContentLogo title={loadingMessage} description={loadingTitle} />
         ) : (
           messages.map((message, index) => (
             <ChatMessageItem

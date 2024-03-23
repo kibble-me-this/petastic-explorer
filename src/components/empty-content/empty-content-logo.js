@@ -61,7 +61,7 @@ export function EmptyContentLogo({ title, imgUrl, action, filled, description, s
       </Typography>
 
       {description && (
-        <Typography variant="caption" sx={{ mt: 1, color: 'text.disabled', textAlign: 'center' }}>
+        <Typography variant="caption" sx={{ mt: 1, color: 'red', fontWeight: '700', textAlign: 'center' }}>
           {description}
         </Typography>
       )}

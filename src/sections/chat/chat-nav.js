@@ -26,9 +26,13 @@ import ChatNavSearchResults from './chat-nav-search-results';
 
 // ----------------------------------------------------------------------
 
-const NAV_WIDTH = 320;
+// const NAV_WIDTH = 320;
 
-const NAV_COLLAPSE_WIDTH = 72;
+// const NAV_COLLAPSE_WIDTH = 72;
+
+const NAV_WIDTH = 0;
+
+const NAV_COLLAPSE_WIDTH = 0;
 
 export default function ChatNav({ loading, contacts, conversations, selectedConversationId, pet }) {
   const theme = useTheme();
@@ -66,33 +70,33 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
     }
   }, [mdUp, onCloseMobile, onCollapseDesktop]);
 
-  const handleClickCompose = useCallback(() => {
-    if (!mdUp) {
-      onCloseMobile();
-    }
-    router.push(paths.dashboard.chat);
-  }, [mdUp, onCloseMobile, router]);
+  // const handleClickCompose = useCallback(() => {
+  //   if (!mdUp) {
+  //     onCloseMobile();
+  //   }
+  //   router.push(paths.dashboard.chat);
+  // }, [mdUp, onCloseMobile, router]);
 
-  const handleSearchContacts = useCallback(
-    (inputValue) => {
-      setSearchContacts((prevState) => ({
-        ...prevState,
-        query: inputValue,
-      }));
+  // const handleSearchContacts = useCallback(
+  //   (inputValue) => {
+  //     setSearchContacts((prevState) => ({
+  //       ...prevState,
+  //       query: inputValue,
+  //     }));
 
-      if (inputValue) {
-        const results = contacts.filter((contact) =>
-          contact.name.toLowerCase().includes(inputValue)
-        );
+  //     if (inputValue) {
+  //       const results = contacts.filter((contact) =>
+  //         contact.name.toLowerCase().includes(inputValue)
+  //       );
 
-        setSearchContacts((prevState) => ({
-          ...prevState,
-          results,
-        }));
-      }
-    },
-    [contacts]
-  );
+  //       setSearchContacts((prevState) => ({
+  //         ...prevState,
+  //         results,
+  //       }));
+  //     }
+  //   },
+  //   [contacts]
+  // );
 
   const handleClickAwaySearch = useCallback(() => {
     setSearchContacts({
@@ -165,24 +169,24 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
     />
   );
 
-  const renderSearchInput = (
-    <ClickAwayListener onClickAway={handleClickAwaySearch}>
-      <TextField
-        fullWidth
-        value={searchContacts.query}
-        onChange={(event) => handleSearchContacts(event.target.value)}
-        placeholder="Search contacts..."
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-            </InputAdornment>
-          ),
-        }}
-        sx={{ mt: 2.5 }}
-      />
-    </ClickAwayListener>
-  );
+  // const renderSearchInput = (
+  //   <ClickAwayListener onClickAway={handleClickAwaySearch}>
+  //     <TextField
+  //       fullWidth
+  //       value={searchContacts.query}
+  //       onChange={(event) => handleSearchContacts(event.target.value)}
+  //       placeholder="Search contacts..."
+  //       InputProps={{
+  //         startAdornment: (
+  //           <InputAdornment position="start">
+  //             <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+  //           </InputAdornment>
+  //         ),
+  //       }}
+  //       sx={{ mt: 2.5 }}
+  //     />
+  //   </ClickAwayListener>
+  // );
 
   const renderContent = (
     <>
@@ -194,12 +198,12 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
           </>
         )}
 
-        <IconButton disabled onClick={handleToggleNav}>
+        {/* <IconButton disabled onClick={handleToggleNav}>
 
           <Iconify
             icon={collapseDesktop ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-back-fill'}
           />
-        </IconButton>
+        </IconButton> */}
 
         {/*
         {!collapseDesktop && (
@@ -224,9 +228,10 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
 
   return (
     <>
-      {!mdUp && renderToggleBtn}
+      {/* {!mdUp && renderToggleBtn} */}
+      {!mdUp}
 
-      {mdUp ? (
+      {/* {mdUp ? (
         <Stack
           sx={{
             height: 1,
@@ -256,7 +261,7 @@ export default function ChatNav({ loading, contacts, conversations, selectedConv
         >
           {renderContent}
         </Drawer>
-      )}
+      )} */}
     </>
   );
 }

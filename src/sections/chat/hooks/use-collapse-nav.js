@@ -5,7 +5,7 @@ import { useState, useCallback } from 'react';
 export default function useCollapseNav() {
   const [openMobile, setOpenMobile] = useState(false);
 
-  const [collapseDesktop, setCollapseDesktop] = useState(true);
+  const [collapseDesktop, setCollapseDesktop] = useState(false);
 
   const onCollapseDesktop = useCallback(() => {
     setCollapseDesktop((prev) => !prev);

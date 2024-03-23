@@ -18,7 +18,17 @@ export default function ChatRoomSingle({ user, participant, pet }) {
   const collapse = useBoolean(true);
 
   const { legalName, address, city, state, zipCode, phoneNumber, email } = user
-  const { name, avatar, breed } = pet
+  const {
+    id,
+    status = 'online',
+    name,
+    lifeStage,
+    breed,
+    opt_in = 'true',
+    kibble_balance = '2000', // Use "=" instead of ":"
+    avatar,
+    acquired_from,
+  } = pet;
 
   const fullAddress = `${address}\n${city}, ${state}, ${zipCode}`;
 
@@ -82,7 +92,7 @@ export default function ChatRoomSingle({ user, participant, pet }) {
       }}
     >
       {/* LegalName with Skeleton */}
-      {true ? (
+      {avatar ? (
         <Stack direction="row">
           <Iconify icon="solar:user-rounded-bold" />
           <Typography variant="body2">{legalName}</Typography>
@@ -95,7 +105,7 @@ export default function ChatRoomSingle({ user, participant, pet }) {
       )}
 
       {/* Address with Skeleton */}
-      {true ? (
+      {avatar ? (
         <Stack direction="row">
           <Iconify icon="mingcute:location-fill" />
           <Typography variant="body2">
@@ -114,7 +124,7 @@ export default function ChatRoomSingle({ user, participant, pet }) {
 
       {/* Phone Number with Skeleton */}
 
-      {true ? (
+      {avatar ? (
         <Stack direction="row">
           <Iconify icon="solar:phone-bold" />
           <Typography variant="body2">{phoneNumber}</Typography>
@@ -127,7 +137,7 @@ export default function ChatRoomSingle({ user, participant, pet }) {
       )}
 
       {/* Email with Skeleton */}
-      {true ? (
+      {avatar ? (
         <Stack direction="row">
           <Iconify icon="fluent:mail-24-filled" />
           <Typography variant="body2" noWrap>

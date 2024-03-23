@@ -185,7 +185,7 @@ export default function ChatRoom({ participants, user, conversation, pet }) {
         <ChatRoomSingle user={user} participant={participants[0]} pet={pet} />
       )}
 
-      <ChatRoomAttachments attachments={attachments} />
+      <ChatRoomAttachments attachments={attachments} pet={pet} />
     </>
   );
 

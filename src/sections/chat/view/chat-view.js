@@ -129,7 +129,7 @@ export default function ChatView() {
       sx={{ pr: 1, pl: 2.5, py: 1, minHeight: 72 }}
     >
       {selectedConversationId ? (
-        <>{details && <ChatHeaderDetail participants={participants} pet={pet} />}</>
+        <>{details && <ChatHeaderDetail pet={pet} participants={participants} />}</>
       ) : (
         <ChatHeaderCompose
           contacts={contacts}
