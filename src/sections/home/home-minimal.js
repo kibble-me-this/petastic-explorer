@@ -35,7 +35,7 @@ const CARDS = [
     tech: 'LOVED BY YOU',
     title: 'Infinite Rewards',
     description:
-      'By actively engaging with your Pet Concierge, contribute to the global pet ecosystem, earn rewards, and help enhance the system, benefiting fellow pet parents in the community.',
+      'By actively engaging with your Pet Concierge, contribute to the global pet ecosystem, earn rewards, enhance the system, benefiting fellow pet parents in the community.',
   },
 ];
 

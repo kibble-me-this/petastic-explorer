@@ -33,7 +33,7 @@ export function fData(number) {
 
 export function fKibble(number) {
   const thousandFormatted = number ? fNumber(number) : '';
-  return `${thousandFormatted} \u24C0ibble`;
+  return `${thousandFormatted} \u24C0ibble Cash`;
 }
 
 function result(format, key = '.00') {

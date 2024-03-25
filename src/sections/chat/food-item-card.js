@@ -29,6 +29,7 @@ import TextMaxLine from 'src/components/text-max-line';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 import { outlineButton } from 'src/theme/css';
+
 import { Typography } from '@mui/material';
 
 import { useCheckoutContext } from '../checkout/context';
@@ -229,13 +230,9 @@ export default function PetFoodCard({ post }) {
           // href={paths.petsSignUp}
           onClick={handleAddCart}
           // endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
-          sx={{
-            borderColor: 'red', // Change to your desired color
-            mx: 2,
-            mb: 2,
-          }}
+          sx={[outlineButton, { m: 2 }]}
         >
-          Add to Cart
+          Subscribe & Save
         </Button>
       </Stack>
 

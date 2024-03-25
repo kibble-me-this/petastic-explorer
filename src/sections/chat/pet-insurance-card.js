@@ -206,13 +206,10 @@ export default function PetInsuranceCard({ post }) {
           // href={paths.petsSignUp}
           onClick={handleAddCart}
           // endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
-          sx={{
-            borderColor: 'red', // Change to your desired color
-            mx: 2,
-            mb: 2,
-          }}
+          sx={[outlineButton, { m: 2 }]}
+
         >
-          Add to Cart
+          Activate Insurance
         </Button>
       </Stack>
 

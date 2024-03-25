@@ -76,9 +76,9 @@ export default function CheckoutPayment() {
     },
     {
       value: 'token',
-      label: 'Pay with Kibble Cash',
+      label: 'Pay with \u24C0ibble Cash',
       // description: `You've earned ${fNumber(user?.anymalTokenBalance || 0)} Kibble 🐱🐶🐾`,
-      description: `You've earned 5000 ($5000 USD) Kibble 🐱🐶🐾`,
+      description: `You've earned 100 ($100 USD) \u24C0ibble 🐱🐶🐾`,
       caption: `(~${fCurrency(user?.anymalTokenBalance || 0)} USD)`,
     },
   ];

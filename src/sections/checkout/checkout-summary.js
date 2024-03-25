@@ -28,7 +28,7 @@ export default function CheckoutSummary({
   onApplyDiscount,
 }) {
   const displayShipping = shipping !== null ? 'Free' : '-';
-  const displayKibble = kibble !== null ? '5,000 Available' : '-';
+  const displayKibble = kibble !== null ? '100 Available' : '-';
 
 
   return (
@@ -71,7 +71,7 @@ export default function CheckoutSummary({
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Stack direction="row" alignItems="center">
               <Typography variant="body2" sx={{ color: 'success.main' }}>
-                Kibble Cash
+                {'\u24C0'}ibble Cash
               </Typography>
               <Iconify icon="solar:wad-of-money-bold" width={16} sx={{ ml: 1, color: 'success.main' }} />
             </Stack>

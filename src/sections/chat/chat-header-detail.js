@@ -34,7 +34,7 @@ export default function ChatHeaderDetail({ pet }) {
     lifeStage,
     breed,
     opt_in = 'true',
-    kibble_balance = '2000',
+    kibble_balance = '100',
     avatar,
     acquired_from,
   } = pet;
