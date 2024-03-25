@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+
 import { useLocation } from 'react-router-dom';
 
 // @mui
@@ -12,10 +14,24 @@ import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
 
-export default function CartIcon({ totalItems }) {
+export default function CartIcon({ totalItems, blinkCount }) {
   const location = useLocation();
   const isChatPage = location.pathname === '/chat';
   const checkoutPath = isChatPage ? paths.open_checkout : paths.product.checkout;
+
+  useEffect(() => {
+    let blinkInterval;
+    if (blinkCount > 0) {
+      // Blink effect logic
+      blinkInterval = setInterval(() => {
+        // Toggle the visibility of the icon by updating the state
+      }, 500); // Adjust the interval duration as needed
+    }
+
+    return () => {
+      clearInterval(blinkInterval);
+    };
+  }, [blinkCount]);
 
   return (
     <Box
@@ -24,7 +40,7 @@ export default function CartIcon({ totalItems }) {
       href={checkoutPath}
       sx={{
         right: 0,
-        top: 20,
+        top: 700,
         zIndex: 999,
         display: 'flex',
         cursor: 'pointer',
@@ -48,4 +64,5 @@ export default function CartIcon({ totalItems }) {
 
 CartIcon.propTypes = {
   totalItems: PropTypes.number,
+  blinkCount: PropTypes.number.isRequired,
 };

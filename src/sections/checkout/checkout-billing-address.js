@@ -18,20 +18,20 @@ import { AddressNewForm, AddressItem } from '../address';
 
 // ----------------------------------------------------------------------
 
-// const _addresses = [
-//   {
-//     name: 'Carlos Herrera',
-//     phoneNumber: '310-880-8673',
-//     address: '2900 NE 7Th Ave Unit 2006',
-//     city: 'Miami',
-//     state: 'FL',
-//     country: 'US',
-//     zip: '33137',
-//     fullAddress: '2900 NE 7Th Ave Unit 2006, Miami, FL, US, 33137',
-//     addressType: 'HQ',
-//     primary: true,
-//   },
-// ];
+const _addresses = [
+  {
+    name: 'Carlos Herrera',
+    phoneNumber: '310-880-8673',
+    address: '2900 NE 7Th Ave Unit 2006',
+    city: 'Miami',
+    state: 'FL',
+    country: 'US',
+    zip: '33137',
+    fullAddress: '2900 NE 7Th Ave Unit 2006, Miami, FL, US, 33137',
+    addressType: 'HQ',
+    primary: true,
+  },
+];
 
 export default function CheckoutBillingAddress() {
   const checkout = useCheckoutContext();
@@ -45,7 +45,7 @@ export default function CheckoutBillingAddress() {
       ) : (
         <Grid container spacing={3}>
           <Grid xs={12} md={8}>
-            {fosters.slice(0, 10).map((address) => (
+            {_addresses.slice(0, 10).map((address) => (
               <AddressItem
                 key={address.id}
                 address={address}

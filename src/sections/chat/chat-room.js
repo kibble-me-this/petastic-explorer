@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -32,6 +32,14 @@ export default function ChatRoom({ participants, user, conversation, pet }) {
   const theme = useTheme();
 
   const lgUp = useResponsive('up', 'lg');
+
+  const [blinkCount, setBlinkCount] = useState(0);
+
+  useEffect(() => {
+    if (checkout.totalItems !== 0) {
+      setBlinkCount(3); // Blink 3 times when totalItems changes
+    }
+  }, [checkout.totalItems]);
 
   // Define your local conversations data
   const localConversations = [
@@ -228,7 +236,7 @@ export default function ChatRoom({ participants, user, conversation, pet }) {
   return (
     <Box sx={{ position: 'relative' }}>
       {renderToggleBtn}
-      <CartIcon totalItems={checkout.totalItems} />
+      <CartIcon totalItems={checkout.totalItems} blinkCount={blinkCount} />
 
       {lgUp ? (
         <Stack
