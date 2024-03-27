@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -49,6 +49,12 @@ export default function ProductShopView({ userId }) {
   const settings = useSettingsContext();
 
   const checkout = useCheckoutContext();
+
+  useEffect(() => {
+    if (userId) {
+      checkout.onUpdateAccountID(userId);
+    }
+  }, [userId, checkout]);
 
   const openFilters = useBoolean();
 

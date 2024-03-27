@@ -116,6 +116,7 @@ export default function ProfileFollowers({ followers, account_id }) {
           ))}
         </Box>
         <AddressNewFormFoster
+          account_id={account_id}
           open={addressForm.value}
           onClose={addressForm.onFalse}
         // onCreate={checkout.onCreateBilling}
@@ -161,9 +162,11 @@ function FollowerItem({ follower, selected, onSelected }) {
           <ListItemText
             sx={{ mb: 1 }}
             primary={
-              <Link component={RouterLink} href={paths.dashboard.job.details(id)} color="inherit">
-                {name}
-              </Link>
+              // <Link component={RouterLink} href={paths.dashboard.job.details(id)} color="inherit">
+              //   {name}
+              // </Link>
+              name
+
             }
 
             secondary={

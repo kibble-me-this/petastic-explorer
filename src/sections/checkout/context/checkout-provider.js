@@ -24,13 +24,17 @@ const initialState = {
   shipping: 0,
   billing: null,
   totalItems: 0,
-  accountID: '5ee83180fb01683673939629', // Add accountID to the initial state
+  accountID: '', // Add accountID to the initial state
 };
 
 export function CheckoutProvider({ children }) {
   const router = useRouter();
 
   const { state, update, reset } = useLocalStorage(STORAGE_KEY, initialState);
+
+  const onUpdateAccountID = useCallback((newAccountID) => {
+    update('accountID', newAccountID);
+  }, [update]);
 
   const onGetCart = useCallback(() => {
     const totalItems = state.items.reduce((total, item) => total + item.quantity, 0);
@@ -196,6 +200,7 @@ export function CheckoutProvider({ children }) {
       onGotoStep,
       //
       onReset,
+      onUpdateAccountID,
     }),
     [
       completed,
@@ -211,6 +216,7 @@ export function CheckoutProvider({ children }) {
       onNextStep,
       onReset,
       state,
+      onUpdateAccountID
     ]
   );
 

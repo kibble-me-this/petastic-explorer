@@ -66,13 +66,13 @@ export function useGetFosters(account_id) {
 
 // ----------------------------------------------------------------------
 
-export async function createFoster(eventData) {
+export async function createFoster(account_id, eventData) {
   try {
 
     const { id, name, country, avatarUrl, addressType, city, state, fullAddress, phoneNumber } = eventData;
 
     const mockData = {
-      shelter_id: "5ee83180f121686526084263",
+      shelter_id: account_id,
       new_foster: {
         id,
         name,

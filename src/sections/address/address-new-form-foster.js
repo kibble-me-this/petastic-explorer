@@ -27,7 +27,7 @@ import FormProvider, {
 
 // ----------------------------------------------------------------------
 
-export default function AddressNewFormFoster({ open, onClose, onCreate }) {
+export default function AddressNewFormFoster({ account_id, open, onClose, onCreate }) {
   const NewAddressSchema = Yup.object().shape({
     name: Yup.string().required('Fullname is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
@@ -65,17 +65,20 @@ export default function AddressNewFormFoster({ open, onClose, onCreate }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await createFoster({
-        name: data.name,
-        phoneNumber: data.phoneNumber,
-        address: data.address,
-        city: data.city,
-        state: data.state,
-        country: data.country,
-        zip: data.zipCode,
-        addressType: data.addressType,
-        primary: data.primary,
-      });
+      await createFoster(
+        account_id,
+        {
+          name: data.name,
+          phoneNumber: data.phoneNumber,
+          address: data.address,
+          city: data.city,
+          state: data.state,
+          country: data.country,
+          zip: data.zipCode,
+          addressType: data.addressType,
+          primary: data.primary,
+        }
+      );
 
       // onCreate({
       //   name: data.name,
@@ -192,6 +195,7 @@ export default function AddressNewFormFoster({ open, onClose, onCreate }) {
 }
 
 AddressNewFormFoster.propTypes = {
+  account_id: PropTypes.string,
   onClose: PropTypes.func,
   onCreate: PropTypes.func,
   open: PropTypes.bool,
