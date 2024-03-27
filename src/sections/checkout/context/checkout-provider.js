@@ -24,6 +24,7 @@ const initialState = {
   shipping: 0,
   billing: null,
   totalItems: 0,
+  accountID: '5ee83180fb01683673939629', // Add accountID to the initial state
 };
 
 export function CheckoutProvider({ children }) {
@@ -44,6 +45,7 @@ export function CheckoutProvider({ children }) {
     update('total', state.subTotal - state.discount + state.shipping);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    state.accountID, // Add accountID to the dependency array
     state.items,
     state.activeStep,
     state.billing,

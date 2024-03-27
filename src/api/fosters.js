@@ -42,7 +42,7 @@ export function useGetFosters(account_id) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetcherANYML([URL, { account_id }]);
+        const response = await fetcherANYML([URL.getFosters, { account_id }]);
         setData(response);
       } catch (error) {
         setFetchError(error);
@@ -66,31 +66,55 @@ export function useGetFosters(account_id) {
 
 // ----------------------------------------------------------------------
 
-// export async function createFoster(eventData) {
-//   try {
-//     // Call the backend API to create a new foster
-//     const response = await axios.post(URL, eventData);
+export async function createFoster(eventData) {
+  try {
 
-//     // Extract the newly created foster from the response
-//     const newFoster = response.data;
+    const { id, name, country, avatarUrl, addressType, city, state, fullAddress, phoneNumber } = eventData;
 
-//     // Update the local data with the new foster
-//     mutate(
-//       FOSTERS_URL,
-//       (currentData) => ({
-//         ...currentData,
-//         fosters: [...currentData.fosters, newFoster],
-//       }),
-//       false
-//     );
+    const mockData = {
+      shelter_id: "5ee83180f121686526084263",
+      new_foster: {
+        id,
+        name,
+        country,
+        avatarUrl,
+        addressType,
+        city,
+        state,
+        fullAddress,
+        phoneNumber
+      }
+    };
 
-//     // Optionally, return the new foster data for further processing
-//     return newFoster;
-//   } catch (error) {
-//     console.error('Error creating foster:', error);
-//     throw error; // Rethrow the error for error handling
-//   }
-// }
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    // Call the backend API to create a new foster
+    const response = await postRequestANYML(URL.createFoster, mockData, config);
+
+    // Extract the newly created foster from the response
+    const newFoster = response.data;
+
+    // Update the local data with the new foster
+    // mutate(
+    //   URL.createFoster,
+    //   (currentData) => ({
+    //     ...currentData,
+    //     fosters: [...currentData.fosters, mockData],
+    //   }),
+    //   false
+    // );
+
+    // Optionally, return the new foster data for further processing
+    return newFoster;
+  } catch (error) {
+    console.error('Error creating foster:', error);
+    throw error; // Rethrow the error for error handling
+  }
+}
 
 // ----------------------------------------------------------------------
 

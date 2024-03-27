@@ -143,7 +143,7 @@ export default function ProductShopView({ userId }) {
     />
   );
 
-  const renderNotFound = <EmptyContent filled title="No Data" sx={{ py: 10 }} />;
+  const renderNotFound = <EmptyContent filled title="No Products" sx={{ py: 10 }} />;
 
   return (
     <Container
@@ -154,14 +154,14 @@ export default function ProductShopView({ userId }) {
     >
       <CartIcon totalItems={checkout.totalItems} />
 
-      {/* <Typography
+      <Typography
         variant="h4"
         sx={{
           my: { xs: 3, md: 5 },
         }}
       >
         Shop
-      </Typography> */}
+      </Typography>
 
       <Stack
         spacing={2.5}

@@ -27,7 +27,7 @@ import FormProvider, {
 
 // ----------------------------------------------------------------------
 
-export default function AddressNewForm({ open, onClose, onCreate }) {
+export default function AddressNewFormFoster({ open, onClose, onCreate }) {
   const NewAddressSchema = Yup.object().shape({
     name: Yup.string().required('Fullname is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
@@ -77,18 +77,18 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
         primary: data.primary,
       });
 
-      onCreate({
-        name: data.name,
-        phoneNumber: data.phoneNumber,
-        address: data.address,
-        city: data.city,
-        state: data.state,
-        country: data.country,
-        zip: data.zipCode,
-        fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.country}, ${data.zipCode}`,
-        addressType: data.addressType,
-        primary: data.primary,
-      });
+      // onCreate({
+      //   name: data.name,
+      //   phoneNumber: data.phoneNumber,
+      //   address: data.address,
+      //   city: data.city,
+      //   state: data.state,
+      //   country: data.country,
+      //   zip: data.zipCode,
+      //   fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.country}, ${data.zipCode}`,
+      //   addressType: data.addressType,
+      //   primary: data.primary,
+      // });
       onClose();
     } catch (error) {
       console.error(error);
@@ -191,7 +191,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
   );
 }
 
-AddressNewForm.propTypes = {
+AddressNewFormFoster.propTypes = {
   onClose: PropTypes.func,
   onCreate: PropTypes.func,
   open: PropTypes.bool,

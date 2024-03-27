@@ -1,14 +1,12 @@
 import orderBy from 'lodash/orderBy';
 import PropTypes from 'prop-types';
-import { useCallback, useState, useEffect, Fragment } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 // @mui
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-
 
 // routes
 import { paths } from 'src/routes/paths';
@@ -87,10 +85,7 @@ export default function JobDetailsView({ id }) {
     setIsApiLoading(true);
 
     // if (userMetadata) {
-    const shelterAccountId = id; // '5ee83180f121686526084263'; // getShelterAccountId1(user.publicAddress);
-    // const shelterAccountId = getShelterAccountId(
-    //   'fb9b34e032a94707e114023c44698716bef222d36310b48c7af02e5240c2b612'
-    // );
+    const shelterAccountId = id;
     const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
 
     // Fetch data from the API
@@ -199,15 +194,12 @@ export default function JobDetailsView({ id }) {
       label: 'Shop',
       icon: <Iconify icon="solar:gallery-wide-bold" width={24} />,
     },
-    {
-      value: 'profile',
-      label: 'Profile',
-      icon: <Iconify icon="solar:user-id-bold" width={24} />,
-    },
+    // {
+    //   value: 'profile',
+    //   label: 'Profile',
+    //   icon: <Iconify icon="solar:user-id-bold" width={24} />,
+    // },
   ];
-
-  const disabledTabs = ['profile', 'pets', 'fosters'];
-
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -219,63 +211,6 @@ export default function JobDetailsView({ id }) {
         onChangePublish={handleChangePublish}
         publishOptions={JOB_PUBLISH_OPTIONS}
       />
-
-      {/* <CustomBreadcrumbs
-        // heading={`Our Pets - ${ownerName}`}
-        links={[
-          {
-            name: 'Dashboard',
-            // href: paths.dashboard.root,
-          },
-          {
-            name: 'Pets',
-            // href: paths.dashboard.post.root,
-          },
-          {
-            name: 'List',
-          },
-        ]}
-        action={
-          <Button
-            disabled
-            component={RouterLink}
-            href={paths.dashboard.post.new}
-            variant="contained"
-            startIcon={<Iconify icon="mingcute:add-line" />}
-          >
-            New Pet
-          </Button>
-        }
-        sx={{
-          mb: { xs: 3, md: 5 },
-        }}
-      /> */}
-
-      {/* {renderTabs} */}
-
-      {/* {currentTab === 'content' && <JobDetailsContent job={currentJob} />} */}
-
-      {/* {currentTab === 'candidates' && <JobDetailsCandidates candidates={currentJob?.candidates} />} */}
-
-      {/* <PetListHorizontal
-        posts={dataFiltered}
-        loading={isApiLoading}
-        filteredAndSortedPets={filteredAndSortedPets}
-        updateFilteredAndSortedPets={updateFilteredAndSortedPets}
-      /> */}
-
-      {/* <CustomBreadcrumbs
-        heading="Profile"
-        links={[
-          { name: 'Dashboard', href: paths.dashboard.root },
-          { name: 'User', href: paths.dashboard.user.root },
-          { name: user?.displayName },
-        ]}
-        sx={{
-          mb: { xs: 3, md: 5 },
-        }}
-      /> */}
-
       <Card
         sx={{
           mb: 3,
@@ -289,61 +224,37 @@ export default function JobDetailsView({ id }) {
           // avatarUrl={user?.photoURL}
           coverUrl="/assets/background/hero.jpg"
         />
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
 
-          <Tabs
-            value={currentTab}
-            onChange={handleChangeTab}
-            sx={{
-              width: 1,
-              bottom: 0,
-              zIndex: 9,
-              position: 'absolute',
-              bgcolor: 'background.paper',
-              [`& .${tabsClasses.flexContainer}`]: {
-                pr: { md: 3 },
-                justifyContent: {
-                  sm: 'center',
-                  md: 'flex-end',
-                },
+        <Tabs
+          value={currentTab}
+          onChange={handleChangeTab}
+          sx={{
+            width: 1,
+            bottom: 0,
+            zIndex: 9,
+            position: 'absolute',
+            bgcolor: 'background.paper',
+            [`& .${tabsClasses.flexContainer}`]: {
+              pr: { md: 3 },
+              justifyContent: {
+                sm: 'center',
+                md: 'flex-end',
               },
-            }}
-          >
-            {currentTab === 'profile' && <ProfileHome info={_userAbout} posts={_userFeeds} />}
+            },
+          }}
+        >
+          {currentTab === 'profile' && <ProfileHome info={_userAbout} posts={_userFeeds} />}
 
-            {TABS.map((tab, index) => (
-              <Fragment key={tab.value}>
-                <Tab
-                  value={tab.value}
-                  icon={tab.icon}
-                  label={tab.label}
-                  disabled={disabledTabs.includes(tab.value)}
-                />
-                {/* Add the "Beta" label next to the "Shop" tab */}
-                {index === 1 && (
-                  <Label
-                    sx={{ fontWeight: 'bold', color: 'info.main', ml: 1 }} // Adjust ml for spacing
-                  >
-                    Alpha ❣️
-                  </Label>
-                )}
-              </Fragment>
-            ))}
-          </Tabs>
-
-        </Box>
-
-
+          {TABS.map((tab) => (
+            <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} disabled={tab.value === 'pets'}
+            />
+          ))}
+        </Tabs>
       </Card>
 
       {currentTab === 'fosters' && <ProfileFollowers followers={_userFollowers} account_id={id} />}
 
       {currentTab === 'pets' && (
-        // <ProfileFriends
-        //   friends={_userFriends}
-        //   searchFriends={searchFriends}
-        //   onSearchFriends={handleSearchFriends}
-        // />
         <>
           {renderTabs}
 
@@ -355,8 +266,6 @@ export default function JobDetailsView({ id }) {
           />
         </>
       )}
-
-      {/* {currentTab === 'shop' && <ProfileGallery gallery={_userGallery} />} */}
 
       {currentTab === 'shop' && <ProductShopView userId={id} />}
     </Container>

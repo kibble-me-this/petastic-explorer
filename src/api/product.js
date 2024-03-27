@@ -177,7 +177,8 @@ export function useGetProducts(orgId) {
         'B072MPKF5X',
         'B009WADXCG',
         'B000261OFM',
-        'B002ZJB4PO'],
+        'B002ZJB4PO'
+      ],
     },
     {
       id: '5ee83180f8a1683475024978',
