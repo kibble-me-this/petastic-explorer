@@ -138,6 +138,7 @@ export function useGetProducts(orgId) {
       id: '5ee83180fb01683673939629',
       name: 'Strong Paws',
       products: [
+        "B0050ICOW4",
         "B09NWC4HBY",
         "B0094RW6ZC",
         'B09G48LHVX',

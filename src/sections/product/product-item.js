@@ -251,8 +251,10 @@ export default function ProductItem({ product }) {
           {/* < Box component="span">{fCurrency(priceSaleState)}</Box> */}
 
 
-          <Box component="span"> <Typography variant="caption" sx={{ color: 'text.blue' }}>{(3).toFixed(0)}% \u24C0ibble Cash Back</Typography>
-
+          <Box component="span">
+            <Typography variant="caption" sx={{ color: 'text.blue' }}>
+              {(5).toFixed(0)}% {'\u24C0'}ibble Cash Back
+            </Typography>
 
           </Box>
 

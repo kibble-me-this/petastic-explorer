@@ -28,7 +28,7 @@ export default function CheckoutSummary({
   onApplyDiscount,
 }) {
   const displayShipping = shipping !== null ? 'Free' : '-';
-  const displayKibble = kibble !== null ? '100 Available' : '-';
+  const displayKibble = kibble !== null ? '5000 Available' : '-';
 
 
   return (

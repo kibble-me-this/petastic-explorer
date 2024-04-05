@@ -60,7 +60,7 @@ export default function CheckoutPayment() {
   // Check if user exists and has a publicAddress
   if (user) {
     // Add a mock value for anymalTokenBalance
-    user.anymalTokenBalance = 100; // Mock value, replace with your desired value
+    user.anymalTokenBalance = 5000; // Mock value, replace with your desired value
   }
 
   const PAYMENT_OPTIONS = [
@@ -78,7 +78,7 @@ export default function CheckoutPayment() {
       value: 'token',
       label: 'Pay with \u24C0ibble Cash',
       // description: `You've earned ${fNumber(user?.anymalTokenBalance || 0)} Kibble 🐱🐶🐾`,
-      description: `You've earned 100 ($100 USD) \u24C0ibble 🐱🐶🐾`,
+      description: `You've earned 5000 ($5000 USD) \u24C0ibble 🐱🐶🐾`,
       caption: `(~${fCurrency(user?.anymalTokenBalance || 0)} USD)`,
     },
   ];
