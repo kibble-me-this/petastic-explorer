@@ -21,7 +21,7 @@ import Select from '@mui/material/Select';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 // api
-import { useGetProduct, useGetProducts } from 'src/api/product';
+import { useGetProduct, useGetProducts } from 'src/api/zinc';
 // utils
 import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components

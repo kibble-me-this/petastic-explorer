@@ -11,7 +11,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Iconify from 'src/components/iconify';
 import FormProvider from 'src/components/hook-form';
 //
-import { usePlaceOrder } from 'src/api/product';
+import { usePlaceOrder } from 'src/api/zinc';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { fCurrency, fNumber } from 'src/utils/format-number';

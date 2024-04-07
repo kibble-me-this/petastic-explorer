@@ -132,7 +132,7 @@ export default function ProductShopView({ userId }) {
           categoryOptions={['all', ...PRODUCT_CATEGORY_OPTIONS]}
         />
 
-        <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} />
+        {/* <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} /> */}
       </Stack>
     </Stack>
   );
@@ -219,11 +219,11 @@ function applyFilter({ inputData, filters, sortBy }) {
 
   // FILTERS
   if (gender.length) {
-    inputData = inputData.filter((product) => gender.includes(product.gender));
+    inputData = inputData.filter((product) => gender.includes(product.categories[1]));
   }
 
   if (category !== 'all') {
-    inputData = inputData.filter((product) => product.category === category);
+    inputData = inputData.filter((product) => product.categories[2] === category);
   }
 
   if (colors.length) {

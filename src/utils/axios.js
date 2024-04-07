@@ -209,4 +209,7 @@ export const endpoints = {
     editFoster: '/api/fosters/{id}', // Endpoint to edit a foster by ID (PUT or PATCH)
     deleteFoster: '/api/fosters/{id}', // Endpoint to delete a foster by ID
   },
+  products: {
+    getProducts: '/default/handleGetProducts', // Endpoint to get a list of fosters
+  },
 };

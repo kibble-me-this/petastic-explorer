@@ -116,7 +116,7 @@ export default function ProductFilters({
   const renderGender = (
     <Stack>
       <Typography variant="subtitle2" sx={{ mb: 1 }}>
-        Gender
+        Pet Type
       </Typography>
       {genderOptions.map((option) => (
         <FormControlLabel
@@ -239,7 +239,7 @@ export default function ProductFilters({
           </Badge>
         }
         onClick={onOpen}
-        disabled
+      // disabled
       >
         Filters
       </Button>
@@ -265,7 +265,7 @@ export default function ProductFilters({
 
             {renderCategory}
 
-            {renderColor}
+            {/* {renderColor} */}
 
             {renderPrice}
 

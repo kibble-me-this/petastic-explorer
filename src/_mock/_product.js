@@ -1,12 +1,26 @@
 // ----------------------------------------------------------------------
 
 export const PRODUCT_GENDER_OPTIONS = [
-  { label: 'Men', value: 'Men' },
-  { label: 'Women', value: 'Women' },
-  { label: 'Kids', value: 'Kids' },
+
+  { label: 'Dogs', value: 'Dogs' },
+  { label: 'Cats', value: 'Cats' },
 ];
 
-export const PRODUCT_CATEGORY_OPTIONS = ['Shose', 'Apparel', 'Accessories'];
+export const PRODUCT_CATEGORY_OPTIONS =
+  [
+    //  "Pet Supplies", 
+    "Food",
+    "Treats",
+    "Toys",
+    "Grooming",
+    "Health Supplies",
+    "Litter & Housebreaking",
+    "Beds & Furniture",
+    "Crates, Houses & Pens",
+    "Collars, Harnesses & Leashes",
+    "Feeding & Watering Supplies",
+    "Cleaning Chemicals",
+  ];
 
 export const PRODUCT_RATING_OPTIONS = ['up4Star', 'up3Star', 'up2Star', 'up1Star'];
 
