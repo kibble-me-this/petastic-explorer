@@ -69,9 +69,11 @@ export function useGetFosters(account_id) {
 export async function createFoster(account_id, eventData) {
   try {
 
-    const { id, name, country, avatarUrl, addressType, city, state, fullAddress, phoneNumber } = eventData;
+    const { id, name, country, avatarUrl, addressType, address, city, state, zip, phoneNumber } = eventData;
 
-    const mockData = {
+    const fullAddress = `${address}, ${city}, ${state} ${zip}`;
+
+    const newAddress = {
       shelter_id: account_id,
       new_foster: {
         id,
@@ -79,8 +81,10 @@ export async function createFoster(account_id, eventData) {
         country,
         avatarUrl,
         addressType,
+        address,
         city,
         state,
+        zip,
         fullAddress,
         phoneNumber
       }
@@ -93,7 +97,7 @@ export async function createFoster(account_id, eventData) {
     };
 
     // Call the backend API to create a new foster
-    const response = await postRequestANYML(URL.createFoster, mockData, config);
+    const response = await postRequestANYML(URL.createFoster, newAddress, config);
 
     // Extract the newly created foster from the response
     const newFoster = response.data;
