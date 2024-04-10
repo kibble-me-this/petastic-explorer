@@ -10,8 +10,9 @@ import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import InputAdornment from '@mui/material/InputAdornment';
+
 // utils
-import { fCurrency } from 'src/utils/format-number';
+import { fCurrency, fKibble } from 'src/utils/format-number';
 // components
 import Iconify from 'src/components/iconify';
 
@@ -71,7 +72,7 @@ export default function CheckoutSummary({
               <Iconify icon="solar:wad-of-money-bold" width={16} sx={{ ml: 1, color: 'success.main' }} />
             </Stack>
             <Typography variant="subtitle2" sx={{ color: 'success.main' }}>
-              {kibble ? fCurrency(kibble) : displayKibble}
+              {kibble ? fKibble(kibble / 100) : displayKibble}
             </Typography>
           </Stack>
 
@@ -89,11 +90,13 @@ export default function CheckoutSummary({
             </Box>
           </Stack>
 
+          <Divider variant="middle" />
+
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'success.main' }}>
-              {'\u24C0'}ibble Cash Reward
+              Purchase Reward:
             </Typography>
-            <Typography sx={{ color: 'success.main' }} variant="subtitle2">{discount ? fCurrency(discount / 100) : '-'}</Typography>
+            <Typography sx={{ color: 'success.main' }} variant="subtitle2">{discount ? fKibble(discount / 100) : '-'}</Typography>
           </Stack>
 
           {/* {onApplyDiscount && (

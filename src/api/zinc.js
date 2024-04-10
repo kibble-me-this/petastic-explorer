@@ -1,10 +1,12 @@
+
 import useSWR from 'swr';
 import { useMemo, useEffect } from 'react';
 // utils
 import { fetcherProduct, fetcherOrder, fetcher, endpoints } from 'src/utils/axios-zinc';
 
-import { useGetProducts as useCustomProducts } from 'src/api/product';
+import emailjs from '@emailjs/browser'; // Importing emailjs directly
 
+import { useGetProducts as useCustomProducts } from 'src/api/product';
 
 const zincApiEndpoint = 'https://api.zinc.com/v1/orders';
 const zincApiKey = '494887CF5BB27A2600581C3A';
@@ -492,6 +494,43 @@ export function usePlaceOrder() {
 
     console.log('placeOrder results:', orderResults);
 
+    if (orderResults.request_id) {
+      await sendOrderConfirmationEmail(items);
+    }
+
     return orderResults;
   };
+}
+
+export async function sendOrderConfirmationEmail(items) {
+
+  // const itemsList = items.map(item => `${item.name}: ${item.price}`).join('<br>');
+  const itemsList = items.map(item => `${item.product_id}`).join('<br>');
+
+  try {
+    const templateParams = {
+      to_email: "carlos@petastic.com",
+      // conversation_id: emailData.conversation_id,
+      items_list: itemsList,
+      // pet_name: emailData.pet_name,
+      // pet_avatar: emailData.pet_avatar,
+      // pet_breed: emailData.pet_breed,
+      // pet_gender: emailData.pet_gender,
+      // pet_age: emailData.pet_age,
+      // shelter_name: emailData.shelter_name,
+    };
+
+    const result = await emailjs.send(
+      'service_2nw5qla', // Replace with your service ID
+      'template_rz5namd', // Replace with your template ID
+      templateParams, // Template parameters
+      'xdL7DKBOnhX6fRDbJ' // Replace with your user ID
+    );
+
+    console.log(result.text);
+    return { success: true, message: 'Email sent successfully' };
+  } catch (error) {
+    console.log(error.text);
+    return { success: false, message: 'Email sending failed' };
+  }
 }

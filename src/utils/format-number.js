@@ -7,9 +7,12 @@ export function fNumber(number) {
 }
 
 export function fCurrency(number) {
+  if (number === 0 || Number.isNaN(number)) {
+    return '$0';
+  }
   const format = number ? numeral(number).format('$0,0.00') : '';
-
   return result(format, '.00');
+
 }
 
 export function fPercent(number) {
@@ -32,8 +35,10 @@ export function fData(number) {
 }
 
 export function fKibble(number) {
-  const thousandFormatted = number ? fNumber(number) : '';
-  return `${thousandFormatted} \u24C0ibble Cash`;
+  // const thousandFormatted = number ? fNumber(number) : '';
+  const thousandFormatted = number ? numeral(number).format('0,0.00') : '';
+
+  return `${thousandFormatted} \u24C0`;
 }
 
 function result(format, key = '.00') {
