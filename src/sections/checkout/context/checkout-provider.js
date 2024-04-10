@@ -39,14 +39,16 @@ export function CheckoutProvider({ children }) {
   const onGetCart = useCallback(() => {
     const totalItems = state.items.reduce((total, item) => total + item.quantity, 0);
 
-    const subTotal = state.items.reduce((total, item) => total + item.quantity * item.price, 0);
+    const subTotal = state.items.reduce((total, item) => total + item.quantity * item.priceSale, 0);
 
     update('subTotal', subTotal);
     update('totalItems', totalItems);
     update('billing', state.activeStep === 1 ? null : state.billing);
-    update('discount', state.items.length ? state.discount : 0);
+    // update('discount', state.items.length ? state.discount : 0);
+    update('discount', state.items.length ? subTotal * .05 : 0);
     update('shipping', state.items.length ? state.shipping : 0);
-    update('total', state.subTotal - state.discount + state.shipping);
+    // update('total', state.subTotal - state.discount + state.shipping);
+    update('total', state.subTotal + state.shipping);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     state.accountID, // Add accountID to the dependency array
@@ -72,7 +74,7 @@ export function CheckoutProvider({ children }) {
         if (item.id === newItem.id) {
           return {
             ...item,
-            colors: uniq([...item.colors, ...newItem.colors]),
+            // colors: uniq([...item.colors, ...newItem.colors]),
             quantity: item.quantity + 1,
           };
         }

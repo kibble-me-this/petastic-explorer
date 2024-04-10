@@ -21,7 +21,7 @@ import Select from '@mui/material/Select';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 // api
-import { useGetProduct, useGetProducts } from 'src/api/zinc';
+// import { useGetProduct, useGetProducts } from 'src/api/zinc';
 // utils
 import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 // components
@@ -51,49 +51,49 @@ export default function ProductItem({ product }) {
   const [totalReviews, setTotalReviews] = useState('100');
 
 
-  const handleProductData = (data) => {
-    console.log('------  data:', data);
+  // const handleProductData = (data) => {
+  //   console.log('------  data:', data);
 
-    const {
-      product_id: newProductId, // New variable for product_id
-      brand,
-      title: newTitle,
-      name,
-      main_image: newCoverUrl,
-      price: newPriceSale, // New variable for price
-      colors,
-      status: available,
-      original_retail_price: newPrice, // New variable for priceSale
-      newLabel,
-      saleLabel,
-      stars,
-      review_count,
-    } = data[0];
+  //   const {
+  //     product_id: newProductId, // New variable for product_id
+  //     brand,
+  //     title: newTitle,
+  //     name,
+  //     main_image: newCoverUrl,
+  //     price: newPriceSale, // New variable for price
+  //     colors,
+  //     status: available,
+  //     original_retail_price: newPrice, // New variable for priceSale
+  //     newLabel,
+  //     saleLabel,
+  //     stars,
+  //     review_count,
+  //   } = data[0];
 
-    const availableValue = newPriceSale && newPriceSale !== '' ? available : false;
-
-
-
-    // Update states with new values
-    setProductIdState(newProductId);
-
-    setCoverUrlState(newCoverUrl);
-    setTitleState(newTitle);
-    setPriceState(newPrice / 100);
-    setPriceSaleState(newPriceSale / 100);
-    setAvailableState(availableValue);
-    setTotalRatings(stars);
-    setTotalReviews(review_count);
+  //   const availableValue = newPriceSale && newPriceSale !== '' ? available : false;
 
 
-  };
 
-  const { productData } = useGetProduct(selectedVariant, handleProductData);
+  //   // Update states with new values
+  //   setProductIdState(newProductId);
 
-  useEffect(() => {
-    const initialVariant = constructVariantLabel(product);
-    setSelectedVariant(initialVariant[0]);
-  }, [product]);
+  //   setCoverUrlState(newCoverUrl);
+  //   setTitleState(newTitle);
+  //   setPriceState(newPrice / 100);
+  //   setPriceSaleState(newPriceSale / 100);
+  //   setAvailableState(availableValue);
+  //   setTotalRatings(stars);
+  //   setTotalReviews(review_count);
+
+
+  // };
+
+  // const { productData } = useGetProduct(selectedVariant, handleProductData);
+
+  // useEffect(() => {
+  //   const initialVariant = constructVariantLabel(product);
+  //   setSelectedVariant(initialVariant[0]);
+  // }, [product]);
 
   const handleChange = (event) => {
     setSelectedVariant(event.target.value);
@@ -103,15 +103,15 @@ export default function ProductItem({ product }) {
   const {
     product_id: id,
     brand,
-    title,
-    name,
+    // title,
+    // name,
     main_image: originalCoverUrl,
     price: priceSale,
-    colors,
+    // colors,
     status: available,
     original_retail_price: price,
-    newLabel,
-    saleLabel,
+    // newLabel,
+    // saleLabel,
     stars,
     review_count
   } = product;
@@ -120,11 +120,11 @@ export default function ProductItem({ product }) {
 
   const handleAddCart = async () => {
     const newProduct = {
-      id: productIdState, // Save productIdState as id
-      titleState,
-      coverUrlState,
+      id, // id: productIdState, 
+      brand, // titleState,
+      originalCoverUrl, // coverUrlState,
       availableValueState,
-      price: priceSaleState,
+      priceSale, // price: priceSaleState,
       // size: selectedSize,
       quantity: 1,
     };
@@ -164,8 +164,8 @@ export default function ProductItem({ product }) {
         typography: 'body2',
       }}
     >
-      <Rating size="small" value={totalRatings} precision={0.1} readOnly sx={{ mr: 1 }} />
-      {`(${fShortenNumber(totalReviews)} reviews)`}
+      <Rating size="small" value={stars} precision={0.1} readOnly sx={{ mr: 1 }} />
+      {`(${fShortenNumber(review_count)} reviews)`}
     </Stack>
   );
 
@@ -197,7 +197,7 @@ export default function ProductItem({ product }) {
       <Tooltip title={!availableValueState ? 'Out of stock' : ''} placement="bottom-end">
         <Image
           // alt={name}
-          src={coverUrlState}
+          src={originalCoverUrl}
           ratio="1/1"
           sx={{
             borderRadius: 1.5,
@@ -234,7 +234,7 @@ export default function ProductItem({ product }) {
           )} */}
 
           <Stack direction="row" spacing={2.5} alignItems="center" justifyContent="space-between">
-            < Box component="span">{fCurrency(priceSaleState)}</Box>
+            < Box component="span">{fCurrency(priceSale / 100)}</Box>
             <Box component="span" >
               <Chip
                 variant='outlined'

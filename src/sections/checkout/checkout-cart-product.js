@@ -20,7 +20,7 @@ import IncrementerButton from '../product/common/incrementer-button';
 // ----------------------------------------------------------------------
 
 export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncrease }) {
-  const { name, size, price, colors, coverUrlState: coverUrl, quantity, available } = row;
+  const { brand: name, size, priceSale: price, colors, originalCoverUrl: coverUrl, quantity, available } = row;
 
   return (
     <TableRow>
@@ -28,7 +28,7 @@ export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncre
         <Avatar variant="rounded" alt={name} src={coverUrl} sx={{ width: 64, height: 64 }} />
 
         <Stack spacing={0.5}>
-          <Typography noWrap variant="subtitle2" sx={{ maxWidth: 240 }}>
+          <Typography noWrap variant="subtitle2" sx={{ pl: 3, maxWidth: 240 }}>
             {name}
           </Typography>
 
@@ -44,7 +44,7 @@ export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncre
         </Stack>
       </TableCell>
 
-      <TableCell>{fCurrency(price)}</TableCell>
+      <TableCell>{fCurrency(price / 100)}</TableCell>
 
       <TableCell>
         <Box sx={{ width: 88, textAlign: 'right' }}>
@@ -62,7 +62,7 @@ export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncre
         </Box>
       </TableCell>
 
-      <TableCell align="right">{fCurrency(price * quantity)}</TableCell>
+      <TableCell align="right">{fCurrency(price / 100 * quantity)}</TableCell>
 
       <TableCell align="right" sx={{ px: 1 }}>
         <IconButton onClick={onDelete}>
