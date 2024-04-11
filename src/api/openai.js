@@ -51,7 +51,7 @@ export async function sendToOpenAI(conversationId, message, user) {
 
       console.log('userMessage', userMessage);
 
-      if (!message[0]?.content.includes('petPassport:')) {
+      if (!message[0]?.content.includes('get pet passport for:')) {
         // Replace "petPassport:" with "Please hold"
         // message[0].content = 'Please hold';
 

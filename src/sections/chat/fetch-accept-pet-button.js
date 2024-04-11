@@ -45,87 +45,87 @@ export default function FetchAcceptPetButton({ value, pet, setPet, onAiLoadingCh
       onAiLoadingChange(true);
 
       try {
-        await magic.auth.loginWithMagicLink({ email });
+        // await magic.auth.loginWithMagicLink({ email });
 
-        const magicIsLoggedIn = await magic.user.isLoggedIn();
-        if (magicIsLoggedIn) {
-          const magic_user = await magic.user.getMetadata();
-          const publicAddress = magic_user.publicAddress;
-          const magic_email = magic_user.email;
+        // const magicIsLoggedIn = await magic.user.isLoggedIn();
+        // if (magicIsLoggedIn) {
+        // const magic_user = await magic.user.getMetadata();
+        // const publicAddress = magic_user.publicAddress;
+        // const magic_email = magic_user.email;
 
-          console.log('magic_user: ', magic_user);
+        // console.log('magic_user: ', magic_user);
 
-          const accountExists = await handleCreateAccount(magic_user);
-          console.log('accountExists: ', accountExists);
+        // const accountExists = await handleCreateAccount(magic_user);
+        // console.log('accountExists: ', accountExists);
 
-          if (accountExists) {
-            const account_id = accountExists.account_id;
-            await handlePetPassportTransfer(account_id, petPassport);
+        // if (accountExists) {
+        //   const account_id = accountExists.account_id;
+        //   await handlePetPassportTransfer(account_id, petPassport);
+        // }
+
+        const openaiMessage = `get pet passport for: ${petPassport}`;
+        const selectedConversationId = conversationID;
+
+        // Wrap the message object in an array with the n property
+        const messageArray = [
+          {
+            role: 'user',
+            content: openaiMessage,
+          },
+        ];
+
+        // Make the API request to OpenAI here using sendToOpenAI
+        const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, fetchai);
+
+        console.log('openaiResponse: ', openaiResponse);
+
+        if (openaiResponse) {
+          const petData = {};
+
+          if (openaiResponse?.data?.props?.name) {
+            pet.name = openaiResponse?.data?.props?.name;
           }
 
-          const openaiMessage = `petPassport: ${petPassport}`;
-          const selectedConversationId = conversationID;
-
-          // Wrap the message object in an array with the n property
-          const messageArray = [
-            {
-              role: 'user',
-              content: openaiMessage,
-            },
-          ];
-
-          // Make the API request to OpenAI here using sendToOpenAI
-          const openaiResponse = await sendToOpenAI(selectedConversationId, messageArray, fetchai);
-
-          console.log('openaiResponse: ', openaiResponse);
-
-          if (openaiResponse) {
-            const petData = {};
-
-            if (openaiResponse?.data?.props?.name) {
-              pet.name = openaiResponse?.data?.props?.name;
-            }
-
-            if (openaiResponse?.data?.props?.age?.life_stage) {
-              pet.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
-            }
-
-            if (openaiResponse?.data?.props?.breed) {
-              pet.breed = openaiResponse?.data?.props?.breed;
-            }
-
-            if (openaiResponse?.data?.props?.avatar) {
-              pet.avatar = openaiResponse?.data?.props?.avatar;
-            }
-
-            if (openaiResponse?.data?.props?.acquired_from) {
-              pet.acquired_from = openaiResponse?.data?.props?.acquired_from;
-            }
-
-            if (Object.keys(pet).length > 0) {
-              // Only set petData if it has properties
-              setPet(pet);
-            }
+          if (openaiResponse?.data?.props?.age?.life_stage) {
+            pet.lifeStage = openaiResponse?.data?.props?.age?.life_stage;
           }
 
-          const predefinedLocalMessage = `<b>The "Paws Before Profits" Co-Op</b> <p>${pet.acquired_from}</b> is part of the "Paws Before Profits" program. This means that 3% of all the purchases you make for ${pet.name} will be donated to <b>${pet.acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
-  
-          <p>It's free for you, and you will receive 100 K\u24C0ibbleibble Cash ($100 USD) that you can use towards your purchases. All you have to do is opt in below. </p> html login button`;
-          const messageArray2 = [
-            {
-              role: 'user',
-              content: predefinedLocalMessage,
-            },
-          ];
+          if (openaiResponse?.data?.props?.breed) {
+            pet.breed = openaiResponse?.data?.props?.breed;
+          }
 
-          await sendMockMessage(selectedConversationId, messageArray2, fetchai);
+          if (openaiResponse?.data?.props?.avatar) {
+            pet.avatar = openaiResponse?.data?.props?.avatar;
+          }
 
-          // Update the state to show "Transfer Complete" and disable the button
-          setButtonClicked(false);
-          onAiLoadingChange(false);
-          // Update the button text to "Transfer Complete"
-          setButtonText('Transfer Complete');
+          if (openaiResponse?.data?.props?.acquired_from) {
+            pet.acquired_from = openaiResponse?.data?.props?.acquired_from;
+          }
+
+          if (Object.keys(pet).length > 0) {
+            // Only set petData if it has properties
+            setPet(pet);
+          }
         }
+
+        const predefinedLocalMessage = `<b>The "Paws Before Profits" Co-Op</b> <p>${pet.acquired_from}</b> is part of the "Paws Before Profits" program. This means that 3% of all the purchases you make for ${pet.name} will be donated to <b>${pet.acquired_from}</b> furrrrrever. 🐾🏡🐱</p>
+  
+          <p>It's free for you, and you will receive 100 \u24C0ibble Cash ($100 USD) that you can use towards your purchases. All you have to do is opt in below. </p> html login button`;
+        const messageArray2 = [
+          {
+            role: 'user',
+            content: predefinedLocalMessage,
+          },
+        ];
+
+        await sendMockMessage(selectedConversationId, messageArray2, fetchai);
+
+        // Update the state to show "Transfer Complete" and disable the button
+        setButtonClicked(false);
+        onAiLoadingChange(false);
+        // Update the button text to "Transfer Complete"
+        setButtonText('Transfer Complete');
+        // }
 
         // Optionally, you can trigger other actions or update state based on the response
       } catch (error) {
