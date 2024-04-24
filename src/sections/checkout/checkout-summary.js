@@ -29,7 +29,7 @@ export default function CheckoutSummary({
   onApplyDiscount,
 }) {
   const displayShipping = shipping !== null ? 'Free' : '-';
-  const displayKibble = kibble !== null ? '500 Available' : '-';
+  const displayKibble = kibble !== null ? '5000 Available' : '-';
 
 
   return (
