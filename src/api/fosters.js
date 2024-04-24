@@ -33,6 +33,21 @@ const options = {
 //   return memoizedValue;
 // }
 
+const mockAddress =
+{
+  id: 'mockId',
+  name: 'Carlos Herrera',
+  phoneNumber: '310-880-8673',
+  address: '2900 NE 7Th Ave Unit 2006',
+  city: 'Miami',
+  state: 'FL',
+  country: 'US',
+  zip: '33137',
+  fullAddress: '2900 NE 7TH Ave Unit 2006, Miami, FL, US, 33137',
+  addressType: 'HQ',
+  primary: true,
+};
+
 export function useGetFosters(account_id) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +57,14 @@ export function useGetFosters(account_id) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetcherANYML([URL.getFosters, { account_id }]);
+        let response;
+        if (account_id === 'mockId') {
+          // If account_id is 'mockId', use the mock address directly
+          response = { fosters: [mockAddress] };
+        } else {
+          // Otherwise, make the endpoint call
+          response = await fetcherANYML([URL.getFosters, { account_id }]);
+        }
         setData(response);
       } catch (error) {
         setFetchError(error);

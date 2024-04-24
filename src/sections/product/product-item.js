@@ -253,7 +253,7 @@ export default function ProductItem({ product }) {
 
           <Box component="span">
             <Typography variant="caption" sx={{ color: 'text.blue' }}>
-              {(5).toFixed(0)}% {'\u24C0'}ibble Cash Back
+              {(3).toFixed(0)}% {'\u24C0'}ibble Cash Back
             </Typography>
 
           </Box>

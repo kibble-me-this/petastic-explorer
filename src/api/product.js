@@ -108,6 +108,10 @@ const organizations = [
     id: '5ee83180fb01683673939629',
     name: 'Strong Paws',
     products: [
+      "B0180A1J38",
+      "B076DJ3QCV",
+      "B07DFSBB5M",
+      "B09VCJ2KXB",
       "B0050ICOW4",
       "B09NWC4HBY",
       "B0094RW6ZC",
@@ -115,7 +119,7 @@ const organizations = [
       'B0002DHXVE',
       'B0002DGL26',
       'B00B9G3ZJM',
-      'B00FE1CFTE', // crash
+      'B00FE1CFTE',
       'B00FE1CE9A',
       'B07121B839',
       'B01HGQP7DK',
@@ -131,7 +135,7 @@ const organizations = [
       'B07MM2N1NL',
       'B072FVZ1Z9',
       'B08NJJQ1KW',
-      'B0C1BW323L', // crash
+      'B0C1BW323L',
       'B0C6D588VS',
       'B01KTNNJWI',
       'B000634CK0',
@@ -27804,6 +27808,712 @@ const localData = [
       GTIN: "00721343179429",
     },
     category: "Pet Supplies",
+  },
+
+  {
+    "timestamp": 1713934190,
+    "status": "completed",
+    "feature_bullets": [
+      "Non Stinging Cleaning Wipes with Topical Solution for the Topical Management of Skin and Coat.",
+      "Premoistened Wipes Deodorize and Help Relieve Both Main Causes of Infections Like Hot Spots, Redness, and Acne in Pets. Great for Superficial Cuts, Abrasions and Insect Bites.",
+      "Perfect Between Baths and Easier Than Shampoos and Liquids. Useful for the Cleansing of Face Folds, Finger Folds, as Well as Underarm and Groin. Also Helps to Dry the Affected Area.",
+      "Helps Elimintate the Major Conditions that are Most Commonly Associated with the Skin and Coat in Dogs and Cats.",
+      "Made Right Here in the USA in a Regulated Manufacturing Facilities in Small Batches for Quality."
+    ],
+    "title": "Pet MD Topical Wipes for Cleansing - with Aloe for Cats and Dogs - 50 Count",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n                       <p> <span>Non Stinging Cleaning Wipes with Medicated Solution for the Topical Management of Skin Problems</span>  </p>            </div>",
+    "product_description": "Non Stinging Cleaning Wipes with Medicated Solution for the Topical Management\nof Skin Problems",
+    "images": [
+      "https://m.media-amazon.com/images/I/61K+NoTeCNL.jpg",
+      "https://m.media-amazon.com/images/I/81Ca6rdrFgL.jpg",
+      "https://m.media-amazon.com/images/I/71R8+baSVnL.jpg",
+      "https://m.media-amazon.com/images/I/71Xa7FTNhhL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/61K+NoTeCNL.jpg",
+    "product_details": [
+      "Is Discontinued By Manufacturer \u200f : \u200e No",
+      "Product Dimensions \u200f : \u200e 2.8 x 2.8 x 2.2 inches; 2.4 ounces",
+      "Item model number \u200f : \u200e 695321",
+      "Date First Available \u200f : \u200e February 2, 2016",
+      "Manufacturer \u200f : \u200e Pet MD",
+      "Country of Origin \u200f : \u200e USA",
+      "Best Sellers Rank: #840 in Pet Supplies (See Top 100 in Pet Supplies) #7 in Dog Grooming Wipes",
+      "#7 in Dog Grooming Wipes",
+      "Customer Reviews: 4.5 4.5 out of 5 stars 17,667 ratings",
+      "Item Weight: 2.4 ounces",
+      "Manufacturer: Pet MD",
+      "Country of Origin: USA",
+      "Item model number: 695321",
+      "Date First Available: February 2, 2016",
+      "Item Package Dimensions L x W x H: 2.8 x 2.7 x 2.64 inches",
+      "Item Dimensions LxWxH: 2.8 x 2.8 x 2.2 inches",
+      "Item Weight: 2.4 Ounces",
+      "Brand Name: Pet MD",
+      "Target Audience Keyword: dogs",
+      "Directions: Apply to affected area as directed by your veterinarian. Do not allow the animal to lick the treated areas until dry to prevent ingestion. Wipes should be used for one application only; do not reuse. Avoid use on open wounds, cuts, or raw areas.",
+      "Model Name: Grooming Wipes",
+      "Color: Red",
+      "Size: 50 Count",
+      "Age Range Description: All Life Stages",
+      "Breed Recommendation: Small Breeds",
+      "Included Components: Wipes",
+      "Specific Uses for Product: Coat"
+    ],
+    "num_sales": 8000,
+    "eliapo": false,
+    "brand": "Pet MD",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Grooming",
+      "Grooming Wipes"
+    ],
+    "original_retail_price": 1698,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 2.699999997246,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 2.6399999973072,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 2.799999997144,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.24030386558,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B0180A1J38",
+        "variant_specifics": []
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "Amazon.com: Pet MD Topical Wipes for Cleansing - with Aloe for Cats and Dogs - 50 Count",
+    "variant_specifics": [],
+    "asin": "B0180A1J38",
+    "product_id": "B0180A1J38",
+    "retailer": "amazon",
+    "stars": 4.5,
+    "review_count": 17667,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": null,
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/619eaI1adhL.jpg",
+      "https://m.media-amazon.com/images/I/71yhEtYZftL.jpg",
+      "https://m.media-amazon.com/images/I/71gSeGBea2L.jpg",
+      "https://m.media-amazon.com/images/I/611MWvYHGyL.jpg",
+      "https://m.media-amazon.com/images/I/710JPKlTMgL.jpg",
+      "https://m.media-amazon.com/images/I/81eEEyNPXoL.jpg",
+      "https://m.media-amazon.com/images/I/61yH4Hjui3L.jpg",
+      "https://m.media-amazon.com/images/I/71T2zsgIDjL.jpg",
+      "https://m.media-amazon.com/images/I/71T2zsgIDjL.jpg",
+      "https://m.media-amazon.com/images/I/616ranGQI9L.jpg",
+      "https://m.media-amazon.com/images/I/61teMPRh7TL.jpg",
+      "https://m.media-amazon.com/images/I/7187G0f9hqL.jpg",
+      "https://m.media-amazon.com/images/I/71a2ksOa-YL.jpg",
+      "https://m.media-amazon.com/images/I/71LbJMi5zEL.jpg",
+      "https://m.media-amazon.com/images/I/51MbLY0dppL.jpg"
+    ],
+    "blank_box": false,
+    "price": 1499,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "MPN",
+        "value": "695321"
+      },
+      {
+        "type": "EAN",
+        "value": "0840235137603"
+      },
+      {
+        "type": "UPC",
+        "value": "840235137603"
+      },
+      {
+        "type": "GTIN",
+        "value": "00840235137603"
+      }
+    ],
+    "epids_map": {
+      "MPN": "695321",
+      "EAN": "0840235137603",
+      "UPC": "840235137603",
+      "GTIN": "00840235137603"
+    }
+  },
+  {
+    "timestamp": 1713934372,
+    "status": "completed",
+    "feature_bullets": [
+      "Extra Large Wipes: 5 Inch By 6 Inch Wipes For Easier Handling And More Coverage Per Pad Even In The Hard To Reach Places On Your Dog, Cat Or Horse.",
+      "Help Clean and Maintain the Skin and Coat.",
+      "No Sting Topical Wipes For Cleansing of Face Folds, Finger Folds, Underarm, and Groin areas.",
+      "Convenient Wipes: Great For Travel, Keeping In An Emergency Kit And To Keep Your Pet Healthy Between Using A Shampoo Or Spray.",
+      "Made Right Here in the USA in Federally Regulated Manufacturing Facilities in Small Batches for Quality and Safety."
+    ],
+    "title": "Pet MD XL Topical Wipes with Aloe for Dogs and Cats - Topical Wipes for Cleansing of Skin and Coat for Pets - 70 XL Wipes",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n                       <p> <span>Pet MD Topical Wipes contain a solution for the cleansing of dog and cat skin and coat. Pet MD Topical Wipes can be used for the cleansing of face folds, finger folds, underarm, and groin areas.</span>  </p>            </div>",
+    "product_description": "Pet MD Topical Wipes contain a solution for the cleansing of dog and cat skin\nand coat. Pet MD Topical Wipes can be used for the cleansing of face folds,\nfinger folds, underarm, and groin areas.",
+    "images": [
+      "https://m.media-amazon.com/images/I/61rp0AiX9XL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/61rp0AiX9XL.jpg",
+    "product_details": [
+      "Is Discontinued By Manufacturer \u200f : \u200e No",
+      "Package Dimensions \u200f : \u200e 6.61 x 3.23 x 3.23 inches; 12.32 ounces",
+      "Date First Available \u200f : \u200e October 25, 2017",
+      "Manufacturer \u200f : \u200e Pet MD",
+      "Best Sellers Rank: #2,623 in Pet Supplies (See Top 100 in Pet Supplies) #19 in Dog Grooming Wipes",
+      "#19 in Dog Grooming Wipes",
+      "Customer Reviews: 4.3 4.3 out of 5 stars 4,199 ratings",
+      "Item Weight: 12.3 ounces",
+      "Manufacturer: Pet MD",
+      "Date First Available: October 25, 2017",
+      "Item Package Dimensions L x W x H: 6.61 x 3.23 x 3.23 inches",
+      "Item Weight: 0.77 Pounds",
+      "Brand Name: Pet MD",
+      "Target Audience Keyword: dogs",
+      "Directions: See product label.",
+      "Size: X-Large"
+    ],
+    "num_sales": 2000,
+    "eliapo": false,
+    "brand": "Pet MD",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Grooming",
+      "Grooming Wipes"
+    ],
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 3.2299999967054,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 3.2299999967054,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 6.6099999932578,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.76941329438,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B076DJ3QCV",
+        "variant_specifics": []
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "Amazon.com: Pet MD XL Topical Wipes with Aloe for Dogs and Cats - Topical Wipes for Cleansing of Skin and Coat for Pets - 70 XL Wipes",
+    "variant_specifics": [],
+    "asin": "B076DJ3QCV",
+    "product_id": "B076DJ3QCV",
+    "retailer": "amazon",
+    "stars": 4.3,
+    "review_count": 4199,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": null,
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/710-wzAJKBL.jpg",
+      "https://m.media-amazon.com/images/I/71bWhNZIhrL.jpg",
+      "https://m.media-amazon.com/images/I/61WYEJCI9dL.jpg",
+      "https://m.media-amazon.com/images/I/61HGRAuDroL.jpg",
+      "https://m.media-amazon.com/images/I/71JXDxcr-1L.jpg",
+      "https://m.media-amazon.com/images/I/81MHfvBOWbL.jpg",
+      "https://m.media-amazon.com/images/I/81scecHmfLL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/B1elmHvGwBS.jpg",
+      "https://m.media-amazon.com/images/I/51XO0lpoRcL.jpg",
+      "https://m.media-amazon.com/images/I/81jQjyW-DCL.jpg"
+    ],
+    "blank_box": false,
+    "price": 2099,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "EAN",
+        "value": "0636836966212"
+      },
+      {
+        "type": "UPC",
+        "value": "636836966212"
+      },
+      {
+        "type": "MPN",
+        "value": "43235-217618"
+      }
+    ],
+    "epids_map": {
+      "EAN": "0636836966212",
+      "UPC": "636836966212",
+      "MPN": "43235-217618"
+    }
+  },
+  {
+    "timestamp": 1713934521,
+    "status": "completed",
+    "feature_bullets": [
+      "Our anti-itch dog skin balm provides ultimate healing for dry skin and skin relief from irritation. Perfect for doggy dandruff and a must-have for any first aid kit.",
+      "Soothe your pup's irritated skin with our natural dog itch cream made with plant-based ingredients like chamomile, lavender, and vitamin E that is Made in the USA.",
+      "Give your furry friend the moisturizer they deserve with our dog lotion infused with sweet almond oil, coconut oil, and cocoa butter. Say goodbye to dry, itchy skin.",
+      "Our ointment for skin irritation is crafted with the highest quality ingredients and is safe for dogs to lick. Experience the power of natural healing with Skin Soother Balm.",
+      "This plant-based skin relief solution is an essential part of any dog owner's toolkit. Keep your pet's skin healthy and happy with our natural dog skin balm made with love and care."
+    ],
+    "title": "Natural Dog Company Skin Soother, 1 oz. Tin, Allergy and Itch Relief for Dogs, Dog Moisturizer for Dry Skin, Dog Lotion, Ultimate Healing Balm, Dog Rash Cream",
+    "aplus_html": "present",
+    "images": [
+      "https://m.media-amazon.com/images/I/71zr3vk-mXL.jpg",
+      "https://m.media-amazon.com/images/I/71UbESS6SCL.jpg",
+      "https://m.media-amazon.com/images/I/817rhFMsoGL.jpg",
+      "https://m.media-amazon.com/images/I/715bpfaeE4L.jpg",
+      "https://m.media-amazon.com/images/I/71CX-FIE7GL.jpg",
+      "https://m.media-amazon.com/images/I/81WZ-JRSqtL.jpg",
+      "https://m.media-amazon.com/images/I/81Ro4nMGxWL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/71zr3vk-mXL.jpg",
+    "product_details": [
+      "Is Discontinued By Manufacturer \u200f : \u200e No",
+      "Product Dimensions \u200f : \u200e 2.44 x 1.97 x 0.87 inches; 1.45 ounces",
+      "Item model number \u200f : \u200e NDC44-1T-FBA",
+      "Date First Available \u200f : \u200e May 31, 2018",
+      "Manufacturer \u200f : \u200e Natural Dog Company",
+      "Best Sellers Rank: #889 in Pet Supplies (See Top 100 in Pet Supplies) #7 in Dog Itch Remedies",
+      "#7 in Dog Itch Remedies",
+      "Customer Reviews: 4.4 4.4 out of 5 stars 42,452 ratings",
+      "Item Weight: 1.44 ounces",
+      "Manufacturer: Natural Dog Company",
+      "Item model number: NDC44-1T-FBA",
+      "Date First Available: May 31, 2018",
+      "Item Package Dimensions L x W x H: 2.01 x 1.93 x 0.75 inches",
+      "Item Dimensions LxWxH: 2.44 x 1.97 x 0.87 inches",
+      "Brand Name: Natural Dog Company",
+      "Target Audience Keyword: dogs",
+      "Size: 1 oz. Tin"
+    ],
+    "num_sales": 2000,
+    "eliapo": false,
+    "brand": "Natural Dog Company",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Health Supplies",
+      "Itch Remedies"
+    ],
+    "original_retail_price": 1595,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 1.9299999980314,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 0.749999999235,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 2.0099999979498,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.09038952742,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B07DFSBB5M",
+        "variant_specifics": [
+          {
+            "dimension": "Pattern Name",
+            "value": "Tin"
+          },
+          {
+            "dimension": "Size",
+            "value": "1 oz. Tin"
+          }
+        ]
+      },
+      {
+        "product_id": "B07DFRSFXV",
+        "variant_specifics": [
+          {
+            "dimension": "Pattern Name",
+            "value": "Tin"
+          },
+          {
+            "dimension": "Size",
+            "value": "2 oz. Tin"
+          }
+        ]
+      },
+      {
+        "product_id": "B07DF8Q6PJ",
+        "variant_specifics": [
+          {
+            "dimension": "Pattern Name",
+            "value": "Stick"
+          },
+          {
+            "dimension": "Size",
+            "value": "0.15 oz. Stick"
+          }
+        ]
+      },
+      {
+        "product_id": "B07DFQQY8M",
+        "variant_specifics": [
+          {
+            "dimension": "Pattern Name",
+            "value": "Tin"
+          },
+          {
+            "dimension": "Size",
+            "value": "4 oz. Tin"
+          }
+        ]
+      },
+      {
+        "product_id": "B092RLHR7B",
+        "variant_specifics": [
+          {
+            "dimension": "Pattern Name",
+            "value": "Bundle"
+          },
+          {
+            "dimension": "Size",
+            "value": "2 oz. Tin & Travel Stick"
+          }
+        ]
+      },
+      {
+        "product_id": "B01NCWFT5D",
+        "variant_specifics": [
+          {
+            "dimension": "Pattern Name",
+            "value": "Stick"
+          },
+          {
+            "dimension": "Size",
+            "value": "2 oz. Stick"
+          }
+        ]
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "Natural Dog Company Skin Soother, 1 oz. Tin, Allergy and Itch Relief for Dogs, Dog Moisturizer for Dry Skin, Dog Lotion, Ultimate Healing Balm, Dog Rash Cream",
+    "variant_specifics": [
+      {
+        "dimension": "Pattern Name",
+        "value": "Tin"
+      },
+      {
+        "dimension": "Size",
+        "value": "1 oz. Tin"
+      }
+    ],
+    "asin": "B07DFSBB5M",
+    "product_id": "B07DFSBB5M",
+    "retailer": "amazon",
+    "stars": 4.4,
+    "review_count": 42452,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B0CW3SMGQN",
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/71fCYKCH+aL.jpg",
+      "https://m.media-amazon.com/images/I/41vYRrhtFaL.jpg",
+      "https://m.media-amazon.com/images/I/81EpofFnXGL.jpg",
+      "https://m.media-amazon.com/images/I/61ZuvgFROVL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71-E4BiRe0L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71-zMuEygeL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/717ZZFQUr2L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71qCD-1xZHL.jpg",
+      "https://m.media-amazon.com/images/I/61wtZdvtAQL.jpg",
+      "https://m.media-amazon.com/images/I/8167fmV+FnL.jpg",
+      "https://m.media-amazon.com/images/I/71As68han7L.jpg",
+      "https://m.media-amazon.com/images/I/71R+Vih9P6L.jpg",
+      "https://m.media-amazon.com/images/I/81xs-eGDV+L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/716VmCyn-KL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71Kh+n201TL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71vu2H3RJEL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/81ufXFF9uYL.jpg",
+      "https://m.media-amazon.com/images/I/7176900s8ZL.jpg",
+      "https://m.media-amazon.com/images/I/7180e1SeqbL.jpg",
+      "https://m.media-amazon.com/images/I/81JmbvFoCAL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/717oZ52vdlL.jpg"
+    ],
+    "blank_box": false,
+    "price": 1495,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "MPN",
+        "value": "NDC44-1T-FBA"
+      },
+      {
+        "type": "EAN",
+        "value": "0741099001126"
+      },
+      {
+        "type": "UPC",
+        "value": "741099001126"
+      },
+      {
+        "type": "GTIN",
+        "value": "00741099001126"
+      }
+    ],
+    "epids_map": {
+      "MPN": "NDC44-1T-FBA",
+      "EAN": "0741099001126",
+      "UPC": "741099001126",
+      "GTIN": "00741099001126"
+    }
+  },
+  {
+    "timestamp": 1713934625,
+    "status": "completed",
+    "feature_bullets": [
+      "Treats Wounds & Skin Irritations: Natural Dog Company Skin Soothing Dog Wipes are extra gentle to relieve and soothe itchy, dry, red skin and other common skin problems.",
+      "Dog Paw Wipes: Our dog wipes can be used on faces, paws, and butts to relieve itchy skin from dander and other irritants using nourishing ingredients that are gentle on skin.",
+      "Quick & Easy Application: Convenient, single-use wipe for fast & easy application that comes in a recyclable screw top jar. Make these wipes an addition to your pups first aid kit!",
+      "Natural & Herbal Ingredients: Made with premium, plant-based ingredients like oat extract, lavender oil, and chamomile that provides a clean, refreshing scent and no artificial preservatives.",
+      "Made in the USA: Natural Dog Company products are made with gentle ingredients for results without harmful chemicals and safe for dogs of all sizes, ages, and breeds."
+    ],
+    "title": "Natural Dog Company Skin Soother Wipes, 50 Count, Pet Wipes for Dogs, Hypoallergenic Formula, Dog Moisturizer for Dry Skin, Grooming Wipes for Dogs, Pet Itch Relief for Dogs",
+    "aplus_html": "present",
+    "images": [
+      "https://m.media-amazon.com/images/I/714cT60QgML.jpg",
+      "https://m.media-amazon.com/images/I/71--okcrdsL.jpg",
+      "https://m.media-amazon.com/images/I/81RVl2jj8xL.jpg",
+      "https://m.media-amazon.com/images/I/81VWCTxu1wL.jpg",
+      "https://m.media-amazon.com/images/I/713QsHva9WL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/714cT60QgML.jpg",
+    "product_details": [
+      "Package Dimensions \u200f : \u200e 2.83 x 2.68 x 2.6 inches; 3.84 ounces",
+      "Date First Available \u200f : \u200e March 11, 2022",
+      "Manufacturer \u200f : \u200e Natural Dog company",
+      "Country of Origin \u200f : \u200e USA",
+      "Best Sellers Rank: #1,704 in Pet Supplies (See Top 100 in Pet Supplies) #15 in Dog Grooming Wipes",
+      "#15 in Dog Grooming Wipes",
+      "Customer Reviews: 4.4 4.4 out of 5 stars 2,113 ratings",
+      "Item Weight: 3.84 ounces",
+      "Manufacturer: Natural Dog company",
+      "Country of Origin: USA",
+      "Date First Available: March 11, 2022",
+      "Item Package Dimensions L x W x H: 2.83 x 2.68 x 2.6 inches",
+      "Item Weight: 0.11 Kilograms",
+      "Brand Name: Natural Dog Company",
+      "Target Audience Keyword: dogs",
+      "Color: Skin Soother Wipes 1 Jar",
+      "Size: 50 Count (Pack of 1)",
+      "Age Range Description: Adult",
+      "Number of Items: 1"
+    ],
+    "num_sales": 1000,
+    "eliapo": false,
+    "brand": "Natural Dog Company",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Grooming",
+      "Grooming Wipes"
+    ],
+    "original_retail_price": 1195,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 2.6799999972664,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 2.599999997348,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 2.8299999971134,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.24030386558,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B09S6TJFLN",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "200 Count (Pack of 4)"
+          },
+          {
+            "dimension": "Color",
+            "value": "Grooming Wipes 4 Pack"
+          }
+        ]
+      },
+      {
+        "product_id": "B0BZJY67W1",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "50 Count (Pack of 1)"
+          },
+          {
+            "dimension": "Color",
+            "value": "BUNDLE: 1 Skin Soother Wipes + 1 Travel Soother"
+          }
+        ]
+      },
+      {
+        "product_id": "B00W1QVW1W",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "50 Count (Pack of 1)"
+          },
+          {
+            "dimension": "Color",
+            "value": "Grooming Wipes 1 Pack"
+          }
+        ]
+      },
+      {
+        "product_id": "B09VCGKFMH",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "50 Count (Pack of 1)"
+          },
+          {
+            "dimension": "Color",
+            "value": "Wrinkle Wipes 1 Jar"
+          }
+        ]
+      },
+      {
+        "product_id": "B09VCJ2KXB",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "50 Count (Pack of 1)"
+          },
+          {
+            "dimension": "Color",
+            "value": "Skin Soother Wipes 1 Jar"
+          }
+        ]
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "Amazon.com: Natural Dog Company Skin Soother Wipes, 50 Count, Pet Wipes for Dogs, Hypoallergenic Formula, Dog Moisturizer for Dry Skin, Grooming Wipes for Dogs, Pet Itch Relief for Dogs",
+    "variant_specifics": [
+      {
+        "dimension": "Size",
+        "value": "50 Count (Pack of 1)"
+      },
+      {
+        "dimension": "Color",
+        "value": "Skin Soother Wipes 1 Jar"
+      }
+    ],
+    "asin": "B09VCJ2KXB",
+    "product_id": "B09VCJ2KXB",
+    "retailer": "amazon",
+    "stars": 4.4,
+    "review_count": 2113,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B0CS7439VF",
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/51htn6gxRvL.jpg",
+      "https://m.media-amazon.com/images/I/51BbYAQ6d3L.jpg",
+      "https://m.media-amazon.com/images/I/61CJzVXqCbL.jpg",
+      "https://m.media-amazon.com/images/I/61LH0svJWhL.jpg",
+      "https://m.media-amazon.com/images/I/61nsiSiH3-L.jpg",
+      "https://m.media-amazon.com/images/I/61siNPJkdmL.jpg",
+      "https://m.media-amazon.com/images/I/710h3tpusyL.jpg",
+      "https://m.media-amazon.com/images/I/71CNC3B7LML.jpg",
+      "https://m.media-amazon.com/images/I/71v45Q9lwAL.jpg",
+      "https://m.media-amazon.com/images/I/51Fo+UjXOEL.jpg"
+    ],
+    "blank_box": false,
+    "price": 995,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "EAN",
+        "value": "0810102820020"
+      },
+      {
+        "type": "UPC",
+        "value": "810102820020"
+      }
+    ],
+    "epids_map": {
+      "EAN": "0810102820020",
+      "UPC": "810102820020"
+    }
   },
   {
     timestamp: 1712497466,

@@ -59,7 +59,7 @@ export default function JobDetailsView({ id }) {
 
   const [publish, setPublish] = useState(currentJob?.publish);
 
-  const [currentTab, setCurrentTab] = useState('shop');
+  const [currentTab, setCurrentTab] = useState('pets');
 
   const [isApiLoading, setIsApiLoading] = useState(true);
 

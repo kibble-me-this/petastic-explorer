@@ -58,25 +58,28 @@ export default function PetFoodCard({ post }) {
     description,
   } = post;
 
-  const [coverUrlState, setCoverUrlState] = useState(''); // Renamed to avoid conflict
   const [titleState, setTitleState] = useState(''); // State for title
   const [priceState, setPriceState] = useState(''); // State for price
-  const [priceSaleState, setPriceSaleState] = useState('');
-  const [productIdState, setProductIdState] = useState('B0BMDXNDD2'); // State for product_id
+  const [id, setProductId] = useState('B0BMDXNDD2'); // State for product_id
+  const [brand, setProductBrand] = useState('Blue Buffalo Wilderness Duck Recipe');
+  const [originalCoverUrl, setOriginalCoverUrl] = useState(''); // Renamed to avoid conflict
+  const [availableValueState, setAvailableState] = useState(true);
+  const [priceSale, setPriceSale] = useState('');
+
 
   useEffect(() => {
     // Move the setCoverUrlState call inside useEffect to run only once after component mount
-    setCoverUrlState(coverUrl);
-    setPriceSaleState(totalViews);
+    setOriginalCoverUrl(coverUrl);
+    setPriceSale((totalViews + 10) * 100);
   }, [coverUrl, totalViews]);
 
   const handleAddCart = async () => {
     const newProduct = {
-      id: productIdState, // Save productIdState as id
-      titleState,
-      coverUrlState,
-      // available,
-      price: priceSaleState,
+      id,
+      brand,
+      originalCoverUrl,
+      availableValueState,
+      priceSale,
       // size: selectedSize,
       quantity: 1,
     };
@@ -179,7 +182,7 @@ export default function PetFoodCard({ post }) {
               </TextMaxLine>{' '}
               <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <TextMaxLine variant="chat_author" sx={{ color: '#000', fontWeight: '400' }}>
-                  {fCurrency(totalViews)}
+                  {fCurrency(totalViews + 10)}
                 </TextMaxLine>
                 <TextMaxLine variant="chat_author" sx={{ color: '#808080', fontWeight: '400' }}>
                   /mo
@@ -232,7 +235,7 @@ export default function PetFoodCard({ post }) {
           // endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
           sx={[outlineButton, { m: 2 }]}
         >
-          Subscribe & Save
+          Autoship
         </Button>
       </Stack>
 

@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
 
 // routes
 import { paths } from 'src/routes/paths';
@@ -51,38 +52,38 @@ export default function PetInsuranceCard({ post }) {
     petCoverUrl,
     author,
     publish,
-
     createdAt,
-
     totalShares,
     totalComments,
     description,
   } = post;
 
-  const [coverUrlState, setCoverUrlState] = useState(''); // Renamed to avoid conflict
+  // const [coverUrlState, setCoverUrlState] = useState(''); // Renamed to avoid conflict
   const [titleState, setTitleState] = useState('Rainwalk Insurance'); // State for title
   const [priceState, setPriceState] = useState(''); // State for price
-  const [priceSaleState, setPriceSaleState] = useState('');
+  // const [priceSaleState, setPriceSaleState] = useState('');
   const [productIdState, setProductIdState] = useState('rainwalk'); // State for product_id
+
+  const [brand, setProductBrand] = useState('Rainwalk Insurance');
+  const [originalCoverUrl, setOriginalCoverUrl] = useState(''); // Renamed to avoid conflict
+  const [priceSale, setPriceSale] = useState('');
 
 
 
 
   useEffect(() => {
     // Move the setCoverUrlState call inside useEffect to run only once after component mount
-    setCoverUrlState(petCoverUrl);
-    setPriceSaleState(premium);
-
+    setOriginalCoverUrl(petCoverUrl);
+    setPriceSale(premium * 100);
   }, [petCoverUrl, premium]);
 
   const handleAddCart = async () => {
     const newProduct = {
       id: productIdState, // Save productIdState as id
-      titleState,
-      coverUrlState,
+      brand,
+      originalCoverUrl,
       // available,
-      price: priceSaleState,
-      // size: selectedSize,
+      priceSale,      // size: selectedSize,
       quantity: 1,
     };
     try {
@@ -172,7 +173,7 @@ export default function PetInsuranceCard({ post }) {
             {/* Row 1 */}
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="chat_author">Start Date</Typography>
-              <Typography variant="chat_body">01/01/24</Typography>
+              <Typography variant="chat_body">04/01/24</Typography>
             </Stack>
             {/* Row 2 */}
             <Stack direction="row" justifyContent="space-between">
@@ -194,8 +195,19 @@ export default function PetInsuranceCard({ post }) {
               <Typography variant="chat_author">Co-insurance</Typography>
               <Typography variant="chat_body">90%</Typography>
             </Stack>
+            {/* Row 6 */}
+            <Divider
+              orientation='horizontal'
+              flexItem
+              sx={{ borderStyle: 'bold' }}
+            />
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="chat_author">24/7 Online Vet</Typography>
+              <Typography variant="chat_body">INCLUDED</Typography>
+            </Stack>
           </Stack>
-        </Box>
+
+        </Box >
 
         <Button
           size="small"
@@ -209,9 +221,9 @@ export default function PetInsuranceCard({ post }) {
           sx={[outlineButton, { m: 2 }]}
 
         >
-          Activate Insurance
+          Transfer Insurance
         </Button>
-      </Stack>
+      </Stack >
 
 
     </>

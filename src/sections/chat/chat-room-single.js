@@ -69,7 +69,7 @@ export default function ChatRoomSingle({ user, participant, pet }) {
       }}
     >
       <Box component="span" sx={{ flexGrow: 1 }}>
-        Emergency Information
+        Primary Parent
       </Box>
       <Iconify
         width={16}

@@ -411,20 +411,20 @@ function ConfirmTransferDialog({
       {page === 1 && (
         <Stack spacing={2}>
           <DialogContent sx={{ overflow: 'unset' }}>
-          <Stack direction="column" spacing={2} sx={{ mb: 3 }}>
-    <Typography style={{ fontWeight: 'bold' }}>I want to transfer:</Typography>
-    <ListItemText
-      primary={`${name} the ${type.split(':').pop()}`}
-      secondary={`a ${breed}`}
-      secondaryTypographyProps={{ component: 'span', mt: 0.5 }}
-      sx={{ paddingLeft: '16px' }}
-    />
-    <Typography style={{ fontWeight: 'bold' }}>Currently feeding:</Typography>
-    <ListItemText
-      primary="Blue Buffalo Wilderness High Protein Natural Adult Dry Dog Food plus Wholesome Grains, Duck 13 lb bag"
-      sx={{ paddingLeft: '16px' }}
-    />
-  </Stack>
+            <Stack direction="column" spacing={2} sx={{ mb: 3 }}>
+              <Typography style={{ fontWeight: 'bold' }}>I want to transfer:</Typography>
+              <ListItemText
+                primary={`${name} the ${type.split(':').pop()}`}
+                secondary={`a ${breed}`}
+                secondaryTypographyProps={{ component: 'span', mt: 0.5 }}
+                sx={{ paddingLeft: '16px' }}
+              />
+              <Typography style={{ fontWeight: 'bold' }}>Currently feeding:</Typography>
+              <ListItemText
+                primary="Blue Buffalo Indoor Health Salmon & Brown Rice Recipe"
+                sx={{ paddingLeft: '16px' }}
+              />
+            </Stack>
             <Stack spacing={3}>
               <Typography style={{ fontWeight: 'bold' }}>To the following human: </Typography>
               <FormProvider methods={methods} onSubmit={onSubmit}>

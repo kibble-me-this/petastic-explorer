@@ -18,24 +18,24 @@ import { AddressNewForm, AddressItem } from '../address';
 
 // ----------------------------------------------------------------------
 
-// const _addresses = [
-//   {
-//     name: 'Carlos Herrera',
-//     phoneNumber: '310-880-8673',
-//     address: '2900 NE 7Th Ave Unit 2006',
-//     city: 'Miami',
-//     state: 'FL',
-//     country: 'US',
-//     zip: '33137',
-//     fullAddress: '2900 NE 7Th Ave Unit 2006, Miami, FL, US, 33137',
-//     addressType: 'HQ',
-//     primary: true,
-//   },
-// ];
+const mockAddress =
+{
+  id: 'mockId',
+  name: 'Carlos Herrera',
+  phoneNumber: '310-880-8673',
+  address: '2900 NE 7Th Ave Unit 2006',
+  city: 'Miami',
+  state: 'FL',
+  country: 'US',
+  zip: '33137',
+  fullAddress: '2900 NE 7TH Ave Unit 2006, Miami, FL, US, 33137',
+  addressType: 'HQ',
+  primary: true,
+};
 
 export default function CheckoutBillingAddress() {
   const checkout = useCheckoutContext();
-  const { fosters, isLoading } = useGetFosters(checkout.accountID);
+  const { fosters, isLoading } = useGetFosters(checkout.accountID || mockAddress.id);
   const addressForm = useBoolean();
 
   return (
