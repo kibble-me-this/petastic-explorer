@@ -14,7 +14,13 @@ const options = {
 };
 
 export function useGetEvents() {
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
+  // const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
+  // const { data, isLoading, error, isValidating } = useSWR(URL, (url, ...args) => fetcher(url, ...args), options);
+  const { data, isLoading, error, isValidating } = useSWR(
+    URL,
+    (url, ...args) => fetcher(url, { ...args[0], id: "5ee83180fb01683673939629" }),
+    options
+  );
 
   const memoizedValue = useMemo(() => {
     const events = data?.events.map((event) => ({

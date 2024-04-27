@@ -14,6 +14,8 @@ import DialogContent from '@mui/material/DialogContent';
 
 // assets
 import { countries } from 'src/assets/data';
+// utils
+import uuidv4 from 'src/utils/uuidv4';
 // api
 import { createFoster } from 'src/api/fosters';
 // components
@@ -34,7 +36,7 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
     address: Yup.string().required('Address is required'),
     city: Yup.string().required('City is required'),
     state: Yup.string().required('State is required'),
-    country: Yup.string().required('Country is required'),
+    // country: Yup.string().required('Country is required'),
     zipCode: Yup.string().required('Zip code is required'),
     // not required
     addressType: Yup.string(),
@@ -50,7 +52,7 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
     primary: true,
     phoneNumber: '',
     addressType: 'HQ',
-    country: '',
+    // country: '',
   };
 
   const methods = useForm({
@@ -68,30 +70,18 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
       await createFoster(
         account_id,
         {
+          id: uuidv4(),
           name: data.name,
           phoneNumber: data.phoneNumber,
           address: data.address,
           city: data.city,
           state: data.state,
-          country: data.country,
+          // country: data.country,
           zip: data.zipCode,
-          addressType: data.addressType,
+          addressType: "Foster", // data.addressType,
           primary: data.primary,
         }
       );
-
-      // onCreate({
-      //   name: data.name,
-      //   phoneNumber: data.phoneNumber,
-      //   address: data.address,
-      //   city: data.city,
-      //   state: data.state,
-      //   country: data.country,
-      //   zip: data.zipCode,
-      //   fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.country}, ${data.zipCode}`,
-      //   addressType: data.addressType,
-      //   primary: data.primary,
-      // });
       onClose();
     } catch (error) {
       console.error(error);
@@ -101,11 +91,11 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={onClose}>
       <FormProvider methods={methods} onSubmit={onSubmit}>
-        <DialogTitle>New address</DialogTitle>
+        <DialogTitle>New foster address</DialogTitle>
 
         <DialogContent dividers>
           <Stack spacing={3}>
-            <RHFRadioGroup
+            {/* <RHFRadioGroup
               row
               name="addressType"
               options={[
@@ -114,7 +104,7 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
                 { label: 'Parent', value: 'Parent' },
 
               ]}
-            />
+            /> */}
 
             <Box
               rowGap={3}
@@ -148,7 +138,7 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
               <RHFTextField name="zipCode" label="Zip/Code" />
             </Box>
 
-            <RHFAutocomplete
+            {/* <RHFAutocomplete
               name="country"
               label="Country"
               options={countries.map((country) => country.label)}
@@ -174,9 +164,9 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
                   </li>
                 );
               }}
-            />
+            /> */}
 
-            <RHFCheckbox name="primary" label="Use this address as default." />
+            <RHFCheckbox disabled name="primary" label="Use this address as default." />
           </Stack>
         </DialogContent>
 
@@ -186,7 +176,7 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
           </Button>
 
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-            Deliver to this Address
+            Add Foster Address
           </LoadingButton>
         </DialogActions>
       </FormProvider>

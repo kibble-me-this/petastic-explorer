@@ -48,40 +48,21 @@ const mockAddress =
   primary: true,
 };
 
+
 export function useGetFosters(account_id) {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [fetchError, setFetchError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        let response;
-        if (account_id === 'mockId') {
-          // If account_id is 'mockId', use the mock address directly
-          response = { fosters: [mockAddress] };
-        } else {
-          // Otherwise, make the endpoint call
-          response = await fetcherANYML([URL.getFosters, { account_id }]);
-        }
-        setData(response);
-      } catch (error) {
-        setFetchError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [account_id]);
+  const { data, isLoading, error, isValidating } = useSWR(
+    URL,
+    () => fetcherANYML([URL.getFosters, { account_id }]),
+    options
+  );
 
   const memoizedValue = useMemo(() => ({
     fosters: data?.fosters || [],
     isLoading,
-    error: fetchError,
+    error,
     isEmpty: !isLoading && !data?.fosters?.length,
-  }), [data, isLoading, fetchError]);
+  }), [data, error, isLoading]);
 
   return memoizedValue;
 }
@@ -90,9 +71,7 @@ export function useGetFosters(account_id) {
 
 export async function createFoster(account_id, eventData) {
   try {
-
     const { id, name, country, avatarUrl, addressType, address, city, state, zip, phoneNumber } = eventData;
-
     const fullAddress = `${address}, ${city}, ${state} ${zip}`;
 
     const newAddress = {
@@ -122,25 +101,30 @@ export async function createFoster(account_id, eventData) {
     const response = await postRequestANYML(URL.createFoster, newAddress, config);
 
     // Extract the newly created foster from the response
-    const newFoster = response.data;
+    const newFoster = newAddress.new_foster;
 
     // Update the local data with the new foster
-    // mutate(
-    //   URL.createFoster,
-    //   (currentData) => ({
-    //     ...currentData,
-    //     fosters: [...currentData.fosters, mockData],
-    //   }),
-    //   false
-    // );
+    mutate(
+      URL,
+      (currentData) => {
+        console.log('Current Data:', currentData); // Add this line to log currentData
+        return {
+          ...currentData,
+          fosters: [...(currentData?.fosters || []), newFoster],
+        };
+      },
+      false
+    );
 
-    // Optionally, return the new foster data for further processing
-    return newFoster;
+    // No need to return newFoster if it's not used elsewhere
   } catch (error) {
     console.error('Error creating foster:', error);
-    throw error; // Rethrow the error for error handling
+    throw error;
   }
 }
+
+
+
 
 // ----------------------------------------------------------------------
 

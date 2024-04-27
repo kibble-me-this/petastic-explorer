@@ -63,11 +63,21 @@ const orderData = {
 // MINIMAL API
 // ====================
 
-export const fetcher = async (args) => {
-  const [url, config] = Array.isArray(args) ? args : [args];
+// export const fetcher = async (args) => {
+//   const [url, config] = Array.isArray(args) ? args : [args];
 
-  const res = await axiosInstance.get(url, { ...config });
+//   const res = await axiosInstance.get(url, { ...config });
 
+//   return res.data;
+// };
+
+export const fetcher = async (url, ...args) => {
+  const { id, params, ...config } = args[0];
+
+  const res = await axiosInstance.get(url, {
+    params,
+    ...config
+  });
   return res.data;
 };
 
