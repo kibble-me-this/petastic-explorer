@@ -71,26 +71,26 @@ export default function AppAreaInstalled({ title, subheader, chart, loading, ...
         <CardHeader
           title={title}
           subheader={loading ? <Skeleton animation="wave" width={100} /> : subheader}
-          action={
-            <ButtonBase
-              onClick={popover.onOpen}
-              sx={{
-                pl: 1,
-                py: 0.5,
-                pr: 0.5,
-                borderRadius: 1,
-                typography: 'subtitle2',
-                bgcolor: 'background.neutral',
-              }}
-            >
-              {seriesData}
-              <Iconify
-                width={16}
-                icon={popover.open ? 'eva:arrow-ios-upward-fill' : 'eva:arrow-ios-downward-fill'}
-                sx={{ ml: 0.5 }}
-              />
-            </ButtonBase>
-          }
+          // action={
+          //   <ButtonBase
+          //     onClick={popover.onOpen}
+          //     sx={{
+          //       pl: 1,
+          //       py: 0.5,
+          //       pr: 0.5,
+          //       borderRadius: 1,
+          //       typography: 'subtitle2',
+          //       bgcolor: 'background.neutral',
+          //     }}
+          //   >
+          //     {seriesData}
+          //     <Iconify
+          //       width={16}
+          //       icon={popover.open ? 'eva:arrow-ios-upward-fill' : 'eva:arrow-ios-downward-fill'}
+          //       sx={{ ml: 0.5 }}
+          //     />
+          //   </ButtonBase>
+          // }
         />
 
         <Box sx={{ mt: 3, mx: 3 }}>

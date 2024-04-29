@@ -18,11 +18,11 @@ export const _appRelated = ['California', 'Texas','New York',  'Florida',  'Penn
       '/assets/icons/app/ic_github.svg';
 
     const totalReviews =
-      (name === 'California' && 93802) ||
-      (name === 'Florida' && 40848) ||
-      (name === 'New York' && 42031) ||
-      (name === 'Texas' && 76020) ||
-      (name === 'Pennsylvania' && 35561) ||
+      (name === 'California' && 100302) ||
+      (name === 'Florida' && 50351) ||
+      (name === 'New York' && 50632) ||
+      (name === 'Texas' && 83201) ||
+      (name === 'Pennsylvania' && 43736) ||
       '/assets/icons/app/ic_github.svg';  
 
     return {
@@ -73,31 +73,31 @@ const topDogs = [
     id: "customId1",
     name: "Labrador Retriever",
     avatarUrl: "url/to/avatar3.jpg",
-    totalFavorites: 72906,
+    totalFavorites: 94006,
   },
   {
     id: "customId2",
     name: "Pit Bull Terrier",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 46009,
+    totalFavorites: 68001,
   },
   {
     id: "customId3",
     name: "German Shepherd Dog",
     avatarUrl: "url/to/avatar1.jpg",
-    totalFavorites: 22112,
+    totalFavorites: 40111,
   },
   {
     id: "customId4",
     name: "Chihuahua",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 20385,
+    totalFavorites: 38317,
   },
   {
     id: "customId5",
     name: "Hound",
     avatarUrl: "url/to/avatar1.jpg",
-    totalFavorites: 15098,
+    totalFavorites: 32197,
   },
 
 ];
@@ -107,31 +107,31 @@ const topCats = [
     id: "customId1",
     name: "Domestic Short Hair",
     avatarUrl: "url/to/avatar1.jpg",
-    totalFavorites: 55210,
+    totalFavorites: 65210,
   },
   {
     id: "customId2",
     name: "Tabby",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 22322,
+    totalFavorites: 32319,
   },
   {
     id: "customId3",
     name: "Domestic Medium Hair",
     avatarUrl: "url/to/avatar3.jpg",
-    totalFavorites: 19599,
+    totalFavorites: 29575,
   },
   {
     id: "customId4",
     name: "TaDomestic Medium Hair",
     avatarUrl: "url/to/avatar2.jpg",
-    totalFavorites: 10705,
+    totalFavorites: 20702,
   },
   {
     id: "customId5",
     name: "Siamese",
     avatarUrl: "url/to/avatar3.jpg",
-    totalFavorites: 7443,
+    totalFavorites: 17447,
   },
 ];
 

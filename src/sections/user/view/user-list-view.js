@@ -218,12 +218,41 @@ export default function UserListView() {
   // const [resultCount, setResultCount] = useState(0); // New state for result count
   const pageSize = 25; // Number of items per page
 
+
+
   const [totalCount, setTotalCount] = useState(0);
   const [totalDogs, setTotalDogs] = useState(0);
   const [totalCats, setTotalCats] = useState(0);
   const [totalMaxPets, setTotalMaxPets] = useState(0);
   const [totalMaxDogs, setTotalMaxDogs] = useState(0);
   const [totalMaxCats, setTotalMaxCats] = useState(0);
+
+  const seriesData = [
+    0,
+    0,
+    0,
+    32000,
+    51500,
+    86500,
+    158500,
+    238500,
+    338500,
+    428503,
+    527703,
+    618368,
+    690606,
+    773941,
+    863200,       // mar
+    totalMaxPets, // apr
+  ];
+
+const lastValue = seriesData[seriesData.length - 1];
+const value60DaysAgo = seriesData[seriesData.length - 4];
+
+const percentageGrowth = ((lastValue - value60DaysAgo) / value60DaysAgo) * 100;
+const subheader = `(+${percentageGrowth.toFixed(1)}%) than last 60 days`;
+
+
 
   const [country, setCountry] = useState('US');
   const [petType, setPetType] = useState('');
@@ -363,17 +392,17 @@ export default function UserListView() {
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Pets"
-                percent={((totalMaxPets-601001)/601001)*100}
+                percent={((totalMaxPets-788500)/788500)*100}
                 total={totalMaxPets}
                 chart={{
-                  series: [48300,
-                    35000,
-                    72000,
-                    80000,
-                    100000,
-                    100010,
-                    162491,
-                    192966,],
+                  series: [
+                    90003,
+                    99200,
+                    90665,
+                    72238,
+                    83335,
+                    89259,
+                  ],
                 }}
                 loading={loadingMaxValues}
               />
@@ -382,18 +411,18 @@ export default function UserListView() {
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Dogs"
-                percent={((totalMaxDogs-386841)/386841)*100}
+                percent={((totalMaxDogs-500000)/500000)*100}
                 total={totalMaxDogs}
                 chart={{
                   colors: [theme2.palette.info.light, theme2.palette.info.main],
-                  series: [33504,
-                    24278,
-                    49943,
-                    55493,
-                    69366,
-69373,
-82664,
-84506,]
+                  series: [
+                    59366,
+                    59373,
+                    52664,
+                    35193,
+                    45355,
+                    51107,
+                  ]
                 }}
                 loading={loadingMaxValues}
               />
@@ -402,18 +431,18 @@ export default function UserListView() {
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Cats"
-                percent={((totalMaxCats-214160)/214160)*100}
+                percent={((totalMaxCats-305000)/305000)*100}
                 total={totalMaxCats}
                 chart={{
                   colors: [theme2.palette.warning.light, theme2.palette.warning.main],
-                  series: [14796,
-                    10722,
-                    22057,
-                    24507,
-                    30634,
+                  series: [
                     30637,
-                    79827,
-                    108460,],
+                    39827,
+                    38001,
+                    37045,
+                    37980,
+                    38152,
+                  ],
                 }}
                 loading={loadingMaxValues}
               />
@@ -422,21 +451,25 @@ export default function UserListView() {
             <Grid xs={12} md={6} lg={8}>
               <AppAreaInstalled
                 title="The Pet's Network (population growth) "
-                subheader="(+81%) than last 60 days"
+                subheader={subheader}
                 chart={{
                   categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec',
+                    'Jan23',
+                    'Feb23',
+                    'Mar23',
+                    'Apr23',
+                    'May23',
+                    'Jun23',
+                    'Jul23',
+                    'Aug23',
+                    'Sep23',
+                    'Oct23',
+                    'Nov23',
+                    'Dec23',
+                    'Jan24',
+                    'Feb24',
+                    'Mar24',
+                    'Apr24',
                   ],
                   series: [
                     {
@@ -444,20 +477,7 @@ export default function UserListView() {
                       data: [
                         {
                           name: 'Total Pets',
-                          data: [
-                            0,
-                            0,
-                            0,
-                            32000,
-                            51500,
-                            86500,
-                            158500,
-                            238500,
-                            338500,
-                            438510,
-                            601001,
-                            totalMaxPets,
-                          ],
+                          data: seriesData
                         },
                         // {
                         //   name: 'Dogs',
@@ -469,6 +489,28 @@ export default function UserListView() {
                         // },
                       ],
                     },
+                    // {
+                    //   year: '2024',
+                    //   data: [
+                    //     {
+                    //       name: 'Total Pets',
+                    //       data: [
+                    //         838500,
+                    //         838510,
+                    //         901001,
+                    //         totalMaxPets,
+                    //       ],
+                    //     },
+                    //     // {
+                    //     //   name: 'Dogs',
+                    //     //   data: [0, 0, 51, 35, 41, 10, 91, 69, 62, 148, 91, 69],
+                    //     // },
+                    //     // {
+                    //     //   name: 'Cats',
+                    //     //   data: [0, 0, 51, 35, 41, 10, 91, 69, 62, 148, 91, 69],
+                    //     // },
+                    //   ],
+                    // },
                   ],
                 }}
                 loading={loadingMaxValues} // Pass the loading state as a prop
