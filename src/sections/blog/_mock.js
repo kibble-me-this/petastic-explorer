@@ -1,6 +1,11 @@
-export function getShelterAccountId(publicAddress) {
+export function getShelterAccountId(user) {
+  // Check if user object exists and has the email attribute
+  if (!user || !user.email) {
+    return null; // Return null if user object or email attribute is missing
+  }
+
   // Search for the object in the array with the matching publicAddress
-  const userObject = emailPublicAddressArray.find((user) => user.publicAddress === publicAddress);
+  const userObject = emailPublicAddressArray.find((u) => u.email === user.email);
 
   // If a matching user object is found
   if (userObject) {
@@ -19,9 +24,10 @@ export function getShelterAccountId(publicAddress) {
   return null;
 }
 
-export function getShelterAccountId1(publicAddress) {
+
+export function getShelterAccountId1(user) {
   // Search for the object in the array with the matching publicAddress
-  const userObject = emailPublicAddressArray1.find((user) => user.publicAddress === publicAddress);
+  const userObject = emailPublicAddressArray1.find((u) => u.publicAddress === user.email);
 
   // If a matching user object is found, return its shelterAccountId; otherwise, return null
   return userObject ? userObject.shelterAccountId : null;
@@ -230,7 +236,7 @@ export const emailPublicAddressArray = [
         shelterName: 'Brixies Rescue Inc',
         shelter_name_common: 'Brixies Rescue Inc',
       },
-      
+
     ],
   },
   // Add more user objects with their respective shelters as needed

@@ -88,7 +88,7 @@ export default function JobListView() {
   useEffect(() => {
     setIsApiLoading(true);
 
-    const shelterAccountIds = getShelterAccountId(user.publicAddress);
+    const shelterAccountIds = getShelterAccountId(user);
     console.log('shelterAccountIds: ', shelterAccountIds);
 
     const fetchShelterData = (shelterAccountId) => {
@@ -152,7 +152,7 @@ export default function JobListView() {
         console.error('Error fetching user pets:', error);
         setIsApiLoading(false);
       });
-  }, [user.publicAddress]);
+  }, [user]);
 
   const handleFilters = useCallback((name, value) => {
     setFilters((prevState) => ({

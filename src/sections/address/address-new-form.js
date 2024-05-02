@@ -34,7 +34,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
     address: Yup.string().required('Address is required'),
     city: Yup.string().required('City is required'),
     state: Yup.string().required('State is required'),
-    country: Yup.string().required('Country is required'),
+    // country: Yup.string().required('Country is required'),
     zipCode: Yup.string().required('Zip code is required'),
     // not required
     addressType: Yup.string(),
@@ -50,7 +50,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
     primary: true,
     phoneNumber: '',
     addressType: 'HQ',
-    country: '',
+    // country: '',
   };
 
   const methods = useForm({
@@ -71,7 +71,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
         address: data.address,
         city: data.city,
         state: data.state,
-        country: data.country,
+        // country: data.country,
         zip: data.zipCode,
         addressType: data.addressType,
         primary: data.primary,
@@ -83,9 +83,10 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
         address: data.address,
         city: data.city,
         state: data.state,
-        country: data.country,
+        // country: data.country,
         zip: data.zipCode,
-        fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.country}, ${data.zipCode}`,
+        // fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.country}, ${data.zipCode}`,
+        fullAddress: `${data.address}, ${data.city}, ${data.state}, ${data.zipCode}`,
         addressType: data.addressType,
         primary: data.primary,
       });
@@ -145,7 +146,7 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
               <RHFTextField name="zipCode" label="Zip/Code" />
             </Box>
 
-            <RHFAutocomplete
+            {/* <RHFAutocomplete
               name="country"
               label="Country"
               options={countries.map((country) => country.label)}
@@ -171,9 +172,9 @@ export default function AddressNewForm({ open, onClose, onCreate }) {
                   </li>
                 );
               }}
-            />
+            /> */}
 
-            <RHFCheckbox name="primary" label="Use this address as default." />
+            {/* <RHFCheckbox name="primary" label="Use this address as default." /> */}
           </Stack>
         </DialogContent>
 
