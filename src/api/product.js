@@ -108,6 +108,13 @@ const organizations = [
     id: '5ee83180fb01683673939629',
     name: 'Strong Paws',
     products: [
+      "B09NYJCN9B",
+      "B00YXSNXQ8",
+      "B07CXMKQ8M",
+      "B08JHDL2T3",
+      "B0CLP74QPJ",
+      "B07P22MNXD",
+      "B07NXTSRCX",
       "B0180A1J38",
       "B076DJ3QCV",
       "B07DFSBB5M",
@@ -324,6 +331,1230 @@ const organizations = [
 ];
 
 const localData = [
+  {
+    "timestamp": 1715087931,
+    "status": "completed",
+    "feature_bullets": [
+      "DESIGNED FOR CRATE TRAINING: Attaches to your dog crate to make crate training easy by encouraging licking and reduce stress",
+      "PERFECT FOR PEANUT BUTTER: Easily apply to xylitol-free PB or your puppys favorite sticky food",
+      "EASY TO CLEAN: Food-grade and BPA-free rubber washes easily after use",
+      "SAFE: No harmful smell",
+      "UNIQUE SHAPE : Original designed by derYEP"
+    ],
+    "title": "derYEP Dog Training Toy for Crate Training Peanut Butter Slow Feeder Treat Dispenser Training aid to Reduce Anxiety (Pink)",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n                       <p> <span>derYEP Dog Training Toy for Crate Training Peanut Butter Slow Feeder Treat Dispenser training aid to reduce anxiety</span>  </p>            </div>",
+    "product_description": "derYEP Dog Training Toy for Crate Training Peanut Butter Slow Feeder Treat\nDispenser training aid to reduce anxiety",
+    "images": [
+      "https://m.media-amazon.com/images/I/51tf0wD4KYL.jpg",
+      "https://m.media-amazon.com/images/I/61T8FvYkeNL.jpg",
+      "https://m.media-amazon.com/images/I/61AacLnkepL.jpg",
+      "https://m.media-amazon.com/images/I/71wyB86uZjL.jpg",
+      "https://m.media-amazon.com/images/I/71ZplUgaw4L.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/51tf0wD4KYL.jpg",
+    "product_details": [
+      "Brand: derYEP",
+      "Target Species: Dog",
+      "Product Dimensions: 5.91\"L x 2.95\"W x 0.98\"H",
+      "Material: Rubber",
+      "Specific Uses For Product: Training",
+      "Product Dimensions \u200f : \u200e 5.91 x 2.95 x 0.98 inches; 6.7 ounces",
+      "Date First Available \u200f : \u200e December 21, 2021",
+      "Manufacturer \u200f : \u200e derYEP",
+      "Best Sellers Rank: #12,117 in Pet Supplies (See Top 100 in Pet Supplies) #53 in Dog Slow Feeders",
+      "#53 in Dog Slow Feeders",
+      "Customer Reviews: 4.3 4.3 out of 5 stars 134 ratings",
+      "Item Weight: 6.7 ounces",
+      "Manufacturer: derYEP",
+      "Date First Available: December 21, 2021",
+      "Item Package Dimensions L x W x H: 6.61 x 3.86 x 1.5 inches",
+      "Item Dimensions LxWxH: 5.91 x 2.95 x 0.98 inches",
+      "Item Weight: 190 Grams",
+      "Brand Name: derYEP",
+      "Target Audience Keyword: dogs",
+      "Color: Pink",
+      "Material: Rubber",
+      "Specific Uses for Product: Training"
+    ],
+    "num_sales": 300,
+    "eliapo": false,
+    "brand": "derYEP",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Feeding & Watering Supplies",
+      "Bowls & Dishes",
+      "Slow Feeders"
+    ],
+    "original_retail_price": 2399,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 3.8582677126,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 1.4960629906,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 6.6141732216,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.5070632026,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B09NYJCN9B",
+        "variant_specifics": [
+          {
+            "dimension": "Color",
+            "value": "Pink"
+          }
+        ]
+      },
+      {
+        "product_id": "B09NYKXBC1",
+        "variant_specifics": [
+          {
+            "dimension": "Color",
+            "value": "Green"
+          }
+        ]
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "derYEP Dog Training Toy for Crate Training Peanut Butter Slow Feeder Treat Dispenser Training aid to Reduce Anxiety (Pink)",
+    "variant_specifics": [
+      {
+        "dimension": "Color",
+        "value": "Pink"
+      }
+    ],
+    "asin": "B09NYJCN9B",
+    "product_id": "B09NYJCN9B",
+    "retailer": "amazon",
+    "stars": 4.3,
+    "review_count": 134,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B09NYH9CS9",
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/61TTgutnoFL.jpg",
+      "https://m.media-amazon.com/images/I/61bPoBo-VkL.jpg"
+    ],
+    "blank_box": false,
+    "price": 1499,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "EAN",
+        "value": "0676351531229"
+      },
+      {
+        "type": "UPC",
+        "value": "676351531229"
+      }
+    ],
+    "epids_map": {
+      "EAN": "0676351531229",
+      "UPC": "676351531229"
+    }
+  },
+  {
+    "timestamp": 1715087854,
+    "status": "completed",
+    "feature_bullets": [
+      "Contains 1 - 23 Pound Bag of Dry Dog Food",
+      "Real salmon is the no.1 ingredient",
+      "No artificial preservatives, colors, or artificial flavors",
+      "Natural dog food with added vitamins & minerals",
+      "Safely USA cooked with the world's best ingredients"
+    ],
+    "title": "Rachael Ray Nutrish Zero Grain Dry Dog Food, Salmon & Sweet Potato Recipe, 23 Pounds",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n                       <p> <span>Give your dog a zero-guilt meal they'll love with Rachael Ray Nutrish Zero Grain Salmon &amp; Sweet Potato Recipe. This grain-free dry dog food is made with real salmon as the #1 ingredient to delight your dog with the flavor of tasty salmon in every bowl. We also added vitamins, minerals, and taurine. What didn't make it into our recipe? Grain, gluten, filler ingredients, poultry by-product meal, artificial flavors, colors or preservatives. Try out Rachael Ray Zero Grain Dry Dog Food to give your dog the wholesome meals they need and the tasty flavors they love.</span>  </p>            </div>",
+    "product_description": "Give your dog a zero-guilt meal they'll love with Rachael Ray Nutrish Zero\nGrain Salmon & Sweet Potato Recipe. This grain-free dry dog food is made with\nreal salmon as the 1 ingredient to delight your dog with the flavor of tasty\nsalmon in every bowl. We also added vitamins, minerals, and taurine. What\ndidn't make it into our recipe? Grain, gluten, filler ingredients, poultry by-\nproduct meal, artificial flavors, colors or preservatives. Try out Rachael Ray\nZero Grain Dry Dog Food to give your dog the wholesome meals they need and the\ntasty flavors they love.",
+    "images": [
+      "https://m.media-amazon.com/images/I/81tD+36kJXL.jpg",
+      "https://m.media-amazon.com/images/I/81mafb2KrPL.jpg",
+      "https://m.media-amazon.com/images/I/51Euja1CFrL.jpg",
+      "https://m.media-amazon.com/images/I/913YWjIx4dL.jpg",
+      "https://m.media-amazon.com/images/I/81IVk+UTp3L.jpg",
+      "https://m.media-amazon.com/images/I/81FEFu5Co1L.jpg",
+      "https://m.media-amazon.com/images/I/81Jc6urFpzL.jpg",
+      "https://m.media-amazon.com/images/I/91k5RFu55-L.jpg",
+      "https://m.media-amazon.com/images/I/81BBxuX2IWL.jpg",
+      "https://m.media-amazon.com/images/I/81M3yI0agCL.jpg",
+      "https://m.media-amazon.com/images/I/917SpSvDY6L.jpg",
+      "https://m.media-amazon.com/images/I/313kmds3A0L.jpg",
+      "https://m.media-amazon.com/images/I/31iAL1pGxiL.jpg",
+      "https://m.media-amazon.com/images/I/31sdMN+rU0L.jpg",
+      "https://m.media-amazon.com/images/I/41Z7OD+wIGL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/81tD+36kJXL.jpg",
+    "product_details": [
+      "Brand: Rachael Ray Nutrish",
+      "Flavor: Salmon & Sweet Potato",
+      "Diet Type: Gluten Free",
+      "Age Range (Description): All Life Stages",
+      "Item Form: Dry",
+      "Is Discontinued By Manufacturer \u200f : \u200e No",
+      "Product Dimensions \u200f : \u200e 4.5 x 16 x 24 inches; 23 Pounds",
+      "Item model number \u200f : \u200e 7119000780",
+      "Date First Available \u200f : \u200e January 1, 2015",
+      "Manufacturer \u200f : \u200e The J.M. Smucker Co.",
+      "Country of Origin \u200f : \u200e USA",
+      "Best Sellers Rank: #869 in Pet Supplies (See Top 100 in Pet Supplies) #59 in Dry Dog Food",
+      "#59 in Dry Dog Food",
+      "Customer Reviews: 4.6 4.6 out of 5 stars 4,397 ratings",
+      "Item Weight: 23 pounds",
+      "Manufacturer: The J.M. Smucker Co.",
+      "Country of Origin: USA",
+      "Item model number: 7119000780",
+      "Date First Available: January 1, 2015",
+      "Item Package Dimensions L x W x H: 22.15 x 15.3 x 4.6 inches",
+      "Item Dimensions LxWxH: 4.5 x 16 x 24 inches",
+      "Item Weight: 23 Pounds",
+      "Brand Name: Rachael Ray Nutrish",
+      "Target Audience Keyword: dogs",
+      "Directions: Weaning Puppies: Start puppies on Rachael Ray\u2122 Nutrish Zero Grain Salmon & Sweet Potato Recipe Dog Food as soon as they begin to chew on solid food, usually 3\u20134 weeks of age. Allow them to eat as much as they want until fully weaned (6\u20138 weeks of age).Growing Puppies: Puppies should be completely weaned by 6\u20138 weeks of age. After weaning, feed them all they want 3 times daily to 6 months of age and 2 times daily to 12 months of age. If desired, Rachael Ray\u2122 Nutrish Zero Grain Salmon & Sweet Potato Recipe Dog Food can be fed moistened. To feed moistened, mix 1/4 cup of water to 2 cups of Rachael Ray\u2122 Nutrish Zero Grain Salmon & Sweet Potato Recipe Dog Food.Adult Dogs: Adult dogs with normal activity may be fed once daily. Depending on your dog's age and activity, serving sizes may vary slightly from the recommended daily feeding guide portions.For pregnant or lactating females, feed daily up to 3 times the amount suggested for their non-pregnant weight.Talk to your veterinarian about your dog's ideal weight and adjust your amounts accordingly.Transition Instructions Because Rachael Ray Nutrish may offer different ingredients than your dog is used to, it may take up to ten days for your dog's system to become acclimated to Nutrish. Slowly mix with his other food over a five- to ten-day period until your dog is solely eating Nutrish",
+      "Country of Origin: United States",
+      "Color: Salmon & Sweet Potato",
+      "Size: 23 Pound (Pack of 1)",
+      "Age Range Description: All Life Stages",
+      "Number of Items: 1",
+      "Style: Dry Food",
+      "Breed Recommendation: All Breed Sizes",
+      "Included Components: 1 - 23 Pound Bag",
+      "Specific Uses for Product: Hip and Joint Support"
+    ],
+    "num_sales": 4000,
+    "eliapo": false,
+    "brand": "Rachael Ray Nutrish",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Food",
+      "Dry"
+    ],
+    "original_retail_price": 5499,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 15.299999984394,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 4.599999995308,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 22.154799977402103,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 23.30065647078,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B00YXSNXQ8",
+        "variant_specifics": [
+          {
+            "dimension": "Style",
+            "value": "Dry Food"
+          },
+          {
+            "dimension": "Flavor Name",
+            "value": "Salmon & Sweet Potato"
+          },
+          {
+            "dimension": "Size",
+            "value": "23 Pound (Pack of 1)"
+          }
+        ]
+      },
+      {
+        "product_id": "B08PZH4NXX",
+        "variant_specifics": [
+          {
+            "dimension": "Style",
+            "value": "Dry Food"
+          },
+          {
+            "dimension": "Flavor Name",
+            "value": "Chicken & Sweet Potato"
+          },
+          {
+            "dimension": "Size",
+            "value": "26 Pound (Pack of 1)"
+          }
+        ]
+      },
+      {
+        "product_id": "B08PZFT9T1",
+        "variant_specifics": [
+          {
+            "dimension": "Style",
+            "value": "Dry Food"
+          },
+          {
+            "dimension": "Flavor Name",
+            "value": "Chicken & Sweet Potato"
+          },
+          {
+            "dimension": "Size",
+            "value": "13 Pound (Pack of 1)"
+          }
+        ]
+      },
+      {
+        "product_id": "B08PZD7541",
+        "variant_specifics": [
+          {
+            "dimension": "Style",
+            "value": "Dry Food"
+          },
+          {
+            "dimension": "Flavor Name",
+            "value": "Salmon & Sweet Potato"
+          },
+          {
+            "dimension": "Size",
+            "value": "11.5 Pound (Pack of 1)"
+          }
+        ]
+      }
+    ],
+    "return_hint": false,
+    "return_hint_text": "Non-returnable due to food safety reasons",
+    "delight_text": "",
+    "tag_title": "Rachael Ray Nutrish Zero Grain Dry Dog Food, Salmon & Sweet Potato Recipe, 23 Pounds",
+    "variant_specifics": [
+      {
+        "dimension": "Style",
+        "value": "Dry Food"
+      },
+      {
+        "dimension": "Flavor Name",
+        "value": "Salmon & Sweet Potato"
+      },
+      {
+        "dimension": "Size",
+        "value": "23 Pound (Pack of 1)"
+      }
+    ],
+    "asin": "B00YXSNXQ8",
+    "product_id": "B00YXSNXQ8",
+    "retailer": "amazon",
+    "stars": 4.6,
+    "review_count": 4397,
+    "question_count": null,
+    "num_offers": 4,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B0BH91CB1C",
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/71bPu5ZDs5L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71f4F+ecVQL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/C1TnVxBcigS.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/61xlqggVmnL.jpg",
+      "https://m.media-amazon.com/images/I/810iVwiyBLL.jpg",
+      "https://m.media-amazon.com/images/I/81gKzlCFe9L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/813cuW3lA+L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/51zDaMh2J0L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71dr+uhzxlL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/81tCdhi6AGL.jpg"
+    ],
+    "blank_box": false,
+    "price": 4648,
+    "ship_price": null,
+    "addon": false,
+    "epids": [
+      {
+        "type": "MPN",
+        "value": "7119000780"
+      },
+      {
+        "type": "EAN",
+        "value": "0071190007803"
+      },
+      {
+        "type": "UPC",
+        "value": "071190007803"
+      },
+      {
+        "type": "GTIN",
+        "value": "00071190007803"
+      }
+    ],
+    "epids_map": {
+      "MPN": "7119000780",
+      "EAN": "0071190007803",
+      "UPC": "071190007803",
+      "GTIN": "00071190007803"
+    }
+  },
+  {
+    "timestamp": 1715087745,
+    "status": "completed",
+    "feature_bullets": [
+      "Enticing and mentally stimulating when stuffed with kibble, treats, and peanut butter or paste; keep your pet happy and entertained",
+      "Slows down your pet's eating which improves digestion and minimizes bloating",
+      "This soft rubber slithering snack is strategically designed for fun games of fetch and teaching appropriate chewing behaviors",
+      "Bite resistance material helps reduce anxiety",
+      "Non-toxic material; easy to clean; handwash with soap and warm water"
+    ],
+    "title": "Trixie Snack Snake Dog Puzzle Toy for Dogs, Dog Enrichment Toy, Interactive Chew Toy, Treat Dispenser, 16.5\" (42cm)",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n               <h3> <span>Product Description</span> </h3>        <p> <span>The TRIXIE Snack Snake will slither in for a fun treat-filled time with your dog. Fill the toy with their favorite treat and watch your pup be entertained and out of trouble. The stuff-able inner track is a stimulating mental challenge, grabbing their attention for active games they crave. Easily place kibble, treats, peanut butter or other favorites in the slit for your pet to enjoy. Made of durable, easy to clean rubber, your pet can chew for hours. Slowly releasing treats helps reduce bloating and the squeaking noise enhances the fun by 10!</span>  </p>          <h3> <span>Set Contains:</span> </h3>        <p> <span>Snack Snake, TPR</span>  </p>            </div>",
+    "product_description": "The TRIXIE Snack Snake will slither in for a fun treat-\nfilled time with your dog. Fill the toy with their favorite treat and watch\nyour pup be entertained and out of trouble. The stuff-able inner track is a\nstimulating mental challenge, grabbing their attention for active games they\ncrave. Easily place kibble, treats, peanut butter or other favorites in the\nslit for your pet to enjoy. Made of durable, easy to clean rubber, your pet\ncan chew for hours. Slowly releasing treats helps reduce bloating and the\nsqueaking noise enhances the fun by 10! Set Contains: Snack Snake, TPR",
+    "images": [
+      "https://m.media-amazon.com/images/I/612h9SbWczL.jpg",
+      "https://m.media-amazon.com/images/I/513dxGENI+L.jpg",
+      "https://m.media-amazon.com/images/I/71RoCJKXJFL.jpg",
+      "https://m.media-amazon.com/images/I/71K2B0RgRnL.jpg",
+      "https://m.media-amazon.com/images/I/51-dI+kwoML.jpg",
+      "https://m.media-amazon.com/images/I/51c1QIRB2lL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/612h9SbWczL.jpg",
+    "product_details": [
+      "Is Discontinued By Manufacturer \u200f : \u200e No",
+      "Language \u200f : \u200e German, French, English",
+      "Product Dimensions \u200f : \u200e 2.76 x 4.72 x 20.47 inches; 7.23 ounces",
+      "Item model number \u200f : \u200e 34949",
+      "Date First Available \u200f : \u200e July 7, 2018",
+      "Manufacturer \u200f : \u200e TRIXIE",
+      "Best Sellers Rank: #47,860 in Pet Supplies (See Top 100 in Pet Supplies) #872 in Dog Chew Toys",
+      "#872 in Dog Chew Toys",
+      "Customer Reviews: 4.4 4.4 out of 5 stars 4,944 ratings",
+      "Item Weight: 7.2 ounces",
+      "Manufacturer: TRIXIE",
+      "Language: German, French, English",
+      "Item model number: 34949",
+      "Date First Available: July 7, 2018",
+      "Item Package Dimensions L x W x H: 16.54 x 4.25 x 1.86 inches",
+      "Item Dimensions LxWxH: 2.76 x 4.72 x 20.47 inches",
+      "Item Weight: 0.21 Kilograms",
+      "Brand Name: TRIXIE",
+      "Target Audience Keyword: dogs",
+      "Model Name: Snack",
+      "Color: multi-color",
+      "Size: 1 Count (Pack of 1)",
+      "Material: Plastic",
+      "Number of Items: 1",
+      "Breed Recommendation: All Breed Sizes"
+    ],
+    "num_sales": 50,
+    "eliapo": false,
+    "brand": "TRIXIE",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Toys",
+      "Chew Toys"
+    ],
+    "original_retail_price": 2099,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 4.2519684996,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 1.8635170584666663,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 16.535433054,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.4629707502,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B07CXMKQ8M",
+        "variant_specifics": []
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "Pet Supplies : Trixie Snack Snake Dog Puzzle Toy for Dogs, Dog Enrichment Toy, Interactive Chew Toy, Treat Dispenser, 16.5\" (42cm) : Amazon.com",
+    "variant_specifics": [],
+    "asin": "B07CXMKQ8M",
+    "product_id": "B07CXMKQ8M",
+    "retailer": "amazon",
+    "stars": 4.4,
+    "review_count": 4944,
+    "question_count": null,
+    "num_offers": 5,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": null,
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/51H1PXzj+TL.jpg",
+      "https://m.media-amazon.com/images/I/61nopKo6QmL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/C1UB-Su4XYS.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/C1n2C+eki9S.jpg",
+      "https://m.media-amazon.com/images/I/51q3v575krL.jpg",
+      "https://m.media-amazon.com/images/I/614jqUtaLpL.jpg",
+      "https://m.media-amazon.com/images/I/71curhwaqHL.jpg"
+    ],
+    "blank_box": false,
+    "price": 1399,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "MPN",
+        "value": "34949"
+      },
+      {
+        "type": "EAN",
+        "value": "4011905349497"
+      },
+      {
+        "type": "GTIN",
+        "value": "04011905349497"
+      }
+    ],
+    "epids_map": {
+      "MPN": "34949",
+      "EAN": "4011905349497",
+      "GTIN": "04011905349497"
+    }
+  },
+  {
+    "timestamp": 1715087654,
+    "status": "completed",
+    "feature_bullets": [
+      "one cool treat: need to soothe an anxious pet, reward great behavior, or just slow down mealtime a bit? the chill fill is a fun, engaging pet toy that accomplishes all of the above, and it comes in three sizes to treat almost any loving pup!",
+      "Frozen Feeding: Just fill the treater with kibble, add a bit of water and store it in the freezer. The next time your loyal pooch deserves a reward, youll have one ready to go!",
+      "natural rubber: the chill fill is made of durable, non-toxic natural rubber. its spongy but resilient, easy on your pets gums but still withstands regular chomping as he tries to get out every last bit of kibble.",
+      "safety vent: your dogs mouth may as well be his hand, and its worth protecting. chew king products are all designed with a safety air vent at the bottom  it keeps happy tongues from getting stuck when trying to enjoy a treat!",
+      "dishwasher safe: whenever the chill fill gets a bit too grimy, cleanup couldnt be easier. just toss it on the top rack of your dishwasher, hit go and, voila, its ready for treating again."
+    ],
+    "title": "Chew King Premium Treat Dog Toy, Large, Extremely Durable Natural Rubber Fillable Toy Collection, Frozen Feeding,All Breed Sizes, Blue",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n                       <p> <span>Got a pup who&#8217;s a bit nervous every time you leave home? Here&#8217;s the perfect way for him to chill out. The Chew King Chill Fill is made of non-toxic, natural rubber and fits a meal&#8217;s worth of treats for almost any pups &#8211; it comes in three different sizes &#8211; all in a shape that makes a fun challenge for your pet. &#8220;Frozen Feeding&#8221; - just fill with your pup&#8217;s favorite kibble, add a bit of water, and park a Chill Fill in your freezer. The next time you&#8217;re headed out the door, want to slow down dinnertime a bit, or just want to give your pal a treat, take it out and watch him happily go to town.</span>  </p>            </div>",
+    "product_description": "Got a pup who\u2019s a bit nervous every time you leave home? Here\u2019s the perfect\nway for him to chill out. The Chew King Chill Fill is made of non-toxic,\nnatural rubber and fits a meal\u2019s worth of treats for almost any pups \u2013 it\ncomes in three different sizes \u2013 all in a shape that makes a fun challenge for\nyour pet. \u201cFrozen Feeding\u201d - just fill with your pup\u2019s favorite kibble, add a\nbit of water, and park a Chill Fill in your freezer. The next time you\u2019re\nheaded out the door, want to slow down dinnertime a bit, or just want to give\nyour pal a treat, take it out and watch him happily go to town.",
+    "images": [
+      "https://m.media-amazon.com/images/I/812SOhM-cQL.jpg",
+      "https://m.media-amazon.com/images/I/91nkHzx7ODL.jpg",
+      "https://m.media-amazon.com/images/I/91uGcr8PEqL.jpg",
+      "https://m.media-amazon.com/images/I/91j4PzVPGjS.jpg",
+      "https://m.media-amazon.com/images/I/81XFVnxJ1UL.jpg",
+      "https://m.media-amazon.com/images/I/A1Qk3e2P1FL.jpg",
+      "https://m.media-amazon.com/images/I/81MhRRUjOXL.jpg",
+      "https://m.media-amazon.com/images/I/9175lxyrVnL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/812SOhM-cQL.jpg",
+    "product_details": [
+      "Product Dimensions \u200f : \u200e 2.3 x 2.9 x 4.5 inches; 13.44 ounces",
+      "Item model number \u200f : \u200e CM-10120-CS01",
+      "Date First Available \u200f : \u200e September 18, 2020",
+      "Manufacturer \u200f : \u200e SportPet Designs, Inc.",
+      "Country of Origin \u200f : \u200e China",
+      "Best Sellers Rank: #5,866 in Pet Supplies (See Top 100 in Pet Supplies) #137 in Dog Chew Toys",
+      "#137 in Dog Chew Toys",
+      "Customer Reviews: 4.3 4.3 out of 5 stars 1,332 ratings",
+      "Item Weight: 13.4 ounces",
+      "Manufacturer: SportPet Designs, Inc.",
+      "Country of Origin: China",
+      "Item model number: CM-10120-CS01",
+      "Date First Available: September 18, 2020",
+      "Item Package Dimensions L x W x H: 8.03 x 4.76 x 2.52 inches",
+      "Item Dimensions LxWxH: 2.3 x 2.9 x 4.5 inches",
+      "Item Weight: 0.38 Kilograms",
+      "Brand Name: Chew King",
+      "Target Audience Keyword: Dogs",
+      "Directions: Fill toy with desired filling and watch your pet enjoy!",
+      "Warranty Description: 6 Months",
+      "Model Name: CM-10120-CS01",
+      "Color: blue",
+      "Size: Large",
+      "Material: rubber",
+      "Age Range Description: All Life Stages",
+      "Number of Items: 1",
+      "Style: Large Chill Fill",
+      "Breed Recommendation: All Breed Sizes",
+      "Included Components: Chew Fill toy",
+      "Specific Uses for Product: Active"
+    ],
+    "num_sales": 500,
+    "eliapo": false,
+    "brand": "Chew King",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Toys",
+      "Chew Toys"
+    ],
+    "original_retail_price": 859,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 4.7599999951448,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 2.5199999974296,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 8.0299999918094,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.83996121822,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B08JHFQSS3",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "Medium"
+          },
+          {
+            "dimension": "Number of Items",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "product_id": "B08JHDL2T3",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "Large"
+          },
+          {
+            "dimension": "Number of Items",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "product_id": "B08JHJ16GW",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "Extra Large"
+          },
+          {
+            "dimension": "Number of Items",
+            "value": "1"
+          }
+        ]
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "Pet Supplies : Chew King Premium Treat Dog Toy, Large, Extremely Durable Natural Rubber Fillable Toy Collection, Frozen Feeding,All Breed Sizes, Blue : Amazon.com",
+    "variant_specifics": [
+      {
+        "dimension": "Size",
+        "value": "Large"
+      },
+      {
+        "dimension": "Number of Items",
+        "value": "1"
+      }
+    ],
+    "asin": "B08JHDL2T3",
+    "product_id": "B08JHDL2T3",
+    "retailer": "amazon",
+    "stars": 4.3,
+    "review_count": 1332,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B08R1Z7ZZL",
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/71V9PsIbwwL.jpg",
+      "https://m.media-amazon.com/images/I/71UlZDVvF6L.jpg",
+      "https://m.media-amazon.com/images/I/71hifqqbCnL.jpg",
+      "https://m.media-amazon.com/images/I/71YUF52WvZL.jpg",
+      "https://m.media-amazon.com/images/I/61lpoRYwB6L.jpg",
+      "https://m.media-amazon.com/images/I/819UYYUiFvL.jpg",
+      "https://m.media-amazon.com/images/I/61COeD33iEL.jpg",
+      "https://m.media-amazon.com/images/I/71WIw-sR3EL.jpg",
+      "https://m.media-amazon.com/images/I/71WH-W8yz1L.jpg",
+      "https://m.media-amazon.com/images/I/61gZj0VsOZL.jpg",
+      "https://m.media-amazon.com/images/I/71TFSA-SXpL.jpg"
+    ],
+    "blank_box": false,
+    "price": 699,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "MPN",
+        "value": "CM-10120-CS01"
+      },
+      {
+        "type": "EAN",
+        "value": "0083985101207"
+      },
+      {
+        "type": "UPC",
+        "value": "083985101207"
+      }
+    ],
+    "epids_map": {
+      "MPN": "CM-10120-CS01",
+      "EAN": "0083985101207",
+      "UPC": "083985101207"
+    }
+  },
+  {
+    "timestamp": 1715087306,
+    "status": "completed",
+    "feature_bullets": [
+      "Same product, new look - This product is identical in manufacturing and formulation as the Solimo brand",
+      "Active ingredients Fipronil and (s)-methoprene prevent flea infestations by killing flea eggs, flea larvae, mosquitos, biting flies and chewing lice",
+      "One application provides up to 30 days of protection",
+      "Waterproof: 24 hours after applicaiton your pet's treatment is protected against rain and water activities",
+      "Satisfaction Guarantee: Were proud of our products. If you arent satisfied, well refund you for any reason within a year of purchase."
+    ],
+    "title": "Amazon Basics Flea and Tick Topical Treatment for Small Dogs (5-22 pounds), 3 Count (Previously Solimo)",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n                       <p> <span>Amazon Basics flea and tick topical for Dogs kills fleas, flea eggs, flea larvae, ticks and chewing lice. The fast-acting, long-lasting treatment is formulated to protect your dog against dangerous pests. It breaks the flea life cycle by killing flea eggs and larvae and kills ticks, including deer ticks that may transmit Lyme disease. For best results, apply once a month to protect your dog from fleas and ticks.</span>  </p>            </div>",
+    "product_description": "Amazon Basics flea and tick topical for Dogs kills fleas, flea eggs, flea\nlarvae, ticks and chewing lice. The fast-acting, long-lasting treatment is\nformulated to protect your dog against dangerous pests. It breaks the flea\nlife cycle by killing flea eggs and larvae and kills ticks, including deer\nticks that may transmit Lyme disease. For best results, apply once a month to\nprotect your dog from fleas and ticks.",
+    "images": [
+      "https://m.media-amazon.com/images/I/71aizltk6zL.jpg",
+      "https://m.media-amazon.com/images/I/81hUhmaK7lL.jpg",
+      "https://m.media-amazon.com/images/I/61Mrrq76RNL.jpg",
+      "https://m.media-amazon.com/images/I/51W8zUyWn1L.jpg",
+      "https://m.media-amazon.com/images/I/51sh86mAk6L.jpg",
+      "https://m.media-amazon.com/images/I/61ntinPJs0L.jpg",
+      "https://m.media-amazon.com/images/I/51-9AILD-3L.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/71aizltk6zL.jpg",
+    "product_details": [
+      "Item Form: Larvae",
+      "Age Range (Description): over 8 weeks of age",
+      "Target Species: Dog",
+      "Product Dimensions \u200f : \u200e 0.75 x 5.75 x 4.35 inches; 0.63 ounces",
+      "Item model number \u200f : \u200e 11285",
+      "Date First Available \u200f : \u200e November 13, 2019",
+      "Country of Origin \u200f : \u200e USA",
+      "Best Sellers Rank: #331 in Pet Supplies (See Top 100 in Pet Supplies) #8 in Dog Flea Drops",
+      "#8 in Dog Flea Drops",
+      "Customer Reviews: 3.9 3.9 out of 5 stars 14,033 ratings",
+      "Item Weight: 0.634 ounces",
+      "Country of Origin: USA",
+      "Item model number: 11285",
+      "Date First Available: November 13, 2019",
+      "Item Package Dimensions L x W x H: 5.79 x 4.41 x 0.85 inches",
+      "Item Dimensions LxWxH: 0.75 x 5.75 x 4.35 inches",
+      "Target Audience Keyword: dogs",
+      "Directions: It is a violation of Federal law to use this product in a manner inconsistent with its labeling. DO NOT ALLOW CHILDREN TO APPLY PRODUCT. To prevent harm to you and your dog, read entire label before each use. Follow all directions and precautionary statements carefully. Dog must be dry at time of application and remain dry for 24 hours after application. Use entire contents of tube on each dog. Weigh your dog to be sure you are applying the right dose formulated for the weight of your dog. Separate the treated dog from all other dogs and cats for 24 hours after treatment has been applied.",
+      "Country of Origin: United States",
+      "Warranty Description: See Package",
+      "Model Name: F&T 5-22",
+      "Size: 3 Count",
+      "Age Range Description: over 8 weeks of age",
+      "Number of Items: 1",
+      "Style: Small Dogs (4 - 22 lbs)",
+      "Breed Recommendation: small dogs 5-22 pounds",
+      "Included Components: Flea & Tick Topical",
+      "Specific Uses for Product: Parasites"
+    ],
+    "num_sales": 8000,
+    "eliapo": false,
+    "brand": "Amazon Basics",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Flea & Tick Control",
+      "Topical Treatments",
+      "Flea Drops"
+    ],
+    "original_retail_price": 1663,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 4.4099999955018,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 0.846296295433074,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 5.7899999940942,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.03968320716,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B07P47VBCR",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "6 Count"
+          }
+        ]
+      },
+      {
+        "product_id": "B07P22MNXD",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "3 Count"
+          }
+        ]
+      }
+    ],
+    "return_hint": false,
+    "return_hint_text": "This item is non-returnable",
+    "delight_text": "",
+    "tag_title": "Amazon Basics Flea and Tick Topical Treatment for Small Dogs (5-22 pounds), 3 Count (Previously Solimo)",
+    "variant_specifics": [
+      {
+        "dimension": "Size",
+        "value": "3 Count"
+      }
+    ],
+    "asin": "B07P22MNXD",
+    "product_id": "B07P22MNXD",
+    "retailer": "amazon",
+    "stars": 3.9,
+    "review_count": 14033,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B0CNCCJ4Q2",
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/61TJ9Z+ko5L.jpg",
+      "https://m.media-amazon.com/images/I/71UW9cOCo3L.jpg",
+      "https://m.media-amazon.com/images/I/61lOjtLAXAL.jpg",
+      "https://m.media-amazon.com/images/I/71FiojJFB2L.jpg",
+      "https://m.media-amazon.com/images/I/71psr3SxRoL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/715NLMGBEtL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/817pzqYXjAL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/81ZgK+GiWaL.jpg",
+      "https://m.media-amazon.com/images/I/615YB9TxikL.jpg",
+      "https://m.media-amazon.com/images/I/71LuZfpyIJL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/B1EzeUIBUmS.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/B1JYqJABjfS.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/81MAa1-w+dL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/61Y+y2gPSzL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71EOw+JzXVL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71ozNKRheaL.jpg"
+    ],
+    "blank_box": false,
+    "price": 1412,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "MPN",
+        "value": "11285"
+      },
+      {
+        "type": "EAN",
+        "value": "0842379158490"
+      },
+      {
+        "type": "UPC",
+        "value": "842379158490"
+      },
+      {
+        "type": "EAN",
+        "value": "0195515005784"
+      },
+      {
+        "type": "GTIN",
+        "value": "10195515005781"
+      },
+      {
+        "type": "GTIN",
+        "value": "10842379158497"
+      },
+      {
+        "type": "UPC",
+        "value": "195515005784"
+      }
+    ],
+    "epids_map": {
+      "MPN": "11285",
+      "EAN": "0195515005784",
+      "UPC": "195515005784",
+      "GTIN": "10842379158497"
+    }
+  },
+  {
+    "timestamp": 1715087501,
+    "status": "completed",
+    "feature_bullets": [
+      "Sufficient Supplies: there are 12 pieces of adjustable reflective nylon pet collars with durable metal buckle in the package, which are enough to meet your daily use and replacement; Suitable for those who have multiple dogs at home or who run a pet shop",
+      "Comfortable and Soft to Use: the inner lining of the dog collar reflective is made of neoprene and cloth, which is soft and comfortable, will not hurt the dog's neck, and can effectively control the dog at the same time",
+      "Reflective Design: the nylon dog collar is made of reflective nylon to add visibility and to reflect light when illuminated at night, keeping your puppy safe while walking, training or running at night",
+      "Easy to Adjust: large size, approx. 17-24 inches/ 42-60 cm, and approx. 0.98 inches/ 2.5 cm in width, allow you to adjust the length according to your puppy's neck size, easy to slip in, suitable for most medium sized dogs; In order to avoid the risk of choke, please don't fasten the dog collar too tight",
+      "Share As Gifts: these martingale dig collars are nice gifts for family, relatives, neighbors, friends and someone who owns dogs, and they will be very happy to receive such helpful gifts, which will provide convenience for daily dog walk"
+    ],
+    "title": "Cunno 12 Pcs Martingale Collar for Medium Dogs Reflective Dog Collar with Durable Metal Buckle Adjustable Nylon Pet Collar Prevent Slipping Out Puppy Collars for Dog, 12 Colors (Large)",
+    "aplus_html": "present",
+    "images": [
+      "https://m.media-amazon.com/images/I/813acWlRFhL.jpg",
+      "https://m.media-amazon.com/images/I/81FowesSTOL.jpg",
+      "https://m.media-amazon.com/images/I/71+Ee5HKPiL.jpg",
+      "https://m.media-amazon.com/images/I/71zlXVBW0KL.jpg",
+      "https://m.media-amazon.com/images/I/71S4EsqVw1L.jpg",
+      "https://m.media-amazon.com/images/I/71enJ-pTRDL.jpg",
+      "https://m.media-amazon.com/images/I/815MxbEWhgL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/813acWlRFhL.jpg",
+    "product_details": [
+      "Color: as shown in the picture",
+      "Brand: Cunno",
+      "Closure Type: Buckle",
+      "Target Species: Dog",
+      "Number of Items: 12",
+      "Package Dimensions \u200f : \u200e 7.13 x 4.92 x 3.78 inches; 1.74 Pounds",
+      "Date First Available \u200f : \u200e October 24, 2023",
+      "Manufacturer \u200f : \u200e Cunno",
+      "Best Sellers Rank: #40,324 in Pet Supplies (See Top 100 in Pet Supplies) #2,027 in Basic Dog Collars",
+      "#2,027 in Basic Dog Collars",
+      "Customer Reviews: 4.4 4.4 out of 5 stars 43 ratings",
+      "Item Weight: 1.74 pounds",
+      "Manufacturer: Cunno",
+      "Date First Available: October 24, 2023",
+      "Item Package Dimensions L x W x H: 7.13 x 4.92 x 3.78 inches",
+      "Brand Name: Cunno",
+      "Target Audience Keyword: dogs",
+      "Color: as shown in the picture",
+      "Size: Large",
+      "Number of Items: 12"
+    ],
+    "eliapo": false,
+    "brand": "Cunno",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Collars, Harnesses & Leashes",
+      "Collars",
+      "Basic Collars"
+    ],
+    "original_retail_price": 1597,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 4.9199999949816,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 3.7799999961444,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 7.1299999927274,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 1.73944724718,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B0CLP7347S",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "Small"
+          }
+        ]
+      },
+      {
+        "product_id": "B0BTLVY3L3",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "Medium"
+          }
+        ]
+      },
+      {
+        "product_id": "B0CLP74QPJ",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "Large"
+          }
+        ]
+      }
+    ],
+    "return_hint": true,
+    "return_hint_text": "Eligible for Return, Refund or Replacement within 30 days of receipt",
+    "delight_text": "",
+    "tag_title": "Cunno 12 Pcs Martingale Collar for Medium Dogs Reflective Dog Collar with Durable Metal Buckle Adjustable Nylon Pet Collar Prevent Slipping Out Puppy Collars for Dog, 12 Colors (Large)",
+    "variant_specifics": [
+      {
+        "dimension": "Size",
+        "value": "Large"
+      }
+    ],
+    "asin": "B0CLP74QPJ",
+    "product_id": "B0CLP74QPJ",
+    "retailer": "amazon",
+    "stars": 4.4,
+    "review_count": 43,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B0CP7WW8K3",
+    "blank_box": false,
+    "price": 3349,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [],
+    "epids_map": {}
+  },
+  {
+    "timestamp": 1715086780,
+    "status": "completed",
+    "feature_bullets": [
+      "Same product, new look  This product is identical in manufacturing and formulation as the Solimo brand",
+      "Active ingredients Fipronil and (s)-methoprene prevent flea infestations by killing flea eggs, flea larvae, mosquitos, biting flies and chewing lice",
+      "One application provides up to 30 days of protection",
+      "Waterproof: 24 hours after application your pets treatment is protected against rain and water activities",
+      "Satisfaction Guarantee: Were proud of our products. If you arent satisfied, well refund you for any reason within a year of purchase."
+    ],
+    "title": "Amazon Basics Flea and Tick Topical Treatment for Large Dogs (45-88 pounds), Unscented, 3 Count (Previously Solimo)",
+    "aplus_html": "present",
+    "html_product_description": "<div id=\"productDescription\" class=\"a-section a-spacing-small\">          <!-- show up to 2 reviews by default -->\n                       <p> <span>Amazon Basics flea and tick topical for Dogs kills fleas, flea eggs, flea larvae, ticks and chewing lice. The fast-acting, long-lasting treatment is formulated to protect your dog against dangerous pests. It breaks the flea life cycle by killing flea eggs and larvae and kills ticks, including deer ticks that may transmit Lyme disease. For best results, apply once a month to protect your dog from fleas and ticks.</span>  </p>            </div>",
+    "product_description": "Amazon Basics flea and tick topical for Dogs kills fleas, flea eggs, flea\nlarvae, ticks and chewing lice. The fast-acting, long-lasting treatment is\nformulated to protect your dog against dangerous pests. It breaks the flea\nlife cycle by killing flea eggs and larvae and kills ticks, including deer\nticks that may transmit Lyme disease. For best results, apply once a month to\nprotect your dog from fleas and ticks.",
+    "images": [
+      "https://m.media-amazon.com/images/I/71SdPSucLRL.jpg",
+      "https://m.media-amazon.com/images/I/81E1il8zFFL.jpg",
+      "https://m.media-amazon.com/images/I/51NaA8V4pxL.jpg",
+      "https://m.media-amazon.com/images/I/51ZtUV8z3UL.jpg",
+      "https://m.media-amazon.com/images/I/51xoe5GullL.jpg",
+      "https://m.media-amazon.com/images/I/61xp-j3JD-L.jpg",
+      "https://m.media-amazon.com/images/I/611b0q8IftL.jpg"
+    ],
+    "main_image": "https://m.media-amazon.com/images/I/71SdPSucLRL.jpg",
+    "product_details": [
+      "Scent: Unscented",
+      "Age Range (Description): over 8 weeks of age",
+      "Item Weight: 0.05 Pounds",
+      "Target Species: Dog",
+      "Product Dimensions \u200f : \u200e 0.75 x 5.75 x 4.38 inches; 0.8 ounces",
+      "Item model number \u200f : \u200e 11287",
+      "Date First Available \u200f : \u200e November 13, 2019",
+      "Country of Origin \u200f : \u200e USA",
+      "Best Sellers Rank: #282 in Pet Supplies (See Top 100 in Pet Supplies) #7 in Dog Flea Drops",
+      "#7 in Dog Flea Drops",
+      "Customer Reviews: 4.0 4.0 out of 5 stars 10,054 ratings",
+      "Item Weight: 0.8 ounces",
+      "Country of Origin: USA",
+      "Item model number: 11287",
+      "Date First Available: November 13, 2019",
+      "Item Package Dimensions L x W x H: 5.79 x 4.4 x 0.83 inches",
+      "Item Dimensions LxWxH: 0.75 x 5.75 x 4.38 inches",
+      "Item Weight: 0.05 Pounds",
+      "Target Audience Keyword: dogs",
+      "Directions: It is a violation of Federal law to use this product in a manner inconsistent with its labeling. DO NOT ALLOW CHILDREN TO APPLY PRODUCT. To prevent harm to you and your dog, read entire label before each use. Follow all directions and precautionary statements carefully. Dog must be dry at time of application and remain dry for 24 hours after application. Use entire contents of tube on each dog. Weigh your dog to be sure you are applying the right dose formulated for the weight of your dog. Separate the treated dog from all other dogs and cats for 24 hours after treatment has been applied.",
+      "Country of Origin: United States",
+      "Size: 3 Count",
+      "Age Range Description: over 8 weeks of age",
+      "Number of Items: 1",
+      "Style: Large Dogs (45 - 88 lbs)",
+      "Breed Recommendation: Large",
+      "Included Components: Three (3) 0.091 fl. oz. waterproof topical applications for dog flea and tick control.",
+      "Specific Uses for Product: Parasites"
+    ],
+    "num_sales": 9000,
+    "eliapo": false,
+    "brand": "Amazon Basics",
+    "categories": [
+      "Pet Supplies",
+      "Dogs",
+      "Flea & Tick Control",
+      "Topical Treatments",
+      "Flea Drops"
+    ],
+    "original_retail_price": 1663,
+    "package_dimensions": {
+      "size": {
+        "width": {
+          "amount": 4.4049999955069,
+          "unit": "inches"
+        },
+        "depth": {
+          "amount": 0.8299999991534,
+          "unit": "inches"
+        },
+        "length": {
+          "amount": 5.7949999940891,
+          "unit": "inches"
+        }
+      },
+      "weight": {
+        "amount": 0.05070632026,
+        "unit": "pounds"
+      }
+    },
+    "all_variants": [
+      {
+        "product_id": "B07P22L3WV",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "6 Count"
+          }
+        ]
+      },
+      {
+        "product_id": "B07NXTSRCX",
+        "variant_specifics": [
+          {
+            "dimension": "Size",
+            "value": "3 Count"
+          }
+        ]
+      }
+    ],
+    "return_hint": false,
+    "return_hint_text": "This item is non-returnable",
+    "delight_text": "",
+    "tag_title": "Amazon Basics Flea and Tick Topical Treatment for Large Dogs (45-88 pounds), Unscented, 3 Count (Previously Solimo)",
+    "variant_specifics": [
+      {
+        "dimension": "Size",
+        "value": "3 Count"
+      }
+    ],
+    "asin": "B07NXTSRCX",
+    "product_id": "B07NXTSRCX",
+    "retailer": "amazon",
+    "stars": 4.0,
+    "review_count": 10054,
+    "question_count": null,
+    "num_offers": 0,
+    "fresh": false,
+    "pantry": false,
+    "handmade": false,
+    "digital": false,
+    "digital_subscription": false,
+    "buyapi_hint": true,
+    "parent_asin": "B0CNBZ1LBJ",
+    "customer_images": [
+      "https://m.media-amazon.com/images/I/712uvHWzSeL.jpg",
+      "https://m.media-amazon.com/images/I/71jwdLgFvFL.jpg",
+      "https://m.media-amazon.com/images/I/81t5PbQTKBL.jpg",
+      "https://m.media-amazon.com/images/I/610emGBi+QL.jpg",
+      "https://m.media-amazon.com/images/I/81P2WZrIfFL.jpg",
+      "https://m.media-amazon.com/images/I/61kobZN7nWL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71+Z+vAXq8L.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/710YzDRwJEL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/61WStsRCLQL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/715jhq3iYUL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/71qfcxMHuDL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/81a6Li3CrgL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/81jIbHyrJcL.jpg",
+      "https://images-na.ssl-images-amazon.com/images/I/B123crRV59S.jpg"
+    ],
+    "blank_box": false,
+    "price": 1412,
+    "ship_price": 0,
+    "addon": false,
+    "epids": [
+      {
+        "type": "MPN",
+        "value": "11287"
+      },
+      {
+        "type": "EAN",
+        "value": "0842379158513"
+      },
+      {
+        "type": "UPC",
+        "value": "842379158513"
+      },
+      {
+        "type": "EAN",
+        "value": "0195515005722"
+      },
+      {
+        "type": "GTIN",
+        "value": "10195515005729"
+      },
+      {
+        "type": "GTIN",
+        "value": "10842379158510"
+      },
+      {
+        "type": "UPC",
+        "value": "195515005722"
+      }
+    ],
+    "epids_map": {
+      "MPN": "11287",
+      "EAN": "0195515005722",
+      "UPC": "195515005722",
+      "GTIN": "10842379158510"
+    }
+  },
   {
     timestamp: 1712496462,
     status: "completed",
