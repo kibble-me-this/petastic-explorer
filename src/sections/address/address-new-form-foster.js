@@ -76,7 +76,7 @@ export default function AddressNewFormFoster({ account_id, open, onClose, onCrea
           address: data.address,
           city: data.city,
           state: data.state,
-          // country: data.country,
+          country: "United States",
           zip: data.zipCode,
           addressType: "Foster", // data.addressType,
           primary: data.primary,
