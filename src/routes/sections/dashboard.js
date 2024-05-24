@@ -162,24 +162,24 @@ export const dashboardRoutes = [
           { path: ':id/edit', element: <ProductEditPage /> },
         ],
       },
-      // {
-      //   path: 'order',
-      //   children: [
-      //     { element: <OrderListPage />, index: true },
-      //     { path: 'list', element: <OrderListPage /> },
-      //     { path: ':id', element: <OrderDetailsPage /> },
-      //   ],
-      // },
-      // {
-      //   path: 'invoice',
-      //   children: [
-      //     { element: <InvoiceListPage />, index: true },
-      //     { path: 'list', element: <InvoiceListPage /> },
-      //     { path: ':id', element: <InvoiceDetailsPage /> },
-      //     { path: ':id/edit', element: <InvoiceEditPage /> },
-      //     { path: 'new', element: <InvoiceCreatePage /> },
-      //   ],
-      // },
+      {
+        path: 'order',
+        children: [
+          { element: <OrderListPage />, index: true },
+          { path: 'list', element: <OrderListPage /> },
+          { path: ':id', element: <OrderDetailsPage /> },
+        ],
+      },
+      {
+        path: 'invoice',
+        children: [
+          { element: <InvoiceListPage />, index: true },
+          { path: 'list', element: <InvoiceListPage /> },
+          { path: ':id', element: <InvoiceDetailsPage /> },
+          { path: ':id/edit', element: <InvoiceEditPage /> },
+          { path: 'new', element: <InvoiceCreatePage /> },
+        ],
+      },
       {
         path: 'post',
         children: [

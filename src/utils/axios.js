@@ -63,13 +63,13 @@ const orderData = {
 // MINIMAL API
 // ====================
 
-// export const fetcher = async (args) => {
-//   const [url, config] = Array.isArray(args) ? args : [args];
+export const fetcherOpenAI = async (args) => {
+  const [url, config] = Array.isArray(args) ? args : [args];
 
-//   const res = await axiosInstance.get(url, { ...config });
+  const res = await axiosInstance.get(url, { ...config });
 
-//   return res.data;
-// };
+  return res.data;
+};
 
 export const fetcher = async (url, ...args) => {
   const { id, params, ...config } = args[0];
@@ -221,5 +221,13 @@ export const endpoints = {
   },
   products: {
     getProducts: '/default/handleGetProducts', // Endpoint to get a list of fosters
+  },
+  orders: {
+    list: '/default/handleGetOrders', // '/api/orders/list',      // Endpoint to list all orders
+    details: '/api/orders/{id}',   // Endpoint to get details of a specific order
+    create: '/default/handleCreateOrder',  // Endpoint to create a new order
+    update: '/api/orders/update/{id}', // Endpoint to update a specific order
+    delete: '/api/orders/delete/{id}', // Endpoint to delete a specific order
+    byCustomer: '/api/orders/by-customer/{customerId}', // Endpoint to get orders by customer ID
   },
 };

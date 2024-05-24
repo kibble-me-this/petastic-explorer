@@ -70,6 +70,10 @@ export function useGetFosters(account_id) {
 // ----------------------------------------------------------------------
 
 export async function createFoster(account_id, eventData) {
+
+  console.log("calling createFoster account_id", account_id);
+  console.log("calling createFoster eventData", eventData);
+
   try {
     const { id, name, country, avatarUrl, addressType, address, city, state, zip, phoneNumber } = eventData;
     const fullAddress = `${address}, ${city}, ${state} ${zip}`;
@@ -96,6 +100,9 @@ export async function createFoster(account_id, eventData) {
         'Content-Type': 'application/json',
       },
     };
+
+    console.log("calling createFoster newAddress ", newAddress);
+
 
     // Call the backend API to create a new foster
     const response = await postRequestANYML(URL.createFoster, newAddress, config);

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import keyBy from 'lodash/keyBy';
 import useSWR, { mutate } from 'swr';
 // utils
-import { axiosInstance, endpoints, fetcher } from '../utils/axios';
+import { axiosInstance, endpoints, fetcher, fetcherOpenAI } from '../utils/axios';
 
 import {
   _id,
@@ -846,7 +846,7 @@ export function useGetConversation(conversationId) {
     ? [endpoints.chat, { params: { conversationId, endpoint: 'conversation' } }]
     : null;
 
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, options);
+  const { data, isLoading, error, isValidating } = useSWR(URL, fetcherOpenAI, options);
 
   console.log('data?.conversation:', data?.conversation?.messages.length);
 

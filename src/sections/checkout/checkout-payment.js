@@ -11,7 +11,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Iconify from 'src/components/iconify';
 import FormProvider from 'src/components/hook-form';
 //
-import { usePlaceOrder } from 'src/api/zinc';
+import { placeZincOrder } from 'src/api/zinc';
+import { createOrder } from 'src/api/order';
+
 import { useAuthContext } from 'src/auth/hooks';
 
 import { fCurrency, fNumber } from 'src/utils/format-number';
@@ -86,7 +88,6 @@ export default function CheckoutPayment() {
 
 
   const checkout = useCheckoutContext();
-  const placeOrder = usePlaceOrder();
 
   const PaymentSchema = Yup.object().shape({
     payment: Yup.string().required('Payment is required'),
@@ -111,22 +112,18 @@ export default function CheckoutPayment() {
     try {
       console.log('CheckoutPayment :: onSubmit');
 
-      // Transform checkout.items to the expected format for placeOrder
-      const zincItems = checkout.items.map((item) => ({
-        product_id: item.id,
-        quantity: item.quantity,
-      }));
 
-      const zincShippingAddress = checkout.billing;
-      const zincOrderTotal = checkout.subTotal;
 
-      // Assuming placeOrder accepts an array of items and a billing address
-      console.log('handlePlaceOrder call placeOrder: ');
-      const result = await placeOrder(zincItems, zincShippingAddress, zincOrderTotal);
+      // Assuming placeZincOrder accepts an array of items and a billing address
+      console.log('handlePlaceOrder call placeZincOrder: ');
+
+      const result = await createOrder(checkout);
+
+      // const result = await placeZincOrder(zincItems, zincShippingAddress, zincOrderTotal);
       console.log('handlePlaceOrder result: ', result);
 
-      // If placeOrder is successful, proceed with the next steps
-      checkout.orderNumber = result.request_id;
+      // If placeZincOrder is successful, proceed with the next steps
+      checkout.orderNumber = result.id;
       checkout.onNextStep();
       checkout.onReset();
       console.info('DATA', data);

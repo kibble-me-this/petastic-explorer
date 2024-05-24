@@ -9,6 +9,7 @@ import { HOST_API } from 'src/config-global';
 // const axiosInstance = axios.create({ baseURL: HOST_API });
 
 const ZINC_API = 'https://api.zinc.io';
+const zincApiKey = '494887CF5BB27A2600581C3A';
 
 const axiosInstance = axios.create({ baseURL: ZINC_API });
 
@@ -51,6 +52,8 @@ const orderData = {
   },
 };
 
+// ----------------------------------------------------------------------
+
 export const fetcher = async (args) => {
   const [url, config] = Array.isArray(args) ? args : [args];
 
@@ -58,6 +61,8 @@ export const fetcher = async (args) => {
 
   return res.data;
 };
+
+// ----------------------------------------------------------------------
 
 export const fetcherProduct = async (productIds) => {
   const zincAPIClientToken = '494887CF5BB27A2600581C3A';
@@ -84,14 +89,15 @@ export const fetcherProduct = async (productIds) => {
     throw (error.response && error.response.data) || 'Something went wrong';
   }
 };
-const zincApiKey = '494887CF5BB27A2600581C3A';
-export const fetcherOrder = async (args, products, shippingAddress, subTotal) => {
+
+// ----------------------------------------------------------------------
+
+export const dispatchZincOrder = async (args, products, shippingAddress, subTotal) => {
   const [data, headers, url, config] = Array.isArray(args) ? args : [args];
 
   const maxPrice = subTotal * 1.15;
   const maxPriceInCents = Math.ceil(maxPrice * 100);
 
-  // Update orderData with productData and billingAddressData
   const updatedOrderData = {
     ...orderData,
     max_price: maxPriceInCents,

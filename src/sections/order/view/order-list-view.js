@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -15,7 +15,9 @@ import TableContainer from '@mui/material/TableContainer';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 // _mock
-import { _orders, ORDER_STATUS_OPTIONS } from 'src/_mock';
+import { ORDER_STATUS_OPTIONS } from 'src/_mock';
+import { useGetOrders } from 'src/api/order';
+
 // utils
 import { fTimestamp } from 'src/utils/format-time';
 // hooks
@@ -74,9 +76,18 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(_orders);
+  const { orders, isLoading, isEmpty } = useGetOrders("5ee83180fb01683673939629");
+
+
+  const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
+
+  useEffect(() => {
+    if (orders) {
+      setTableData(orders);
+    }
+  }, [orders]);
 
   const dateError =
     filters.startDate && filters.endDate
@@ -200,16 +211,16 @@ export default function OrderListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && _orders.length}
+                    {tab.value === 'all' && orders.length}
                     {tab.value === 'completed' &&
-                      _orders.filter((order) => order.status === 'completed').length}
+                      orders.filter((order) => order.status === 'completed').length}
 
                     {tab.value === 'pending' &&
-                      _orders.filter((order) => order.status === 'pending').length}
+                      orders.filter((order) => order.status === 'pending').length}
                     {tab.value === 'cancelled' &&
-                      _orders.filter((order) => order.status === 'cancelled').length}
+                      orders.filter((order) => order.status === 'cancelled').length}
                     {tab.value === 'refunded' &&
-                      _orders.filter((order) => order.status === 'refunded').length}
+                      orders.filter((order) => order.status === 'refunded').length}
                   </Label>
                 }
               />

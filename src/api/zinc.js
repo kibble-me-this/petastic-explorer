@@ -2,14 +2,10 @@
 import useSWR from 'swr';
 import { useMemo, useEffect } from 'react';
 // utils
-import { fetcherProduct, fetcherOrder, fetcher, endpoints } from 'src/utils/axios-zinc';
+import { fetcherProduct, dispatchZincOrder, fetcher, endpoints } from 'src/utils/axios-zinc';
+import emailjs from '@emailjs/browser';
 
-import emailjs from '@emailjs/browser'; // Importing emailjs directly
-
-import { useGetProducts as useCustomProducts } from 'src/api/product';
-
-const zincApiEndpoint = 'https://api.zinc.com/v1/orders';
-const zincApiKey = '494887CF5BB27A2600581C3A';
+const ZINC_API_ORDERS = 'https://api.zinc.com/v1/orders';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +33,8 @@ const zincApiKey = '494887CF5BB27A2600581C3A';
 export function useCustomSWR(productIds, ...args) {
   return useSWR(productIds, () => fetcherProduct(productIds, ...args));
 }
+
+// ----------------------------------------------------------------------
 
 export function useGetProducts(orgId) {
   // Define your organizations array with formatted IDs
@@ -407,6 +405,8 @@ export function useGetProducts(orgId) {
 //   return memoizedValue;
 // }
 
+// ----------------------------------------------------------------------
+
 export function useGetProduct(productId, callback = () => { }) {
   console.log('useGetProduct productId: ', productId);
   const URL = productId ? [endpoints.product.details, { params: { productId } }] : null;
@@ -466,41 +466,32 @@ export function useSearchProducts(query) {
   return memoizedValue;
 }
 
-export async function placeOrderWithSWR(products, shippingAddress, subTotal) {
-  console.log('calling product api placeOrderWithSWR');
-  console.log('placeOrderWithSWR parameters:', products, shippingAddress, subTotal);
+// ----------------------------------------------------------------------
 
-  const orderResults = await fetcherOrder(
-    {
-      url: zincApiEndpoint,
-      method: 'post',
-    },
-    products,
-    shippingAddress,
-    subTotal
-  );
-
-  console.log('placeOrderWithSWR results:', orderResults);
-
-  return orderResults;
-}
-
-export function usePlaceOrder() {
-  return async (items, shippingAddress, subTotal) => {
-    console.log('calling product api usePlaceOrder');
-    console.log('placeOrder parameters:', items, shippingAddress, subTotal);
-
-    const orderResults = await placeOrderWithSWR(items, shippingAddress, subTotal);
-
-    console.log('placeOrder results:', orderResults);
+export async function placeZincOrder(items, shippingAddress, subTotal) {
+  try {
+    const orderResults = await dispatchZincOrder(
+      {
+        url: ZINC_API_ORDERS,
+        method: 'post',
+      },
+      items,
+      shippingAddress,
+      subTotal
+    );
 
     if (orderResults.request_id) {
       await sendOrderConfirmationEmail(items);
     }
 
     return orderResults;
-  };
+  } catch (error) {
+    console.error('Error placing order:', error);
+    throw error;
+  }
 }
+
+// ----------------------------------------------------------------------
 
 export async function sendOrderConfirmationEmail(items) {
 

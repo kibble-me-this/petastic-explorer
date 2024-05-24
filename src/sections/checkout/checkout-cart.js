@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import EmptyContent from 'src/components/empty-content';
-import { usePlaceOrder } from 'src/api/zinc';
+import { placeOrder } from 'src/api/zinc';
 import { paths } from 'src/routes/paths';
 
 import { useCheckoutContext } from './context';
@@ -18,7 +18,7 @@ export default function CheckoutCart() {
   const checkout = useCheckoutContext();
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderResult, setOrderResult] = useState(null);
-  const placeOrder = usePlaceOrder();
+  // const placeOrder = usePlaceOrder();
 
   const empty = !checkout.items.length;
 
