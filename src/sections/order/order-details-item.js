@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
 import ListItemText from '@mui/material/ListItemText';
 // utils
-import { fCurrency } from 'src/utils/format-number';
+import { fCurrency, penniesToDollars } from 'src/utils/format-number';
 // components
 import Scrollbar from 'src/components/scrollbar';
 
@@ -29,7 +29,7 @@ export default function OrderDetailsItems({
     >
       <Stack direction="row">
         <Box sx={{ color: 'text.secondary' }}>Subtotal</Box>
-        <Box sx={{ width: 160, typography: 'subtitle2' }}>{fCurrency(subTotal) || '-'}</Box>
+        <Box sx={{ width: 160, typography: 'subtitle2' }}>{fCurrency(penniesToDollars(subTotal)) || '-'}</Box>
       </Stack>
 
       <Stack direction="row">
@@ -40,7 +40,7 @@ export default function OrderDetailsItems({
             ...(shipping && { color: 'error.main' }),
           }}
         >
-          {shipping ? `- ${fCurrency(shipping)}` : '-'}
+          {shipping ? `- ${fCurrency(penniesToDollars(shipping))}` : '-'}
         </Box>
       </Stack>
 
@@ -52,18 +52,18 @@ export default function OrderDetailsItems({
             ...(discount && { color: 'error.main' }),
           }}
         >
-          {discount ? `- ${fCurrency(discount)}` : '-'}
+          {discount ? `- ${fCurrency(penniesToDollars(discount))}` : '-'}
         </Box>
       </Stack>
 
       <Stack direction="row">
         <Box sx={{ color: 'text.secondary' }}>Taxes</Box>
-        <Box sx={{ width: 160 }}>{taxes ? fCurrency(taxes) : '-'}</Box>
+        <Box sx={{ width: 160 }}>{taxes ? fCurrency(penniesToDollars(taxes)) : '-'}</Box>
       </Stack>
 
       <Stack direction="row" sx={{ typography: 'subtitle1' }}>
         <Box>Total</Box>
-        <Box sx={{ width: 160 }}>{fCurrency(totalAmount) || '-'}</Box>
+        <Box sx={{ width: 160 }}>{fCurrency(penniesToDollars(totalAmount)) || '-'}</Box>
       </Stack>
     </Stack>
   );
@@ -107,7 +107,7 @@ export default function OrderDetailsItems({
               <Box sx={{ typography: 'body2' }}>x{item.quantity}</Box>
 
               <Box sx={{ width: 110, textAlign: 'right', typography: 'subtitle2' }}>
-                {fCurrency(item.price)}
+                {fCurrency(penniesToDollars(item.price))}
               </Box>
             </Stack>
           ))}

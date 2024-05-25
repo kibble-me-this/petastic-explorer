@@ -16,7 +16,7 @@ import ListItemText from '@mui/material/ListItemText';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // utils
-import { fCurrency } from 'src/utils/format-number';
+import { fCurrency, penniesToDollars } from 'src/utils/format-number';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -83,7 +83,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
       <TableCell align="center"> {totalQuantity} </TableCell>
 
-      <TableCell> {fCurrency(subTotal)} </TableCell>
+      <TableCell> {fCurrency(penniesToDollars(subTotal)) || '-'} </TableCell>
 
       <TableCell>
         <Label
@@ -162,7 +162,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
                 <Box>x{item.quantity}</Box>
 
-                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box>
+                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(penniesToDollars(item.price))}</Box>
               </Stack>
             ))}
           </Stack>

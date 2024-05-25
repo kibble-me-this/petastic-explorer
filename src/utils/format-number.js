@@ -41,6 +41,18 @@ export function fKibble(number) {
   return `${thousandFormatted} \u24C0`;
 }
 
+// Convert pennies to dollars
+export function penniesToDollars(pennies) {
+  const dollars = pennies / 100;
+  return fCurrency(dollars);
+}
+
+// Convert dollars to pennies
+export function dollarsToPennies(dollars) {
+  const pennies = Math.round(dollars * 100);
+  return pennies;
+}
+
 function result(format, key = '.00') {
   const isInteger = format.includes(key);
 
