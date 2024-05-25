@@ -466,51 +466,31 @@ export function useSearchProducts(query) {
   return memoizedValue;
 }
 
-// ----------------------------------------------------------------------
+// Function to send an order confirmation email using EmailJS
+export async function sendOrderConfirmationEmail(orderDetails) {
+  const { request_id, status, items, shippingAddress, subTotal, taxTotal, shippingCost } = orderDetails;
 
-export async function placeZincOrder(items, shippingAddress, subTotal) {
-  try {
-    const orderResults = await dispatchZincOrder(
-      {
-        url: ZINC_API_ORDERS,
-        method: 'post',
-      },
-      items,
-      shippingAddress,
-      subTotal
-    );
-
-    if (orderResults.request_id) {
-      await sendOrderConfirmationEmail(items);
-    }
-
-    return orderResults;
-  } catch (error) {
-    console.error('Error placing order:', error);
-    throw error;
-  }
-}
-
-// ----------------------------------------------------------------------
-
-export async function sendOrderConfirmationEmail(items) {
-
-  // const itemsList = items.map(item => `${item.name}: ${item.price}`).join('<br>');
-  const itemsList = items.map(item => `${item.product_id}`).join('<br>');
+  // Construct the email template parameters
+  const templateParams = {
+    to_email: "carlos@petastic.com",
+    from_name: "Petastic", // Update this if you have a dynamic sender name
+    order_id: request_id,
+    order_status: status,
+    items_list: `<ul>${items.map(item => `<li>${item.product_id} (x${item.quantity})</li>`).join('')}</ul>`,
+    shipping_address: `
+      <p>
+        ${shippingAddress.first_name} ${shippingAddress.last_name},<br>
+        ${shippingAddress.address_line1},<br>
+        ${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.zipcode}
+      </p>
+    `,
+    order_total: `$${(subTotal / 100).toFixed(2)}`,
+    order_tax: `$${(taxTotal / 100).toFixed(2)}`,
+    order_shipping: `$${(shippingCost / 100).toFixed(2)}`,
+    total: `$${((subTotal + taxTotal + shippingCost) / 100).toFixed(2)}`
+  };
 
   try {
-    const templateParams = {
-      to_email: "carlos@petastic.com",
-      // conversation_id: emailData.conversation_id,
-      items_list: itemsList,
-      // pet_name: emailData.pet_name,
-      // pet_avatar: emailData.pet_avatar,
-      // pet_breed: emailData.pet_breed,
-      // pet_gender: emailData.pet_gender,
-      // pet_age: emailData.pet_age,
-      // shelter_name: emailData.shelter_name,
-    };
-
     const result = await emailjs.send(
       'service_2nw5qla', // Replace with your service ID
       'template_rz5namd', // Replace with your template ID
@@ -523,5 +503,42 @@ export async function sendOrderConfirmationEmail(items) {
   } catch (error) {
     console.log(error.text);
     return { success: false, message: 'Email sending failed' };
+  }
+}
+
+// Function to place a Zinc order and send a confirmation email
+export async function placeZincOrder(items, shippingAddress, subTotal) {
+  try {
+    const orderResults = await dispatchZincOrder(
+      {
+        url: ZINC_API_ORDERS,
+        method: 'post',
+      },
+      items,
+      shippingAddress,
+      subTotal
+    );
+
+    console.log('Order placed successfully:', orderResults);
+
+    if (orderResults.request_id) {
+      // Pass necessary details along with the request_id
+      const orderDetails = {
+        request_id: orderResults.request_id,
+        status: 'pending', // Or any other status you have
+        items,
+        shippingAddress,
+        subTotal,
+        taxTotal: 0, // Replace with actual tax if available
+        shippingCost: 0, // Replace with actual shipping cost if available
+      };
+
+      await sendOrderConfirmationEmail(orderDetails);
+    }
+
+    return orderResults;
+  } catch (error) {
+    console.error('Error placing order:', error);
+    throw error;
   }
 }
