@@ -96,11 +96,11 @@ export const dispatchZincOrder = async (args, products, shippingAddress, subTota
   const [data, headers, url, config] = Array.isArray(args) ? args : [args];
 
   const maxPrice = subTotal * 1.15;
-  const maxPriceInCents = Math.ceil(maxPrice * 100);
+  // const maxPriceInCents = Math.ceil(maxPrice * 100);
 
   const updatedOrderData = {
     ...orderData,
-    max_price: maxPriceInCents,
+    max_price: maxPrice,
     products,
     shipping_address: {
       first_name: shippingAddress.name,

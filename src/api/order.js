@@ -59,10 +59,13 @@ export async function createOrder(eventData) {
         await postRequestANYML(URL.create, thisOrder, config);
 
         // Update the SWR cache
-        mutate(URL, currentData => ({
-            ...currentData,
-            orders: [...(currentData.orders || []), formattedOrder],
-        }), false);
+        mutate(URL, currentData => {
+            const orders = currentData?.orders ? [...currentData.orders, formattedOrder] : [formattedOrder];
+            return {
+                ...currentData,
+                orders,
+            };
+        }, false);
 
         return formattedOrder;
     } catch (error) {
@@ -76,10 +79,9 @@ export async function updateOrder(eventData) {
     mutate(
         URL,
         (currentData) => {
-            const orders = currentData.orders.map((order) =>
+            const orders = currentData?.orders?.map((order) =>
                 order.id === eventData.id ? { ...order, ...eventData } : order
-            );
-
+            ) || [];
             return {
                 ...currentData,
                 orders,
@@ -94,8 +96,7 @@ export async function deleteOrder(eventId) {
     mutate(
         URL,
         (currentData) => {
-            const orders = currentData.orders.filter((order) => order.id !== eventId);
-
+            const orders = currentData?.orders?.filter((order) => order.id !== eventId) || [];
             return {
                 ...currentData,
                 orders,
@@ -165,16 +166,14 @@ function formatOrder(eventData, result) {
             phoneNumber: eventData.billing.phone, // Replace with actual phone number
         },
         delivery: {
-            shipBy: eventData.delivery.shipBy || "DHL", // Replace with actual shipping company
-            speedy: eventData.delivery.speedy || "Standard", // Replace with actual shipping speed
-            trackingNumber: eventData.delivery.trackingNumber || "SPX037739199373", // Replace with actual tracking number
+            shipBy: eventData.delivery?.shipBy || "DHL", // Replace with actual shipping company
+            speedy: eventData.delivery?.speedy || "Standard", // Replace with actual shipping speed
+            trackingNumber: eventData.delivery?.trackingNumber || "SPX037739199373", // Replace with actual tracking number
         },
         payment: {
-            cardType: eventData.payment.cardType || "mastercard", // Replace with actual card type
-            cardNumber: eventData.payment.cardNumber || "**** **** **** 5678", // Replace with actual card number
+            cardType: eventData.payment?.cardType || "mastercard", // Replace with actual card type
+            cardNumber: eventData.payment?.cardNumber || "**** **** **** 5678", // Replace with actual card number
         },
         status: eventData.status || "pending", // Replace with actual status
     };
 }
-
-
