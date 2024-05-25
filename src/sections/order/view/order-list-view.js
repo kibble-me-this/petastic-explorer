@@ -76,8 +76,7 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
-  const { orders, isLoading, isEmpty } = useGetOrders("5ee83180fb01683673939629");
-
+  const { orders, isLoading, error } = useGetOrders("5ee83180fb01683673939629");
 
   const [tableData, setTableData] = useState([]);
 
@@ -230,7 +229,6 @@ export default function OrderListView() {
           <OrderTableToolbar
             filters={filters}
             onFilters={handleFilters}
-            //
             canReset={canReset}
             onResetFilters={handleResetFilters}
           />
@@ -239,9 +237,7 @@ export default function OrderListView() {
             <OrderTableFiltersResult
               filters={filters}
               onFilters={handleFilters}
-              //
               onResetFilters={handleResetFilters}
-              //
               results={dataFiltered.length}
               sx={{ p: 2.5, pt: 0 }}
             />
@@ -318,7 +314,6 @@ export default function OrderListView() {
             rowsPerPage={table.rowsPerPage}
             onPageChange={table.onChangePage}
             onRowsPerPageChange={table.onChangeRowsPerPage}
-            //
             dense={table.dense}
             onChangeDense={table.onChangeDense}
           />
