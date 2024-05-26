@@ -7,31 +7,22 @@ import emailjs from '@emailjs/browser';
 
 const ZINC_API_ORDERS = 'https://api.zinc.com/v1/orders';
 
-// ----------------------------------------------------------------------
+const LOCAL_STORAGE_KEY = 'productsCache';
 
-// export function useGetProducts() {
-//   const URL = endpoints.product.list;
+// Custom fetcher to handle localStorage
+const fetcherWithLocalStorage = async (productIds) => {
+  const cachedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  }
+  const data = await fetcherProduct(productIds);
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+  return data;
+};
 
-//   const { data, isLoading, error, isValidating } = useSWR(URL, fetcher);
-
-//   const memoizedValue = useMemo(
-//     () => ({
-//       products: data?.products || [],
-//       productsLoading: isLoading,
-//       productsError: error,
-//       productsValidating: isValidating,
-//       productsEmpty: !isLoading && !data?.products.length,
-//     }),
-//     [data?.products, error, isLoading, isValidating]
-//   );
-
-//   return memoizedValue;
-// }
-
-// ----------------------------------------------------------------------
-
+// Custom SWR hook with localStorage support
 export function useCustomSWR(productIds, ...args) {
-  return useSWR(productIds, () => fetcherProduct(productIds, ...args));
+  return useSWR(productIds, () => fetcherWithLocalStorage(productIds, ...args));
 }
 
 // ----------------------------------------------------------------------
@@ -141,6 +132,17 @@ export function useGetProducts(orgId) {
       id: '5ee83180fb01683673939629',
       name: 'Strong Paws',
       products: [
+        "B09NYJCN9B",
+        "B00YXSNXQ8",
+        "B07CXMKQ8M",
+        "B08JHDL2T3",
+        "B0CLP74QPJ",
+        "B07P22MNXD",
+        "B07NXTSRCX",
+        "B0180A1J38",
+        "B076DJ3QCV",
+        "B07DFSBB5M",
+        "B09VCJ2KXB",
         "B0050ICOW4",
         "B09NWC4HBY",
         "B0094RW6ZC",
@@ -148,7 +150,7 @@ export function useGetProducts(orgId) {
         'B0002DHXVE',
         'B0002DGL26',
         'B00B9G3ZJM',
-        // 'B00FE1CFTE',
+        'B00FE1CFTE',
         'B00FE1CE9A',
         'B07121B839',
         'B01HGQP7DK',
@@ -164,7 +166,7 @@ export function useGetProducts(orgId) {
         'B07MM2N1NL',
         'B072FVZ1Z9',
         'B08NJJQ1KW',
-        // 'B0C1BW323L', 
+        'B0C1BW323L',
         'B0C6D588VS',
         'B01KTNNJWI',
         'B000634CK0',
@@ -360,12 +362,6 @@ export function useGetProducts(orgId) {
 
   // Use SWR hook with the product IDs
   const { data, isLoading, error, isValidating } = useCustomSWR(productIds);
-
-  if (data) {
-    data.forEach((product) => {
-      product.category = 'Apparel';
-    });
-  }
 
   // Memoize the returned value
   const memoizedValue = useMemo(
