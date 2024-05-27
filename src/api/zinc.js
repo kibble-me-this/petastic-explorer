@@ -12,6 +12,7 @@ const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
 const getCacheFlag = (userId) => localStorage.getItem(getCacheFlagKey(userId)) === 'true';
 const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
 
+// Custom fetcher to handle localStorage
 const fetcherWithLocalStorage = async (userId, productIds) => {
   const cachedData = localStorage.getItem(getLocalStorageKey(userId));
   const cacheFlag = getCacheFlag(userId);
@@ -26,21 +27,27 @@ const fetcherWithLocalStorage = async (userId, productIds) => {
   return data;
 };
 
-export function useCustomSWR(userId, productIds) {
-  return useSWR(productIds ? [userId, productIds] : null, () => fetcherWithLocalStorage(userId, productIds));
+// Custom SWR hook with localStorage support
+export function useCustomSWR(userId, productIds, ...args) {
+  return useSWR(productIds, () => fetcherWithLocalStorage(userId, productIds, ...args));
 }
 
+// Hook to get products by product IDs
 export function useGetZincProducts(userId, productIds) {
   const { data, isLoading, error, isValidating } = useCustomSWR(userId, productIds);
 
-  const memoizedValue = useMemo(() => ({
-    products: data || [],
-    productsLoading: isLoading,
-    productsError: error,
-    productsValidating: isValidating,
-    productsEmpty: !isLoading && !(data && data.length),
-  }), [data, isLoading, error, isValidating]);
+  const memoizedValue = useMemo(
+    () => ({
+      products: data || [],
+      productsLoading: isLoading,
+      productsError: error,
+      productsValidating: isValidating,
+      productsEmpty: !isLoading && !(data && data.length),
+    }),
+    [data, error, isLoading, isValidating]
+  );
 
+  console.log('useGetZincProducts memoizedValue: ', memoizedValue);
   return memoizedValue;
 }
 
