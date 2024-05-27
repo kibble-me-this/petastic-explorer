@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -71,21 +71,21 @@ export default function ProductShopView({ userId }) {
   const { searchResults, searchLoading } = useSearchProducts(debouncedQuery);
 
   const handleFilters = useCallback((name, value) => {
-    setFilters((prevState) => ({
+    setFilters(prevState => ({
       ...prevState,
       [name]: value,
     }));
   }, []);
 
-  const dataFiltered = applyFilter({
-    inputData: products,
+  const dataFiltered = useMemo(() => applyFilter({
+    inputData: products || [],
     filters,
     sortBy,
-  });
+  }), [products, filters, sortBy]);
 
-  const canReset = !isEqual(defaultFilters, filters);
+  const canReset = useMemo(() => !isEqual(defaultFilters, filters), [filters]);
+  const notFound = useMemo(() => !dataFiltered.length && canReset, [dataFiltered, canReset]);
 
-  const notFound = !dataFiltered.length && canReset;
 
   const handleSortBy = useCallback((newValue) => {
     setSortBy(newValue);

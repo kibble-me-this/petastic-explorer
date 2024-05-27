@@ -6,22 +6,12 @@ import emailjs from '@emailjs/browser';
 
 const ZINC_API_ORDERS = 'https://api.zinc.com/v1/orders';
 
-// Functions to generate dynamic local storage keys
 const getLocalStorageKey = (userId) => `productsCache-${userId}`;
 const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
 
-// Function to get the cache flag
-const getCacheFlag = (userId) => {
-  const flag = localStorage.getItem(getCacheFlagKey(userId));
-  return flag === 'true';
-};
+const getCacheFlag = (userId) => localStorage.getItem(getCacheFlagKey(userId)) === 'true';
+const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
 
-// Function to set the cache flag
-const setCacheFlag = (userId, flag) => {
-  localStorage.setItem(getCacheFlagKey(userId), flag.toString());
-};
-
-// Custom fetcher to handle localStorage
 const fetcherWithLocalStorage = async (userId, productIds) => {
   const cachedData = localStorage.getItem(getLocalStorageKey(userId));
   const cacheFlag = getCacheFlag(userId);
@@ -32,31 +22,25 @@ const fetcherWithLocalStorage = async (userId, productIds) => {
 
   const data = await fetcherProduct(productIds);
   localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(data));
-  setCacheFlag(userId, false); // Reset the flag after fetching new data
+  setCacheFlag(userId, false);
   return data;
 };
 
-// Custom SWR hook with localStorage support
-export function useCustomSWR(userId, productIds, ...args) {
-  return useSWR(productIds, () => fetcherWithLocalStorage(userId, productIds, ...args));
+export function useCustomSWR(userId, productIds) {
+  return useSWR(productIds ? [userId, productIds] : null, () => fetcherWithLocalStorage(userId, productIds));
 }
 
-// Hook to get products by product IDs
 export function useGetZincProducts(userId, productIds) {
   const { data, isLoading, error, isValidating } = useCustomSWR(userId, productIds);
 
-  const memoizedValue = useMemo(
-    () => ({
-      products: data || [],
-      productsLoading: isLoading,
-      productsError: error,
-      productsValidating: isValidating,
-      productsEmpty: !isLoading && !data?.length,
-    }),
-    [data, error, isLoading, isValidating]
-  );
+  const memoizedValue = useMemo(() => ({
+    products: data || [],
+    productsLoading: isLoading,
+    productsError: error,
+    productsValidating: isValidating,
+    productsEmpty: !isLoading && !(data && data.length),
+  }), [data, isLoading, error, isValidating]);
 
-  console.log('useGetZincProducts memoizedValue: ', memoizedValue);
   return memoizedValue;
 }
 
