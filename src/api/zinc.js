@@ -1,4 +1,3 @@
-
 import useSWR from 'swr';
 import { useMemo, useEffect } from 'react';
 // utils
@@ -7,32 +6,45 @@ import emailjs from '@emailjs/browser';
 
 const ZINC_API_ORDERS = 'https://api.zinc.com/v1/orders';
 
-const LOCAL_STORAGE_KEY = 'productsCache';
+// Functions to generate dynamic local storage keys
+const getLocalStorageKey = (userId) => `productsCache-${userId}`;
+const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
+
+// Function to get the cache flag
+const getCacheFlag = (userId) => {
+  const flag = localStorage.getItem(getCacheFlagKey(userId));
+  return flag === 'true';
+};
+
+// Function to set the cache flag
+const setCacheFlag = (userId, flag) => {
+  localStorage.setItem(getCacheFlagKey(userId), flag.toString());
+};
 
 // Custom fetcher to handle localStorage
-const fetcherWithLocalStorage = async (productIds) => {
-  const cachedData = localStorage.getItem(LOCAL_STORAGE_KEY);
-  if (cachedData) {
+const fetcherWithLocalStorage = async (userId, productIds) => {
+  const cachedData = localStorage.getItem(getLocalStorageKey(userId));
+  const cacheFlag = getCacheFlag(userId);
+
+  if (cachedData && !cacheFlag) {
     return JSON.parse(cachedData);
   }
+
   const data = await fetcherProduct(productIds);
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+  localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(data));
+  setCacheFlag(userId, false); // Reset the flag after fetching new data
   return data;
 };
 
 // Custom SWR hook with localStorage support
-export function useCustomSWR(productIds, ...args) {
-  return useSWR(productIds, () => fetcherWithLocalStorage(productIds, ...args));
+export function useCustomSWR(userId, productIds, ...args) {
+  return useSWR(productIds, () => fetcherWithLocalStorage(userId, productIds, ...args));
 }
 
-// ----------------------------------------------------------------------
-
 // Hook to get products by product IDs
-export function useGetZincProducts(productIds) {
-  // Use SWR hook with the product IDs
-  const { data, isLoading, error, isValidating } = useCustomSWR(productIds);
+export function useGetZincProducts(userId, productIds) {
+  const { data, isLoading, error, isValidating } = useCustomSWR(userId, productIds);
 
-  // Memoize the returned value
   const memoizedValue = useMemo(
     () => ({
       products: data || [],
@@ -46,6 +58,11 @@ export function useGetZincProducts(productIds) {
 
   console.log('useGetZincProducts memoizedValue: ', memoizedValue);
   return memoizedValue;
+}
+
+// Function to update the cache flag when the database changes
+export function updateDatabaseChangeFlag(flag) {
+  setCacheFlag(flag);
 }
 
 // ----------------------------------------------------------------------

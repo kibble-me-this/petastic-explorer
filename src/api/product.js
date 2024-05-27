@@ -51,7 +51,7 @@ export function useGetProducts(account_id) {
     }
   }, [data]);
 
-  const zincProducts = useGetZincProducts(productIds);
+  const zincProducts = useGetZincProducts(account_id, productIds);
 
   const combinedState = useMemo(() => ({
     products: zincProducts.products,

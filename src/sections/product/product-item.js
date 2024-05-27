@@ -261,7 +261,7 @@ export default function ProductItem({ product }) {
 
         </Stack>
       </Stack>
-      {product.all_variants.length > 1 && (
+      {product.all_variants && product.all_variants.length > 1 && (
         <Stack direction="column" alignItems="center" spacing={2}>
           <Select value={selectedVariant} onChange={handleChange} sx={{ width: '100%' }}>
             <MenuItem value={selectedVariant}>{selectedVariant}</MenuItem>
