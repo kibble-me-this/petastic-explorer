@@ -86,3 +86,78 @@ export function useSearchProducts(query) {
 
   return memoizedValue;
 }
+
+// ----------------------------------------------------------------------
+
+// // Function to create an order
+// export async function createProduct(eventData) {
+//   const config = {
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   };
+
+//   const { products, accountID: account_id } = eventData;
+
+
+//   try {
+
+//     // Create the formatted order object
+//     const formattedProduct = formatProduct(eventData);
+
+//     const thisProduct = {
+//       shelter_id: account_id,
+//       new_product: { ...formattedProduct }
+//     };
+
+//     await postRequestANYML(URL.create, thisProduct, config);
+
+//     // Update the SWR cache
+//     mutate(URL, currentData => {
+//       const orders = currentData?.products ? [...currentData.products, formattedProduct] : [formattedProduct];
+//       return {
+//         ...currentData,
+//         products,
+//       };
+//     }, false);
+
+//     return formattedProduct;
+//   } catch (error) {
+//     console.error('Error creating order:', error);
+//     throw error;
+//   }
+// }
+
+// // Function to format product data
+// function formatProduct(productData) {
+//   return {
+//     id: uuidv4(), // Generate a unique ID for the product
+//     gender: productData.gender,
+//     publish: productData.publish,
+//     category: productData.category,
+//     available: productData.available,
+//     priceSale: productData.priceSale,
+//     taxes: productData.taxes,
+//     quantity: productData.quantity,
+//     sizes: productData.sizes,
+//     inventoryType: productData.inventoryType,
+//     images: productData.images,
+//     ratings: productData.ratings,
+//     reviews: productData.reviews,
+//     tags: productData.tags,
+//     code: productData.code,
+//     description: productData.description,
+//     newLabel: productData.newLabel,
+//     sku: productData.sku,
+//     createdAt: new Date().toISOString(), // Use current date-time for createdAt
+//     saleLabel: productData.saleLabel,
+//     name: productData.name,
+//     price: productData.price,
+//     coverUrl: productData.coverUrl,
+//     totalRatings: productData.totalRatings,
+//     totalSold: productData.totalSold,
+//     totalReviews: productData.totalReviews,
+//     subDescription: productData.subDescription,
+//     colors: productData.colors,
+//   };
+// }

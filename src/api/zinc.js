@@ -14,22 +14,45 @@ const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(user
 
 // Custom fetcher to handle localStorage
 const fetcherWithLocalStorage = async (userId, productIds) => {
+  console.log('Fetching products for userId:', userId, 'productIds:', productIds);
+
+  if (!productIds || productIds.length === 0) {
+    console.warn('No product IDs provided');
+    return [];
+  }
+
   const cachedData = localStorage.getItem(getLocalStorageKey(userId));
   const cacheFlag = getCacheFlag(userId);
 
   if (cachedData && !cacheFlag) {
+    console.log('Returning cached data');
     return JSON.parse(cachedData);
   }
 
-  const data = await fetcherProduct(productIds);
-  localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(data));
-  setCacheFlag(userId, false);
-  return data;
+  try {
+    const data = await fetcherProduct(productIds); // Assuming this returns an array of products
+
+    const today = new Date().toISOString(); // Get the current date in ISO format
+
+    const updatedData = data.map(product => ({
+      ...product,
+      publish: 'published',
+      createdAt: today,
+    }));
+
+    console.log('Setting updated data to localStorage');
+    localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(updatedData));
+    setCacheFlag(userId, false);
+    return updatedData;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
 };
 
 // Custom SWR hook with localStorage support
 export function useCustomSWR(userId, productIds, ...args) {
-  return useSWR(productIds, () => fetcherWithLocalStorage(userId, productIds, ...args));
+  return useSWR(productIds ? [userId, productIds] : null, () => fetcherWithLocalStorage(userId, productIds, ...args));
 }
 
 // Hook to get products by product IDs
@@ -47,13 +70,8 @@ export function useGetZincProducts(userId, productIds) {
     [data, error, isLoading, isValidating]
   );
 
-  console.log('useGetZincProducts memoizedValue: ', memoizedValue);
+  // console.log('useGetZincProducts memoizedValue: ', memoizedValue);
   return memoizedValue;
-}
-
-// Function to update the cache flag when the database changes
-export function updateDatabaseChangeFlag(flag) {
-  setCacheFlag(flag);
 }
 
 // ----------------------------------------------------------------------

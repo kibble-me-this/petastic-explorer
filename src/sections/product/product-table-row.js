@@ -13,7 +13,9 @@ import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import LinearProgress from '@mui/material/LinearProgress';
 // utils
-import { fCurrency } from 'src/utils/format-number';
+import { fCurrency, penniesToDollars } from 'src/utils/format-number';
+import { isValidDate } from 'src/utils/format-time';
+import { truncateText } from 'src/utils/format-text';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
@@ -33,11 +35,11 @@ export default function ProductTableRow({
   onViewRow,
 }) {
   const {
-    name,
+    title: name,
     price,
     publish,
-    coverUrl,
-    category,
+    main_image: coverUrl,
+    asin: category,
     quantity,
     createdAt,
     available,
@@ -47,6 +49,10 @@ export default function ProductTableRow({
   const confirm = useBoolean();
 
   const popover = usePopover();
+
+  // Validate createdAt
+  const createdDate = new Date(createdAt);
+  const isValidCreatedAt = isValidDate(createdDate);
 
   return (
     <>
@@ -73,7 +79,7 @@ export default function ProductTableRow({
                 onClick={onViewRow}
                 sx={{ cursor: 'pointer' }}
               >
-                {name}
+                {truncateText(name, 20)}
               </Link>
             }
             secondary={
@@ -85,16 +91,29 @@ export default function ProductTableRow({
         </TableCell>
 
         <TableCell>
-          <ListItemText
-            primary={format(new Date(createdAt), 'dd MMM yyyy')}
-            secondary={format(new Date(createdAt), 'p')}
-            primaryTypographyProps={{ typography: 'body2', noWrap: true }}
-            secondaryTypographyProps={{
-              mt: 0.5,
-              component: 'span',
-              typography: 'caption',
-            }}
-          />
+          {isValidCreatedAt ? (
+            <ListItemText
+              primary={format(createdDate, 'dd MMM yyyy')}
+              secondary={format(createdDate, 'p')}
+              primaryTypographyProps={{ typography: 'body2', noWrap: true }}
+              secondaryTypographyProps={{
+                mt: 0.5,
+                component: 'span',
+                typography: 'caption',
+              }}
+            />
+          ) : (
+            <ListItemText
+              primary="Invalid Date"
+              secondary="Invalid Date"
+              primaryTypographyProps={{ typography: 'body2', noWrap: true }}
+              secondaryTypographyProps={{
+                mt: 0.5,
+                component: 'span',
+                typography: 'caption',
+              }}
+            />
+          )}
         </TableCell>
 
         <TableCell sx={{ typography: 'caption', color: 'text.secondary' }}>
@@ -111,7 +130,7 @@ export default function ProductTableRow({
           {!!available && available} {inventoryType}
         </TableCell>
 
-        <TableCell>{fCurrency(price)}</TableCell>
+        <TableCell>{fCurrency(penniesToDollars(price))}</TableCell>
 
         <TableCell>
           <Label variant="soft" color={(publish === 'published' && 'info') || 'default'}>

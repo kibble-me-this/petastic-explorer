@@ -21,7 +21,12 @@ export function fTimestamp(date) {
 export function fToNow(date) {
   return date
     ? formatDistanceToNow(new Date(date), {
-        addSuffix: true,
-      })
+      addSuffix: true,
+    })
     : '';
 }
+
+export function isValidDate(d) {
+  return d instanceof Date && !Number.isNaN(d.getTime());
+}
+
