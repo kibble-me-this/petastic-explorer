@@ -37,7 +37,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
   const renderPrimary = (
     <TableRow hover selected={selected}>
       <TableCell padding="checkbox">
-        <Checkbox checked={selected} onClick={onSelectRow} />
+        <Checkbox disabled checked={selected} onClick={onSelectRow} />
       </TableCell>
 
       <TableCell>
@@ -184,6 +184,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
         sx={{ width: 140 }}
       >
         <MenuItem
+          disabled
           onClick={() => {
             confirm.onTrue();
             popover.onClose();
@@ -195,6 +196,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
         </MenuItem>
 
         <MenuItem
+          disabled
           onClick={() => {
             onViewRow();
             popover.onClose();

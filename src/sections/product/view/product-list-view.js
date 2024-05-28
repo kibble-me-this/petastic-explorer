@@ -159,7 +159,7 @@ export default function ProductListView() {
         <CustomBreadcrumbs
           heading="List"
           links={[
-            { name: 'Dashboard', href: paths.dashboard.root },
+            // { name: 'Dashboard', href: paths.dashboard.root },
             {
               name: 'Product',
               href: paths.dashboard.product.root,
@@ -168,6 +168,7 @@ export default function ProductListView() {
           ]}
           action={
             <Button
+              disabled
               component={RouterLink}
               href={paths.dashboard.product.new}
               variant="contained"

@@ -58,7 +58,7 @@ export default function ProductTableRow({
     <>
       <TableRow hover selected={selected}>
         <TableCell padding="checkbox">
-          <Checkbox checked={selected} onClick={onSelectRow} />
+          <Checkbox disabled checked={selected} onClick={onSelectRow} />
         </TableCell>
 
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
@@ -152,6 +152,7 @@ export default function ProductTableRow({
         sx={{ width: 140 }}
       >
         <MenuItem
+          disabled
           onClick={() => {
             onViewRow();
             popover.onClose();
@@ -162,6 +163,7 @@ export default function ProductTableRow({
         </MenuItem>
 
         <MenuItem
+          disabled
           onClick={() => {
             onEditRow();
             popover.onClose();
@@ -172,6 +174,7 @@ export default function ProductTableRow({
         </MenuItem>
 
         <MenuItem
+          disabled
           onClick={() => {
             confirm.onTrue();
             popover.onClose();

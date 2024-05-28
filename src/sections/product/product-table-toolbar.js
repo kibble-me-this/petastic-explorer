@@ -76,6 +76,7 @@ export default function ProductTableToolbar({
           <InputLabel>Stock</InputLabel>
 
           <Select
+            disabled
             multiple
             value={filters.stock}
             onChange={handleFilterStock}
@@ -105,6 +106,7 @@ export default function ProductTableToolbar({
           <InputLabel>Publish</InputLabel>
 
           <Select
+            disabled
             multiple
             value={filters.publish}
             onChange={handleFilterPublish}
@@ -127,6 +129,7 @@ export default function ProductTableToolbar({
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
+            disabled
             fullWidth
             value={filters.name}
             onChange={handleFilterName}
@@ -152,16 +155,10 @@ export default function ProductTableToolbar({
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-          }}
-        >
-          <Iconify icon="solar:printer-minimalistic-bold" />
-          Print
-        </MenuItem>
+
 
         <MenuItem
+          disabled
           onClick={() => {
             popover.onClose();
           }}
@@ -171,6 +168,7 @@ export default function ProductTableToolbar({
         </MenuItem>
 
         <MenuItem
+          disabled
           onClick={() => {
             popover.onClose();
           }}

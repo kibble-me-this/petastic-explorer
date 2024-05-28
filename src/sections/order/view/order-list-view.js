@@ -168,10 +168,10 @@ export default function OrderListView() {
         <CustomBreadcrumbs
           heading="List"
           links={[
-            {
-              name: 'Dashboard',
-              href: paths.dashboard.root,
-            },
+            // {
+            //   name: 'Dashboard',
+            //   href: paths.dashboard.root,
+            // },
             {
               name: 'Order',
               href: paths.dashboard.order.root,
