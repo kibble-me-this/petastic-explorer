@@ -1,8 +1,10 @@
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { useMemo, useState, useEffect } from 'react';
 // utils
 import { fetcher, fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
 import { useGetZincProducts } from './zinc';
+import uuidv4 from '../utils/uuidv4';
+
 
 // ----------------------------------------------------------------------
 
@@ -13,6 +15,9 @@ const options = {
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
 };
+
+const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
+const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
 
 // ----------------------------------------------------------------------
 
@@ -89,75 +94,56 @@ export function useSearchProducts(query) {
 
 // ----------------------------------------------------------------------
 
-// // Function to create an order
-// export async function createProduct(eventData) {
-//   const config = {
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   };
+// Function to create an order
+export async function createProduct(eventData) {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
 
-//   const { products, accountID: account_id } = eventData;
+  const { product, account_id } = eventData;
 
+  try {
+    const formattedProduct = {
+      shelter_id: account_id,
+      new_products: [
+        formatProduct(product) // Use the formatProduct function to format the product data
+      ]
+    };
 
-//   try {
+    await postRequestANYML(URL.createProduct, formattedProduct, config);
 
-//     // Create the formatted order object
-//     const formattedProduct = formatProduct(eventData);
+    // Update the local storage key to true
+    console.log('Setting cache flag for account:', account_id);
+    setCacheFlag(account_id, true);
+    console.log('Cache flag set:', localStorage.getItem(getCacheFlagKey(account_id))); // Add debug statement
 
-//     const thisProduct = {
-//       shelter_id: account_id,
-//       new_product: { ...formattedProduct }
-//     };
+    // Update the SWR cache directly
+    mutate(
+      [URL, { account_id }],
+      async (currentData) => {
+        const updatedProducts = await fetcherANYML([URL.getProducts, { account_id }]);
+        return {
+          ...currentData,
+          products: updatedProducts.products,
+        };
+      },
+      false
+    );
 
-//     await postRequestANYML(URL.create, thisProduct, config);
+  } catch (error) {
+    console.error('Error creating product:', error);
+    throw error;
+  }
+}
 
-//     // Update the SWR cache
-//     mutate(URL, currentData => {
-//       const orders = currentData?.products ? [...currentData.products, formattedProduct] : [formattedProduct];
-//       return {
-//         ...currentData,
-//         products,
-//       };
-//     }, false);
-
-//     return formattedProduct;
-//   } catch (error) {
-//     console.error('Error creating order:', error);
-//     throw error;
-//   }
-// }
-
-// // Function to format product data
-// function formatProduct(productData) {
-//   return {
-//     id: uuidv4(), // Generate a unique ID for the product
-//     gender: productData.gender,
-//     publish: productData.publish,
-//     category: productData.category,
-//     available: productData.available,
-//     priceSale: productData.priceSale,
-//     taxes: productData.taxes,
-//     quantity: productData.quantity,
-//     sizes: productData.sizes,
-//     inventoryType: productData.inventoryType,
-//     images: productData.images,
-//     ratings: productData.ratings,
-//     reviews: productData.reviews,
-//     tags: productData.tags,
-//     code: productData.code,
-//     description: productData.description,
-//     newLabel: productData.newLabel,
-//     sku: productData.sku,
-//     createdAt: new Date().toISOString(), // Use current date-time for createdAt
-//     saleLabel: productData.saleLabel,
-//     name: productData.name,
-//     price: productData.price,
-//     coverUrl: productData.coverUrl,
-//     totalRatings: productData.totalRatings,
-//     totalSold: productData.totalSold,
-//     totalReviews: productData.totalReviews,
-//     subDescription: productData.subDescription,
-//     colors: productData.colors,
-//   };
-// }
+// Function to format product data
+function formatProduct(productData) {
+  return {
+    id: productData.id || uuidv4(), // Generate a unique ID for the product if not provided
+    createdAt: productData.createdAt || new Date().toISOString(), // Use current date-time for createdAt if not provided
+    publish: productData.publish || 'draft', // Default publish status to 'draft' if not provided
+    ...productData, // Include other product attributes if any
+  };
+}

@@ -168,7 +168,7 @@ export default function ProductListView() {
           ]}
           action={
             <Button
-              disabled
+
               component={RouterLink}
               href={paths.dashboard.product.new}
               variant="contained"

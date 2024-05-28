@@ -18,10 +18,10 @@ export default function ProductCreateView() {
       <CustomBreadcrumbs
         heading="Create a new product"
         links={[
-          {
-            name: 'Dashboard',
-            href: paths.dashboard.root,
-          },
+          // {
+          //   name: 'Dashboard',
+          //   href: paths.dashboard.root,
+          // },
           {
             name: 'Product',
             href: paths.dashboard.product.root,
