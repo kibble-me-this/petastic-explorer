@@ -2,11 +2,11 @@ import { Helmet } from 'react-helmet-async';
 // routes
 import { useParams } from 'src/routes/hooks';
 // sections
-import { JobDetailsView } from 'src/sections/org/view';
+import { OrgDetailsView } from 'src/sections/org/view';
 
 // ----------------------------------------------------------------------
 
-export default function JobDetailsPage() {
+export default function OrgDetailsPage() {
   const params = useParams();
 
   const { id } = params;
@@ -17,7 +17,7 @@ export default function JobDetailsPage() {
         <title> Dashboard: Organization Details</title>
       </Helmet>
 
-      <JobDetailsView id={`${id}`} />
+      <OrgDetailsView id={`${id}`} />
     </>
   );
 }

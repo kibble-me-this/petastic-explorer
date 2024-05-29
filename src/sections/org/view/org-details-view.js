@@ -31,7 +31,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import { ProductShopView } from 'src/sections/product/view';
 
-import JobDetailsToolbar from '../job-details-toolbar';
+import OrgDetailsToolbar from '../org-details-toolbar';
 import JobDetailsContent from '../job-details-content';
 import JobDetailsCandidates from '../job-details-candidates';
 import PetListHorizontal from '../../blog/pet-list-horizontal';
@@ -59,7 +59,7 @@ export default function JobDetailsView({ id }) {
 
   const [publish, setPublish] = useState(currentJob?.publish);
 
-  const [currentTab, setCurrentTab] = useState('shop');
+  const [currentTab, setCurrentTab] = useState('pets');
 
   const [isApiLoading, setIsApiLoading] = useState(true);
 
@@ -203,7 +203,7 @@ export default function JobDetailsView({ id }) {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
-      <JobDetailsToolbar
+      <OrgDetailsToolbar
         backLink={paths.dashboard.org.root}
         editLink={paths.dashboard.job.edit(`${currentJob?.id}`)}
         liveLink="#"
@@ -247,7 +247,7 @@ export default function JobDetailsView({ id }) {
 
           {TABS.map((tab) => (
             <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label}
-              disabled={tab.value === 'pets'}
+            // disabled={tab.value === 'pets'}
             />
           ))}
         </Tabs>

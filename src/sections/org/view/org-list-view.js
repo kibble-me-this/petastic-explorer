@@ -52,7 +52,7 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function JobListView() {
+export default function OrgListView() {
   const settings = useSettingsContext();
 
   const [isApiLoading, setIsApiLoading] = useState(true);
