@@ -151,6 +151,11 @@ export const emailPublicAddressArray = [
     email: 'carlos@petastic.com',
     shelters: [
       {
+        shelterId: '5fe931824281715365900379',
+        shelterName: 'New York Bully Crew', // Replace with the actual shelter name
+        shelter_name_common: 'Animal Haven',
+      },
+      {
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Animal Haven', // Replace with the actual shelter name
         shelter_name_common: 'Animal Haven',
@@ -211,6 +216,11 @@ export const emailPublicAddressArray = [
     publicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
     email: 'adena@petastic.com',
     shelters: [
+      {
+        shelterId: '5fe931824281715365900379',
+        shelterName: 'New York Bully Crew', // Replace with the actual shelter name
+        shelter_name_common: 'Animal Haven',
+      },
       {
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Animal Haven', // Replace with the actual shelter name
