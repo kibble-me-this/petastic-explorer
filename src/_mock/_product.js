@@ -61,9 +61,14 @@ export const PRODUCT_SIZE_OPTIONS = [
 ];
 
 export const PRODUCT_STOCK_OPTIONS = [
-  { value: 'in stock', label: 'In stock' },
-  { value: 'low stock', label: 'Low stock' },
-  { value: 'out of stock', label: 'Out of stock' },
+  {
+    value: '5ee8317f6501687352248090',
+    label: 'California Bully Rescue',
+  },
+  {
+    value: '5fe931824281715365900379',
+    label: 'New York Bully Crew',
+  },
 ];
 
 export const PRODUCT_PUBLISH_OPTIONS = [
