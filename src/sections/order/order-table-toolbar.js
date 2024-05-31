@@ -14,12 +14,23 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
+const accountIds = [
+  { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
+
+  { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
+  { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
+  { value: '5ee83180f121686526084263', label: 'Animal Haven' },
+
+];
+
 export default function OrderTableToolbar({
   filters,
   onFilters,
   //
   canReset,
   onResetFilters,
+  accountId,
+  onAccountIdChange,
 }) {
   const popover = usePopover();
 
@@ -58,6 +69,20 @@ export default function OrderTableToolbar({
           pr: { xs: 2.5, md: 1 },
         }}
       >
+
+        <TextField
+          select
+          label="Account ID"
+          value={accountId}
+          onChange={onAccountIdChange}
+          sx={{ minWidth: 200 }}
+        >
+          {accountIds.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         <DatePicker
           label="Start date"
           value={filters.startDate}
@@ -84,7 +109,6 @@ export default function OrderTableToolbar({
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
-            disabled
             fullWidth
             value={filters.name}
             onChange={handleFilterName}
@@ -97,6 +121,8 @@ export default function OrderTableToolbar({
               ),
             }}
           />
+
+
 
           <IconButton onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
@@ -121,8 +147,6 @@ export default function OrderTableToolbar({
         arrow="right-top"
         sx={{ width: 140 }}
       >
-
-
         <MenuItem
           disabled
           onClick={() => {
@@ -135,7 +159,6 @@ export default function OrderTableToolbar({
 
         <MenuItem
           disabled
-
           onClick={() => {
             popover.onClose();
           }}
@@ -153,4 +176,6 @@ OrderTableToolbar.propTypes = {
   filters: PropTypes.object,
   onFilters: PropTypes.func,
   onResetFilters: PropTypes.func,
+  accountId: PropTypes.string,
+  onAccountIdChange: PropTypes.func,
 };

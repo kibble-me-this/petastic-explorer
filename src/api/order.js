@@ -13,9 +13,9 @@ const options = {
 };
 
 // Hook to fetch orders
-export function useGetOrders(account_id) {
+export function useGetOrders(account_id, { enabled = true } = {}) {
     const { data, isLoading, error } = useSWR(
-        URL,
+        enabled && account_id ? [URL, { account_id }] : null,
         () => fetcherANYML([URL.list, { account_id }]),
         options
     );
@@ -166,12 +166,12 @@ function formatOrder(eventData, result) {
             phoneNumber: eventData.billing.phone, // Replace with actual phone number
         },
         delivery: {
-            shipBy: eventData.delivery?.shipBy || "DHL", // Replace with actual shipping company
-            speedy: eventData.delivery?.speedy || "Standard", // Replace with actual shipping speed
-            trackingNumber: eventData.delivery?.trackingNumber || "SPX037739199373", // Replace with actual tracking number
+            shipBy: eventData.delivery?.shipBy || "Amazon Shipping", // Replace with actual shipping company
+            speedy: eventData.delivery?.speedy || "Prime", // Replace with actual shipping speed
+            trackingNumber: eventData.delivery?.trackingNumber || "Awaiting Tracking Number", // Replace with actual tracking number
         },
         payment: {
-            cardType: eventData.payment?.cardType || "mastercard", // Replace with actual card type
+            cardType: eventData.payment?.cardType || "Kibble Rewards", // Replace with actual card type
             cardNumber: eventData.payment?.cardNumber || "**** **** **** 5678", // Replace with actual card number
         },
         status: eventData.status || "pending", // Replace with actual status

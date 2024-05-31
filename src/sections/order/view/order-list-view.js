@@ -76,7 +76,9 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
-  const { orders, isLoading, error } = useGetOrders("5ee8317f6501687352248090");
+  const [accountId, setAccountId] = useState(''); // Initialize accountId as an empty string
+
+  const { orders, isLoading, error } = useGetOrders(accountId, { enabled: !!accountId }); // Conditionally fetch orders
 
   const [tableData, setTableData] = useState([]);
 
@@ -85,6 +87,8 @@ export default function OrderListView() {
   useEffect(() => {
     if (orders) {
       setTableData(orders);
+    } else {
+      setTableData([]); // Ensure table data is empty when no orders
     }
   }, [orders]);
 
@@ -162,6 +166,13 @@ export default function OrderListView() {
     [handleFilters]
   );
 
+  const handleAccountIdChange = useCallback(
+    (event) => {
+      setAccountId(event.target.value);
+    },
+    []
+  );
+
   return (
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -231,6 +242,8 @@ export default function OrderListView() {
             onFilters={handleFilters}
             canReset={canReset}
             onResetFilters={handleResetFilters}
+            accountId={accountId}
+            onAccountIdChange={handleAccountIdChange}
           />
 
           {canReset && (

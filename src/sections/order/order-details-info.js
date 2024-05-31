@@ -77,7 +77,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
         </Stack>
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
-            Speedy
+            Speed
           </Box>
           {delivery.speedy}
         </Stack>
@@ -132,11 +132,11 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
       />
       <Stack direction="row" alignItems="center" sx={{ p: 3, typography: 'body2' }}>
         <Box component="span" sx={{ color: 'text.secondary', flexGrow: 1 }}>
-          Phone number
+          Account number
         </Box>
 
         {payment.cardNumber}
-        <Iconify icon="logos:mastercard" width={24} sx={{ ml: 0.5 }} />
+        {/* <Iconify icon="logos:mastercard" width={24} sx={{ ml: 0.5 }} /> */}
       </Stack>
     </>
   );
