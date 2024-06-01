@@ -19,10 +19,10 @@ import OrderDetailsHistory from '../order-details-history';
 
 // ----------------------------------------------------------------------
 
-export default function OrderDetailsView({ id }) {
+export default function OrderDetailsView({ accountId, id }) {
   const settings = useSettingsContext();
 
-  const { orders } = useGetOrders("5ee83180fb01683673939629");
+  const { orders } = useGetOrders(accountId);
   const [currentOrder, setCurrentOrder] = useState(null);
   const [status, setStatus] = useState('');
 
@@ -85,5 +85,6 @@ export default function OrderDetailsView({ id }) {
 }
 
 OrderDetailsView.propTypes = {
+  accountId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

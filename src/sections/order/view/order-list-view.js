@@ -154,9 +154,9 @@ export default function OrderListView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.order.details(id));
+      router.push(paths.dashboard.order.details(accountId, id)); // Pass accountId and id to the URL
     },
-    [router]
+    [router, accountId]
   );
 
   const handleFilterStatus = useCallback(
@@ -307,6 +307,7 @@ export default function OrderListView() {
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}
                         onViewRow={() => handleViewRow(row.id)}
+                        accountId={accountId}
                       />
                     ))}
 

@@ -194,7 +194,7 @@ export const paths = {
     },
     order: {
       root: `${ROOTS.DASHBOARD}/order`,
-      details: (id) => `${ROOTS.DASHBOARD}/order/${id}`,
+      details: (accountId, id) => `${ROOTS.DASHBOARD}/order/${accountId}/${id}`,
       demo: {
         details: `${ROOTS.DASHBOARD}/order/${MOCK_ID}`,
       },
