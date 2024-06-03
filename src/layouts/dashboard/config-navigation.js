@@ -362,6 +362,7 @@ export function useNavData() {
       // MANAGEMENT
       // ----------------------------------------------------------------------
       {
+        roles: [t('admin')], // 'admin' is not included here
         subheader: t('management'),
         items: [
           // USER
@@ -381,6 +382,7 @@ export function useNavData() {
 
           // PRODUCT
           {
+            roles: [t('admin')], // 'admin' is not included here
             title: t('product'),
             path: paths.dashboard.product.root,
             icon: ICONS.product,
@@ -402,6 +404,7 @@ export function useNavData() {
 
           // // ORDER
           {
+            roles: [t('admin')], // 'admin' is not included here
             title: t('order'),
             path: paths.dashboard.order.root,
             icon: ICONS.order,

@@ -16,11 +16,9 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 const accountIds = [
   { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
-
   { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
   { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
   { value: '5ee83180f121686526084263', label: 'Animal Haven' },
-
 ];
 
 export default function OrderTableToolbar({
@@ -69,7 +67,6 @@ export default function OrderTableToolbar({
           pr: { xs: 2.5, md: 1 },
         }}
       >
-
         <TextField
           select
           label="Account ID"

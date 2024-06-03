@@ -8,6 +8,7 @@ import Drawer from '@mui/material/Drawer';
 import { useResponsive } from 'src/hooks/use-responsive';
 // hooks
 import { useMockedUser } from 'src/hooks/use-mocked-user';
+import { useAuthContext } from 'src/auth/hooks';
 // components
 import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
@@ -21,7 +22,9 @@ import { NavToggleButton, NavUpgrade } from '../_common';
 // ----------------------------------------------------------------------
 
 export default function NavVertical({ openNav, onCloseNav }) {
-  const { user } = useMockedUser();
+  // const { user } = useMockedUser();
+
+  const { user } = useAuthContext();
 
   const pathname = usePathname();
 
@@ -35,6 +38,9 @@ export default function NavVertical({ openNav, onCloseNav }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
+
+  // Temporary role assignment based on email
+  const userRole = (user.email === 'carlos@petastic.com' || user.email === 'adena@petastic.com' || user.email === 'josh@petastic.com') ? 'admin' : 'user';
 
   const renderContent = (
     <Scrollbar
@@ -51,8 +57,11 @@ export default function NavVertical({ openNav, onCloseNav }) {
 
       <NavSectionVertical
         data={navData}
+        // config={{
+        //   currentRole: user?.role || 'admin',
+        // }}
         config={{
-          currentRole: user?.role || 'admin',
+          currentRole: userRole,
         }}
       />
 

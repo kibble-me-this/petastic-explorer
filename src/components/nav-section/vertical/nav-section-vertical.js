@@ -13,6 +13,8 @@ import NavList from './nav-list';
 // ----------------------------------------------------------------------
 
 function NavSectionVertical({ data, config, sx, ...other }) {
+  const { currentRole } = config;
+
   return (
     <Stack sx={sx} {...other}>
       {data.map((group, index) => (
@@ -20,6 +22,8 @@ function NavSectionVertical({ data, config, sx, ...other }) {
           key={group.subheader || index}
           subheader={group.subheader}
           items={group.items}
+          roles={group.roles}
+          currentRole={currentRole}
           config={navVerticalConfig(config)}
         />
       ))}
@@ -28,8 +32,16 @@ function NavSectionVertical({ data, config, sx, ...other }) {
 }
 
 NavSectionVertical.propTypes = {
-  config: PropTypes.object,
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      subheader: PropTypes.string,
+      items: PropTypes.arrayOf(PropTypes.object),
+      roles: PropTypes.arrayOf(PropTypes.string),
+    })
+  ).isRequired,
+  config: PropTypes.shape({
+    currentRole: PropTypes.string.isRequired,
+  }).isRequired,
   sx: PropTypes.object,
 };
 
@@ -37,12 +49,17 @@ export default memo(NavSectionVertical);
 
 // ----------------------------------------------------------------------
 
-function Group({ subheader, items, config }) {
+function Group({ subheader, items, roles, currentRole, config }) {
   const [open, setOpen] = useState(true);
 
   const handleToggle = useCallback(() => {
     setOpen((prev) => !prev);
   }, []);
+
+  // Hide the entire group if the current role is not included in the roles array
+  if (roles && !roles.includes(currentRole)) {
+    return null;
+  }
 
   const renderContent = items.map((list) => (
     <NavList
@@ -61,7 +78,6 @@ function Group({ subheader, items, config }) {
           <StyledSubheader disableGutters disableSticky onClick={handleToggle} config={config}>
             {subheader}
           </StyledSubheader>
-
           <Collapse in={open}>{renderContent}</Collapse>
         </>
       ) : (
@@ -72,7 +88,9 @@ function Group({ subheader, items, config }) {
 }
 
 Group.propTypes = {
-  config: PropTypes.object,
-  items: PropTypes.array,
   subheader: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roles: PropTypes.arrayOf(PropTypes.string),
+  currentRole: PropTypes.string.isRequired,
+  config: PropTypes.object.isRequired,
 };
