@@ -243,7 +243,9 @@ export default function UserListView() {
     690606,
     773941,
     863200,       // mar
-    totalMaxPets, // apr
+    947901,       // apr 84701
+    1040302,      // may 92401
+    totalMaxPets, // june
   ];
 
 const lastValue = seriesData[seriesData.length - 1];
@@ -392,16 +394,16 @@ const subheader = `(+${percentageGrowth.toFixed(1)}%) than last 60 days`;
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Pets"
-                percent={((totalMaxPets-788500)/788500)*100}
+                percent={((totalMaxPets-863200)/863200)*100}
                 total={totalMaxPets}
                 chart={{
                   series: [
-                    90003,
-                    99200,
                     90665,
                     72238,
                     83335,
                     89259,
+                    84701,
+                    92401,
                   ],
                 }}
                 loading={loadingMaxValues}
@@ -411,17 +413,18 @@ const subheader = `(+${percentageGrowth.toFixed(1)}%) than last 60 days`;
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Dogs"
-                percent={((totalMaxDogs-500000)/500000)*100}
+                percent={((totalMaxDogs-560000)/560000)*100}
                 total={totalMaxDogs}
                 chart={{
                   colors: [theme2.palette.info.light, theme2.palette.info.main],
                   series: [
-                    59366,
-                    59373,
+
                     52664,
                     35193,
                     45355,
                     51107,
+                    59366,
+                    59373,
                   ]
                 }}
                 loading={loadingMaxValues}
@@ -431,17 +434,18 @@ const subheader = `(+${percentageGrowth.toFixed(1)}%) than last 60 days`;
             <Grid xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Cats"
-                percent={((totalMaxCats-305000)/305000)*100}
+                percent={((totalMaxCats-365000)/365000)*100}
                 total={totalMaxCats}
                 chart={{
                   colors: [theme2.palette.warning.light, theme2.palette.warning.main],
                   series: [
-                    30637,
-                    39827,
+
                     38001,
                     37045,
                     37980,
                     38152,
+                    30637,
+                    39827,
                   ],
                 }}
                 loading={loadingMaxValues}
@@ -455,21 +459,23 @@ const subheader = `(+${percentageGrowth.toFixed(1)}%) than last 60 days`;
                 chart={{
                   categories: [
                     'Jan23',
-                    'Feb23',
-                    'Mar23',
-                    'Apr23',
-                    'May23',
-                    'Jun23',
-                    'Jul23',
-                    'Aug23',
-                    'Sep23',
-                    'Oct23',
-                    'Nov23',
-                    'Dec23',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec',
                     'Jan24',
-                    'Feb24',
-                    'Mar24',
-                    'Apr24',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
                   ],
                   series: [
                     {
