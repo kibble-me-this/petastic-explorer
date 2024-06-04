@@ -244,7 +244,7 @@ export default function UserListView() {
     773941,
     863200,       // mar
     947901,       // apr 84701
-    1040302,      // may 92401
+    // 1040302,      // may 92401
     totalMaxPets, // june
   ];
 
@@ -475,7 +475,7 @@ const subheader = `(+${percentageGrowth.toFixed(1)}%) than last 60 days`;
                     'Mar',
                     'Apr',
                     'May',
-                    'Jun',
+                    // 'Jun',
                   ],
                   series: [
                     {
