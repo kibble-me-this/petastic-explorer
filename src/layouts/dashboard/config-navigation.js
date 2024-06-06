@@ -253,14 +253,54 @@ export function useNavData() {
         items: [
           // JOB
           {
-            title: t('org pets'),
+            title: t('Locations'),
             path: paths.dashboard.org.root,
             icon: ICONS.dashboard,
             children: [
               { title: t('list'), path: paths.dashboard.org.root },
-              // { title: t('details'), path: paths.dashboard.job.demo.details },
-              // { title: t('create'), path: paths.dashboard.job.new },
-              // { title: t('edit'), path: paths.dashboard.job.demo.edit },
+              { title: t('details'), path: paths.dashboard.job.demo.details, disabled: true },
+              { title: t('create'), path: paths.dashboard.job.new, disabled: true },
+              { title: t('edit'), path: paths.dashboard.job.demo.edit, disabled: true },
+            ],
+          },
+
+          // PRODUCT
+          {
+            roles: [t('admin')], // 'admin' is not included here
+            title: t('products'),
+            path: paths.dashboard.product.root,
+            icon: ICONS.product,
+            disabled: true,
+
+            children: [
+              { title: t('list'), path: paths.dashboard.product.root },
+              {
+                title: t('details'),
+                path: paths.dashboard.product.demo.details, disabled: true,
+
+              },
+              {
+                title: t('create'), path: paths.dashboard.product.new, disabled: true,
+              },
+              {
+                title: t('edit'), path: paths.dashboard.product.demo.edit, disabled: true,
+              },
+            ],
+          },
+
+          // // ORDER
+          {
+
+            roles: [t('admin')], // 'admin' is not included here
+            title: t('orders'),
+            path: paths.dashboard.order.root,
+            icon: ICONS.order,
+            disabled: true,
+            children: [
+              { title: t('list'), path: paths.dashboard.order.root },
+              {
+                title: t('details'), path: paths.dashboard.order.demo.details, disabled: true,
+              },
             ],
           },
           // BLOG
@@ -363,12 +403,13 @@ export function useNavData() {
       // ----------------------------------------------------------------------
       {
         roles: [t('admin')], // 'admin' is not included here
-        subheader: t('management'),
+        subheader: t('admin - ecosystem '),
         items: [
           // USER
           // {
+          //   roles: [t('admin')], // 'admin' is not included here
           //   title: t('users'),
-          //   path: paths.dashboard.pet.cards,
+          //   path: paths.dashboard.user.cards,
           //   icon: ICONS.user,
           //   // children: [
           //   //   { title: t('profile'), path: paths.dashboard.user.root },
@@ -383,7 +424,7 @@ export function useNavData() {
           // PRODUCT
           {
             roles: [t('admin')], // 'admin' is not included here
-            title: t('product'),
+            title: t('products'),
             path: paths.dashboard.product.root,
             icon: ICONS.product,
             children: [
@@ -405,7 +446,7 @@ export function useNavData() {
           // // ORDER
           {
             roles: [t('admin')], // 'admin' is not included here
-            title: t('order'),
+            title: t('orders'),
             path: paths.dashboard.order.root,
             icon: ICONS.order,
             children: [

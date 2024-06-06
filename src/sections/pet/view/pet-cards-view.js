@@ -43,12 +43,12 @@ export default function PetCardsView() {
       <CustomBreadcrumbs
         heading="My Pets"
         links={[
+          // {
+          //   name: 'Dashboard',
+          //   // href: paths.dashboard.root
+          // },
           {
-            name: 'Dashboard',
-            // href: paths.dashboard.root
-          },
-          {
-            name: 'Pet',
+            name: 'My Pets',
             // href: paths.dashboard.user.root
           },
           { name: 'Cards' },

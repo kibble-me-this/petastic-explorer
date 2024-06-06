@@ -151,6 +151,11 @@ export const emailPublicAddressArray = [
     email: 'carlos@petastic.com',
     shelters: [
       {
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
+        shelter_name_common: 'California Bully Rescue',
+      },
+      {
         shelterId: '5ee8317f6501687352248090',
         shelterName: 'California Bully Rescue', // Replace with the actual shelter name
         shelter_name_common: 'California Bully Rescue',
@@ -222,6 +227,11 @@ export const emailPublicAddressArray = [
     email: 'adena@petastic.com',
     shelters: [
       {
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
+        shelter_name_common: 'California Bully Rescue',
+      },
+      {
         shelterId: '5ee8317f6501687352248090',
         shelterName: 'California Bully Rescue', // Replace with the actual shelter name
         shelter_name_common: 'California Bully Rescue',
@@ -256,6 +266,19 @@ export const emailPublicAddressArray = [
         shelterName: 'Brixies Rescue Inc',
         shelter_name_common: 'Brixies Rescue Inc',
       },
+
+    ],
+  },
+
+  {
+    publicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    email: 'motv8one@aol.com',
+    shelters: [
+      {
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
+        shelter_name_common: 'California Bully Rescue',
+      }
 
     ],
   },

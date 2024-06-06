@@ -148,7 +148,7 @@ export default function ProductNewEditForm({ currentProduct }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await createProduct({
-        account_id: "5ee8317f6501687352248090",
+        account_id: "5fe931824281712564008136",
         product: {
           id: data.iban,
           createdAt: new Date().toISOString(), // Adding createdAt attribute with the current date

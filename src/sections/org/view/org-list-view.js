@@ -245,7 +245,7 @@ export default function OrgListView() {
       <CustomBreadcrumbs
         heading="Orgs"
         links={[
-          { name: 'Dashboard', href: paths.dashboard.root },
+          // { name: 'Dashboard', href: paths.dashboard.root },
           {
             name: 'My Orgs',
             href: paths.dashboard.org.root,
