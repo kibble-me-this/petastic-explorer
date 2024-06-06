@@ -76,7 +76,7 @@ export default function ProductListView() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
-  const { products, productsLoading, productsEmpty } = useGetProducts("5fe931824281712564008136");
+  const { products, productsLoading, productsEmpty } = useGetProducts("5ee83180fb01683673939629");
 
   const confirm = useBoolean();
 
