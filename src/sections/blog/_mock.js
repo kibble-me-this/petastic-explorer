@@ -150,47 +150,46 @@ export const emailPublicAddressArray = [
     publicAddress: '416fb87e70e19cc52fd9ff28ce43cc8c3f3af33feae03a4d7ac73d6f6e9f36a1',
     email: 'carlos@petastic.com',
     shelters: [
-      // {
-      //   shelterId: '5ee83180f121686526084263',
-      //   shelterName: 'Animal Haven', // Replace with the actual shelter name
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5fe931824281712564008136',
-      //   shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
-      //   shelter_name_common: 'California Bully Rescue',
-      // },
-      // {
-      //   shelterId: '5ee8317f6501687352248090',
-      //   shelterName: 'California Bully Rescue', // Replace with the actual shelter name
-      //   shelter_name_common: 'California Bully Rescue',
-      // },
-      // {
-      //   shelterId: '5fe931824281715365900379',
-      //   shelterName: 'New York Bully Crew', // Replace with the actual shelter name
-      //   shelter_name_common: 'Animal Haven',
-      // },
-
-      // {
-      //   shelterId: '5ee83180fb01683673939629',
-      //   shelterName: 'Animal Haven',
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5ee83180f8a1683475024978',
-      //   shelterName: 'Animal Haven',
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5ee83180f271685767429993',
-      //   shelterName: 'Animal Haven',
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5fe931824271705684215701',
-      //   shelterName: 'Brixies Rescue Inc',
-      //   shelter_name_common: 'Brixies Rescue Inc',
-      // },
+      {
+        shelterId: '5ee83180f121686526084263',
+        shelterName: 'Animal Haven', // Replace with the actual shelter name
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
+        shelter_name_common: 'California Bully Rescue',
+      },
+      {
+        shelterId: '5ee8317f6501687352248090',
+        shelterName: 'California Bully Rescue', // Replace with the actual shelter name
+        shelter_name_common: 'California Bully Rescue',
+      },
+      {
+        shelterId: '5fe931824281715365900379',
+        shelterName: 'New York Bully Crew', // Replace with the actual shelter name
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5ee83180fb01683673939629',
+        shelterName: 'Animal Haven',
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5ee83180f8a1683475024978',
+        shelterName: 'Animal Haven',
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5ee83180f271685767429993',
+        shelterName: 'Animal Haven',
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
+      },
     ],
   },
   {
@@ -227,46 +226,46 @@ export const emailPublicAddressArray = [
     publicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
     email: 'adena@petastic.com',
     shelters: [
-      // {
-      //   shelterId: '5fe931824281712564008136',
-      //   shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
-      //   shelter_name_common: 'California Bully Rescue',
-      // },
-      // {
-      //   shelterId: '5ee8317f6501687352248090',
-      //   shelterName: 'California Bully Rescue', // Replace with the actual shelter name
-      //   shelter_name_common: 'California Bully Rescue',
-      // },
-      // {
-      //   shelterId: '5fe931824281715365900379',
-      //   shelterName: 'New York Bully Crew', // Replace with the actual shelter name
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5ee83180f121686526084263',
-      //   shelterName: 'Animal Haven', // Replace with the actual shelter name
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5ee83180fb01683673939629',
-      //   shelterName: 'Animal Haven',
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5ee83180f8a1683475024978',
-      //   shelterName: 'Animal Haven',
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5ee83180f271685767429993',
-      //   shelterName: 'Animal Haven',
-      //   shelter_name_common: 'Animal Haven',
-      // },
-      // {
-      //   shelterId: '5fe931824271705684215701',
-      //   shelterName: 'Brixies Rescue Inc',
-      //   shelter_name_common: 'Brixies Rescue Inc',
-      // },
+      {
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
+        shelter_name_common: 'California Bully Rescue',
+      },
+      {
+        shelterId: '5ee8317f6501687352248090',
+        shelterName: 'California Bully Rescue', // Replace with the actual shelter name
+        shelter_name_common: 'California Bully Rescue',
+      },
+      {
+        shelterId: '5fe931824281715365900379',
+        shelterName: 'New York Bully Crew', // Replace with the actual shelter name
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5ee83180f121686526084263',
+        shelterName: 'Animal Haven', // Replace with the actual shelter name
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5ee83180fb01683673939629',
+        shelterName: 'Animal Haven',
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5ee83180f8a1683475024978',
+        shelterName: 'Animal Haven',
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5ee83180f271685767429993',
+        shelterName: 'Animal Haven',
+        shelter_name_common: 'Animal Haven',
+      },
+      {
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        shelter_name_common: 'Brixies Rescue Inc',
+      },
 
     ],
   },
