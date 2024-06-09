@@ -41,10 +41,10 @@ export function useGetProduct(productId) {
 
 // ----------------------------------------------------------------------
 
-export function useGetProducts(account_id) {
+export function useGetProducts(account_id, { enabled = true } = {}) {
   const { data, isLoading, error, isValidating } = useSWR(
-    [URL, { account_id }],
-    () => fetcherANYML([URL.getProducts, { account_id }]),
+    enabled && account_id ? [URL, { account_id }] : null,
+    () => fetcherANYML([URL.list, { account_id }]),
     options
   );
 
@@ -123,7 +123,7 @@ export async function createProduct(eventData) {
     mutate(
       [URL, { account_id }],
       async (currentData) => {
-        const updatedProducts = await fetcherANYML([URL.getProducts, { account_id }]);
+        const updatedProducts = await fetcherANYML([URL.list, { account_id }]);
         return {
           ...currentData,
           products: updatedProducts.products,

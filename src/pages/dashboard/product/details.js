@@ -9,7 +9,7 @@ import { ProductDetailsView } from 'src/sections/product/view';
 export default function ProductDetailsPage() {
   const params = useParams();
 
-  const { id } = params;
+  const { accountId, id } = params;
 
   return (
     <>
@@ -17,7 +17,7 @@ export default function ProductDetailsPage() {
         <title> Dashboard: Product Details</title>
       </Helmet>
 
-      <ProductDetailsView id={`${id}`} />
+      <ProductDetailsView accountId={accountId} id={id} />
     </>
   );
 }

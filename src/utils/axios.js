@@ -220,7 +220,7 @@ export const endpoints = {
     deleteFoster: '/api/fosters/{id}', // Endpoint to delete a foster by ID
   },
   products: {
-    getProducts: '/default/handleGetProducts', // Endpoint to get a list of fosters
+    list: '/default/handleGetProducts', // Endpoint to get a list of fosters
     createProduct: '/default/handleCreateProduct', // Endpoint to get a list of fosters
   },
   orders: {

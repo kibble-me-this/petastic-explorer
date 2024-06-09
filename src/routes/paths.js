@@ -155,11 +155,19 @@ export const paths = {
     product: {
       root: `${ROOTS.DASHBOARD}/product`,
       new: `${ROOTS.DASHBOARD}/product/new`,
-      details: (id) => `${ROOTS.DASHBOARD}/product/${id}`,
+      // details: (id) => `${ROOTS.DASHBOARD}/product/${id}`,
+      details: (accountId, id) => `${ROOTS.DASHBOARD}/product/${accountId}/${id}`,
       edit: (id) => `${ROOTS.DASHBOARD}/product/${id}/edit`,
       demo: {
         details: `${ROOTS.DASHBOARD}/product/${MOCK_ID}`,
         edit: `${ROOTS.DASHBOARD}/product/${MOCK_ID}/edit`,
+      },
+    },
+    order: {
+      root: `${ROOTS.DASHBOARD}/order`,
+      details: (accountId, id) => `${ROOTS.DASHBOARD}/order/${accountId}/${id}`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/order/${MOCK_ID}`,
       },
     },
     invoice: {
@@ -192,13 +200,7 @@ export const paths = {
         edit: `${ROOTS.DASHBOARD}/post/${paramCase(MOCK_TITLE)}/edit`,
       },
     },
-    order: {
-      root: `${ROOTS.DASHBOARD}/order`,
-      details: (accountId, id) => `${ROOTS.DASHBOARD}/order/${accountId}/${id}`,
-      demo: {
-        details: `${ROOTS.DASHBOARD}/order/${MOCK_ID}`,
-      },
-    },
+
     job: {
       root: `${ROOTS.DASHBOARD}/job`,
       new: `${ROOTS.DASHBOARD}/job/new`,

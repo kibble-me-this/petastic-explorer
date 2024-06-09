@@ -17,28 +17,29 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
+const accountIds = [
+  { value: '5ee83180f121686526084263', label: 'Animal Haven' },
+  { value: '5fe931824281712564008136', label: 'Motivated-Ones Rescue' },
+  { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
+  { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
+  { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
+  { value: '5ee83180f8a1683475024978', label: 'Second Chance Rescue' },
+  { value: '5ee83180f271685767429993', label: 'Muddy Paws Rescue' },
+  { value: '5fe931824271705684215701', label: 'Brixies Rescue Inc' },
+];
+
 export default function ProductTableToolbar({
   filters,
   onFilters,
-  //
-  stockOptions,
   publishOptions,
+  accountId,
+  onAccountIdChange,
 }) {
   const popover = usePopover();
 
   const handleFilterName = useCallback(
     (event) => {
       onFilters('name', event.target.value);
-    },
-    [onFilters]
-  );
-
-  const handleFilterStock = useCallback(
-    (event) => {
-      onFilters(
-        'stock',
-        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
-      );
     },
     [onFilters]
   );
@@ -73,28 +74,19 @@ export default function ProductTableToolbar({
             width: { xs: 1, md: 200 },
           }}
         >
-          <InputLabel>Stock</InputLabel>
-
-          <Select
-            disabled
-            multiple
-            value={filters.stock}
-            onChange={handleFilterStock}
-            input={<OutlinedInput label="Stock" />}
-            renderValue={(selected) => selected.map((value) => value).join(', ')}
-            sx={{ textTransform: 'capitalize' }}
+          <TextField
+            select
+            label="Account ID"
+            value={accountId || ''}
+            onChange={(event) => onAccountIdChange(event.target.value)}
+            sx={{ minWidth: 200 }}
           >
-            {stockOptions.map((option) => (
+            {accountIds.length > 0 && accountIds.map((option) => (
               <MenuItem key={option.value} value={option.value}>
-                <Checkbox
-                  disableRipple
-                  size="small"
-                  checked={filters.stock.includes(option.value)}
-                />
                 {option.label}
               </MenuItem>
             ))}
-          </Select>
+          </TextField>
         </FormControl>
 
         <FormControl
@@ -108,13 +100,13 @@ export default function ProductTableToolbar({
           <Select
             disabled
             multiple
-            value={filters.publish}
+            value={filters.publish || []}
             onChange={handleFilterPublish}
             input={<OutlinedInput label="Publish" />}
             renderValue={(selected) => selected.map((value) => value).join(', ')}
             sx={{ textTransform: 'capitalize' }}
           >
-            {publishOptions.map((option) => (
+            {publishOptions.length > 0 && publishOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 <Checkbox
                   disableRipple
@@ -155,8 +147,6 @@ export default function ProductTableToolbar({
         arrow="right-top"
         sx={{ width: 140 }}
       >
-
-
         <MenuItem
           disabled
           onClick={() => {
@@ -185,5 +175,6 @@ ProductTableToolbar.propTypes = {
   filters: PropTypes.object,
   onFilters: PropTypes.func,
   publishOptions: PropTypes.array,
-  stockOptions: PropTypes.array,
+  accountId: PropTypes.string,
+  onAccountIdChange: PropTypes.func,
 };

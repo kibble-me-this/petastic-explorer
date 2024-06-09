@@ -75,13 +75,14 @@ export default function ProductListView() {
   const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
+  const [accountId, setAccountId] = useState('5ee83180fb01683673939629');
 
-  const { products, productsLoading, productsEmpty } = useGetProducts("5ee83180fb01683673939629");
+  const { products, productsLoading, productsEmpty } = useGetProducts(accountId);
 
   const confirm = useBoolean();
 
   useEffect(() => {
-    if (products.length) {
+    if (products && products.length) {
       setTableData(products);
     }
   }, [products]);
@@ -153,6 +154,10 @@ export default function ProductListView() {
     setFilters(defaultFilters);
   }, []);
 
+  const handleAccountIdChange = (newAccountId) => {
+    setAccountId(newAccountId);
+  };
+
   return (
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
@@ -168,7 +173,6 @@ export default function ProductListView() {
           ]}
           action={
             <Button
-
               component={RouterLink}
               href={paths.dashboard.product.new}
               variant="contained"
@@ -184,8 +188,8 @@ export default function ProductListView() {
           <ProductTableToolbar
             filters={filters}
             onFilters={handleFilters}
-            //
-            stockOptions={PRODUCT_STOCK_OPTIONS}
+            accountId={accountId}
+            onAccountIdChange={handleAccountIdChange}
             publishOptions={PUBLISH_OPTIONS}
           />
 
@@ -193,9 +197,7 @@ export default function ProductListView() {
             <ProductTableFiltersResult
               filters={filters}
               onFilters={handleFilters}
-              //
               onResetFilters={handleResetFilters}
-              //
               results={dataFiltered.length}
               sx={{ p: 2.5, pt: 0 }}
             />
@@ -240,7 +242,7 @@ export default function ProductListView() {
 
                 <TableBody>
                   {productsLoading ? (
-                    [...Array(table.rowsPerPage)].map((i, index) => (
+                    [...Array(table.rowsPerPage)].map((_, index) => (
                       <TableSkeleton key={index} sx={{ height: denseHeight }} />
                     ))
                   ) : (
@@ -281,7 +283,6 @@ export default function ProductListView() {
             rowsPerPage={table.rowsPerPage}
             onPageChange={table.onChangePage}
             onRowsPerPageChange={table.onChangeRowsPerPage}
-            //
             dense={table.dense}
             onChangeDense={table.onChangeDense}
           />

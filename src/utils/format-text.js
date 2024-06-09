@@ -1,7 +1,4 @@
-// utils/format-text.js
-export function truncateText(text, maxLength) {
-    if (text.length <= maxLength) {
-        return text;
-    }
-    return `${text.slice(0, maxLength)}...`;
+export function truncateText(text, length) {
+    if (!text) return '';
+    return text.length > length ? `${text.substring(0, length)}...` : text;
 }
