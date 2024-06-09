@@ -435,7 +435,7 @@ export function useNavData() {
 
               },
               {
-                title: t('create'), path: paths.dashboard.product.new, disabled: true,
+                title: t('create'), path: paths.dashboard.product.new, disabled: false,
               },
               {
                 title: t('edit'), path: paths.dashboard.product.demo.edit, disabled: true,
