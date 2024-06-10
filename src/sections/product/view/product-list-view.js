@@ -75,7 +75,7 @@ export default function ProductListView() {
   const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
-  const [accountId, setAccountId] = useState('5ee83180fb01683673939629');
+  const [accountId, setAccountId] = useState('');
 
   const { products, productsLoading, productsEmpty } = useGetProducts(accountId);
 

@@ -264,29 +264,29 @@ export function useNavData() {
             ],
           },
 
-          // PRODUCT
-          {
-            roles: [t('admin')], // 'admin' is not included here
-            title: t('products'),
-            path: paths.dashboard.product.root,
-            icon: ICONS.product,
-            disabled: true,
+          // // PRODUCT
+          // {
+          //   roles: [t('admin')], // 'admin' is not included here
+          //   title: t('products'),
+          //   path: paths.dashboard.product.root,
+          //   icon: ICONS.product,
+          //   disabled: true,
 
-            children: [
-              { title: t('list'), path: paths.dashboard.product.root },
-              {
-                title: t('details'),
-                path: paths.dashboard.product.demo.details, disabled: true,
+          //   children: [
+          //     { title: t('list'), path: paths.dashboard.product.root },
+          //     {
+          //       title: t('details'),
+          //       path: paths.dashboard.product.demo.details, disabled: true,
 
-              },
-              {
-                title: t('create'), path: paths.dashboard.product.new, disabled: true,
-              },
-              {
-                title: t('edit'), path: paths.dashboard.product.demo.edit, disabled: true,
-              },
-            ],
-          },
+          //     },
+          //     {
+          //       title: t('create'), path: paths.dashboard.product.new, disabled: true,
+          //     },
+          //     {
+          //       title: t('edit'), path: paths.dashboard.product.demo.edit, disabled: true,
+          //     },
+          //   ],
+          // },
 
           // // ORDER
           {

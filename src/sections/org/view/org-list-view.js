@@ -31,7 +31,7 @@ import EmptyContent from 'src/components/empty-content';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
-import { getShelterAccountId } from '../../blog/_mock';
+import { getShelterAccountId } from '../../../api/organizations';
 
 //
 import JobList from '../job-list';
