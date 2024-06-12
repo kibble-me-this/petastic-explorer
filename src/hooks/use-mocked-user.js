@@ -274,7 +274,89 @@ export const useMockUser = [
       },
     ],
   },
-  // Add more user objects with their respective shelters as needed
+
+  {
+    id: '7',
+    publicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    email: 'rescuetailsmb@gmail.com',
+    legalName: 'Motivated Rescue',
+    displayName: 'Motivated Rescue',
+    password: 'demo1234',
+    photoURL: '',
+    phoneNumber: '+1 310-555-1234',
+    country: 'United States',
+    address: '1020 Rescue Ave',
+    state: 'CA',
+    city: 'Los Angeles',
+    zipCode: '90001',
+    about: 'Dedicated to saving animals.',
+    roles: ['shelter'],
+    isPublic: true,
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831824261713886583600',
+        shelterName: 'Rescue Tails',
+        affiliateSystemRoles: ['admin']
+      },
+    ],
+  },
+
+  {
+    id: '8',
+    publicAddress: 'f89ecc199bdca4790045f4b6cc8aa797f3152dd12041e10f87271aa0921cbfb6',
+    email: 'jackie@fapspet.org ',
+    legalName: 'Motivated Rescue',
+    displayName: 'Motivated Rescue',
+    password: 'demo1234',
+    photoURL: '',
+    phoneNumber: '+1 310-555-1234',
+    country: 'United States',
+    address: '1020 Rescue Ave',
+    state: 'CA',
+    city: 'Los Angeles',
+    zipCode: '90001',
+    about: 'Dedicated to saving animals.',
+    roles: ['shelter'],
+    isPublic: true,
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281712849717961',
+        shelterName: 'Fayetteville Animal Protection Society',
+        affiliateSystemRoles: ['admin']
+      },
+    ],
+  },
+
+  {
+    id: '9',
+    publicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    email: 'texasanimalrescuerehab@outlook.com',
+    legalName: 'Motivated Rescue',
+    displayName: 'Motivated Rescue',
+    password: 'demo1234',
+    photoURL: '',
+    phoneNumber: '+1 310-555-1234',
+    country: 'United States',
+    address: '1020 Rescue Ave',
+    state: 'CA',
+    city: 'Los Angeles',
+    zipCode: '90001',
+    about: 'Dedicated to saving animals.',
+    roles: ['shelter'],
+    isPublic: true,
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281711564491846',
+        shelterName: 'Texas Animal Rescue Rehab',
+        affiliateSystemRoles: ['admin']
+      },
+    ],
+  },
+
+
 ];
 
 export function useMockedUser() {
