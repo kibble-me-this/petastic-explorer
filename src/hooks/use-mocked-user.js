@@ -14,13 +14,14 @@ export const useMockUser = [
     city: 'New York',
     zipCode: '10001',
     about: 'We rescue pets in need.',
-    roles: ['shelter'],
+    roles: ['admin'],
     isPublic: true,
     affiliations: [
       {
-        role: 'shelter',
+        role: ['admin'],
         shelterId: '5fe931824271705684215701',
         shelterName: 'Brixies Rescue Inc',
+        affiliateSystemRoles: ['admin']
       },
     ],
   },
@@ -35,54 +36,80 @@ export const useMockUser = [
     phoneNumber: '+1 310-880-8673',
     country: 'United States',
     address: '2900 NE 7TH Ave Unit 2006',
-    state: 'Miami',
-    city: 'FL',
+    state: 'FL',
+    city: 'Miami',
     zipCode: '33137',
     about: 'Praesent turpis. Phasellus viverra nulla ut metus varius laoreet. Phasellus tempus.',
-    roles: ['user', 'foster'],
+    systemRoles: ['superadmin'],
     isPublic: true,
     affiliations: [
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Animal Haven',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5fe931824281712564008136',
         shelterName: 'Motivated-Ones Rescue',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee8317f6501687352248090',
         shelterName: 'California Bully Rescue',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5fe931824281715365900379',
         shelterName: 'New York Bully Crew',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee83180fb01683673939629',
         shelterName: 'Strong Paws Rescue, Inc.',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee83180f8a1683475024978',
         shelterName: 'Second Chance Rescue',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee83180f271685767429993',
         shelterName: 'Muddy Paws Rescue',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5fe931824271705684215701',
         shelterName: 'Brixies Rescue Inc',
+        affiliateSystemRoles: ['superadmin']
       },
-    ],
+      {
+        role: ['admin'],
+        shelterId: '5ee831824261713886583600',
+        shelterName: 'Rescue Tails',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281712849717961',
+        shelterName: 'Fayetteville Animal Protection Society',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281711564491846',
+        shelterName: 'Texas Animal Rescue Rehab',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
   },
   {
     id: '3',
@@ -103,9 +130,10 @@ export const useMockUser = [
     isPublic: true,
     affiliations: [
       {
-        role: 'volunteer',
+        role: ['admin'],
         shelterId: '5ee83180f121686526084263',
-        shelterName: 'Shelter Name 1',
+        shelterName: 'Anymal Haven',
+        affiliateSystemRoles: ['admin']
       },
     ],
   },
@@ -128,9 +156,10 @@ export const useMockUser = [
     isPublic: true,
     affiliations: [
       {
-        role: 'volunteer',
+        role: ['admin'],
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Shelter Name 1',
+        affiliateSystemRoles: ['admin']
       },
     ],
   },
@@ -153,45 +182,70 @@ export const useMockUser = [
     isPublic: true,
     affiliations: [
       {
-        role: 'foster',
-        shelterId: '5fe931824281712564008136',
-        shelterName: 'Motivated-Ones Rescue',
-      },
-      {
-        role: 'foster',
-        shelterId: '5ee8317f6501687352248090',
-        shelterName: 'California Bully Rescue',
-      },
-      {
-        role: 'foster',
-        shelterId: '5fe931824281715365900379',
-        shelterName: 'New York Bully Crew',
-      },
-      {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Animal Haven',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f6501687352248090',
+        shelterName: 'California Bully Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281715365900379',
+        shelterName: 'New York Bully Crew',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee83180fb01683673939629',
-        shelterName: 'Animal Haven',
+        shelterName: 'Strong Paws Rescue, Inc.',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee83180f8a1683475024978',
-        shelterName: 'Animal Haven',
+        shelterName: 'Second Chance Rescue',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5ee83180f271685767429993',
-        shelterName: 'Animal Haven',
+        shelterName: 'Muddy Paws Rescue',
+        affiliateSystemRoles: ['superadmin']
       },
       {
-        role: 'foster',
+        role: ['admin'],
         shelterId: '5fe931824271705684215701',
         shelterName: 'Brixies Rescue Inc',
+        affiliateSystemRoles: ['superadmin']
+      }, {
+        role: ['admin'],
+        shelterId: '5ee831824261713886583600',
+        shelterName: 'Rescue Tails',
+        affiliateSystemRoles: ['superadmin']
       },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281712849717961',
+        shelterName: 'Fayetteville Animal Protection Society',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281711564491846',
+        shelterName: 'Texas Animal Rescue Rehab',
+        affiliateSystemRoles: ['superadmin']
+      }
     ],
   },
   {
@@ -213,9 +267,10 @@ export const useMockUser = [
     isPublic: true,
     affiliations: [
       {
-        role: 'shelter',
+        role: ['admin'],
         shelterId: '5fe931824281712564008136',
         shelterName: 'Motivated-Ones Rescue',
+        affiliateSystemRoles: ['admin']
       },
     ],
   },
@@ -297,7 +352,7 @@ export function useMockedUser() {
     city: 'San Francisco',
     zipCode: '94116',
     about: 'Praesent turpis. Phasellus viverra nulla ut metus varius laoreet. Phasellus tempus.',
-    role: 'admin',
+    role: ['admin'],
     isPublic: true,
   };
 

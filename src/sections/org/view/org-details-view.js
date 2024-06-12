@@ -67,6 +67,8 @@ export default function JobDetailsView({ id }) {
 
   const [ownerName, setOwnerName] = useState('');
 
+  const [ownerLogo, setOwnerLogo] = useState('');
+
   const [filteredAndSortedPets, setFilteredAndSortedPets] = useState([]);
 
   const updateFilteredAndSortedPets = (newPets) => {
@@ -102,6 +104,7 @@ export default function JobDetailsView({ id }) {
         console.log(data.pets);
 
         setOwnerName(data.shelter_name_common);
+        setOwnerLogo(data.logo);
         // setIsApiLoading(false); // Set loading to false after data is fetched
 
         // Apply filtering and sorting logic to apiPets and store the result in filteredAndSortedPets
@@ -221,7 +224,7 @@ export default function JobDetailsView({ id }) {
         <ProfileCover
           role={_userAbout.role}
           name={ownerName}
-          // avatarUrl={user?.photoURL}
+          avatarUrl={ownerLogo} // avatarUrl={user?.photoURL}
           coverUrl="/assets/background/hero.jpg"
         />
 

@@ -30,7 +30,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
 
   console.log('JobItem job: ', job);
 
-  const { id, shelterAccountId, commonName, numPets } = job;
+  const { id, shelterAccountId, commonName, numPets, logo } = job;
 
   return (
     <>
@@ -42,7 +42,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
         <Stack sx={{ p: 3, pb: 2 }}>
           <Avatar
             // alt={company.name}
-            // src={company.logo}
+            src={logo} // src={company.logo}
             variant="rounded"
             sx={{ width: 48, height: 48, mb: 2 }}
           />

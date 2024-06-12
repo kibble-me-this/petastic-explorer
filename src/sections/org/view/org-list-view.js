@@ -115,6 +115,7 @@ export default function OrgListView() {
               commonName: responseData.shelter_name_common,
               numPets: responseData.pets.length,
               pets: responseData.pets,
+              logo: responseData.logo,
             };
             return shelterData;
           }
