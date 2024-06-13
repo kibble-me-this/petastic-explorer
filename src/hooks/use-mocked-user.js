@@ -356,6 +356,33 @@ export const useMockUser = [
     ],
   },
 
+  {
+    id: '9',
+    publicAddress: '6fb865589bd69bd1ac01f0f5c331274156d79c4aeda4e3d6f57d570be327d321',
+    email: 'meagan@strongpawsrescue.org',
+    legalName: 'Strong Paws Rescue, Inc.',
+    displayName: 'Strong Paws Rescue, Inc.',
+    password: 'demo1234',
+    photoURL: '',
+    phoneNumber: '+1 310-555-1234',
+    country: 'United States',
+    address: '1020 Rescue Ave',
+    state: 'CA',
+    city: 'Los Angeles',
+    zipCode: '90001',
+    about: 'Dedicated to saving animals.',
+    roles: ['shelter'],
+    isPublic: true,
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee83180fb01683673939629',
+        shelterName: 'Strong Paws Rescue, Inc.',
+        affiliateSystemRoles: ['admin']
+      },
+    ],
+  },
+
 
 ];
 
