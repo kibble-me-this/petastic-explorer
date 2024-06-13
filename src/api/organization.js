@@ -19,8 +19,11 @@ const options = {
 const postFetcher = async (url, data) => postRequestANYML(url, data);
 
 export function useGetOrganizations(accountIds) {
+  // Ensure accountIds is an array
+  const idsArray = Array.isArray(accountIds) ? accountIds : [accountIds];
+
   const { data, isLoading, error, isValidating } = useSWR(
-    accountIds.length ? [URL.list, accountIds] : null,
+    idsArray.length ? [URL.list, idsArray] : null,
     ([url, ids]) => postFetcher(url, { account_ids: ids }),
     options
   );
