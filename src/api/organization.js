@@ -1,4 +1,39 @@
+import { useMemo, useState, useEffect } from 'react';
+import useSWR, { mutate } from 'swr';
+// utils
+import { fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
+
 import { useMockUser } from 'src/hooks/use-mocked-user';
+
+// ----------------------------------------------------------------------
+
+const URL = endpoints.organization;
+
+const options = {
+  revalidateIfStale: false,
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
+};
+
+// Custom fetcher using postRequestANYML
+const postFetcher = async (url, data) => postRequestANYML(url, data);
+
+export function useGetOrganizations(accountIds) {
+  const { data, isLoading, error, isValidating } = useSWR(
+    accountIds.length ? [URL.list, accountIds] : null,
+    ([url, ids]) => postFetcher(url, { account_ids: ids }),
+    options
+  );
+
+  const memoizedValue = useMemo(() => ({
+    organizations: data || [], // Adjust based on the expected data structure
+    isLoading,
+    error,
+    isValidating,
+  }), [data, error, isLoading, isValidating]);
+
+  return memoizedValue;
+}
 
 export function getShelterAccountId(user) {
   // Check if the user object exists and has the email attribute
@@ -25,8 +60,6 @@ export function getShelterAccountId(user) {
   // If no matching user object is found, return null
   return null;
 }
-
-
 
 export function getShelterAccountId1(user) {
   // Search for the object in the array with the matching publicAddress

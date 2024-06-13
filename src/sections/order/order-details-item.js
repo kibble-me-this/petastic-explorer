@@ -65,7 +65,20 @@ export default function OrderDetailsItems({
         <Box>Total</Box>
         <Box sx={{ width: 160 }}>{fCurrency(penniesToDollars(totalAmount)) || '-'}</Box>
       </Stack>
+
+      <Stack direction="row">
+        <Box sx={{ color: 'text.secondary' }}>Rewards Earned</Box>
+        <Box
+          sx={{
+            width: 160,
+            ...(discount && { color: 'error.main' }),
+          }}
+        >
+          {discount ? `- ${fCurrency(penniesToDollars(discount))}` : '-'}
+        </Box>
+      </Stack>
     </Stack>
+
   );
 
   return (

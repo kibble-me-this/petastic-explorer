@@ -10,7 +10,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function JobFiltersResult({
+export default function OrganizationFiltersResult({
   filters,
   onFilters,
   //
@@ -121,7 +121,7 @@ export default function JobFiltersResult({
   );
 }
 
-JobFiltersResult.propTypes = {
+OrganizationFiltersResult.propTypes = {
   canReset: PropTypes.bool,
   filters: PropTypes.object,
   onFilters: PropTypes.func,

@@ -21,7 +21,7 @@ import Scrollbar from 'src/components/scrollbar';
 
 // ----------------------------------------------------------------------
 
-export default function JobFilters({
+export default function OrganizationFilters({
   open,
   onOpen,
   onClose,
@@ -254,6 +254,7 @@ export default function JobFilters({
   return (
     <>
       <Button
+        disabled
         disableRipple
         color="inherit"
         endIcon={
@@ -299,7 +300,7 @@ export default function JobFilters({
   );
 }
 
-JobFilters.propTypes = {
+OrganizationFilters.propTypes = {
   benefitOptions: PropTypes.array,
   canReset: PropTypes.bool,
   employmentTypeOptions: PropTypes.array,

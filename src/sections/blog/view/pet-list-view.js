@@ -27,7 +27,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 // import PostSearch from '../post-search';
 import PetListHorizontal from '../pet-list-horizontal';
 
-import { getShelterAccountId1 } from '../../../api/organizations';
+import { getShelterAccountId1 } from '../../../api/organization';
 
 // ----------------------------------------------------------------------
 

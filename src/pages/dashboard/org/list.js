@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 // sections
-import { OrgListView } from 'src/sections/org/view';
+import { OrgListView } from 'src/sections/organization/view';
 
 // ----------------------------------------------------------------------
 

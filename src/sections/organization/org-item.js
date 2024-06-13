@@ -22,49 +22,55 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-export default function JobItem({ job, onView, onEdit, onDelete }) {
+export default function OrganizationItem({ org, onView, onEdit, onDelete }) {
   const popover = usePopover();
 
-  // const { id, title, company, createdAt, candidates, experience, employmentTypes, salary, role } =
-  // job;
+  const {
+    // id,
+    // title,
+    // company,
+    primary_account,
+    pets,
+    candidates,
+    experience,
+    employmentTypes,
+    salary,
+    role
+  } =
+    org;
 
-  console.log('JobItem job: ', job);
+  const id = primary_account.account_id
+  const createdAt = primary_account.created_at;
+  const company = primary_account.shelter_details
+  const title = company.shelter_name_common;
 
-  const { id, shelterAccountId, commonName, numPets, logo } = job;
 
   return (
     <>
       <Card>
-        <IconButton disabled onClick={popover.onOpen} sx={{ position: 'absolute', top: 8, right: 8 }}>
+        <IconButton onClick={popover.onOpen} sx={{ position: 'absolute', top: 8, right: 8 }}>
           <Iconify icon="eva:more-vertical-fill" />
         </IconButton>
 
         <Stack sx={{ p: 3, pb: 2 }}>
           <Avatar
             // alt={company.name}
-            src={logo} // src={company.logo}
+            src={company.logo}
             variant="rounded"
             sx={{ width: 48, height: 48, mb: 2 }}
           />
 
           <ListItemText
             sx={{ mb: 1 }}
-            // primary={
-            //   <Link component={RouterLink} href={paths.dashboard.job.details(id)} color="inherit">
-            //     {title}
-            //   </Link>
-            // }
-            // secondary={`Posted date: ${fDate(createdAt)}`}
             primary={
               <Link
                 component={RouterLink}
-                href={paths.dashboard.org.details(shelterAccountId)}
-                color="inherit"
-              >
-                {commonName}
+                href={paths.dashboard.org.details(id)}
+                color="inherit">
+                {title}
               </Link>
             }
-            // secondary={`Posted date: ${fDate(createdAt)}`}
+            secondary={`Posted date: ${fDate(createdAt)}`}
             primaryTypographyProps={{
               typography: 'subtitle1',
             }}
@@ -83,30 +89,30 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
             sx={{ color: 'primary.main', typography: 'caption' }}
           >
             <Iconify width={16} icon="solar:users-group-rounded-bold" />
-            {numPets} Pets
+            {pets.length} Pets
           </Stack>
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Box rowGap={1.5} display="grid" gridTemplateColumns="repeat(2, 1fr)" sx={{ p: 3 }}>
+        {/* <Box rowGap={1.5} display="grid" gridTemplateColumns="repeat(2, 1fr)" sx={{ p: 3 }}>
           {[
-            // {
-            //   label: experience,
-            //   icon: <Iconify width={16} icon="carbon:skill-level-basic" sx={{ flexShrink: 0 }} />,
-            // },
-            // {
-            //   label: employmentTypes.join(', '),
-            //   icon: <Iconify width={16} icon="solar:clock-circle-bold" sx={{ flexShrink: 0 }} />,
-            // },
-            // {
-            //   label: salary.negotiable ? 'Negotiable' : fCurrency(salary.price),
-            //   icon: <Iconify width={16} icon="solar:wad-of-money-bold" sx={{ flexShrink: 0 }} />,
-            // // },
-            // {
-            //   label: role,
-            //   icon: <Iconify width={16} icon="solar:user-rounded-bold" sx={{ flexShrink: 0 }} />,
-            // },
+            {
+              label: experience,
+              icon: <Iconify width={16} icon="carbon:skill-level-basic" sx={{ flexShrink: 0 }} />,
+            },
+            {
+              // label: employmentTypes.join(', '),
+              icon: <Iconify width={16} icon="solar:clock-circle-bold" sx={{ flexShrink: 0 }} />,
+            },
+            {
+              // label: salary.negotiable ? 'Negotiable' : fCurrency(salary.price),
+              icon: <Iconify width={16} icon="solar:wad-of-money-bold" sx={{ flexShrink: 0 }} />,
+            },
+            {
+              label: role,
+              icon: <Iconify width={16} icon="solar:user-rounded-bold" sx={{ flexShrink: 0 }} />,
+            },
           ].map((item) => (
             <Stack
               key={item.label}
@@ -122,7 +128,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
               </Typography>
             </Stack>
           ))}
-        </Box>
+        </Box> */}
       </Card>
 
       <CustomPopover
@@ -132,6 +138,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
         sx={{ width: 140 }}
       >
         <MenuItem
+          disabled
           onClick={() => {
             popover.onClose();
             onView();
@@ -142,6 +149,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
         </MenuItem>
 
         <MenuItem
+          disabled
           onClick={() => {
             popover.onClose();
             onEdit();
@@ -152,6 +160,7 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
         </MenuItem>
 
         <MenuItem
+          disabled
           onClick={() => {
             popover.onClose();
             onDelete();
@@ -166,8 +175,8 @@ export default function JobItem({ job, onView, onEdit, onDelete }) {
   );
 }
 
-JobItem.propTypes = {
-  job: PropTypes.object,
+OrganizationItem.propTypes = {
+  org: PropTypes.object,
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
   onView: PropTypes.func,

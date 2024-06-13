@@ -212,7 +212,12 @@ export const endpoints = {
     search: '/api/product/search',
   },
   // fosters: '/default/handleGetFosters',
-
+  organization: {
+    list: '/default/handleGetOrganizations', // Endpoint to get a list of fosters
+    createFoster: '/default/handleCreateFoster', // Endpoint to create a new foster
+    editFoster: '/api/fosters/{id}', // Endpoint to edit a foster by ID (PUT or PATCH)
+    deleteFoster: '/api/fosters/{id}', // Endpoint to delete a foster by ID
+  },
   fosters: {
     getFosters: '/default/handleGetFosters', // Endpoint to get a list of fosters
     createFoster: '/default/handleCreateFoster', // Endpoint to create a new foster

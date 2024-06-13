@@ -15,7 +15,7 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-export default function JobDetailsToolbar({
+export default function OrganizationDetailsToolbar({
   publish,
   backLink,
   editLink,
@@ -100,7 +100,7 @@ export default function JobDetailsToolbar({
   );
 }
 
-JobDetailsToolbar.propTypes = {
+OrganizationDetailsToolbar.propTypes = {
   backLink: PropTypes.string,
   editLink: PropTypes.string,
   liveLink: PropTypes.string,

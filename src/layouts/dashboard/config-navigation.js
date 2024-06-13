@@ -247,7 +247,7 @@ export function useNavData() {
 
 
 
-      // DEMO MENU STATES
+      // ORGANIZATIONS
       {
         subheader: t(t('organizations')),
         items: [
@@ -258,9 +258,9 @@ export function useNavData() {
             icon: ICONS.dashboard,
             children: [
               { title: t('list'), path: paths.dashboard.org.root },
-              { title: t('details'), path: paths.dashboard.job.demo.details, disabled: true },
-              { title: t('create'), path: paths.dashboard.job.new, disabled: true },
-              { title: t('edit'), path: paths.dashboard.job.demo.edit, disabled: true },
+              // { title: t('details'), path: paths.dashboard.org.demo.details, disabled: true },
+              // { title: t('create'), path: paths.dashboard.org.new, disabled: true },
+              // { title: t('edit'), path: paths.dashboard.org.demo.edit, disabled: true },
             ],
           },
 

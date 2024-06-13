@@ -14,7 +14,7 @@ import SearchNotFound from 'src/components/search-not-found';
 
 // ----------------------------------------------------------------------
 
-export default function JobSearch({ query, results, onSearch, hrefItem }) {
+export default function OrganizationSearch({ query, results, onSearch, hrefItem }) {
   const router = useRouter();
 
   const handleClick = (id) => {
@@ -24,7 +24,7 @@ export default function JobSearch({ query, results, onSearch, hrefItem }) {
   const handleKeyUp = (event) => {
     if (query) {
       if (event.key === 'Enter') {
-        const selectProduct = results.filter((job) => job.title === query)[0];
+        const selectProduct = results.filter((org) => org.title === query)[0];
 
         handleClick(selectProduct.id);
       }
@@ -33,6 +33,7 @@ export default function JobSearch({ query, results, onSearch, hrefItem }) {
 
   return (
     <Autocomplete
+      disabled
       sx={{ width: { xs: 1, sm: 260 } }}
       autoHighlight
       popupIcon={null}
@@ -56,12 +57,12 @@ export default function JobSearch({ query, results, onSearch, hrefItem }) {
           }}
         />
       )}
-      renderOption={(props, job, { inputValue }) => {
-        const matches = match(job.title, inputValue);
-        const parts = parse(job.title, matches);
+      renderOption={(props, org, { inputValue }) => {
+        const matches = match(org.title, inputValue);
+        const parts = parse(org.title, matches);
 
         return (
-          <Box component="li" {...props} onClick={() => handleClick(job.id)} key={job.id}>
+          <Box component="li" {...props} onClick={() => handleClick(org.id)} key={org.id}>
             <div>
               {parts.map((part, index) => (
                 <Typography
@@ -84,7 +85,7 @@ export default function JobSearch({ query, results, onSearch, hrefItem }) {
   );
 }
 
-JobSearch.propTypes = {
+OrganizationSearch.propTypes = {
   hrefItem: PropTypes.func,
   onSearch: PropTypes.func,
   query: PropTypes.string,

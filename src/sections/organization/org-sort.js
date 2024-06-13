@@ -9,12 +9,13 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-export default function JobSort({ sort, onSort, sortOptions }) {
+export default function OrganizationSort({ sort, onSort, sortOptions }) {
   const popover = usePopover();
 
   return (
     <>
       <Button
+        disabled
         disableRipple
         color="inherit"
         onClick={popover.onOpen}
@@ -56,7 +57,7 @@ export default function JobSort({ sort, onSort, sortOptions }) {
   );
 }
 
-JobSort.propTypes = {
+OrganizationSort.propTypes = {
   onSort: PropTypes.func,
   sort: PropTypes.string,
   sortOptions: PropTypes.array,

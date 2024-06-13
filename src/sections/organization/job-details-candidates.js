@@ -13,7 +13,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function JobDetailsCandidates({ candidates }) {
+export default function OrganizationDetailsCandidates({ candidates }) {
   return (
     <Box
       gap={3}
@@ -109,6 +109,6 @@ export default function JobDetailsCandidates({ candidates }) {
   );
 }
 
-JobDetailsCandidates.propTypes = {
+OrganizationDetailsCandidates.propTypes = {
   candidates: PropTypes.array,
 };

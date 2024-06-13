@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 // routes
 import { useParams } from 'src/routes/hooks';
 // sections
-import { JobEditView } from 'src/sections/org/view';
+import { JobEditView } from 'src/sections/organization/view';
 
 // ----------------------------------------------------------------------
 

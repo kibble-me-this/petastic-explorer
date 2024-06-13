@@ -7,19 +7,19 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
-import Skeleton from '@mui/material/Skeleton'; 
+import Skeleton from '@mui/material/Skeleton';
 // routes
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 //
-import JobItem from './job-item';
+import OrganizationItem from './org-item';
 
 // ----------------------------------------------------------------------
 
-export default function JobList({ jobs, isApiLoading }) {
+export default function OrganizationList({ orgs, isApiLoading }) {
   const router = useRouter();
 
-  console.log('JobList jobs: ', jobs);
+  console.log('OrganizationList orgs: ', orgs);
 
   const handleView = useCallback(
     (id) => {
@@ -57,31 +57,31 @@ export default function JobList({ jobs, isApiLoading }) {
               <Stack sx={{ p: 3, pb: 2 }}>
                 <Skeleton variant="rounded" width={48} height={48} />
                 <Skeleton variant="text" height={20} width={50} />
-                <Skeleton variant="text" height={16} width={35}/>
+                <Skeleton variant="text" height={16} width={35} />
               </Stack>
               <Divider sx={{ borderStyle: 'dashed' }} />
               <Box sx={{ px: 3, py: 1 }}>
                 <Stack spacing={0.5}>
-                  <Skeleton variant="text" height={8} width={35}/>
-                  <Skeleton variant="text" height={8} width={35}/>
-                  <Skeleton variant="text" height={8} width={35}/>
+                  <Skeleton variant="text" height={8} width={35} />
+                  <Skeleton variant="text" height={8} width={35} />
+                  <Skeleton variant="text" height={8} width={35} />
                 </Stack>
               </Box>
             </Card>
           ))
-          : // Render actual job items when not loading
-            jobs.map((job) => (
-              <JobItem
-                key={job.id}
-                job={job}
-                onView={() => handleView(job.id)}
-                onEdit={() => handleEdit(job.id)}
-                onDelete={() => handleDelete(job.id)}
-              />
-            ))}
+          : // Render actual org items when not loading
+          orgs.map((org) => (
+            <OrganizationItem
+              key={org.id}
+              org={org}
+              onView={() => handleView(org.id)}
+              onEdit={() => handleEdit(org.id)}
+              onDelete={() => handleDelete(org.id)}
+            />
+          ))}
       </Box>
 
-      {jobs.length > 8 && (
+      {/* {orgs.length > 8 && (
         <Pagination
           count={8}
           sx={{
@@ -91,12 +91,12 @@ export default function JobList({ jobs, isApiLoading }) {
             },
           }}
         />
-      )}
+      )} */}
     </>
   );
 }
 
-JobList.propTypes = {
-  jobs: PropTypes.array,
+OrganizationList.propTypes = {
+  orgs: PropTypes.array,
   isApiLoading: PropTypes.bool,
 };

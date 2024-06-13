@@ -36,7 +36,7 @@ const options = {
 const mockAddress =
 {
   id: 'mockId',
-  name: 'Carlos Herrera',
+  name: 'goo',
   phoneNumber: '310-880-8673',
   address: '2900 NE 7Th Ave Unit 2006',
   city: 'Miami',

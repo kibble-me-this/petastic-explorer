@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 // routes
 import { useParams } from 'src/routes/hooks';
 // sections
-import { OrgDetailsView } from 'src/sections/org/view';
+import { OrgDetailsView } from 'src/sections/organization/view';
 
 // ----------------------------------------------------------------------
 
