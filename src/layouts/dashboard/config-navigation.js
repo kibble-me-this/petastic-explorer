@@ -168,6 +168,7 @@ export function useNavData() {
 
           // CHAT
           {
+            disabled: true,
             title: t('FetchAI'),
             path: paths.dashboard.chat,
             icon: ICONS.chat,

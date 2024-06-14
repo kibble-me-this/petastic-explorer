@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 // @mui
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Stack from '@mui/material/Stack';
@@ -14,20 +14,6 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-const accountIds = [
-  { value: '5ee83180f121686526084263', label: 'Animal Haven' },
-  { value: '5fe931824281712564008136', label: 'Motivated-Ones Rescue' },
-  { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
-  { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
-  { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
-  { value: '5ee83180f8a1683475024978', label: 'Second Chance Rescue' },
-  { value: '5ee83180f271685767429993', label: 'Muddy Paws Rescue' },
-  { value: '5fe931824271705684215701', label: 'Brixies Rescue Inc' },
-  { value: '5ee831824261713886583600', label: 'Rescue Tails' },
-  { value: '5fe931824281712849717961', label: 'Fayetteville Animal Protection Society' },
-  { value: '5fe931824281711564491846', label: 'BrixiesTexas Animal Rescue' },
-];
-
 export default function OrderTableToolbar({
   filters,
   onFilters,
@@ -36,6 +22,7 @@ export default function OrderTableToolbar({
   onResetFilters,
   accountId,
   onAccountIdChange,
+  accountIds, // Add accountIds prop
 }) {
   const popover = usePopover();
 
@@ -59,6 +46,13 @@ export default function OrderTableToolbar({
     },
     [onFilters]
   );
+
+  // Auto-load the single account ID if there is only one account ID in the list
+  useEffect(() => {
+    if (accountIds.length === 1) {
+      onAccountIdChange({ target: { value: accountIds[0].value } });
+    }
+  }, [accountIds, onAccountIdChange]);
 
   return (
     <>
@@ -182,4 +176,5 @@ OrderTableToolbar.propTypes = {
   onResetFilters: PropTypes.func,
   accountId: PropTypes.string,
   onAccountIdChange: PropTypes.func,
+  accountIds: PropTypes.array.isRequired, // Add prop types for accountIds
 };

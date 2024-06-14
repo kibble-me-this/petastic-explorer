@@ -1,6 +1,6 @@
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -55,8 +55,18 @@ export default function OrganizationListView() {
 
   const { user, logout } = useAuthContext();
 
-  const accountIds = getShelterAccountId(user);
-  const { organizations, isLoading, error, isValidating } = useGetOrganizations(accountIds);
+
+  const { affiliations } = getShelterAccountId(user);
+
+
+
+  const accountIds = affiliations ? affiliations.map(affiliation => affiliation.shelterId) : [];
+
+
+
+  const { organizations, isLoading: isOrgLoading, error: orgError, isValidating } = useGetOrganizations(accountIds);
+
+
   const openFilters = useBoolean();
 
   const [sortBy, setSortBy] = useState('latest');
@@ -228,7 +238,7 @@ export default function OrganizationListView() {
 
       {notFound && <EmptyContent filled title="No Data" sx={{ py: 10 }} />}
 
-      <OrganizationList orgs={dataFiltered} />
+      <OrganizationList orgs={dataFiltered} isApiLoading={isOrgLoading} />
     </Container>
   );
 }

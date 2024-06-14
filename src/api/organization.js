@@ -18,6 +18,8 @@ const options = {
 // Custom fetcher using postRequestANYML
 const postFetcher = async (url, data) => postRequestANYML(url, data);
 
+// ----------------------------------------------------------------------
+
 export function useGetOrganizations(accountIds) {
   // Ensure accountIds is an array
   const idsArray = Array.isArray(accountIds) ? accountIds : [accountIds];
@@ -38,30 +40,20 @@ export function useGetOrganizations(accountIds) {
   return memoizedValue;
 }
 
+// ----------------------------------------------------------------------
+
 export function getShelterAccountId(user) {
-  // Check if the user object exists and has the email attribute
   if (!user || !user.email) {
-    return null; // Return null if user object or email attribute is missing
+    return { affiliations: [] }; // Return empty affiliations array if user or email is missing
   }
 
-  // Search for the object in the array with the matching email
   const userObject = useMockUser.find((u) => u.email === user.email);
 
-  // If a matching user object is found
   if (userObject) {
-    const affiliations = userObject.affiliations;
-
-    // If there is only one affiliation, return its shelterId
-    if (affiliations.length === 1) {
-      return affiliations[0].shelterId;
-    }
-
-    // If there are multiple affiliations, return an array of shelterIds
-    return affiliations.map((affiliation) => affiliation.shelterId);
+    return { affiliations: userObject.affiliations };
   }
 
-  // If no matching user object is found, return null
-  return null;
+  return { affiliations: [] }; // Return empty affiliations array if no matching user object is found
 }
 
 export function getShelterAccountId1(user) {
@@ -109,144 +101,3 @@ export const emailPublicAddressArray1 = [
     shelterAccountId: '5ee83180f121686526084263',
   },
 ];
-
-// export const emailPublicAddressArray = [
-//   {
-//     publicAddress: '',
-//     email: 'brixiesrescue@icloud.com',
-//     shelters: [
-//       {
-//         shelterId: '5fe931824271705684215701',
-//         shelterName: 'Brixies Rescue Inc',
-//         shelter_name_common: 'Brixies Rescue Inc',
-//       },
-//     ],
-//   },
-//   {
-//     publicAddress: '416fb87e70e19cc52fd9ff28ce43cc8c3f3af33feae03a4d7ac73d6f6e9f36a1',
-//     email: 'carlos@petastic.com',
-//     shelters: [
-//       {
-//         shelterId: '5ee83180f121686526084263',
-//         shelterName: 'Animal Haven', // Replace with the actual shelter name
-//         shelter_name_common: 'Animal Haven',
-//       },
-//       {
-//         shelterId: '5fe931824281712564008136',
-//         shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
-//         shelter_name_common: 'California Bully Rescue',
-//       },
-//       {
-//         shelterId: '5ee8317f6501687352248090',
-//         shelterName: 'California Bully Rescue', // Replace with the actual shelter name
-//         shelter_name_common: 'California Bully Rescue',
-//       },
-//       {
-//         shelterId: '5fe931824281715365900379',
-//         shelterName: 'New York Bully Crew', // Replace with the actual shelter name
-//         shelter_name_common: 'Animal Haven',
-//       },
-//       {
-//         shelterId: '5ee83180fb01683673939629',
-//         shelterName: 'Strong Paws Rescue, Inc.',
-//         shelter_name_common: 'Strong Paws Rescue, Inc.',
-//       },
-//       {
-//         shelterId: '5ee83180f8a1683475024978',
-//         shelterName: 'Second Chance Rescue',
-//         shelter_name_common: 'Strong Paws Rescue, Inc.',
-//       },
-//       {
-//         shelterId: '5ee83180f271685767429993',
-//         shelterName: 'Muddy Paws Rescue',
-//         shelter_name_common: 'Muddy Paws Rescue',
-//       },
-//       {
-//         shelterId: '5fe931824271705684215701',
-//         shelterName: 'Brixies Rescue Inc',
-//         shelter_name_common: 'Brixies Rescue Inc',
-//       },
-//     ],
-//   },
-//   {
-//     publicAddress: 'e43f2104635c62f96227ce5dc039d4cd28cc3b94f34b3935f26d972376c00c54',
-//     email: 'nicolec@animalhaven.org',
-//     shelters: [
-//       {
-//         shelterId: '5ee83180f121686526084263',
-//         shelterName: 'Shelter Name 1', // Replace with the actual shelter name
-//       },
-//     ],
-//   },
-//   {
-//     publicAddress: '6acf976c4547a5f6add59bcbd80f53997eb79779a71bbe5a2f602ee365a6f675',
-//     email: 'kristink@animalhaven.org',
-//     shelters: [
-//       {
-//         shelterId: '5ee83180f121686526084263',
-//         shelterName: 'Shelter Name 1', // Replace with the actual shelter name
-//       },
-//     ],
-//   },
-//   {
-//     publicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
-//     email: 'adena@petastic.com',
-//     shelters: [
-//       {
-//         shelterId: '5fe931824281712564008136',
-//         shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
-//         shelter_name_common: 'California Bully Rescue',
-//       },
-//       {
-//         shelterId: '5ee8317f6501687352248090',
-//         shelterName: 'California Bully Rescue', // Replace with the actual shelter name
-//         shelter_name_common: 'California Bully Rescue',
-//       },
-//       {
-//         shelterId: '5fe931824281715365900379',
-//         shelterName: 'New York Bully Crew', // Replace with the actual shelter name
-//         shelter_name_common: 'Animal Haven',
-//       },
-//       {
-//         shelterId: '5ee83180f121686526084263',
-//         shelterName: 'Animal Haven', // Replace with the actual shelter name
-//         shelter_name_common: 'Animal Haven',
-//       },
-//       {
-//         shelterId: '5ee83180fb01683673939629',
-//         shelterName: 'Animal Haven',
-//         shelter_name_common: 'Animal Haven',
-//       },
-//       {
-//         shelterId: '5ee83180f8a1683475024978',
-//         shelterName: 'Animal Haven',
-//         shelter_name_common: 'Animal Haven',
-//       },
-//       {
-//         shelterId: '5ee83180f271685767429993',
-//         shelterName: 'Animal Haven',
-//         shelter_name_common: 'Animal Haven',
-//       },
-//       {
-//         shelterId: '5fe931824271705684215701',
-//         shelterName: 'Brixies Rescue Inc',
-//         shelter_name_common: 'Brixies Rescue Inc',
-//       },
-
-//     ],
-//   },
-
-//   {
-//     publicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
-//     email: 'motv8one@aol.com',
-//     shelters: [
-//       {
-//         shelterId: '5fe931824281712564008136',
-//         shelterName: 'Motivated-Ones Rescue', // Replace with the actual shelter name
-//         shelter_name_common: 'California Bully Rescue',
-//       }
-
-//     ],
-//   },
-//   // Add more user objects with their respective shelters as needed
-// ];

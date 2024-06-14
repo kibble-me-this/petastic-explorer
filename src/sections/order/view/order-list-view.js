@@ -17,11 +17,15 @@ import { useRouter } from 'src/routes/hooks';
 // _mock
 import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 import { useGetOrders } from 'src/api/order';
+import { getShelterAccountId } from 'src/api/organization';
 
 // utils
 import { fTimestamp } from 'src/utils/format-time';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useAuthContext } from 'src/auth/hooks';
+
+
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -65,6 +69,20 @@ const defaultFilters = {
   endDate: null,
 };
 
+// const _accountIds = [
+//   { value: '5ee83180f121686526084263', label: 'Animal Haven' },
+//   { value: '5fe931824281712564008136', label: 'Motivated-Ones Rescue' },
+//   { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
+//   { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
+//   { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
+//   { value: '5ee83180f8a1683475024978', label: 'Second Chance Rescue' },
+//   { value: '5ee83180f271685767429993', label: 'Muddy Paws Rescue' },
+//   { value: '5fe931824271705684215701', label: 'Brixies Rescue Inc' },
+//   { value: '5ee831824261713886583600', label: 'Rescue Tails' },
+//   { value: '5fe931824281712849717961', label: 'Fayetteville Animal Protection Society' },
+//   { value: '5fe931824281711564491846', label: 'BrixiesTexas Animal Rescue' },
+// ];
+
 // ----------------------------------------------------------------------
 
 export default function OrderListView() {
@@ -76,6 +94,8 @@ export default function OrderListView() {
 
   const confirm = useBoolean();
 
+  const { user } = useAuthContext();
+
   const [accountId, setAccountId] = useState(''); // Initialize accountId as an empty string
 
   const { orders, isLoading, error } = useGetOrders(accountId, { enabled: !!accountId }); // Conditionally fetch orders
@@ -83,6 +103,15 @@ export default function OrderListView() {
   const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
+
+  const { affiliations } = getShelterAccountId(user);
+
+  const _accountIds = affiliations ? affiliations.map(affiliation => ({
+    value: affiliation.shelterId,
+    label: affiliation.shelterName,
+  })) : [];
+
+  const [accountIds, setAccountIds] = useState(_accountIds);
 
   useEffect(() => {
     if (orders) {
@@ -244,6 +273,8 @@ export default function OrderListView() {
             onResetFilters={handleResetFilters}
             accountId={accountId}
             onAccountIdChange={handleAccountIdChange}
+            accountIds={accountIds} // Pass accountIds list here
+
           />
 
           {canReset && (

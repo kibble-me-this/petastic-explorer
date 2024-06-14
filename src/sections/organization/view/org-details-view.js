@@ -31,6 +31,8 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 //
 import { ProductShopView } from 'src/sections/product/view';
 
+import { OrderListView } from 'src/sections/order/view';
+
 import OrgDetailsToolbar from '../org-details-toolbar';
 import JobDetailsContent from '../job-details-content';
 import JobDetailsCandidates from '../job-details-candidates';
@@ -197,6 +199,11 @@ export default function JobDetailsView({ id }) {
       label: 'Shop',
       icon: <Iconify icon="solar:gallery-wide-bold" width={24} />,
     },
+    {
+      value: 'orders',
+      label: 'Orders',
+      icon: <Iconify icon="solar:gallery-wide-bold" width={24} />,
+    },
     // {
     //   value: 'profile',
     //   label: 'Profile',
@@ -206,6 +213,7 @@ export default function JobDetailsView({ id }) {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
+
       <OrgDetailsToolbar
         backLink={paths.dashboard.org.root}
         editLink={paths.dashboard.job.edit(`${currentJob?.id}`)}
@@ -257,7 +265,7 @@ export default function JobDetailsView({ id }) {
       </Card>
 
       {currentTab === 'fosters' && <ProfileFollowers followers={_userFollowers} account_id={id} />}
-
+      {currentTab === 'orders' && <OrderListView />}
       {currentTab === 'pets' && (
         <>
           {renderTabs}
