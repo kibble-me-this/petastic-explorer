@@ -69,7 +69,7 @@ export default function OrderDetailsToolbar({
           alignItems="center"
           justifyContent="flex-end"
         >
-          <Button
+          <Button disabled
             color="inherit"
             variant="outlined"
             endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
@@ -79,7 +79,7 @@ export default function OrderDetailsToolbar({
             {status}
           </Button>
 
-          <Button
+          <Button disabled
             color="inherit"
             variant="outlined"
             startIcon={<Iconify icon="solar:printer-minimalistic-bold" />}
@@ -87,7 +87,7 @@ export default function OrderDetailsToolbar({
             Print
           </Button>
 
-          <Button color="inherit" variant="contained" startIcon={<Iconify icon="solar:pen-bold" />}>
+          <Button disabled color="inherit" variant="contained" startIcon={<Iconify icon="solar:pen-bold" />}>
             Edit
           </Button>
         </Stack>

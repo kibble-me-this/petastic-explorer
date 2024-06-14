@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -21,7 +20,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
       <CardHeader
         title="Customer Info"
         action={
-          <IconButton>
+          <IconButton disabled>
             <Iconify icon="solar:pen-bold" />
           </IconButton>
         }
@@ -44,15 +43,6 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
               {customer.ipAddress}
             </Box>
           </Box>
-
-          <Button
-            size="small"
-            color="error"
-            startIcon={<Iconify icon="mingcute:add-line" />}
-            sx={{ mt: 1 }}
-          >
-            Add to Blacklist
-          </Button>
         </Stack>
       </Stack>
     </>
@@ -63,7 +53,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
       <CardHeader
         title="Delivery"
         action={
-          <IconButton>
+          <IconButton disabled>
             <Iconify icon="solar:pen-bold" />
           </IconButton>
         }
@@ -81,13 +71,38 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
           </Box>
           {delivery.speedy}
         </Stack>
-        <Stack direction="row" alignItems="center">
+        <Stack direction="row" alignItems="flex-start">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             Tracking No.
           </Box>
-          <Link underline="always" color="inherit">
-            {delivery.trackingNumber}
-          </Link>
+          <Box>
+            {delivery.trackingNumbers && delivery.trackingNumbers.length > 0 ? (
+              delivery.trackingNumbers.map(({ productId, trackingNumber }, index) => (
+                <Link
+                  key={index}
+                  href={trackingNumber}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="always"
+                  color="inherit"
+                  sx={{ display: 'block' }}
+                >
+                  {productId}
+                </Link>
+              ))
+            ) : (
+              <Link
+                href={delivery.trackingNumber}
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="always"
+                color="inherit"
+                sx={{ display: 'block' }}
+              >
+                {delivery.trackingNumber}
+              </Link>
+            )}
+          </Box>
         </Stack>
       </Stack>
     </>
@@ -98,7 +113,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
       <CardHeader
         title="Shipping"
         action={
-          <IconButton>
+          <IconButton disabled>
             <Iconify icon="solar:pen-bold" />
           </IconButton>
         }
@@ -125,7 +140,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
       <CardHeader
         title="Payment"
         action={
-          <IconButton>
+          <IconButton disabled>
             <Iconify icon="solar:pen-bold" />
           </IconButton>
         }
@@ -134,9 +149,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
         <Box component="span" sx={{ color: 'text.secondary', flexGrow: 1 }}>
           Account number
         </Box>
-
         {payment.cardNumber}
-        {/* <Iconify icon="logos:mastercard" width={24} sx={{ ml: 0.5 }} /> */}
       </Stack>
     </>
   );
@@ -144,17 +157,11 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
   return (
     <Card>
       {renderCustomer}
-
       <Divider sx={{ borderStyle: 'dashed' }} />
-
       {renderDelivery}
-
       <Divider sx={{ borderStyle: 'dashed' }} />
-
       {renderShipping}
-
       <Divider sx={{ borderStyle: 'dashed' }} />
-
       {renderPayment}
     </Card>
   );

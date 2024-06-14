@@ -12,7 +12,8 @@ const options = {
     revalidateOnReconnect: false,
 };
 
-// Hook to fetch orders
+// ----------------------------------------------------------------------
+
 export function useGetOrders(account_id, { enabled = true } = {}) {
     const { data, isLoading, error } = useSWR(
         enabled && account_id ? [URL, { account_id }] : null,
@@ -30,7 +31,8 @@ export function useGetOrders(account_id, { enabled = true } = {}) {
     return memoizedValue;
 }
 
-// Function to create an order
+// ----------------------------------------------------------------------
+
 export async function createOrder(eventData) {
     const config = {
         headers: {
@@ -74,7 +76,8 @@ export async function createOrder(eventData) {
     }
 }
 
-// Function to update an order
+// ----------------------------------------------------------------------
+
 export async function updateOrder(eventData) {
     mutate(
         URL,
@@ -91,7 +94,8 @@ export async function updateOrder(eventData) {
     );
 }
 
-// Function to delete an order
+// ----------------------------------------------------------------------
+
 export async function deleteOrder(eventId) {
     mutate(
         URL,
@@ -106,7 +110,8 @@ export async function deleteOrder(eventId) {
     );
 }
 
-// Function to format order data
+// ----------------------------------------------------------------------
+
 function formatOrder(eventData, result) {
     return {
         id: uuidv4(), // Assuming request_id is used as id

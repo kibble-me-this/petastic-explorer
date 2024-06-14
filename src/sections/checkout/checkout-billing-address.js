@@ -45,7 +45,7 @@ export default function CheckoutBillingAddress() {
       ) : (
         <Grid container spacing={3}>
           <Grid xs={12} md={8}>
-            {fosters.slice(0, 25).map((address) => (
+            {fosters.slice(0, 50).map((address) => (
               <AddressItem
                 key={address.id}
                 address={address}
