@@ -109,6 +109,13 @@ export const useMockUser = [
         shelterName: 'Texas Animal Rescue Rehab',
         affiliateSystemRoles: ['superadmin']
       },
+
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
     ]
   },
 
@@ -182,6 +189,12 @@ export const useMockUser = [
     roles: ['user', 'foster'],
     isPublic: true,
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee83180f121686526084263',
@@ -380,6 +393,33 @@ export const useMockUser = [
         shelterId: '5ee83180fb01683673939629',
         shelterName: 'Strong Paws Rescue, Inc.',
         affiliateSystemRoles: ['admin']
+      },
+    ],
+  },
+
+  {
+    id: '11',
+    publicAddress: '135dad568da921e5196b290f2c6c6bc38bda71db361e029d3086121df154e471',
+    email: 'lizzk@bubblesdogrescue.org',
+    legalName: 'Bubbles Dog Rescue',
+    displayName: 'Bubbles Dog Rescue.',
+    password: 'demo1234',
+    photoURL: '',
+    phoneNumber: '+1 310-555-1234',
+    country: 'United States',
+    address: '1020 Rescue Ave',
+    state: 'CA',
+    city: 'Los Angeles',
+    zipCode: '90001',
+    about: 'Dedicated to saving animals.',
+    roles: ['shelter'],
+    isPublic: true,
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
       },
     ],
   },
