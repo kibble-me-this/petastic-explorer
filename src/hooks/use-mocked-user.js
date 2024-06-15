@@ -45,6 +45,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5fe931824281717304399426',
+        shelterName: 'West Coast Cane Corso Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Animal Haven',
         affiliateSystemRoles: ['superadmin']
@@ -189,6 +195,12 @@ export const useMockUser = [
     roles: ['user', 'foster'],
     isPublic: true,
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281717304399426',
+        shelterName: 'West Coast Cane Corso Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee8317f49f1683402638385',
@@ -419,6 +431,32 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee8317f49f1683402638385',
         shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ],
+  },
+  {
+    id: '12',
+    publicAddress: 'c41cd612f2de5e969b34a88aecb2a51a94f1002a64b102b267ee2754f3180024',
+    email: 'westcoastcanecorsorescue@gmail.com',
+    legalName: 'West Coast Cane Corso Rescue',
+    displayName: 'West Coast Cane Corso Rescue',
+    password: 'demo1234',
+    photoURL: '',
+    phoneNumber: '+1 310-555-1234',
+    country: 'United States',
+    address: '1020 Rescue Ave',
+    state: 'CA',
+    city: 'Los Angeles',
+    zipCode: '90001',
+    about: 'Dedicated to saving animals.',
+    roles: ['shelter'],
+    isPublic: true,
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281717304399426',
+        shelterName: 'West Coast Cane Corso Rescue',
         affiliateSystemRoles: ['superadmin']
       },
     ],

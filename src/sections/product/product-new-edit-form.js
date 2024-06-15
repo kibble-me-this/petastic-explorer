@@ -47,6 +47,8 @@ const accountIds = [
   { value: '5ee831824261713886583600', label: 'Rescue Tails' },
   { value: '5fe931824281712849717961', label: 'Fayetteville Animal Protection Society' },
   { value: '5fe931824281711564491846', label: 'BrixiesTexas Animal Rescue' },
+  { value: '5ee8317f49f1683402638385', label: 'Bubbles Dog Rescue' },
+  { value: '5fe931824281717304399426', label: 'West Coast Cane Corso Rescue' },
 ];
 
 export default function ProductNewEditForm({ currentProduct }) {
