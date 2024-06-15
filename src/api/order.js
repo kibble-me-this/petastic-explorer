@@ -47,11 +47,20 @@ export async function createOrder(eventData) {
         quantity: item.quantity,
     }));
 
+
     try {
-        const result = await placeZincOrder(zincItems, zincShippingAddress, zincOrderTotal);
+        // Generate UUID for the order
+        const order_id = uuidv4();
+
+        const zincWebhooks = {
+            account_id,
+            order_id
+        };
+
+        const result = await placeZincOrder(zincItems, zincShippingAddress, zincOrderTotal, zincWebhooks);
 
         // Create the formatted order object
-        const formattedOrder = formatOrder(eventData, result);
+        const formattedOrder = formatOrder(eventData, result, order_id);
 
         const thisOrder = {
             shelter_id: account_id,
@@ -112,9 +121,9 @@ export async function deleteOrder(eventId) {
 
 // ----------------------------------------------------------------------
 
-function formatOrder(eventData, result) {
+function formatOrder(eventData, result, order_id) {
     return {
-        id: uuidv4(), // Assuming request_id is used as id
+        id: order_id, // Use generated UUID
         orderNumber: result.request_id,
         createdAt: new Date().toISOString(), // Use current date-time for createdAt
         taxes: "10", // Example value for taxes

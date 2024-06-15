@@ -108,9 +108,10 @@ export const useMockUser = [
         shelterId: '5fe931824281711564491846',
         shelterName: 'Texas Animal Rescue Rehab',
         affiliateSystemRoles: ['superadmin']
-      }
+      },
     ]
   },
+
   {
     id: '3',
     publicAddress: 'e43f2104635c62f96227ce5dc039d4cd28cc3b94f34b3935f26d972376c00c54',

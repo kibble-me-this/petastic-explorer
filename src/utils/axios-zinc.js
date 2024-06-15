@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
-
 import axios from 'axios';
+
 // config
 import { HOST_API } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-// const axiosInstance = axios.create({ baseURL: HOST_API });
-
 const ZINC_API = 'https://api.zinc.io';
 const zincApiKey = '494887CF5BB27A2600581C3A';
+const ZINC_CALLBACK = 'https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/handleEditOrderTracking';
 
 const axiosInstance = axios.create({ baseURL: ZINC_API });
 
 axiosInstance.interceptors.response.use(
   (res) => res,
-  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrongs')
+  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
 );
 
 export default axiosInstance;
@@ -92,11 +90,10 @@ export const fetcherProduct = async (productIds) => {
 
 // ----------------------------------------------------------------------
 
-export const dispatchZincOrder = async (args, products, shippingAddress, subTotal) => {
+export const dispatchZincOrder = async (args, products, shippingAddress, subTotal, webhooks) => {
   const [data, headers, url, config] = Array.isArray(args) ? args : [args];
 
   const maxPrice = subTotal * 1.15;
-  // const maxPriceInCents = Math.ceil(maxPrice * 100);
 
   const updatedOrderData = {
     ...orderData,
@@ -113,6 +110,9 @@ export const dispatchZincOrder = async (args, products, shippingAddress, subTota
       country: shippingAddress.country,
       phone_number: '', // Add the phone number if required
     },
+    webhooks: {
+      tracking_obtained: `${ZINC_CALLBACK}/${webhooks.account_id}/${webhooks.order_id}`
+    }
   };
 
   try {

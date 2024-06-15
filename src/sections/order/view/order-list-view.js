@@ -69,20 +69,6 @@ const defaultFilters = {
   endDate: null,
 };
 
-// const _accountIds = [
-//   { value: '5ee83180f121686526084263', label: 'Animal Haven' },
-//   { value: '5fe931824281712564008136', label: 'Motivated-Ones Rescue' },
-//   { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
-//   { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
-//   { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
-//   { value: '5ee83180f8a1683475024978', label: 'Second Chance Rescue' },
-//   { value: '5ee83180f271685767429993', label: 'Muddy Paws Rescue' },
-//   { value: '5fe931824271705684215701', label: 'Brixies Rescue Inc' },
-//   { value: '5ee831824261713886583600', label: 'Rescue Tails' },
-//   { value: '5fe931824281712849717961', label: 'Fayetteville Animal Protection Society' },
-//   { value: '5fe931824281711564491846', label: 'BrixiesTexas Animal Rescue' },
-// ];
-
 // ----------------------------------------------------------------------
 
 export default function OrderListView() {
@@ -96,9 +82,9 @@ export default function OrderListView() {
 
   const { user } = useAuthContext();
 
-  const [accountId, setAccountId] = useState(''); // Initialize accountId as an empty string
+  const [accountId, setAccountId] = useState('');
 
-  const { orders, isLoading, error } = useGetOrders(accountId, { enabled: !!accountId }); // Conditionally fetch orders
+  const { orders, isLoading, error } = useGetOrders(accountId, { enabled: !!accountId });
 
   const [tableData, setTableData] = useState([]);
 
@@ -117,7 +103,7 @@ export default function OrderListView() {
     if (orders) {
       setTableData(orders);
     } else {
-      setTableData([]); // Ensure table data is empty when no orders
+      setTableData([]);
     }
   }, [orders]);
 
@@ -273,8 +259,7 @@ export default function OrderListView() {
             onResetFilters={handleResetFilters}
             accountId={accountId}
             onAccountIdChange={handleAccountIdChange}
-            accountIds={accountIds} // Pass accountIds list here
-
+            accountIds={accountIds}
           />
 
           {canReset && (
@@ -407,12 +392,17 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
   inputData = stabilizedThis.map((el) => el[0]);
 
   if (name) {
-    inputData = inputData.filter(
-      (order) =>
-        order.orderNumber.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.customer.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
-    );
+    inputData = inputData.filter((order) => {
+      const orderNumber = order.orderNumber || '';
+      const customerName = order.customer?.name || '';
+      const customerEmail = order.customer?.email || '';
+
+      return (
+        orderNumber.toLowerCase().includes(name.toLowerCase()) ||
+        customerName.toLowerCase().includes(name.toLowerCase()) ||
+        customerEmail.toLowerCase().includes(name.toLowerCase())
+      );
+    });
   }
 
   if (status !== 'all') {
