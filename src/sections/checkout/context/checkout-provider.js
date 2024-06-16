@@ -25,12 +25,17 @@ const initialState = {
   billing: null,
   totalItems: 0,
   accountID: '', // Add accountID to the initial state
+  orderNumber: '' // Add orderNumber to the initial state
 };
 
 export function CheckoutProvider({ children }) {
   const router = useRouter();
 
   const { state, update, reset } = useLocalStorage(STORAGE_KEY, initialState);
+
+  const onUpdateOrderNumber = useCallback((orderNumber) => {
+    update('orderNumber', orderNumber);
+  }, [update]);
 
   const onUpdateAccountID = useCallback((newAccountID) => {
     update('accountID', newAccountID);
@@ -44,14 +49,12 @@ export function CheckoutProvider({ children }) {
     update('subTotal', subTotal);
     update('totalItems', totalItems);
     update('billing', state.activeStep === 1 ? null : state.billing);
-    // update('discount', state.items.length ? state.discount : 0);
     update('discount', state.items.length ? subTotal * .05 : 0);
     update('shipping', state.items.length ? state.shipping : 0);
-    // update('total', state.subTotal - state.discount + state.shipping);
     update('total', state.subTotal + state.shipping);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    state.accountID, // Add accountID to the dependency array
+    state.accountID,
     state.items,
     state.activeStep,
     state.billing,
@@ -74,7 +77,6 @@ export function CheckoutProvider({ children }) {
         if (item.id === newItem.id) {
           return {
             ...item,
-            // colors: uniq([...item.colors, ...newItem.colors]),
             quantity: item.quantity + 1,
           };
         }
@@ -103,8 +105,15 @@ export function CheckoutProvider({ children }) {
     update('activeStep', state.activeStep - 1);
   }, [update, state.activeStep]);
 
+  // useEffect(() => {
+  //   if (state.activeStep === PRODUCT_CHECKOUT_STEPS.length && state.orderNumber) {
+  //     router.push(paths.dashboard.order.details(state.accountID, state.orderNumber));
+  //   }
+  // }, [state.activeStep, state.orderNumber, state.accountID, router]);
+
   const onNextStep = useCallback(() => {
-    update('activeStep', state.activeStep + 1);
+    const nextStep = state.activeStep + 1;
+    update('activeStep', nextStep);
   }, [update, state.activeStep]);
 
   const onGotoStep = useCallback(
@@ -173,36 +182,30 @@ export function CheckoutProvider({ children }) {
 
   const completed = state.activeStep === PRODUCT_CHECKOUT_STEPS.length;
 
-  // Reset
   const onReset = useCallback(() => {
     if (completed) {
       reset();
-      router.replace(paths.product.root);
+      router.replace(`${paths.dashboard.org.root}/${state.accountID}`);
     }
-  }, [completed, reset, router]);
+  }, [completed, reset, router, state.accountID]);
 
   const memoizedValue = useMemo(
     () => ({
       ...state,
       completed,
-      //
       onAddToCart,
       onDeleteCart,
-      //
       onIncreaseQuantity,
       onDecreaseQuantity,
-      //
       onCreateBilling,
       onApplyDiscount,
       onApplyShipping,
-      orderNumber: '',
-      //
       onBackStep,
       onNextStep,
       onGotoStep,
-      //
       onReset,
       onUpdateAccountID,
+      onUpdateOrderNumber,
     }),
     [
       completed,
@@ -218,7 +221,8 @@ export function CheckoutProvider({ children }) {
       onNextStep,
       onReset,
       state,
-      onUpdateAccountID
+      onUpdateAccountID,
+      onUpdateOrderNumber,
     ]
   );
 

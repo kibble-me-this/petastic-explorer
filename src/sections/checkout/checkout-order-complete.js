@@ -9,6 +9,9 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Dialog from '@mui/material/Dialog';
+// routes
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 // assets
 import { OrderCompleteIllustration } from 'src/assets/illustrations';
 // components
@@ -21,6 +24,12 @@ import { useCheckoutContext } from './context';
 
 export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) {
   const checkout = useCheckoutContext();
+  const router = useRouter();
+
+  const handleOrderNumberClick = () => {
+    const orderDetailsUrl = `${paths.dashboard.order.details}/${checkout.accountID}/${checkout.orderNumber}`;
+    router.push(orderDetailsUrl);
+  };
 
   const renderContent = (
     <Stack
@@ -40,11 +49,17 @@ export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) 
         Thanks for placing order
         <br />
         <br />
-        <Link>{checkout.orderNumer}</Link>
+        {/* <Link component="button" onClick={handleOrderNumberClick}>
+          {checkout.orderNumber}
+        </Link> */}
+        <Link>
+          {checkout.orderNumber}
+        </Link>
         <br />
         <br />
         We will send you a notification within 5 days when it ships.
-        <br /> If you have any question or queries then fell to get in contact us. <br /> <br />
+        <br /> If you have any question or queries then feel free to get in contact with us.
+        <br /> <br />
         All the best,
       </Typography>
 
@@ -66,7 +81,7 @@ export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) 
           Continue Shopping
         </Button>
 
-        <Button
+        {/* <Button
           fullWidth
           size="large"
           variant="contained"
@@ -74,7 +89,7 @@ export default function CheckoutOrderComplete({ open, onReset, onDownloadPDF }) 
           onClick={onDownloadPDF}
         >
           Download as PDF
-        </Button>
+        </Button> */}
       </Stack>
     </Stack>
   );
