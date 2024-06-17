@@ -230,6 +230,7 @@ export const endpoints = {
   },
   orders: {
     list: '/default/handleGetOrders', // '/api/orders/list',      // Endpoint to list all orders
+    updateTracking: '/default/updateOrderTracking',
     details: '/api/orders/{id}',   // Endpoint to get details of a specific order
     create: '/default/handleCreateOrder',  // Endpoint to create a new order
     update: '/api/orders/update/{id}', // Endpoint to update a specific order
