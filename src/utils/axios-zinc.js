@@ -113,7 +113,8 @@ export const dispatchZincOrder = async (args, products, shippingAddress, subTota
     webhooks: {
       request_succeeded: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_succeeded`,
       request_failed: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_failed`,
-      tracking_obtained: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=tracking_obtained`
+      tracking_obtained: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=tracking_obtained`,
+      status_updated: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=status_updated`
     }
   };
 
