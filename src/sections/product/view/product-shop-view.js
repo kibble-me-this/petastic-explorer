@@ -132,7 +132,7 @@ export default function ProductShopView({ userId }) {
           categoryOptions={['all', ...PRODUCT_CATEGORY_OPTIONS]}
         />
 
-        {/* <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} /> */}
+        <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} />
       </Stack>
     </Stack>
   );
@@ -197,7 +197,6 @@ function applyFilter({ inputData, filters, sortBy }) {
   const { gender, category, colors, priceRange, rating } = filters;
 
   const min = priceRange[0];
-
   const max = priceRange[1];
 
   // SORT BY
@@ -223,12 +222,12 @@ function applyFilter({ inputData, filters, sortBy }) {
   }
 
   if (category !== 'all') {
-    inputData = inputData.filter((product) => product.categories[2] === category);
+    inputData = inputData.filter((product) => product.categories && product.categories[2] === category);
   }
 
   if (colors.length) {
     inputData = inputData.filter((product) =>
-      product.colors.some((color) => colors.includes(color))
+      product.colors && product.colors.some((color) => colors.includes(color))
     );
   }
 
@@ -250,3 +249,4 @@ function applyFilter({ inputData, filters, sortBy }) {
 
   return inputData;
 }
+
