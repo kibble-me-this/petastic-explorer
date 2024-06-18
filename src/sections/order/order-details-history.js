@@ -18,6 +18,14 @@ import { fDateTime } from 'src/utils/format-time';
 // ----------------------------------------------------------------------
 
 export default function OrderDetailsHistory({ history }) {
+  if (!history || !history.length) {
+    return null;
+  }
+
+  const allTracking = history.flatMap(item => item.tracking || []);
+  const allDeliveryDates = history.flatMap(item => item.delivery_dates || []);
+  const createdAtTimes = history.map(item => item._created_at);
+
   const renderSummary = (
     <Stack
       spacing={2}
@@ -32,22 +40,36 @@ export default function OrderDetailsHistory({ history }) {
         borderStyle: 'dashed',
       }}
     >
-      <Stack spacing={0.5}>
+      {/* <Stack spacing={0.5}>
         <Box sx={{ color: 'text.disabled' }}>Order time</Box>
         {fDateTime(history.orderTime)}
       </Stack>
       <Stack spacing={0.5}>
         <Box sx={{ color: 'text.disabled' }}>Payment time</Box>
-        {fDateTime(history.orderTime)}
+        {fDateTime(history.paymentTime)}
       </Stack>
       <Stack spacing={0.5}>
         <Box sx={{ color: 'text.disabled' }}>Delivery time for the carrier</Box>
-        {fDateTime(history.orderTime)}
+        {fDateTime(history.deliveryTime)}
       </Stack>
       <Stack spacing={0.5}>
         <Box sx={{ color: 'text.disabled' }}>Completion time</Box>
-        {fDateTime(history.orderTime)}
-      </Stack>
+        {fDateTime(history.completionTime)}
+      </Stack> */}
+
+      {createdAtTimes.map((createdAt, index) => (
+        <Stack spacing={0.5} key={index}>
+          <Box sx={{ color: 'text.disabled' }}>Order time {index + 1}</Box>
+          {fDateTime(createdAt)}
+        </Stack>
+      ))}
+
+      {allDeliveryDates.map((deliveryDate, index) => (
+        <Stack spacing={0.5} key={index}>
+          <Box sx={{ color: 'text.disabled' }}>Delivery Date {index + 1}</Box>
+          {fDateTime(deliveryDate.delivery_date)}
+        </Stack>
+      ))}
     </Stack>
   );
 
@@ -62,9 +84,8 @@ export default function OrderDetailsHistory({ history }) {
         },
       }}
     >
-      {history.timeline.map((item, index) => {
+      {/* {history.timeline.map((item, index) => {
         const firstTimeline = index === 0;
-
         const lastTimeline = index === history.timeline.length - 1;
 
         return (
@@ -76,14 +97,40 @@ export default function OrderDetailsHistory({ history }) {
 
             <TimelineContent>
               <Typography variant="subtitle2">{item.title}</Typography>
-
               <Box sx={{ color: 'text.disabled', typography: 'caption', mt: 0.5 }}>
                 {fDateTime(item.time)}
               </Box>
             </TimelineContent>
           </TimelineItem>
         );
-      })}
+      })} */}
+
+      {allTracking.length > 0 ? (
+        allTracking.map((item, index) => {
+          const firstTimeline = index === 0;
+          const lastTimeline = index === allTracking.length - 1;
+
+          return (
+            <TimelineItem key={index}>
+              <TimelineSeparator>
+                <TimelineDot color={(firstTimeline && 'primary') || 'grey'} />
+                {lastTimeline ? null : <TimelineConnector />}
+              </TimelineSeparator>
+
+              <TimelineContent>
+                <Typography variant="subtitle2">{item.delivery_status}</Typography>
+                <Box sx={{ color: 'text.disabled', typography: 'caption', mt: 0.5 }}>
+                  {fDateTime(item.obtained_at)}
+                </Box>
+              </TimelineContent>
+            </TimelineItem>
+          );
+        })
+      ) : (
+        <Typography variant="body2" sx={{ color: 'text.disabled', mt: 2 }}>
+          No tracking information available.
+        </Typography>
+      )}
     </Timeline>
   );
 
@@ -97,7 +144,6 @@ export default function OrderDetailsHistory({ history }) {
         sx={{ p: 3 }}
       >
         {renderTimeline}
-
         {renderSummary}
       </Stack>
     </Card>
@@ -105,5 +151,5 @@ export default function OrderDetailsHistory({ history }) {
 }
 
 OrderDetailsHistory.propTypes = {
-  history: PropTypes.object,
+  history: PropTypes.array.isRequired,
 };

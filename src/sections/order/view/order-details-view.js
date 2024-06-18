@@ -25,12 +25,18 @@ export default function OrderDetailsView({ accountId, id }) {
   const { orders } = useGetOrders(accountId);
   const [currentOrder, setCurrentOrder] = useState(null);
   const [status, setStatus] = useState('');
+  const [trackingObtained, setTrackingObtained] = useState([]);
 
   useEffect(() => {
     if (orders) {
       const foundOrder = orders.find((orderItem) => orderItem.id === id);
       setCurrentOrder(foundOrder);
       setStatus(foundOrder?.status || '');
+
+      if (foundOrder) {
+        const obtainedTracking = foundOrder.delivery?.trackingNumbers?.tracking_obtained || [];
+        setTrackingObtained(obtainedTracking);
+      }
     }
   }, [orders, id]);
 
@@ -65,7 +71,7 @@ export default function OrderDetailsView({ accountId, id }) {
                   totalAmount={currentOrder.totalAmount}
                 />
 
-                <OrderDetailsHistory history={currentOrder.history} />
+                <OrderDetailsHistory history={trackingObtained} />
               </Stack>
             </Grid>
 
