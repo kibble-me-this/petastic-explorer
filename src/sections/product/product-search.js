@@ -26,9 +26,10 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
   const handleKeyUp = (event) => {
     if (query) {
       if (event.key === 'Enter') {
-        const selectItem = results.filter((product) => product.name === query)[0];
-
-        handleClick(selectItem.id);
+        const selectItem = results.filter((product) => product.title === query)[0];
+        if (selectItem) {
+          handleClick(selectItem.product_id);
+        }
       }
     }
   };
@@ -41,9 +42,9 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
       popupIcon={null}
       options={results}
       onInputChange={(event, newValue) => onSearch(newValue)}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.title}
       noOptionsText={<SearchNotFound query={query} sx={{ bgcolor: 'unset' }} />}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
+      isOptionEqualToValue={(option, value) => option.product_id === value.product_id}
       slotProps={{
         popper: {
           placement: 'bottom-start',
@@ -81,15 +82,15 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
         />
       )}
       renderOption={(props, product, { inputValue }) => {
-        const matches = match(product.name, inputValue);
-        const parts = parse(product.name, matches);
+        const matches = match(product.title, inputValue);
+        const parts = parse(product.title, matches);
 
         return (
-          <Box component="li" {...props} onClick={() => handleClick(product.id)} key={product.id}>
+          <Box component="li" {...props} onClick={() => handleClick(product.product_id)} key={product.product_id}>
             <Avatar
-              key={product.id}
-              alt={product.name}
-              src={product.coverUrl}
+              key={product.product_id}
+              alt={product.title}
+              src={product.main_image}
               variant="rounded"
               sx={{
                 width: 48,

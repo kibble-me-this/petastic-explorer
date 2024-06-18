@@ -3,61 +3,18 @@ import { useMemo, useEffect } from 'react';
 // utils
 import { fetcherProduct, dispatchZincOrder, fetcher, endpoints } from 'src/utils/axios-zinc';
 import emailjs from '@emailjs/browser';
+import { getCacheFlagKey, setCacheFlag, fetcherWithLocalStorage } from './cache';
 
 const ZINC_API_ORDERS = 'https://api.zinc.com/v1/orders';
 
-const getLocalStorageKey = (userId) => `productsCache-${userId}`;
-const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
-
-const getCacheFlag = (userId) => localStorage.getItem(getCacheFlagKey(userId)) === 'true';
-const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
-
-// Custom fetcher to handle localStorage
-const fetcherWithLocalStorage = async (userId, productIds) => {
-  console.log('Fetching products for userId:', userId, 'productIds:', productIds);
-
-  if (!productIds || productIds.length === 0) {
-    console.warn('No product IDs provided');
-    return [];
-  }
-
-  const cachedData = localStorage.getItem(getLocalStorageKey(userId));
-  const cacheFlag = getCacheFlag(userId);
-
-  if (cachedData && !cacheFlag) {
-    console.log('Returning cached data');
-    return JSON.parse(cachedData);
-  }
-
-  try {
-    const data = await fetcherProduct(productIds); // Assuming this returns an array of products
-
-    const today = new Date().toISOString(); // Get the current date in ISO format
-
-    const updatedData = data.map(product => ({
-      ...product,
-      publish: 'published',
-      createdAt: today,
-    }));
-
-    console.log('Setting updated data to localStorage');
-    localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(updatedData));
-    setCacheFlag(userId, false);
-    return updatedData;
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
-  }
-};
-
 // Custom SWR hook with localStorage support
-export function useCustomSWR(userId, productIds, ...args) {
-  return useSWR(productIds ? [userId, productIds] : null, () => fetcherWithLocalStorage(userId, productIds, ...args));
+export function useCustomSWR(userId, fetcherFunction, fetcherArgs, ...args) {
+  return useSWR(fetcherArgs ? [userId, ...fetcherArgs] : null, () => fetcherWithLocalStorage(userId, fetcherFunction, fetcherArgs, ...args));
 }
 
 // Hook to get products by product IDs
 export function useGetZincProducts(userId, productIds) {
-  const { data, isLoading, error, isValidating } = useCustomSWR(userId, productIds);
+  const { data, isLoading, error, isValidating } = useCustomSWR(userId, fetcherProduct, productIds);
 
   const memoizedValue = useMemo(
     () => ({
@@ -70,40 +27,17 @@ export function useGetZincProducts(userId, productIds) {
     [data, error, isLoading, isValidating]
   );
 
-  // console.log('useGetZincProducts memoizedValue: ', memoizedValue);
   return memoizedValue;
 }
 
 // ----------------------------------------------------------------------
 
-// export function useGetProduct(productId) {
-//   const URL = productId ? [endpoints.product.details, { params: { productId } }] : null;
-
-//   // const { data, isLoading, error, isValidating } = useSWR(URL, fetcher);
-//   const { data, isLoading, error, isValidating } = useCustomSWR([productId]);
-//   console.log('here: ', data);
-
-//   const memoizedValue = useMemo(
-//     () => ({
-//       product: data?.product,
-//       productLoading: isLoading,
-//       productError: error,
-//       productValidating: isValidating,
-//     }),
-//     [data?.product, error, isLoading, isValidating]
-//   );
-
-//   return memoizedValue;
-// }
-
-// ----------------------------------------------------------------------
-
 export function useGetProduct(productId, callback = () => { }) {
   console.log('useGetProduct productId: ', productId);
-  const URL = productId ? [endpoints.product.details, { params: { productId } }] : null;
+  const productURL = productId ? [endpoints.product.details, { params: { productId } }] : null;
 
   // Fetch data using SWR
-  const { data, isLoading, error, isValidating } = useCustomSWR([productId]);
+  const { data, isLoading, error, isValidating } = useCustomSWR(productId, fetcher, [productURL]);
 
   console.log('useGetProduct data before useEffect: ', data);
 
@@ -137,9 +71,9 @@ export function useGetProduct(productId, callback = () => { }) {
 // ----------------------------------------------------------------------
 
 export function useSearchProducts(query) {
-  const URL = query ? [endpoints.product.search, { params: { query } }] : null;
+  const searchURL = query ? [endpoints.product.search, { params: { query } }] : null;
 
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, {
+  const { data, isLoading, error, isValidating } = useSWR(searchURL, fetcher, {
     keepPreviousData: true,
   });
 

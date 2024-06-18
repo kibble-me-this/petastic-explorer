@@ -1,14 +1,16 @@
 import useSWR, { mutate } from 'swr';
 import { useMemo, useState, useEffect } from 'react';
+import isEqual from 'lodash/isEqual'; // Import isEqual from lodash
+
 // utils
 import { fetcher, fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
 import { useGetZincProducts } from './zinc';
 import uuidv4 from '../utils/uuidv4';
-
+import { getCacheFlagKey, setCacheFlag, fetcherWithLocalStorage } from './cache';
 
 // ----------------------------------------------------------------------
 
-const URL = endpoints.products;
+const PRODUCTS_URL = endpoints.products;
 
 const options = {
   revalidateIfStale: false,
@@ -16,15 +18,33 @@ const options = {
   revalidateOnReconnect: false,
 };
 
-const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
-const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
+// const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
+// const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
+
+// // In-memory cache
+// const cache = {};
+
+// // Custom fetcher to check cache first
+// const fetcherWithCache = async (key, query) => {
+//   // Check if data is already in cache
+//   if (cache[key]) {
+//     return cache[key];
+//   }
+
+//   // If not in cache, fetch data from API
+//   const data = await fetcher(query);
+//   // Save the fetched data in cache
+//   cache[key] = data;
+
+//   return data;
+// };
 
 // ----------------------------------------------------------------------
 
 export function useGetProduct(productId) {
-  const _URL = productId ? [endpoints.product.details, { params: { productId } }] : null;
+  const productURL = productId ? [endpoints.product.details, { params: { productId } }] : null;
 
-  const { data, isLoading, error, isValidating } = useSWR(_URL, fetcher);
+  const { data, isLoading, error, isValidating } = useSWR(productURL, fetcher);
 
   const memoizedValue = useMemo(
     () => ({
@@ -43,8 +63,8 @@ export function useGetProduct(productId) {
 
 export function useGetProducts(account_id, { enabled = true } = {}) {
   const { data, isLoading, error, isValidating } = useSWR(
-    enabled && account_id ? [URL, { account_id }] : null,
-    () => fetcherANYML([URL.list, { account_id }]),
+    enabled && account_id ? [PRODUCTS_URL, { account_id }] : null,
+    () => fetcherANYML([PRODUCTS_URL.list, { account_id }]),
     options
   );
 
@@ -52,9 +72,19 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
 
   useEffect(() => {
     if (data) {
-      setProductIds(data.products.map(product => product.id));
+      const newProductIds = data.products.map(product => product.id);
+      // Debugging: Log product IDs
+      console.log("Fetched product IDs:", newProductIds);
+
+      // Only update state if productIds have changed
+      if (!isEqual(productIds, newProductIds)) {
+        console.log("Updating product IDs");
+        setProductIds(newProductIds);
+      } else {
+        console.log("Product IDs unchanged");
+      }
     }
-  }, [data]);
+  }, [data, productIds]);
 
   const zincProducts = useGetZincProducts(account_id, productIds);
 
@@ -69,24 +99,29 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
   return combinedState;
 }
 
+
 // ----------------------------------------------------------------------
 
 export function useSearchProducts(query) {
-  const _URL = query ? [endpoints.product.search, { params: { query } }] : null;
+  const searchURL = query ? [endpoints.product.search, { params: { query } }] : null;
 
-  const { data, isLoading, error, isValidating } = useSWR(_URL, fetcher, {
-    keepPreviousData: true,
-  });
+  const { data, isLoading, error, isValidating } = useSWR(
+    searchURL ? JSON.stringify(searchURL) : null,
+    searchURL ? () => fetcherWithLocalStorage(searchURL) : null,
+    {
+      keepPreviousData: true,
+    }
+  );
 
   const memoizedValue = useMemo(
     () => ({
-      searchResults: data?.results || [],
+      searchResults: (data && data.results) ? data.results : [],
       searchLoading: isLoading,
       searchError: error,
       searchValidating: isValidating,
-      searchEmpty: !isLoading && !data?.results.length,
+      searchEmpty: !isLoading && (!data || !data.results || data.results.length === 0),
     }),
-    [data?.results, error, isLoading, isValidating]
+    [data, error, isLoading, isValidating]
   );
 
   return memoizedValue;
@@ -94,7 +129,6 @@ export function useSearchProducts(query) {
 
 // ----------------------------------------------------------------------
 
-// Function to create an order
 export async function createProduct(eventData) {
   const config = {
     headers: {
@@ -112,7 +146,7 @@ export async function createProduct(eventData) {
       ]
     };
 
-    await postRequestANYML(URL.createProduct, formattedProduct, config);
+    await postRequestANYML(PRODUCTS_URL.createProduct, formattedProduct, config);
 
     // Update the local storage key to true
     console.log('Setting cache flag for account:', account_id);
@@ -121,9 +155,9 @@ export async function createProduct(eventData) {
 
     // Update the SWR cache directly
     mutate(
-      [URL, { account_id }],
+      [PRODUCTS_URL, { account_id }],
       async (currentData) => {
-        const updatedProducts = await fetcherANYML([URL.list, { account_id }]);
+        const updatedProducts = await fetcherANYML([PRODUCTS_URL.list, { account_id }]);
         return {
           ...currentData,
           products: updatedProducts.products,
@@ -138,7 +172,8 @@ export async function createProduct(eventData) {
   }
 }
 
-// Function to format product data
+// ----------------------------------------------------------------------
+
 function formatProduct(productData) {
   return {
     id: productData.id || uuidv4(), // Generate a unique ID for the product if not provided
