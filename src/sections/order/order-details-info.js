@@ -14,16 +14,20 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function OrderDetailsInfo({ customer, delivery, payment, shippingAddress }) {
+export default function OrderDetailsInfo({ customer, delivery, payment, shippingAddress, trackingObtained }) {
+
+
+  const allTracking = trackingObtained.flatMap(item => item.tracking || []);
+
   const renderCustomer = (
     <>
       <CardHeader
         title="Customer Info"
-        action={
-          <IconButton disabled>
-            <Iconify icon="solar:pen-bold" />
-          </IconButton>
-        }
+      // action={
+      //   <IconButton disabled>
+      //     <Iconify icon="solar:pen-bold" />
+      //   </IconButton>
+      // }
       />
       <Stack direction="row" sx={{ p: 3 }}>
         <Avatar
@@ -52,11 +56,11 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
     <>
       <CardHeader
         title="Delivery"
-        action={
-          <IconButton disabled>
-            <Iconify icon="solar:pen-bold" />
-          </IconButton>
-        }
+      // action={
+      //   <IconButton disabled>
+      //     <Iconify icon="solar:pen-bold" />
+      //   </IconButton>
+      // }
       />
       <Stack spacing={1.5} sx={{ p: 3, typography: 'body2' }}>
         <Stack direction="row" alignItems="center">
@@ -76,18 +80,18 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
             Tracking No.
           </Box>
           <Box>
-            {delivery.trackingNumbers && delivery.trackingNumbers.length > 0 ? (
-              delivery.trackingNumbers.map(({ productId, trackingNumber }, index) => (
+            {allTracking.length > 0 ? (
+              allTracking.map(({ tracking_url, tracking_number }, index) => (
                 <Link
                   key={index}
-                  href={trackingNumber}
+                  href={tracking_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   underline="always"
                   color="inherit"
                   sx={{ display: 'block' }}
                 >
-                  {productId}
+                  {tracking_number}
                 </Link>
               ))
             ) : (
@@ -112,11 +116,11 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
     <>
       <CardHeader
         title="Shipping"
-        action={
-          <IconButton disabled>
-            <Iconify icon="solar:pen-bold" />
-          </IconButton>
-        }
+      // action={
+      //   <IconButton disabled>
+      //     <Iconify icon="solar:pen-bold" />
+      //   </IconButton>
+      // }
       />
       <Stack spacing={1.5} sx={{ p: 3, typography: 'body2' }}>
         <Stack direction="row" alignItems="center">
@@ -139,11 +143,11 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
     <>
       <CardHeader
         title="Payment"
-        action={
-          <IconButton disabled>
-            <Iconify icon="solar:pen-bold" />
-          </IconButton>
-        }
+      // action={
+      //   <IconButton disabled>
+      //     <Iconify icon="solar:pen-bold" />
+      //   </IconButton>
+      // }
       />
       <Stack direction="row" alignItems="center" sx={{ p: 3, typography: 'body2' }}>
         <Box component="span" sx={{ color: 'text.secondary', flexGrow: 1 }}>
@@ -172,4 +176,10 @@ OrderDetailsInfo.propTypes = {
   delivery: PropTypes.object,
   payment: PropTypes.object,
   shippingAddress: PropTypes.object,
+  trackingObtained: PropTypes.arrayOf(PropTypes.shape({
+    delivery_status: PropTypes.string,
+    obtained_at: PropTypes.string,
+    tracking_url: PropTypes.string,
+    tracking_number: PropTypes.string,
+  })),
 };

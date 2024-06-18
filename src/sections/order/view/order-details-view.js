@@ -81,6 +81,8 @@ export default function OrderDetailsView({ accountId, id }) {
                 delivery={currentOrder.delivery || {}}
                 payment={safeGet(currentOrder, 'payment', {})}
                 shippingAddress={currentOrder.shippingAddress}
+                trackingObtained={trackingObtained}
+
               />
             </Grid>
           </Grid>

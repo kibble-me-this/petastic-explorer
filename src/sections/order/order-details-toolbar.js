@@ -62,7 +62,7 @@ export default function OrderDetailsToolbar({
           </Stack>
         </Stack>
 
-        <Stack
+        {/* <Stack
           flexGrow={1}
           spacing={1.5}
           direction="row"
@@ -90,7 +90,7 @@ export default function OrderDetailsToolbar({
           <Button disabled color="inherit" variant="contained" startIcon={<Iconify icon="solar:pen-bold" />}>
             Edit
           </Button>
-        </Stack>
+        </Stack> */}
       </Stack>
 
       <CustomPopover
