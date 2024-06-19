@@ -72,7 +72,7 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function OrderListView() {
-  const table = useTable({ defaultOrderBy: 'orderNumber' });
+  const table = useTable({ defaultOrderBy: 'createdAt', defaultOrder: 'desc' }); // Updated line
 
   const settings = useSettingsContext();
 

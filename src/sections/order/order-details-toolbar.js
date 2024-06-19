@@ -28,7 +28,7 @@ export default function OrderDetailsToolbar({
   const popover = usePopover();
 
   const allTracking = trackingObtained.flatMap(item => item.tracking || []);
-  const latestTracking = allTracking[allTracking.length - 1];
+  const latestTracking = allTracking[allTracking.length - 1] || {};
 
   return (
     <>
@@ -56,7 +56,7 @@ export default function OrderDetailsToolbar({
                   'default'
                 }
               >
-                {latestTracking.delivery_status}
+                {latestTracking.delivery_status || 'Unknown'}
               </Label>
             </Stack>
 
