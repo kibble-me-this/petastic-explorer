@@ -122,6 +122,13 @@ export const useMockUser = [
         shelterName: 'Bubbles Dog Rescue',
         affiliateSystemRoles: ['superadmin']
       },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f3ea1685197328376',
+        shelterName: 'Pawsitive Beginnings',
+        affiliateSystemRoles: ['superadmin']
+      },
+
     ]
   },
 
@@ -271,7 +278,12 @@ export const useMockUser = [
         shelterId: '5fe931824281711564491846',
         shelterName: 'Texas Animal Rescue Rehab',
         affiliateSystemRoles: ['superadmin']
-      }
+      }, {
+        role: ['admin'],
+        shelterId: '5ee8317f3ea1685197328376',
+        shelterName: 'Pawsitive Beginnings',
+        affiliateSystemRoles: ['superadmin']
+      },
     ],
   },
   {
@@ -457,6 +469,32 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5fe931824281717304399426',
         shelterName: 'West Coast Cane Corso Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ],
+  },
+  {
+    id: '13',
+    publicAddress: '7a50760f17a7a5bd1851b953d92365af2ebea63eae408b6fee7dc991da04d4b1',
+    email: 'pawsitivebeginningsla@gmail.com',
+    legalName: 'Pawsitive Beginnings',
+    displayName: 'Pawsitive Beginnings',
+    password: 'demo1234',
+    photoURL: '',
+    phoneNumber: '+1 310-555-1234',
+    country: 'United States',
+    address: '1020 Rescue Ave',
+    state: 'CA',
+    city: 'Los Angeles',
+    zipCode: '90001',
+    about: 'Dedicated to saving animals.',
+    roles: ['shelter'],
+    isPublic: true,
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f3ea1685197328376',
+        shelterName: 'Pawsitive Beginnings',
         affiliateSystemRoles: ['superadmin']
       },
     ],
