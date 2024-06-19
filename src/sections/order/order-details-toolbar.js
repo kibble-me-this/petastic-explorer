@@ -23,8 +23,12 @@ export default function OrderDetailsToolbar({
   orderNumber,
   statusOptions,
   onChangeStatus,
+  trackingObtained
 }) {
   const popover = usePopover();
+
+  const allTracking = trackingObtained.flatMap(item => item.tracking || []);
+  const latestTracking = allTracking[allTracking.length - 1];
 
   return (
     <>
@@ -46,13 +50,13 @@ export default function OrderDetailsToolbar({
               <Label
                 variant="soft"
                 color={
-                  (status === 'completed' && 'success') ||
-                  (status === 'pending' && 'warning') ||
-                  (status === 'cancelled' && 'error') ||
+                  (latestTracking.delivery_status === 'Delivered' && 'success') ||
+                  (latestTracking.delivery_status === 'InTransit' && 'warning') ||
+                  (latestTracking.delivery_status === 'cancelled' && 'error') ||
                   'default'
                 }
               >
-                {status}
+                {latestTracking.delivery_status}
               </Label>
             </Stack>
 
@@ -123,4 +127,10 @@ OrderDetailsToolbar.propTypes = {
   orderNumber: PropTypes.string,
   status: PropTypes.string,
   statusOptions: PropTypes.array,
+  trackingObtained: PropTypes.arrayOf(PropTypes.shape({
+    delivery_status: PropTypes.string,
+    obtained_at: PropTypes.string,
+    tracking_url: PropTypes.string,
+    tracking_number: PropTypes.string,
+  })),
 };

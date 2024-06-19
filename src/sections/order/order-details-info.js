@@ -18,6 +18,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
 
 
   const allTracking = trackingObtained.flatMap(item => item.tracking || []);
+  const latestTracking = allTracking[allTracking.length - 1];
 
   const renderCustomer = (
     <>
@@ -80,20 +81,17 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
             Tracking No.
           </Box>
           <Box>
-            {allTracking.length > 0 ? (
-              allTracking.map(({ tracking_url, tracking_number }, index) => (
-                <Link
-                  key={index}
-                  href={tracking_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  underline="always"
-                  color="inherit"
-                  sx={{ display: 'block' }}
-                >
-                  {tracking_number}
-                </Link>
-              ))
+            {latestTracking ? (
+              <Link
+                href={latestTracking.tracking_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="always"
+                color="inherit"
+                sx={{ display: 'block' }}
+              >
+                {latestTracking.tracking_number}
+              </Link>
             ) : (
               <Link
                 href={delivery.trackingNumber}
@@ -111,6 +109,7 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
       </Stack>
     </>
   );
+
 
   const renderShipping = (
     <>

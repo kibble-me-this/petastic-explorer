@@ -26,6 +26,9 @@ export default function OrderDetailsHistory({ history }) {
   const allDeliveryDates = history.flatMap(item => item.delivery_dates || []);
   const createdAtTimes = history.map(item => item._created_at);
 
+  const latestCreatedAt = createdAtTimes[createdAtTimes.length - 1];
+  const latestDeliveryDate = allDeliveryDates[allDeliveryDates.length - 1];
+
   const renderSummary = (
     <Stack
       spacing={2}
@@ -57,19 +60,19 @@ export default function OrderDetailsHistory({ history }) {
         {fDateTime(history.completionTime)}
       </Stack> */}
 
-      {createdAtTimes.map((createdAt, index) => (
-        <Stack spacing={0.5} key={index}>
-          <Box sx={{ color: 'text.disabled' }}>Order time {index + 1}</Box>
-          {fDateTime(createdAt)}
+      {latestCreatedAt && (
+        <Stack spacing={0.5}>
+          <Box sx={{ color: 'text.disabled' }}>Order approved</Box>
+          {fDateTime(latestCreatedAt)}
         </Stack>
-      ))}
+      )}
 
-      {allDeliveryDates.map((deliveryDate, index) => (
-        <Stack spacing={0.5} key={index}>
-          <Box sx={{ color: 'text.disabled' }}>Delivery Date {index + 1}</Box>
-          {fDateTime(deliveryDate.delivery_date)}
+      {latestDeliveryDate && (
+        <Stack spacing={0.5}>
+          <Box sx={{ color: 'text.disabled' }}>Estimated delivery</Box>
+          {fDateTime(latestDeliveryDate.delivery_date)}
         </Stack>
-      ))}
+      )}
     </Stack>
   );
 

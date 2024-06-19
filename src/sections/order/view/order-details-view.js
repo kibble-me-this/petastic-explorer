@@ -53,10 +53,11 @@ export default function OrderDetailsView({ accountId, id }) {
           <OrderDetailsToolbar
             backLink={paths.dashboard.order.root}
             orderNumber={currentOrder.orderNumber}
-            createdAt={currentOrder.createdAt}
+            createdAt={new Date(currentOrder.createdAt)}
             status={status}
             onChangeStatus={handleChangeStatus}
             statusOptions={ORDER_STATUS_OPTIONS}
+            trackingObtained={trackingObtained}
           />
 
           <Grid container spacing={3}>
@@ -82,7 +83,6 @@ export default function OrderDetailsView({ accountId, id }) {
                 payment={safeGet(currentOrder, 'payment', {})}
                 shippingAddress={currentOrder.shippingAddress}
                 trackingObtained={trackingObtained}
-
               />
             </Grid>
           </Grid>
