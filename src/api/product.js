@@ -102,30 +102,30 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
 
 // ----------------------------------------------------------------------
 
-export function useSearchProducts(query) {
-  const searchURL = query ? [endpoints.product.search, { params: { query } }] : null;
+// export function useSearchProducts(query) {
+//   const searchURL = query ? [endpoints.product.search, { params: { query } }] : null;
 
-  const { data, isLoading, error, isValidating } = useSWR(
-    searchURL ? JSON.stringify(searchURL) : null,
-    searchURL ? () => fetcherWithLocalStorage(searchURL) : null,
-    {
-      keepPreviousData: true,
-    }
-  );
+//   const { data, isLoading, error, isValidating } = useSWR(
+//     searchURL ? JSON.stringify(searchURL) : null,
+//     searchURL ? () => fetcherWithLocalStorage(searchURL) : null,
+//     {
+//       keepPreviousData: true,
+//     }
+//   );
 
-  const memoizedValue = useMemo(
-    () => ({
-      searchResults: (data && data.results) ? data.results : [],
-      searchLoading: isLoading,
-      searchError: error,
-      searchValidating: isValidating,
-      searchEmpty: !isLoading && (!data || !data.results || data.results.length === 0),
-    }),
-    [data, error, isLoading, isValidating]
-  );
+//   const memoizedValue = useMemo(
+//     () => ({
+//       searchResults: (data && data.results) ? data.results : [],
+//       searchLoading: isLoading,
+//       searchError: error,
+//       searchValidating: isValidating,
+//       searchEmpty: !isLoading && (!data || !data.results || data.results.length === 0),
+//     }),
+//     [data, error, isLoading, isValidating]
+//   );
 
-  return memoizedValue;
-}
+//   return memoizedValue;
+// }
 
 // ----------------------------------------------------------------------
 
