@@ -131,7 +131,7 @@ export default function CheckoutPayment() {
             subTotal={checkout.subTotal}
             discount={checkout.discount}
             shipping={checkout.shipping}
-            kibble={selectedPaymentOption === 'token' ? checkout.total : null}
+            kibble={selectedPaymentOption === 'token' ? Number(checkout.total) : null}
             selectedPaymentOption={selectedPaymentOption}
             onEdit={() => checkout.onGotoStep(0)}
           />

@@ -180,7 +180,7 @@ export async function sendOrderConfirmationEmail(orderDetails) {
 }
 
 // Function to place a Zinc order and send a confirmation email
-export async function placeZincOrder(items, shippingAddress, subTotal) {
+export async function placeZincOrder(items, shippingAddress, subTotal, webhooks) {
   try {
     const orderResults = await dispatchZincOrder(
       {
@@ -189,7 +189,8 @@ export async function placeZincOrder(items, shippingAddress, subTotal) {
       },
       items,
       shippingAddress,
-      subTotal
+      subTotal,
+      webhooks
     );
 
     console.log('Order placed successfully:', orderResults);
