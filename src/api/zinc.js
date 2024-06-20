@@ -141,26 +141,49 @@ export function useSearchProducts(query) {
 
 // Function to send an order confirmation email using EmailJS
 export async function sendOrderConfirmationEmail(orderDetails) {
-  const { request_id, status, items, shippingAddress, subTotal, taxTotal, shippingCost } = orderDetails;
+  const {
+    request_id,
+    status,
+    createdAt,
+    customer = {},
+    items = [],
+    shippingAddress = {},
+    payment = {},
+    subTotal,
+    taxTotal,
+    shippingCost,
+    discount = 0,
+    totalAmount
+  } = orderDetails;
 
   // Construct the email template parameters
   const templateParams = {
-    to_email: "carlos@petastic.com",
+    // to_email: customer.email || "carlos@petastic.com", // Default email
+    to_email: "carlos@petastic.com", // Default email
     from_name: "Petastic", // Update this if you have a dynamic sender name
-    order_id: request_id,
-    order_status: status,
-    items_list: `<ul>${items.map(item => `<li>${item.product_id} (x${item.quantity})</li>`).join('')}</ul>`,
+    order_id: request_id || "N/A",
+    order_status: status || "pending",
+    order_date: new Date(createdAt).toLocaleDateString() || "N/A",
+    customer_name: customer.name || "Customer",
+    customer_email: customer.email || "N/A",
+    customer_phone: customer.phoneNumber || "N/A",
+    items_list: `<ul>${items.map(item => `<li>Product ID: ${item.product_id}, Name: ${item.name || "N/A"}, (Quantity: ${item.quantity}) - $${(item.price / 100).toFixed(2)}</li>`).join('')}</ul>`,
     shipping_address: `
       <p>
-        ${shippingAddress.first_name} ${shippingAddress.last_name},<br>
-        ${shippingAddress.address_line1},<br>
-        ${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.zipcode}
+        Name: ${shippingAddress.name || "N/A"},<br>
+        Address: ${shippingAddress.address || "N/A"},<br>
+        City: ${shippingAddress.city || "N/A"}, State: ${shippingAddress.state || "N/A"}, Zip: ${shippingAddress.zip || "N/A"},<br>
+        Country: ${shippingAddress.country || "N/A"},<br>
+        Phone Number: ${shippingAddress.phoneNumber || "N/A"}
       </p>
     `,
-    order_total: `$${(subTotal / 100).toFixed(2)}`,
-    order_tax: `$${(taxTotal / 100).toFixed(2)}`,
-    order_shipping: `$${(shippingCost / 100).toFixed(2)}`,
-    total: `$${((subTotal + taxTotal + shippingCost) / 100).toFixed(2)}`
+    payment_method: payment.method || "N/A",
+    transaction_id: payment.transaction_id || "N/A",
+    order_total: `$${(subTotal / 100).toFixed(2) || "0.00"}`,
+    order_tax: `$${(taxTotal / 100).toFixed(2) || "0.00"}`,
+    order_shipping: `$${(shippingCost / 100).toFixed(2) || "0.00"}`,
+    order_discount: `$${(discount / 100).toFixed(2) || "0.00"}`,
+    total: `$${(totalAmount / 100).toFixed(2) || "0.00"}`
   };
 
   try {
@@ -178,6 +201,10 @@ export async function sendOrderConfirmationEmail(orderDetails) {
     return { success: false, message: 'Email sending failed' };
   }
 }
+
+
+
+
 
 // Function to place a Zinc order and send a confirmation email
 export async function placeZincOrder(items, shippingAddress, subTotal, webhooks) {

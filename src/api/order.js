@@ -47,7 +47,6 @@ export async function createOrder(eventData) {
         quantity: item.quantity,
     }));
 
-
     try {
         // Generate UUID for the order
         const order_id = uuidv4();
@@ -84,6 +83,7 @@ export async function createOrder(eventData) {
         throw error;
     }
 }
+
 
 // ----------------------------------------------------------------------
 
@@ -124,23 +124,23 @@ export async function deleteOrder(eventId) {
 function formatOrder(eventData, result, order_id) {
     return {
         id: order_id, // Use generated UUID
-        orderNumber: result.request_id,
+        orderNumber: result.request_id, // Assume request_id from Zinc API result
         createdAt: new Date().toISOString(), // Use current date-time for createdAt
-        taxes: "10", // Example value for taxes
+        taxes: "10", // Example value for taxes, replace with actual value if available
         items: eventData.items.map(item => ({
             id: item.id,
             coverUrl: item.originalCoverUrl,
-            name: item.name,
+            name: item.name || item.brand, // Assuming 'name' might be missing, fallback to 'brand'
             price: item.priceSale,
             quantity: item.quantity,
             sku: item.id,
         })),
         customer: {
-            id: uuidv4(), // Replace with actual customer ID
-            name: eventData.billing.name, // Replace with actual customer name
-            email: eventData.billing.email, // Replace with actual customer email
-            avatarUrl: eventData.billing.avatarUrl, // Replace with actual customer avatar URL
-            ipAddress: eventData.billing.ipAddress, // Replace with actual customer IP address
+            id: eventData.billing.id, // Use customer ID from billing
+            name: eventData.billing.name, // Customer name
+            email: eventData.billing.email || '', // Assuming email might be added in billing
+            avatarUrl: eventData.billing.avatarUrl || '', // Assuming avatarUrl might be added in billing
+            ipAddress: eventData.billing.ipAddress || '', // Assuming ipAddress might be added in billing
         },
         history: {
             orderTime: new Date().toISOString(), // Example value for orderTime
@@ -173,11 +173,11 @@ function formatOrder(eventData, result, order_id) {
         subTotal: eventData.subTotal,
         shipping: eventData.shipping || 10, // Replace with actual shipping cost
         discount: eventData.discount || 10, // Replace with actual discount
-        totalAmount: eventData.totalAmount || 474.15, // Replace with actual total amount
+        totalAmount: eventData.total || 474.15, // Use total from eventData
         totalQuantity: eventData.items.reduce((total, item) => total + item.quantity, 0),
         shippingAddress: {
-            fullAddress: `${eventData.billing.address}, ${eventData.billing.city}, ${eventData.billing.state}, ${eventData.billing.zip}`,
-            phoneNumber: eventData.billing.phone, // Replace with actual phone number
+            fullAddress: eventData.billing.fullAddress,
+            phoneNumber: eventData.billing.phoneNumber, // Replace with actual phone number
         },
         delivery: {
             shipBy: eventData.delivery?.shipBy || "Amazon Shipping", // Replace with actual shipping company

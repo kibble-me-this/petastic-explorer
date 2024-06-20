@@ -45,7 +45,7 @@ export default function CheckoutPayment() {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState('');
 
   if (user) {
-    user.anymalTokenBalance = 5000; // Mock value, replace with your desired value
+    user.anymalTokenBalance = 5000;
   }
 
   const PAYMENT_OPTIONS = [
@@ -87,7 +87,13 @@ export default function CheckoutPayment() {
     try {
       console.log('CheckoutPayment :: onSubmit');
 
-      const result = await createOrder(checkout);
+      const orderData = {
+        ...checkout,
+        userEmail: user.email,
+        anymalTokenBalance: user.anymalTokenBalance,
+      };
+
+      const result = await createOrder(orderData);
 
       console.log('handlePlaceOrder result: ', result);
 
