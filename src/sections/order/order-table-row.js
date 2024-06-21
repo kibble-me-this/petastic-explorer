@@ -83,7 +83,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
       <TableCell align="center"> {totalQuantity} </TableCell>
 
-      <TableCell> {fCurrency(penniesToDollars(subTotal)) || '-'} </TableCell>
+      <TableCell> {fCurrency((subTotal)) || '-'} </TableCell>
 
       <TableCell>
         <Label
@@ -162,7 +162,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
                 <Box>x{item.quantity}</Box>
 
-                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(penniesToDollars(item.price))}</Box>
+                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency((item.price))}</Box>
               </Stack>
             ))}
           </Stack>

@@ -29,7 +29,7 @@ export default function OrderDetailsItems({
     >
       <Stack direction="row">
         <Box sx={{ color: 'text.secondary' }}>Subtotal</Box>
-        <Box sx={{ width: 160, typography: 'subtitle2' }}>{fCurrency(penniesToDollars(subTotal)) || '-'}</Box>
+        <Box sx={{ width: 160, typography: 'subtitle2' }}>{fCurrency((subTotal)) || '-'}</Box>
       </Stack>
 
       <Stack direction="row">
@@ -40,11 +40,11 @@ export default function OrderDetailsItems({
             ...(shipping && { color: 'error.main' }),
           }}
         >
-          {shipping ? `- ${fCurrency(penniesToDollars(shipping))}` : '-'}
+          {shipping ? `- ${fCurrency((shipping))}` : '-'}
         </Box>
       </Stack>
 
-      <Stack direction="row">
+      {/* <Stack direction="row">
         <Box sx={{ color: 'text.secondary' }}>Discount</Box>
         <Box
           sx={{
@@ -52,29 +52,30 @@ export default function OrderDetailsItems({
             ...(discount && { color: 'error.main' }),
           }}
         >
-          {discount ? `- ${fCurrency(penniesToDollars(discount))}` : '-'}
+          {discount ? `- ${fCurrency((discount))}` : '-'}
         </Box>
-      </Stack>
+      </Stack> */}
 
       <Stack direction="row">
         <Box sx={{ color: 'text.secondary' }}>Taxes</Box>
-        <Box sx={{ width: 160 }}>{taxes ? fCurrency(penniesToDollars(taxes)) : '-'}</Box>
+        <Box sx={{ width: 160 }}>{taxes ? fCurrency((taxes)) : '-'}</Box>
       </Stack>
 
       <Stack direction="row" sx={{ typography: 'subtitle1' }}>
         <Box>Total</Box>
-        <Box sx={{ width: 160 }}>{fCurrency(penniesToDollars(totalAmount)) || '-'}</Box>
+        <Box sx={{ width: 160 }}>{fCurrency((totalAmount)) || '-'}</Box>
       </Stack>
 
       <Stack direction="row">
-        <Box sx={{ color: 'text.secondary' }}>Rewards Earned</Box>
+        <Box sx={{ color: 'green' }}>  {'\u24C0ibble Cash Earned'}
+        </Box>
         <Box
           sx={{
             width: 160,
-            ...(discount && { color: 'error.main' }),
+            ...(discount && { color: 'green' }),
           }}
         >
-          {discount ? `- ${fCurrency(penniesToDollars(discount))}` : '-'}
+          {discount ? `- ${fCurrency((discount))}` : '-'}
         </Box>
       </Stack>
     </Stack>

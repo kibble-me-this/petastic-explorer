@@ -93,7 +93,7 @@ export const fetcherProduct = async (productIds) => {
 export const dispatchZincOrder = async (args, products, shippingAddress, subTotal, webhooks) => {
   const [data, headers, url, config] = Array.isArray(args) ? args : [args];
 
-  const maxPrice = subTotal * 1.15;
+  const maxPrice = subTotal * 100 * 1.15;
 
   const updatedOrderData = {
     ...orderData,

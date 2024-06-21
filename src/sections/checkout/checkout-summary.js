@@ -51,7 +51,7 @@ export default function CheckoutSummary({
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Sub Total
             </Typography>
-            <Typography variant="subtitle2">{fCurrency(subTotal / 100)}</Typography>
+            <Typography variant="subtitle2">{fCurrency(subTotal)}</Typography>
           </Stack>
 
 
@@ -72,7 +72,7 @@ export default function CheckoutSummary({
               <Iconify icon="solar:wad-of-money-bold" width={16} sx={{ ml: 1, color: 'success.main' }} />
             </Stack>
             <Typography variant="subtitle2" sx={{ color: 'success.main' }}>
-              {kibble ? fKibble(kibble / 100) : displayKibble}
+              {kibble ? fKibble(kibble) : displayKibble}
             </Typography>
           </Stack>
 
@@ -82,7 +82,7 @@ export default function CheckoutSummary({
             <Typography variant="subtitle1">Total</Typography>
             <Box sx={{ textAlign: 'right' }}>
               <Typography variant="subtitle1" sx={{ color: 'error.main' }}>
-                {fCurrency(total / 100)}
+                {fCurrency(total)}
               </Typography>
               <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
                 (Tax included if applicable)
@@ -96,7 +96,7 @@ export default function CheckoutSummary({
             <Typography variant="body2" sx={{ color: 'success.main' }}>
               Purchase Reward:
             </Typography>
-            <Typography sx={{ color: 'success.main' }} variant="subtitle2">{discount ? fKibble(discount / 100) : '-'}</Typography>
+            <Typography sx={{ color: 'success.main' }} variant="subtitle2">{discount ? fKibble(discount) : '-'}</Typography>
           </Stack>
 
           {/* {onApplyDiscount && (

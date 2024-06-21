@@ -241,11 +241,14 @@ function applyFilter({ inputData, filters, sortBy }) {
   }
 
   if (searchQuery) {
+    console.log('Search Query:', searchQuery); // Debug log
     inputData = inputData.filter((product) => {
       const title = product.title || '';
+      console.log('Product Title:', title); // Debug log
       return title.toLowerCase().includes(searchQuery.toLowerCase());
     });
   }
 
   return inputData;
 }
+

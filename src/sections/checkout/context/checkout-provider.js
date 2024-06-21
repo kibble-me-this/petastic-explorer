@@ -44,7 +44,7 @@ export function CheckoutProvider({ children }) {
   const onGetCart = useCallback(() => {
     const totalItems = state.items.reduce((total, item) => total + item.quantity, 0);
 
-    const subTotal = state.items.reduce((total, item) => total + item.quantity * item.priceSale, 0);
+    const subTotal = state.items.reduce((total, item) => total + item.quantity * item.price, 0);
 
     update('subTotal', subTotal);
     update('totalItems', totalItems);
