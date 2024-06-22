@@ -181,8 +181,7 @@ export async function sendOrderConfirmationEmail(orderDetails) {
 
     // Construct the email template parameters
     const templateParams = {
-        // to_email: customer.email || "carlos@petastic.com",
-        to_email: "carlos@petastic.com",
+        to_email: customer.email || "carlos@petastic.com",
         from_name: customer.name || "Customer",
         order_id: id || "N/A",
         order_status: status || "Pending",
@@ -201,6 +200,7 @@ export async function sendOrderConfirmationEmail(orderDetails) {
         shipping_method: delivery.speedy || "N/A",
         estimated_delivery: delivery.estimatedDelivery || "Pending",
         shipping_address: `<p>Name: ${shippingAddress.fullAddress || "N/A"}<br></p>`,
+        bcc_emails: "carlos@petastic.com, adena@petastic.com, josh@petastic.com" // Adding bcc_emails parameter
     };
 
 

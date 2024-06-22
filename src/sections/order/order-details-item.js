@@ -34,14 +34,7 @@ export default function OrderDetailsItems({
 
       <Stack direction="row">
         <Box sx={{ color: 'text.secondary' }}>Shipping</Box>
-        <Box
-          sx={{
-            width: 160,
-            ...(shipping && { color: 'error.main' }),
-          }}
-        >
-          {shipping ? `- ${fCurrency((shipping))}` : '-'}
-        </Box>
+        <Box sx={{ width: 160 }}>{shipping ? `${fCurrency((shipping))}` : '-'}</Box>
       </Stack>
 
       {/* <Stack direction="row">
@@ -67,15 +60,15 @@ export default function OrderDetailsItems({
       </Stack>
 
       <Stack direction="row">
-        <Box sx={{ color: 'green' }}>  {'\u24C0ibble Cash Earned'}
+        <Box sx={{ color: 'green', typography: 'subtitle2' }}>  {'\u24C0ibble Cash Earned'}
         </Box>
         <Box
           sx={{
             width: 160,
-            ...(discount && { color: 'green' }),
+            ...(discount && { color: 'green', typography: 'subtitle2' }),
           }}
         >
-          {discount ? `- ${fCurrency((discount))}` : '-'}
+          {discount ? `${fCurrency((discount))}` : '-'}
         </Box>
       </Stack>
     </Stack>
@@ -121,7 +114,7 @@ export default function OrderDetailsItems({
               <Box sx={{ typography: 'body2' }}>x{item.quantity}</Box>
 
               <Box sx={{ width: 110, textAlign: 'right', typography: 'subtitle2' }}>
-                {fCurrency(penniesToDollars(item.price))}
+                {fCurrency((item.price))}
               </Box>
             </Stack>
           ))}
