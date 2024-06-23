@@ -99,7 +99,7 @@ export default function UserTableToolbar({
             fullWidth
             value={petName}
             onChange={(event) => setPetName(event.target.value)}
-            placeholder="Search by Pet Name (Coming soon...)"
+            placeholder="Search by Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

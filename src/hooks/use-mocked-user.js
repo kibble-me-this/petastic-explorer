@@ -1,47 +1,27 @@
 export const useMockUser = [
   {
-    id: '1',
-    publicAddress: '',
-    email: 'brixiesrescue@icloud.com',
-    legalName: 'Brixies Rescue Inc',
-    displayName: 'Brixies Rescue',
-    password: 'demo1234',
-    photoURL: '',
-    phoneNumber: '+1 310-880-8673',
-    country: 'United States',
-    address: '1234 Rescue Ave',
-    state: 'NY',
-    city: 'New York',
-    zipCode: '10001',
-    about: 'We rescue pets in need.',
-    roles: ['admin'],
+    id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7z1",
+    pid: '416fb87',
+    mNearPublicAddress: '416fb87e70e19cc52fd9ff28ce43cc8c3f3af33feae03a4d7ac73d6f6e9f36a1',
+    status: "active",
+    isVerified: true,
     isPublic: true,
-    affiliations: [
-      {
-        role: ['admin'],
-        shelterId: '5fe931824271705684215701',
-        shelterName: 'Brixies Rescue Inc',
-        affiliateSystemRoles: ['admin']
-      },
-    ],
-  },
-  {
-    id: '2',
-    publicAddress: '416fb87e70e19cc52fd9ff28ce43cc8c3f3af33feae03a4d7ac73d6f6e9f36a1',
-    email: 'carlos@petastic.com',
-    legalName: 'Carlos Herrera',
+    avatarUrl: "",
+    email: "carlos@petastic.com",
+    name: "Carlos Herrera",
     displayName: 'Carlos',
-    password: 'demo1234',
+    company: "Petastic",
+    role: "Ecosystem Admin",
+    address: "360 NW 27th Ave",
+    city: "Miami",
+    state: "Florida",
+    zipCode: "33127",
+    country: "United States",
+    phoneNumber: "310-880-8673",
+    password: '********',
     photoURL: '',
-    phoneNumber: '+1 310-880-8673',
-    country: 'United States',
-    address: '2900 NE 7TH Ave Unit 2006',
-    state: 'FL',
-    city: 'Miami',
-    zipCode: '33137',
-    about: 'Praesent turpis. Phasellus viverra nulla ut metus varius laoreet. Phasellus tempus.',
-    systemRoles: ['superadmin'],
-    isPublic: true,
+    about: 'Animal advocate and foster parent.',
+    systemRoles: ['admin'],
     affiliations: [
       {
         role: ['admin'],
@@ -115,7 +95,6 @@ export const useMockUser = [
         shelterName: 'Texas Animal Rescue Rehab',
         affiliateSystemRoles: ['superadmin']
       },
-
       {
         role: ['admin'],
         shelterId: '5ee8317f49f1683402638385',
@@ -127,381 +106,586 @@ export const useMockUser = [
         shelterId: '5ee8317f3ea1685197328376',
         shelterName: 'Pawsitive Beginnings',
         affiliateSystemRoles: ['superadmin']
-      },
-
-    ]
+      }
+    ],
+    pets: []
   },
-
   {
-    id: '3',
-    publicAddress: 'e43f2104635c62f96227ce5dc039d4cd28cc3b94f34b3935f26d972376c00c54',
-    email: 'nicolec@animalhaven.org',
-    legalName: 'Nicole C',
-    displayName: 'Nicole',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z2',
+    pid: '416fb87',
+    mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'adena@petastic.com',
+    name: 'Adena Lavin',
+    displayName: 'Adena',
+    company: 'Petastic',
+    role: "Ecosystem Admin",
+    address: '1010 Pet Ave',
+    city: 'Miami',
+    state: 'FL',
+    zipCode: '33130',
+    country: 'United States',
+    phoneNumber: '+852 9612 6122',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 212-555-1234',
-    country: 'United States',
-    address: '456 Rescue Blvd',
-    state: 'NY',
-    city: 'New York',
-    zipCode: '10002',
-    about: 'Animal lover and rescuer.',
-    roles: ['user'],
+    about: 'Animal advocate and foster parent.',
+    systemRoles: ['admin'],
+
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281717304399426',
+        shelterName: 'West Coast Cane Corso Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180f121686526084263',
+        shelterName: 'Animal Haven',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f6501687352248090',
+        shelterName: 'California Bully Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281715365900379',
+        shelterName: 'New York Bully Crew',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180fb01683673939629',
+        shelterName: 'Strong Paws Rescue, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180f8a1683475024978',
+        shelterName: 'Second Chance Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180f271685767429993',
+        shelterName: 'Muddy Paws Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee831824261713886583600',
+        shelterName: 'Rescue Tails',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281712849717961',
+        shelterName: 'Fayetteville Animal Protection Society',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281711564491846',
+        shelterName: 'Texas Animal Rescue Rehab',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f3ea1685197328376',
+        shelterName: 'Pawsitive Beginnings',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+  {
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z3',
+    pid: '416fb87',
+    mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
+    status: 'pending',
+    isVerified: true,
     isPublic: true,
+    avatarUrl: '',
+    email: 'josh@petastic.com',
+    name: 'Josh Bullock',
+    displayName: 'Josh',
+    company: 'Petastic',
+    role: "Ecosystem Admin",
+    address: '1010 Pet Ave',
+    city: 'Miami',
+    state: 'FL',
+    zipCode: '33130',
+    country: 'United States',
+    phoneNumber: '+1 856-625-2834',
+    password: 'demo1234',
+    photoURL: '',
+    about: 'Animal advocate and foster parent.',
+    systemRoles: ['admin'],
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281717304399426',
+        shelterName: 'West Coast Cane Corso Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180f121686526084263',
+        shelterName: 'Animal Haven',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281712564008136',
+        shelterName: 'Motivated-Ones Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f6501687352248090',
+        shelterName: 'California Bully Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281715365900379',
+        shelterName: 'New York Bully Crew',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180fb01683673939629',
+        shelterName: 'Strong Paws Rescue, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180f8a1683475024978',
+        shelterName: 'Second Chance Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee83180f271685767429993',
+        shelterName: 'Muddy Paws Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee831824261713886583600',
+        shelterName: 'Rescue Tails',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281712849717961',
+        shelterName: 'Fayetteville Animal Protection Society',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281711564491846',
+        shelterName: 'Texas Animal Rescue Rehab',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f3ea1685197328376',
+        shelterName: 'Pawsitive Beginnings',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+  {
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z4',
+    pid: '416fb87',
+    mNearPublicAddress: '',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'brixiesrescue@icloud.com',
+    name: '',
+    displayName: 'Brixies Rescue',
+    company: '',
+    role: "User",
+    address: '1234 Rescue Ave',
+    city: 'New York',
+    state: 'NY',
+    zipCode: '10001',
+    country: 'United States',
+    phoneNumber: '',
+    password: 'demo1234',
+    photoURL: '',
+    about: 'We rescue pets in need.',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824271705684215701',
+        shelterName: 'Brixies Rescue Inc',
+        affiliateSystemRoles: ['admin']
+      }
+    ]
+  },
+  {
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z5',
+    pid: '416fb87',
+    mNearPublicAddress: 'e43f2104635c62f96227ce5dc039d4cd28cc3b94f34b3935f26d972376c00c54',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'nicolec@animalhaven.org',
+    name: '',
+    displayName: 'Nicole',
+    company: '',
+    role: "User",
+    address: '456 Rescue Blvd',
+    city: 'New York',
+    state: 'NY',
+    zipCode: '10002',
+    country: 'United States',
+    phoneNumber: '',
+
+    password: 'demo1234',
+    photoURL: '',
+    about: 'Animal lover and rescuer.',
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Anymal Haven',
         affiliateSystemRoles: ['admin']
-      },
-    ],
+      }
+    ]
   },
   {
-    id: '4',
-    publicAddress: '6acf976c4547a5f6add59bcbd80f53997eb79779a71bbe5a2f602ee365a6f675',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z6',
+    pid: '416fb87',
+    mNearPublicAddress: '6acf976c4547a5f6add59bcbd80f53997eb79779a71bbe5a2f602ee365a6f675',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'kristink@animalhaven.org',
-    legalName: 'Kristin K',
+    name: '',
     displayName: 'Kristin',
+    company: '',
+    role: "User",
+    address: '789 Rescue St',
+    city: 'New York',
+    state: 'NY',
+    zipCode: '10003',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 212-555-5678',
-    country: 'United States',
-    address: '789 Rescue St',
-    state: 'NY',
-    city: 'New York',
-    zipCode: '10003',
     about: 'Passionate about animal welfare.',
-    roles: ['user'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5ee83180f121686526084263',
         shelterName: 'Shelter Name 1',
         affiliateSystemRoles: ['admin']
-      },
-    ],
+      }
+    ]
   },
   {
-    id: '5',
-    publicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
-    email: 'adena@petastic.com',
-    legalName: 'Adena P',
-    displayName: 'Adena',
-    password: 'demo1234',
-    photoURL: '',
-    phoneNumber: '+1 305-555-1234',
-    country: 'United States',
-    address: '1010 Pet Ave',
-    state: 'FL',
-    city: 'Miami',
-    zipCode: '33130',
-    about: 'Animal advocate and foster parent.',
-    roles: ['user', 'foster'],
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z7',
+    pid: '416fb87',
+    mNearPublicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    status: "active",
+    isVerified: true,
     isPublic: true,
-    affiliations: [
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281717304399426',
-        shelterName: 'West Coast Cane Corso Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f49f1683402638385',
-        shelterName: 'Bubbles Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f121686526084263',
-        shelterName: 'Animal Haven',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712564008136',
-        shelterName: 'Motivated-Ones Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f6501687352248090',
-        shelterName: 'California Bully Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281715365900379',
-        shelterName: 'New York Bully Crew',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180fb01683673939629',
-        shelterName: 'Strong Paws Rescue, Inc.',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f8a1683475024978',
-        shelterName: 'Second Chance Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f271685767429993',
-        shelterName: 'Muddy Paws Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824271705684215701',
-        shelterName: 'Brixies Rescue Inc',
-        affiliateSystemRoles: ['superadmin']
-      }, {
-        role: ['admin'],
-        shelterId: '5ee831824261713886583600',
-        shelterName: 'Rescue Tails',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712849717961',
-        shelterName: 'Fayetteville Animal Protection Society',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281711564491846',
-        shelterName: 'Texas Animal Rescue Rehab',
-        affiliateSystemRoles: ['superadmin']
-      }, {
-        role: ['admin'],
-        shelterId: '5ee8317f3ea1685197328376',
-        shelterName: 'Pawsitive Beginnings',
-        affiliateSystemRoles: ['superadmin']
-      },
-    ],
-  },
-  {
-    id: '6',
-    publicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    avatarUrl: '',
     email: 'motv8one@aol.com',
-    legalName: 'Motivated Rescue',
+    name: '',
     displayName: 'Motivated Rescue',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5fe931824281712564008136',
         shelterName: 'Motivated-Ones Rescue',
         affiliateSystemRoles: ['admin']
-      },
-    ],
+      }
+    ]
   },
-
   {
-    id: '7',
-    publicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z8',
+    pid: '416fb87',
+    mNearPublicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'rescuetailsmb@gmail.com',
-    legalName: 'Motivated Rescue',
+    name: '',
     displayName: 'Motivated Rescue',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5ee831824261713886583600',
         shelterName: 'Rescue Tails',
         affiliateSystemRoles: ['admin']
-      },
-    ],
+      }
+    ]
   },
-
   {
-    id: '8',
-    publicAddress: 'f89ecc199bdca4790045f4b6cc8aa797f3152dd12041e10f87271aa0921cbfb6',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z9',
+    mNearPublicAddress: 'f89ecc199bdca4790045f4b6cc8aa797f3152dd12041e10f87271aa0921cbfb6',
+    pid: '416fb87',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'jackie@fapspet.org ',
-    legalName: 'Motivated Rescue',
+    name: '',
     displayName: 'Motivated Rescue',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5fe931824281712849717961',
         shelterName: 'Fayetteville Animal Protection Society',
         affiliateSystemRoles: ['admin']
-      },
-    ],
+      }
+    ]
   },
-
   {
-    id: '9',
-    publicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d710',
+    mNearPublicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
+    pid: '416fb87',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'texasanimalrescuerehab@outlook.com',
-    legalName: 'Motivated Rescue',
+    name: '',
     displayName: 'Motivated Rescue',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5fe931824281711564491846',
         shelterName: 'Texas Animal Rescue Rehab',
         affiliateSystemRoles: ['admin']
-      },
-    ],
+      }
+    ]
   },
-
   {
-    id: '10',
-    publicAddress: '6fb865589bd69bd1ac01f0f5c331274156d79c4aeda4e3d6f57d570be327d321',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d711',
+    mNearPublicAddress: '6fb865589bd69bd1ac01f0f5c331274156d79c4aeda4e3d6f57d570be327d321',
+    pid: '416fb87',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'meagan@strongpawsrescue.org',
-    legalName: 'Strong Paws Rescue, Inc.',
+    name: '',
     displayName: 'Strong Paws Rescue, Inc.',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5ee83180fb01683673939629',
         shelterName: 'Strong Paws Rescue, Inc.',
         affiliateSystemRoles: ['admin']
-      },
-    ],
+      }
+    ]
   },
-
   {
-    id: '11',
-    publicAddress: '135dad568da921e5196b290f2c6c6bc38bda71db361e029d3086121df154e471',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d712',
+    mNearPublicAddress: '135dad568da921e5196b290f2c6c6bc38bda71db361e029d3086121df154e471',
+    pid: '416fb87',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'lizzk@bubblesdogrescue.org',
-    legalName: 'Bubbles Dog Rescue',
+    name: '',
     displayName: 'Bubbles Dog Rescue.',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5ee8317f49f1683402638385',
         shelterName: 'Bubbles Dog Rescue',
         affiliateSystemRoles: ['superadmin']
-      },
-    ],
+      }
+    ]
   },
   {
-    id: '12',
-    publicAddress: 'c41cd612f2de5e969b34a88aecb2a51a94f1002a64b102b267ee2754f3180024',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d713',
+    mNearPublicAddress: 'c41cd612f2de5e969b34a88aecb2a51a94f1002a64b102b267ee2754f3180024',
+    pid: '416fb87',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'westcoastcanecorsorescue@gmail.com',
-    legalName: 'West Coast Cane Corso Rescue',
+    name: '',
     displayName: 'West Coast Cane Corso Rescue',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5fe931824281717304399426',
         shelterName: 'West Coast Cane Corso Rescue',
         affiliateSystemRoles: ['superadmin']
-      },
-    ],
+      }
+    ]
   },
   {
-    id: '13',
-    publicAddress: '7a50760f17a7a5bd1851b953d92365af2ebea63eae408b6fee7dc991da04d4b1',
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d714',
+    mNearPublicAddress: '7a50760f17a7a5bd1851b953d92365af2ebea63eae408b6fee7dc991da04d4b1',
+    pid: '416fb87',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
     email: 'pawsitivebeginningsla@gmail.com',
-    legalName: 'Pawsitive Beginnings',
+    name: '',
     displayName: 'Pawsitive Beginnings',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
     password: 'demo1234',
     photoURL: '',
-    phoneNumber: '+1 310-555-1234',
-    country: 'United States',
-    address: '1020 Rescue Ave',
-    state: 'CA',
-    city: 'Los Angeles',
-    zipCode: '90001',
     about: 'Dedicated to saving animals.',
-    roles: ['shelter'],
-    isPublic: true,
+    systemRoles: '',
     affiliations: [
       {
         role: ['admin'],
         shelterId: '5ee8317f3ea1685197328376',
         shelterName: 'Pawsitive Beginnings',
         affiliateSystemRoles: ['superadmin']
-      },
-    ],
-  },
-
-
+      }
+    ]
+  }
 ];
+
 
 export function useMockedUser() {
   const user = {
@@ -509,6 +693,8 @@ export function useMockedUser() {
     legalName: 'Carlos Herrera',
     displayName: 'Me',
     email: 'carlosh11@gmail.com',
+    role: "User",
+
     password: 'demo1234',
     photoURL: '',
     phoneNumber: '+1 310-880-8673',

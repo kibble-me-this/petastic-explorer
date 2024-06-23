@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // @mui
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -7,7 +7,7 @@ import Drawer from '@mui/material/Drawer';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
 // hooks
-import { useMockedUser } from 'src/hooks/use-mocked-user';
+import { useMockUser } from 'src/hooks/use-mocked-user';
 import { useAuthContext } from 'src/auth/hooks';
 // components
 import Logo from 'src/components/logo';
@@ -17,13 +17,11 @@ import { NavSectionVertical } from 'src/components/nav-section';
 //
 import { NAV } from '../config-layout';
 import { useNavData } from './config-navigation';
-import { NavToggleButton, NavUpgrade } from '../_common';
+import { NavToggleButton } from '../_common';
 
 // ----------------------------------------------------------------------
 
 export default function NavVertical({ openNav, onCloseNav }) {
-  // const { user } = useMockedUser();
-
   const { user } = useAuthContext();
 
   const pathname = usePathname();
@@ -32,6 +30,10 @@ export default function NavVertical({ openNav, onCloseNav }) {
 
   const navData = useNavData();
 
+  const mockUsers = useMockUser; // Ensure useMockUser is used correctly
+
+  const [userRoles, setUserRoles] = useState(null); // Default to null
+
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -39,8 +41,23 @@ export default function NavVertical({ openNav, onCloseNav }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // Temporary role assignment based on email
-  const userRole = (user.email === 'carlos@petastic.com' || user.email === 'adena@petastic.com' || user.email === 'josh@petastic.com') ? 'admin' : 'user';
+  useEffect(() => {
+    if (user) {
+      const matchedUser = mockUsers.find(mockUser => mockUser.email === user.email);
+      if (matchedUser) {
+        console.log('Matched user roles:', matchedUser.systemRoles); // Debugging log
+        setUserRoles(matchedUser.systemRoles || ['user']);
+      } else {
+        setUserRoles(['user']);
+      }
+    }
+  }, [user, mockUsers]);
+
+  console.log('Current user roles:', userRoles); // Debugging log
+
+  if (userRoles === null) {
+    return null; // or a loading spinner
+  }
 
   const renderContent = (
     <Scrollbar
@@ -57,11 +74,8 @@ export default function NavVertical({ openNav, onCloseNav }) {
 
       <NavSectionVertical
         data={navData}
-        // config={{
-        //   currentRole: user?.role || 'admin',
-        // }}
         config={{
-          currentRole: userRole,
+          currentRole: userRoles, // Pass the array of roles
         }}
       />
 

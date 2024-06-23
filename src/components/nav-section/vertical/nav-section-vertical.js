@@ -7,13 +7,14 @@ import Collapse from '@mui/material/Collapse';
 //
 import { navVerticalConfig } from '../config';
 import { StyledSubheader } from './styles';
-
 import NavList from './nav-list';
 
 // ----------------------------------------------------------------------
 
 function NavSectionVertical({ data, config, sx, ...other }) {
   const { currentRole } = config;
+
+  console.log('Rendering NavSectionVertical with roles:', currentRole); // Debugging log
 
   return (
     <Stack sx={sx} {...other}>
@@ -40,7 +41,7 @@ NavSectionVertical.propTypes = {
     })
   ).isRequired,
   config: PropTypes.shape({
-    currentRole: PropTypes.string.isRequired,
+    currentRole: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure this is an array
   }).isRequired,
   sx: PropTypes.object,
 };
@@ -53,15 +54,24 @@ function Group({ subheader, items, roles, currentRole, config }) {
   const [open, setOpen] = useState(true);
 
   const handleToggle = useCallback(() => {
-    setOpen((prev) => !prev);
+    setOpen(prev => !prev);
   }, []);
 
-  // Hide the entire group if the current role is not included in the roles array
-  if (roles && !roles.includes(currentRole)) {
+  // Function to check if any of the user's roles match the allowed roles
+  const hasPermission = (allowedRoles, userRoles) => {
+    console.log('Checking permissions:', { allowedRoles, userRoles }); // Debugging log
+    return allowedRoles.some(role => userRoles.includes(role));
+  };
+
+  // Hide the entire group if none of the user's roles are included in the roles array
+  if (roles && !hasPermission(roles, currentRole)) {
+    console.log('No permission for group:', subheader, 'with roles', roles, 'and user roles', currentRole); // Detailed Debugging log
     return null;
   }
 
-  const renderContent = items.map((list) => (
+  console.log('Rendering group:', subheader); // Debugging log
+
+  const renderContent = items.map(list => (
     <NavList
       key={list.title + list.path}
       data={list}
@@ -69,7 +79,7 @@ function Group({ subheader, items, roles, currentRole, config }) {
       hasChild={!!list.children}
       config={config}
     />
-  ));
+  )); // Simplified arrow function without curly braces and return statement
 
   return (
     <List disablePadding sx={{ px: 2 }}>
@@ -91,6 +101,6 @@ Group.propTypes = {
   subheader: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   roles: PropTypes.arrayOf(PropTypes.string),
-  currentRole: PropTypes.string.isRequired,
+  currentRole: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure this is an array for multiple roles
   config: PropTypes.object.isRequired,
 };

@@ -403,28 +403,13 @@ export function useNavData() {
       // MANAGEMENT
       // ----------------------------------------------------------------------
       {
-        roles: [t('admin')], // 'admin' is not included here
+        roles: ['admin'], // Ensure this is set correctly
         subheader: t('admin - ecosystem '),
         items: [
-          // USER
-          // {
-          //   roles: [t('admin')], // 'admin' is not included here
-          //   title: t('users'),
-          //   path: paths.dashboard.user.cards,
-          //   icon: ICONS.user,
-          //   // children: [
-          //   //   { title: t('profile'), path: paths.dashboard.user.root },
-          //   //   { title: t('cards'), path: paths.dashboard.user.cards },
-          //   //   { title: t('list'), path: paths.dashboard.user.list },
-          //   //   { title: t('create'), path: paths.dashboard.user.new },
-          //   //   { title: t('edit'), path: paths.dashboard.user.demo.edit },
-          //   //   { title: t('account'), path: paths.dashboard.user.account },
-          //   // ],
-          // },
 
           // PRODUCT
           {
-            roles: [t('admin')], // 'admin' is not included here
+            roles: ['admin'], // Ensure this is set correctly
             title: t('products'),
             path: paths.dashboard.product.root,
             icon: ICONS.product,
@@ -446,7 +431,7 @@ export function useNavData() {
 
           // // ORDER
           {
-            roles: [t('admin')], // 'admin' is not included here
+            roles: ['admin'], // Ensure this is set correctly
             title: t('orders'),
             path: paths.dashboard.order.root,
             icon: ICONS.order,
@@ -455,6 +440,25 @@ export function useNavData() {
               {
                 title: t('details'), path: paths.dashboard.order.demo.details, disabled: true,
               },
+            ],
+          },
+
+          // USER
+          {
+            roles: ['admin'], // Ensure this is set correctly
+            title: t('users'),
+            path: paths.dashboard.user.cards,
+            icon: ICONS.user,
+            children: [
+              // { title: t('profile'), path: paths.dashboard.user.root },
+              // { title: t('cards'), path: paths.dashboard.user.cards },
+              {
+                roles: ['admin'], // Ensure this is set correctly
+                title: t('list'), path: paths.dashboard.user.list
+              },
+              // { title: t('create'), path: paths.dashboard.user.new },
+              // { title: t('edit'), path: paths.dashboard.user.demo.edit },
+              // { title: t('account'), path: paths.dashboard.user.account },
             ],
           },
 

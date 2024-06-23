@@ -22,9 +22,6 @@ export default function UserTableToolbar({
   onFilters,
   //
   roleOptions,
-  petName,
-  setPetName,
-  fetchPetData, // Pass the fetchPetData function from the parent component
 }) {
   const popover = usePopover();
 
@@ -37,18 +34,13 @@ export default function UserTableToolbar({
 
   const handleFilterRole = useCallback(
     (event) => {
-      // onFilters(
-      //   'role',
-      //  typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
-      // );
-      onFilters('role', event.target.value); // Pass the selected states as an array
+      onFilters(
+        'role',
+        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
+      );
     },
     [onFilters]
   );
-
-  const handleSearchPet = () => {
-    fetchPetData(); // Call the fetchPetData function to search for pets
-  };
 
   return (
     <>
@@ -70,7 +62,7 @@ export default function UserTableToolbar({
             width: { xs: 1, md: 200 },
           }}
         >
-          <InputLabel>State</InputLabel>
+          <InputLabel>Role</InputLabel>
 
           <Select
             multiple
@@ -95,11 +87,10 @@ export default function UserTableToolbar({
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
-            disabled  // Add this prop to disable the TextField
             fullWidth
-            value={petName}
-            onChange={(event) => setPetName(event.target.value)}
-            placeholder="Search by Pet Name (Coming soon...)"
+            value={filters.name}
+            onChange={handleFilterName}
+            placeholder="Search..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -109,31 +100,29 @@ export default function UserTableToolbar({
             }}
           />
 
-          {/*
           <IconButton onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
-           */}
         </Stack>
       </Stack>
-      {/* 
+
       <CustomPopover
         open={popover.open}
         onClose={popover.onClose}
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             popover.onClose();
           }}
         >
           <Iconify icon="solar:printer-minimalistic-bold" />
           Print
-        </MenuItem>
+        </MenuItem> */}
 
         <MenuItem
+          disabled
           onClick={() => {
             popover.onClose();
           }}
@@ -143,15 +132,15 @@ export default function UserTableToolbar({
         </MenuItem>
 
         <MenuItem
+          disabled
           onClick={() => {
             popover.onClose();
           }}
         >
           <Iconify icon="solar:export-bold" />
-          Reset
+          Export
         </MenuItem>
       </CustomPopover>
-      */}
     </>
   );
 }
@@ -160,7 +149,4 @@ UserTableToolbar.propTypes = {
   filters: PropTypes.object,
   onFilters: PropTypes.func,
   roleOptions: PropTypes.array,
-  petName: PropTypes.string, // Add prop type for petName
-  setPetName: PropTypes.func, // Add prop type for setPetName
-  fetchPetData: PropTypes.func, // Add prop type for fetchPetData
 };
