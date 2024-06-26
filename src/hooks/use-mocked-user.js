@@ -616,7 +616,39 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee8317f49f1683402638385',
         shelterName: 'Bubbles Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
+        affiliateSystemRoles: ['admin']
+      }
+    ]
+  },
+  {
+    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d715',
+    mNearPublicAddress: '',
+    pid: '416fb87',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@bubblesdogrescue.org',
+    name: '',
+    displayName: 'Bubbles Dog Rescue.',
+    company: '',
+    role: "User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
+    password: 'demo1234',
+    photoURL: '',
+    about: 'Dedicated to saving animals.',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['admin']
       }
     ]
   },
