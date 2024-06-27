@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual'; // Import isEqual from lodash
 import { fetcher, fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
 import { useGetZincProducts } from './zinc';
 import uuidv4 from '../utils/uuidv4';
-import { getCacheFlagKey, setCacheFlag, fetcherWithLocalStorage } from './cache';
+import { getCacheFlagKey, setCacheFlag, fetcherWithLocalStorage, getVersionKey, setVersionKey } from './cache';
 
 // ----------------------------------------------------------------------
 
@@ -69,24 +69,31 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
   );
 
   const [productIds, setProductIds] = useState([]);
+  const [version, setVersion] = useState(null);
 
   useEffect(() => {
     if (data) {
       const newProductIds = data.products.map(product => product.id);
-      // Debugging: Log product IDs
       console.log("Fetched product IDs:", newProductIds);
 
-      // Only update state if productIds have changed
       if (!isEqual(productIds, newProductIds)) {
         console.log("Updating product IDs");
         setProductIds(newProductIds);
       } else {
         console.log("Product IDs unchanged");
       }
-    }
-  }, [data, productIds]);
 
-  const zincProducts = useGetZincProducts(account_id, productIds);
+      const localVersion = getVersionKey(account_id);
+      if (data.version_products !== version) {
+        setVersion(data.version_products);
+        if (!localVersion) {
+          setVersionKey(account_id, data.version_products);
+        }
+      }
+    }
+  }, [data, productIds, version, account_id]);
+
+  const zincProducts = useGetZincProducts(account_id, productIds, version);
 
   const combinedState = useMemo(() => ({
     products: zincProducts.products,
@@ -94,7 +101,8 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
     productsError: error || zincProducts.productsError,
     productsValidating: isValidating || zincProducts.productsValidating,
     productsEmpty: !isLoading && !zincProducts.productsLoading && zincProducts.productsEmpty,
-  }), [zincProducts, isLoading, error, isValidating]);
+    version,
+  }), [zincProducts, isLoading, error, isValidating, version]);
 
   return combinedState;
 }

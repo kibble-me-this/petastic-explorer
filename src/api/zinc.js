@@ -1,40 +1,44 @@
 import useSWR from 'swr';
 import { useMemo, useEffect } from 'react';
 // utils
-import { fetcherProduct, dispatchZincOrder, fetcher, endpoints } from 'src/utils/axios-zinc';
-import emailjs from '@emailjs/browser';
+import { fetcherProduct, dispatchZincOrder } from 'src/utils/axios-zinc';
+import { setCacheFlag, fetcherWithLocalStorage } from './cache';
 
 const ZINC_API_ORDERS = 'https://api.zinc.com/v1/orders';
 
-const getLocalStorageKey = (userId) => `productsCache-${userId}`;
-const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
+// const getLocalStorageKey = (userId) => `productsCache-${userId}`;
+// const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
+// const getVersionKey = (userId) => localStorage.getItem(`version-${userId}`);
+// const setVersionKey = (userId, version) => localStorage.setItem(`version-${userId}`, version);
 
-const getCacheFlag = (userId) => localStorage.getItem(getCacheFlagKey(userId)) === 'true';
-const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
+// const getCacheFlag = (userId) => localStorage.getItem(getCacheFlagKey(userId)) === 'true';
+// const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
 
 // Custom fetcher to handle localStorage
-const fetcherWithLocalStorage = async (userId, productIds) => {
-  const cachedData = localStorage.getItem(getLocalStorageKey(userId));
-  const cacheFlag = getCacheFlag(userId);
+// const fetcherWithLocalStorage = async (userId, productIds, version) => {
+//   const cachedData = localStorage.getItem(getLocalStorageKey(userId));
+//   const cacheFlag = getCacheFlag(userId);
+//   const localVersion = getVersionKey(userId);
 
-  if (cachedData && !cacheFlag) {
-    return JSON.parse(cachedData);
-  }
+//   if (cachedData && !cacheFlag && localVersion === version) {
+//     return JSON.parse(cachedData);
+//   }
 
-  const data = await fetcherProduct(productIds);
-  localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(data));
-  setCacheFlag(userId, false);
-  return data;
-};
+//   const data = await fetcherProduct(productIds);
+//   localStorage.setItem(getLocalStorageKey(userId), JSON.stringify(data));
+//   setCacheFlag(userId, false);
+//   setVersionKey(userId, version);
+//   return data;
+// };
 
-// Custom SWR hook with localStorage support
-export function useCustomSWR(userId, productIds, ...args) {
-  return useSWR(productIds, () => fetcherWithLocalStorage(userId, productIds, ...args));
+// const getLocalStorageKey = (userId) => `productsCache-${userId}`;
+
+export function useCustomSWR(userId, productIds, version, ...args) {
+  return useSWR(productIds, () => fetcherWithLocalStorage(userId, fetcherProduct, [productIds, ...args], version));
 }
 
-// Hook to get products by product IDs
-export function useGetZincProducts(userId, productIds) {
-  const { data, isLoading, error, isValidating } = useCustomSWR(userId, productIds);
+export function useGetZincProducts(userId, productIds, version) {
+  const { data, isLoading, error, isValidating } = useCustomSWR(userId, productIds, version);
 
   const memoizedValue = useMemo(
     () => ({
