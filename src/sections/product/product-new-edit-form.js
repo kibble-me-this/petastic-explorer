@@ -90,14 +90,19 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await createProduct({
+      // Ensure products array is defined
+      const products = data.iban.split(/\s*,\s*|\n/).filter(Boolean).map(asin => ({
+        id: asin,
+        createdAt: new Date().toISOString(),
+        publish: 'published',
+      }));
+
+      const eventData = {
         account_id: data.accountId,
-        product: {
-          id: data.iban,
-          createdAt: new Date().toISOString(),
-          publish: 'published',
-        },
-      });
+        products,
+      };
+
+      await createProduct(eventData);
       reset();
       enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
       router.push(paths.dashboard.product.root);
@@ -146,7 +151,14 @@ export default function ProductNewEditForm({ currentProduct }) {
                   ))}
               </TextField>
             </FormControl>
-            <RHFTextField name="iban" label="ASIN" />
+            <RHFTextField
+              name="iban"
+              label="Enter list of Amazon ASIN values"
+              multiline
+              rows={4}
+              placeholder="e.g. B08N5WRWNW, B07PGL2ZSL, B07FZ8S74R"
+              helperText="Please enter each ASIN value on a new line or separate them with commas."
+            />
           </Stack>
         </Card>
       </Grid>
@@ -164,7 +176,7 @@ export default function ProductNewEditForm({ currentProduct }) {
         />
 
         <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
-          {!currentProduct ? 'Create Product' : 'Save Changes'}
+          {!currentProduct ? 'Create Products' : 'Save Changes'}
         </LoadingButton>
       </Grid>
     </>

@@ -144,17 +144,17 @@ export async function createProduct(eventData) {
     },
   };
 
-  const { product, account_id } = eventData;
+  const { products, account_id } = eventData;
 
   try {
-    const formattedProduct = {
+    const formattedProducts = products.map(product => formatProduct(product));
+
+    const requestData = {
       shelter_id: account_id,
-      new_products: [
-        formatProduct(product) // Use the formatProduct function to format the product data
-      ]
+      new_products: formattedProducts,
     };
 
-    await postRequestANYML(PRODUCTS_URL.createProduct, formattedProduct, config);
+    await postRequestANYML(PRODUCTS_URL.createProduct, requestData, config);
 
     // Update the local storage key to true
     console.log('Setting cache flag for account:', account_id);
@@ -175,7 +175,7 @@ export async function createProduct(eventData) {
     );
 
   } catch (error) {
-    console.error('Error creating product:', error);
+    console.error('Error creating products:', error);
     throw error;
   }
 }
