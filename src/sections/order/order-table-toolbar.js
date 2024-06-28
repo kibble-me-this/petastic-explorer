@@ -176,5 +176,5 @@ OrderTableToolbar.propTypes = {
   onResetFilters: PropTypes.func,
   accountId: PropTypes.string,
   onAccountIdChange: PropTypes.func,
-  accountIds: PropTypes.array.isRequired, // Add prop types for accountIds
+  accountIds: PropTypes.array.isRequired,
 };

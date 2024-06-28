@@ -17,26 +17,13 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-const accountIds = [
-  { value: '5ee83180f121686526084263', label: 'Animal Haven' },
-  { value: '5fe931824281712564008136', label: 'Motivated-Ones Rescue' },
-  { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
-  { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
-  { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
-  { value: '5ee83180f8a1683475024978', label: 'Second Chance Rescue' },
-  { value: '5ee83180f271685767429993', label: 'Muddy Paws Rescue' },
-  { value: '5fe931824271705684215701', label: 'Brixies Rescue Inc' },
-  { value: '5ee831824261713886583600', label: 'Rescue Tails' },
-  { value: '5fe931824281712849717961', label: 'Fayetteville Animal Protection Society' },
-  { value: '5fe931824281711564491846', label: 'BrixiesTexas Animal Rescue' },
-];
-
 export default function ProductTableToolbar({
   filters,
   onFilters,
   publishOptions,
   accountId,
   onAccountIdChange,
+  accountIds
 }) {
   const popover = usePopover();
 
@@ -180,4 +167,5 @@ ProductTableToolbar.propTypes = {
   publishOptions: PropTypes.array,
   accountId: PropTypes.string,
   onAccountIdChange: PropTypes.func,
+  accountIds: PropTypes.array.isRequired,
 };

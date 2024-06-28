@@ -18,12 +18,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel'; // Add this line
-
+import FormControlLabel from '@mui/material/FormControlLabel';
 // routes
 import { paths } from 'src/routes/paths';
 // hooks
+import { useAuthContext } from 'src/auth/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
+// _mock
+import { getShelterAccountId } from 'src/api/organization';
 // api
 import { createProduct } from 'src/api/product';
 // components
@@ -35,28 +37,23 @@ import FormProvider, {
 
 // ----------------------------------------------------------------------
 
-const accountIds = [
-  { value: '5ee83180f121686526084263', label: 'Animal Haven' },
-  { value: '5fe931824281712564008136', label: 'Motivated-Ones Rescue' },
-  { value: '5ee8317f6501687352248090', label: 'California Bully Rescue' },
-  { value: '5fe931824281715365900379', label: 'New York Bully Crew' },
-  { value: '5ee83180fb01683673939629', label: 'Strong Paws Rescue, Inc.' },
-  { value: '5ee83180f8a1683475024978', label: 'Second Chance Rescue' },
-  { value: '5ee83180f271685767429993', label: 'Muddy Paws Rescue' },
-  { value: '5fe931824271705684215701', label: 'Brixies Rescue Inc' },
-  { value: '5ee831824261713886583600', label: 'Rescue Tails' },
-  { value: '5fe931824281712849717961', label: 'Fayetteville Animal Protection Society' },
-  { value: '5fe931824281711564491846', label: 'BrixiesTexas Animal Rescue' },
-  { value: '5ee8317f49f1683402638385', label: 'Bubbles Dog Rescue' },
-  { value: '5fe931824281717304399426', label: 'West Coast Cane Corso Rescue' },
-];
-
 export default function ProductNewEditForm({ currentProduct }) {
   const router = useRouter();
+
+  const { user } = useAuthContext();
 
   const mdUp = useResponsive('up', 'md');
 
   const { enqueueSnackbar } = useSnackbar();
+
+  const { affiliations } = getShelterAccountId(user);
+
+  const _accountIds = affiliations ? affiliations.map(affiliation => ({
+    value: affiliation.shelterId,
+    label: affiliation.shelterName,
+  })) : [];
+
+  const [accountIds, setAccountIds] = useState(_accountIds);
 
   const NewProductSchema = Yup.object().shape({
     iban: Yup.string().required('IBAN is required'),
@@ -66,9 +63,9 @@ export default function ProductNewEditForm({ currentProduct }) {
   const defaultValues = useMemo(
     () => ({
       iban: currentProduct?.iban || '',
-      accountId: currentProduct?.accountId || accountIds[0].value,
+      accountId: currentProduct?.accountId || accountIds[0]?.value || '',
     }),
-    [currentProduct]
+    [currentProduct, accountIds]
   );
 
   const methods = useForm({
@@ -149,7 +146,7 @@ export default function ProductNewEditForm({ currentProduct }) {
                   ))}
               </TextField>
             </FormControl>
-            <RHFTextField name="iban" label="IBAN" />
+            <RHFTextField name="iban" label="ASIN" />
           </Stack>
         </Card>
       </Grid>

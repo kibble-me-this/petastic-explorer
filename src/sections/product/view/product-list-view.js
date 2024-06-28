@@ -15,8 +15,10 @@ import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useAuthContext } from 'src/auth/hooks';
 // _mock
 import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
+import { getShelterAccountId } from 'src/api/organization';
 // api
 import { useGetProducts } from 'src/api/product';
 // components
@@ -68,6 +70,8 @@ const defaultFilters = {
 export default function ProductListView() {
   const router = useRouter();
 
+  const { user } = useAuthContext();
+
   const table = useTable();
 
   const settings = useSettingsContext();
@@ -75,6 +79,16 @@ export default function ProductListView() {
   const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
+
+  const { affiliations } = getShelterAccountId(user);
+
+  const _accountIds = affiliations ? affiliations.map(affiliation => ({
+    value: affiliation.shelterId,
+    label: affiliation.shelterName,
+  })) : [];
+
+  const [accountIds, setAccountIds] = useState(_accountIds);
+
   const [accountId, setAccountId] = useState('');
 
   const { products, productsLoading, productsEmpty } = useGetProducts(accountId);
@@ -191,6 +205,7 @@ export default function ProductListView() {
             accountId={accountId}
             onAccountIdChange={handleAccountIdChange}
             publishOptions={PUBLISH_OPTIONS}
+            accountIds={accountIds}
           />
 
           {canReset && (
