@@ -167,7 +167,7 @@ function formatOrder(eventData, result, order_id, userEmail) {
 
 // Function to send an order confirmation email using EmailJS
 // Function to send an order confirmation email using EmailJS
-export async function sendOrderConfirmationEmail(orderDetails, retry_order = true) {
+export async function sendOrderConfirmationEmail(orderDetails, retry_order = false) {
     const {
         id,
         status,
