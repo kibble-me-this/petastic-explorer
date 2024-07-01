@@ -110,6 +110,13 @@ export const dispatchZincOrder = async (args, products, shippingAddress, subTota
       country: shippingAddress.country,
       phone_number: shippingAddress.phone,
     },
+    is_gift: true,
+    gift_message: "Petastic! The pet's network.",
+    shipping: {
+      order_by: "speed",
+      max_days: 5,
+      max_price: 1000
+    },
     webhooks: {
       request_succeeded: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_succeeded`,
       request_failed: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_failed`,

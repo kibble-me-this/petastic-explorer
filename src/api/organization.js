@@ -15,13 +15,11 @@ const options = {
   revalidateOnReconnect: false,
 };
 
-// Custom fetcher using postRequestANYML
 const postFetcher = async (url, data) => postRequestANYML(url, data);
 
 // ----------------------------------------------------------------------
 
 export function useGetOrganizations(accountIds) {
-  // Ensure accountIds is an array
   const idsArray = Array.isArray(accountIds) ? accountIds : [accountIds];
 
   const { data, isLoading, error, isValidating } = useSWR(
@@ -31,7 +29,7 @@ export function useGetOrganizations(accountIds) {
   );
 
   const memoizedValue = useMemo(() => ({
-    organizations: data || [], // Adjust based on the expected data structure
+    organizations: data || [],
     isLoading,
     error,
     isValidating,
@@ -42,9 +40,27 @@ export function useGetOrganizations(accountIds) {
 
 // ----------------------------------------------------------------------
 
+export function useGetAffiliations(pid) {
+  const { data, isLoading, error } = useSWR(
+    pid ? [endpoints.organization.affiliates, { pid }] : null,
+    fetcherANYML
+  );
+
+  const memoizedValue = useMemo(() => ({
+    affiliates: data?.affiliatePids || [],
+    isLoading,
+    error,
+    isEmpty: !isLoading && !data?.affiliatePids?.length,
+  }), [data, error, isLoading]);
+
+  return memoizedValue;
+}
+
+// ----------------------------------------------------------------------
+
 export function getShelterAccountId(user) {
   if (!user || !user.email) {
-    return { affiliations: [] }; // Return empty affiliations array if user or email is missing
+    return { affiliations: [] };
   }
 
   const userObject = useMockUser.find((u) => u.email === user.email);
@@ -53,7 +69,7 @@ export function getShelterAccountId(user) {
     return { affiliations: userObject.affiliations };
   }
 
-  return { affiliations: [] }; // Return empty affiliations array if no matching user object is found
+  return { affiliations: [] };
 }
 
 export function getShelterAccountId1(user) {

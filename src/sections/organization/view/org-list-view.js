@@ -23,7 +23,7 @@ import {
   JOB_EMPLOYMENT_TYPE_OPTIONS,
 } from 'src/_mock';
 
-import { useGetOrganizations, getShelterAccountId } from 'src/api/organization';
+import { useGetOrganizations, getShelterAccountId, useGetAffiliations } from 'src/api/organization';
 // assets
 import { countries } from 'src/assets/data';
 // components
@@ -58,11 +58,9 @@ export default function OrganizationListView() {
 
   const { affiliations } = getShelterAccountId(user);
 
-
+  // const { _affiliations } = useGetAffiliations("5ee2fd93bccd3286db09da9a");
 
   const accountIds = affiliations ? affiliations.map(affiliation => affiliation.shelterId) : [];
-
-
 
   const { organizations, isLoading: isOrgLoading, error: orgError, isValidating } = useGetOrganizations(accountIds);
 
@@ -206,7 +204,7 @@ export default function OrganizationListView() {
           // { name: 'Dashboard', href: paths.dashboard.root },
           {
             name: 'Organization',
-            href: paths.dashboard.org.root,
+            // href: paths.dashboard.org.root,
           },
           { name: 'List' },
         ]}

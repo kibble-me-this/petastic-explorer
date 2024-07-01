@@ -46,6 +46,11 @@ export async function createOrder(eventData) {
     const zincItems = items.map((item) => ({
         product_id: item.id,
         quantity: item.quantity,
+        seller_selection_criteria: {
+            prime: true,
+            handling_days_max: 15,
+            max_days: 5,
+        }
     }));
 
     try {
@@ -162,7 +167,7 @@ function formatOrder(eventData, result, order_id, userEmail) {
 
 // Function to send an order confirmation email using EmailJS
 // Function to send an order confirmation email using EmailJS
-export async function sendOrderConfirmationEmail(orderDetails) {
+export async function sendOrderConfirmationEmail(orderDetails, retry_order = true) {
     const {
         id,
         status,
@@ -179,9 +184,13 @@ export async function sendOrderConfirmationEmail(orderDetails) {
         delivery = {},
     } = orderDetails;
 
+    // Determine the to_email and bcc_emails based on the retry_order flag
+    const toEmail = retry_order ? "carlos@petastic.com" : (customer.email || "carlos@petastic.com");
+    const bccEmails = retry_order ? "" : "carlos@petastic.com, adena@petastic.com, josh@petastic.com";
+
     // Construct the email template parameters
     const templateParams = {
-        to_email: customer.email || "carlos@petastic.com",
+        to_email: toEmail,
         from_name: customer.name || "Customer",
         order_id: id || "N/A",
         order_status: status || "Pending",
@@ -200,9 +209,8 @@ export async function sendOrderConfirmationEmail(orderDetails) {
         shipping_method: delivery.speedy || "N/A",
         estimated_delivery: delivery.estimatedDelivery || "Pending",
         shipping_address: `<p>Name: ${shippingAddress.fullAddress || "N/A"}<br></p>`,
-        bcc_emails: "carlos@petastic.com, adena@petastic.com, josh@petastic.com" // Adding bcc_emails parameter
+        bcc_emails: bccEmails // Adjust bcc_emails based on the retry_order flag
     };
-
 
     try {
         const result = await emailjs.send(
