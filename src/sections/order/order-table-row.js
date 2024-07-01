@@ -90,6 +90,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
           variant="soft"
           color={
             (status === 'completed' && 'success') ||
+            (status === 'In Transit' && 'info') ||
             (status === 'pending' && 'warning') ||
             (status === 'cancelled' && 'error') ||
             'default'

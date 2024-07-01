@@ -50,13 +50,13 @@ export default function OrderDetailsToolbar({
               <Label
                 variant="soft"
                 color={
-                  (latestTracking.delivery_status === 'Delivered' && 'success') ||
-                  (latestTracking.delivery_status === 'InTransit' && 'warning') ||
-                  (latestTracking.delivery_status === 'cancelled' && 'error') ||
+                  (status === 'completed' && 'success') ||
+                  (status === 'In Transit' && 'warning') ||
+                  (status === 'cancelled' && 'error') ||
                   'default'
                 }
               >
-                {latestTracking.delivery_status || 'Unknown'}
+                {status || 'Unknown'}
               </Label>
             </Stack>
 

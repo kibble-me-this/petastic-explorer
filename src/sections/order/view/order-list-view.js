@@ -233,19 +233,21 @@ export default function OrderListView() {
                       (tab.value === 'completed' && 'success') ||
                       (tab.value === 'pending' && 'warning') ||
                       (tab.value === 'cancelled' && 'error') ||
+                      (tab.value === 'In Transit' && 'info') ||
                       'default'
                     }
                   >
                     {tab.value === 'all' && orders.length}
                     {tab.value === 'completed' &&
                       orders.filter((order) => order.status === 'completed').length}
-
                     {tab.value === 'pending' &&
                       orders.filter((order) => order.status === 'pending').length}
                     {tab.value === 'cancelled' &&
                       orders.filter((order) => order.status === 'cancelled').length}
                     {tab.value === 'refunded' &&
                       orders.filter((order) => order.status === 'refunded').length}
+                    {tab.value === 'In Transit' &&
+                      orders.filter((order) => order.status === 'In Transit').length}
                   </Label>
                 }
               />
