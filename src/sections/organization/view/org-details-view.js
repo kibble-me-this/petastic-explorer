@@ -1,98 +1,44 @@
-import orderBy from 'lodash/orderBy';
+// src/sections/organization/view/org-details-view.js
+
 import PropTypes from 'prop-types';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams, useNavigate, useLocation, Outlet } from 'react-router-dom';
 // @mui
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-
-// routes
-import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
 // _mock
-import {
-  _jobs,
-  JOB_PUBLISH_OPTIONS,
-  JOB_DETAILS_TABS,
-  _userAbout,
-  _userFeeds,
-  _userFriends,
-  _userGallery,
-  _userFollowers,
-} from 'src/_mock';
+import { _jobs, JOB_PUBLISH_OPTIONS, _userAbout } from 'src/_mock';
 // components
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
-import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
-
-//
-import { ProductShopView } from 'src/sections/product/view';
-
-import { OrderListView } from 'src/sections/order/view';
-
 import OrgDetailsToolbar from '../org-details-toolbar';
-import JobDetailsContent from '../job-details-content';
-import JobDetailsCandidates from '../job-details-candidates';
-import PetListHorizontal from '../../blog/pet-list-horizontal';
 import ProfileCover from '../../user/profile-cover';
-import ProfileHome from '../../user/profile-home';
-import ProfileGallery from '../../user/profile-gallery';
-import ProfileFollowers from '../../user/profile-followers';
 
-// ----------------------------------------------------------------------
 
-const defaultFilters = {
-  publish: 'all',
-};
-
-// ----------------------------------------------------------------------
-
-export default function JobDetailsView({ id }) {
+export default function JobDetailsView({ initialTab }) {
   const settings = useSettingsContext();
-
-  const [sortBy, setSortBy] = useState('latest');
-
-  const [filters, setFilters] = useState(defaultFilters);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const currentJob = _jobs.filter((job) => job.id === id)[0];
-
   const [publish, setPublish] = useState(currentJob?.publish);
-
-  const [currentTab, setCurrentTab] = useState('pets');
-
-  const [isApiLoading, setIsApiLoading] = useState(true);
-
-  const [apiPets, setApiPets] = useState([]);
-
   const [ownerName, setOwnerName] = useState('');
-
   const [ownerLogo, setOwnerLogo] = useState('');
-
-  const [filteredAndSortedPets, setFilteredAndSortedPets] = useState([]);
-
-  const updateFilteredAndSortedPets = (newPets) => {
-    console.log('Called updateFilteredAndSortedPets');
-    setFilteredAndSortedPets(newPets);
-    handleFilterPublish(null, 'adopted');
-  };
-
-  const dataFiltered = applyFilter({
-    inputData: apiPets,
-    filters,
-    sortBy,
-  });
+  const [activeTab, setActiveTab] = useState(initialTab || 'pets');
 
   useEffect(() => {
-    setIsApiLoading(true);
+    const path = location.pathname.split('/').pop();
+    setActiveTab(path);
+  }, [location]);
 
-    // if (userMetadata) {
+  useEffect(() => {
     const shelterAccountId = id;
     const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
 
-    // Fetch data from the API
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -101,87 +47,25 @@ export default function JobDetailsView({ id }) {
         return response.json();
       })
       .then((data) => {
-        // Assuming the API response contains an array of pets
-        setApiPets(data.pets); // Update the state with the fetched data
-        console.log(data.pets);
-
         setOwnerName(data.shelter_name_common);
         setOwnerLogo(data.logo);
-        // setIsApiLoading(false); // Set loading to false after data is fetched
-
-        // Apply filtering and sorting logic to apiPets and store the result in filteredAndSortedPets
-        const filteredAndSortedData = applyFilter({
-          inputData: data.pets, // Use the fetched data
-          filters,
-          sortBy,
-        });
-        setFilteredAndSortedPets(filteredAndSortedData);
-        setIsApiLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching user pets:', error);
-        setIsApiLoading(false);
       });
-    // }
-    // }, [filters, sortBy, user.publicAddress]);
-  }, [id, filters, sortBy]);
-  // }, []);
+  }, [id]);
 
-  const handleChangeTab = useCallback((event, newValue) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleChangeTab = useCallback(
+    (event, newValue) => {
+      navigate(`/dashboard/org/${id}/${newValue}`);
+      setActiveTab(newValue);
+    },
+    [id, navigate]
+  );
 
   const handleChangePublish = useCallback((newValue) => {
     setPublish(newValue);
   }, []);
-
-  const handleFilters = useCallback((name, value) => {
-    setFilters((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }, []);
-
-  const handleFilterPublish = useCallback(
-    (event, newValue) => {
-      handleFilters('publish', newValue);
-    },
-    [handleFilters]
-  );
-
-  const renderTabs = (
-    <Tabs
-      value={filters.publish}
-      onChange={handleFilterPublish}
-      sx={{
-        mb: { xs: 3, md: 5 },
-      }}
-    >
-      {['all', 'dog', 'cat', 'adopted'].map((tab) => (
-        <Tab
-          key={tab}
-          iconPosition="end"
-          value={tab}
-          label={tab}
-          icon={
-            <Label
-              variant={((tab === 'all' || tab === filters.publish) && 'filled') || 'soft'}
-              color={(tab === 'published' && 'info') || 'default'}
-            >
-              {tab === 'all' && apiPets.length}
-
-              {tab === 'dog' && apiPets.filter((post) => post.type.includes('Dog')).length}
-
-              {tab === 'cat' && apiPets.filter((post) => post.type.includes('Cat')).length}
-
-              {tab === 'adopted' && apiPets.filter((post) => post.status === 'adopted').length}
-            </Label>
-          }
-          sx={{ textTransform: 'capitalize' }}
-        />
-      ))}
-    </Tabs>
-  );
 
   const TABS = [
     {
@@ -204,19 +88,13 @@ export default function JobDetailsView({ id }) {
       label: 'Orders',
       icon: <Iconify icon="solar:gallery-wide-bold" width={24} />,
     },
-    // {
-    //   value: 'profile',
-    //   label: 'Profile',
-    //   icon: <Iconify icon="solar:user-id-bold" width={24} />,
-    // },
   ];
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
-
       <OrgDetailsToolbar
-        backLink={paths.dashboard.org.root}
-        editLink={paths.dashboard.job.edit(`${currentJob?.id}`)}
+        backLink="/dashboard/org"
+        editLink={`/dashboard/job/edit/${currentJob?.id}`}
         liveLink="#"
         publish={publish || ''}
         onChangePublish={handleChangePublish}
@@ -232,12 +110,12 @@ export default function JobDetailsView({ id }) {
         <ProfileCover
           role={_userAbout.role}
           name={ownerName}
-          avatarUrl={ownerLogo} // avatarUrl={user?.photoURL}
+          avatarUrl={ownerLogo}
           coverUrl="/assets/background/hero.jpg"
         />
 
         <Tabs
-          value={currentTab}
+          value={activeTab}
           onChange={handleChangeTab}
           sx={{
             width: 1,
@@ -254,102 +132,17 @@ export default function JobDetailsView({ id }) {
             },
           }}
         >
-          {currentTab === 'profile' && <ProfileHome info={_userAbout} posts={_userFeeds} />}
-
           {TABS.map((tab) => (
-            <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label}
-            // disabled={tab.value === 'pets'}
-            />
+            <Tab key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
           ))}
         </Tabs>
       </Card>
 
-      {currentTab === 'fosters' && <ProfileFollowers followers={_userFollowers} account_id={id} />}
-      {currentTab === 'orders' && <OrderListView />}
-      {currentTab === 'pets' && (
-        <>
-          {renderTabs}
-
-          <PetListHorizontal
-            posts={dataFiltered}
-            loading={isApiLoading}
-            filteredAndSortedPets={filteredAndSortedPets}
-            updateFilteredAndSortedPets={updateFilteredAndSortedPets}
-          />
-        </>
-      )}
-
-      {currentTab === 'shop' && <ProductShopView userId={id} />}
+      <Outlet />
     </Container>
   );
 }
 
 JobDetailsView.propTypes = {
-  id: PropTypes.string,
-};
-
-const applyFilter = ({ inputData, filters, sortBy }) => {
-  const { publish } = filters;
-
-  console.log('Calling applyFilter filters: ', publish);
-  console.log('Calling applyFilter inpuData: ', inputData);
-
-  if (sortBy === 'latest') {
-    inputData = orderBy(inputData, ['createdAt'], ['desc']);
-  }
-
-  if (sortBy === 'oldest') {
-    inputData = orderBy(inputData, ['createdAt'], ['asc']);
-  }
-
-  if (sortBy === 'popular') {
-    inputData = orderBy(inputData, ['totalViews'], ['desc']);
-  }
-
-  if (publish !== 'all') {
-    const filteredData = [];
-
-    inputData.forEach((post) => {
-      // Extract the type from the post
-      const type = post.type;
-      const status = post.status;
-
-      console.log('Calling applyFilter inpuData.type: ', type);
-      console.log('Calling applyFilter inpuData.status: ', status);
-
-      // Check if the post is related to a dog
-      if (
-        type.includes(
-          'Anymal::Carnivora::Canidae::Canis::Canis Lupus Familiars::Domesticated Dog:Dog'
-        ) &&
-        publish === 'dog'
-      ) {
-        // Check if the post status does not include 'adopted'
-        if (typeof status === 'undefined' || status.includes('adoptable')) {
-          filteredData.push(post);
-        }
-      }
-
-      // Check if the post is related to a cat
-      if (
-        type.includes('Anymal::Carnivora::Felidae::Felis::Felis Catus::Domesticated Cat::Cat') &&
-        publish === 'cat'
-      ) {
-        // Check if the post status does not include 'adopted'
-        if (typeof status === 'undefined' || status.includes('adoptable')) {
-          filteredData.push(post);
-        }
-      }
-
-      // Check if the post is adopted
-      if (typeof status !== 'undefined' && status.includes('adopted') && publish === 'adopted') {
-        filteredData.push(post);
-      }
-    });
-
-    // Set inputData to the filteredData
-    inputData = filteredData;
-  }
-
-  return inputData;
+  initialTab: PropTypes.string,
 };

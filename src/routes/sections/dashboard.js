@@ -1,16 +1,22 @@
 import { lazy, Suspense } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams, Navigate } from 'react-router-dom'; // Added Navigate
 // auth
 import { AuthGuard, GuestGuard } from 'src/auth/guard';
-
 // layouts
 import DashboardLayout from 'src/layouts/dashboard';
 // components
 import { LoadingScreen } from 'src/components/loading-screen';
+import { JobDetailsContextProvider } from 'src/sections/organization/view/job-details-context-provider';
+// Import tab-specific components
+import PetsTab from 'src/sections/organization/view/tabs/pets-tab';
+import FostersTab from 'src/sections/organization/view/tabs/fosters-tab';
+import ShopTab from 'src/sections/organization/view/tabs/shop-tab';
+import OrdersTab from 'src/sections/organization/view/tabs/orders-tab';
 
-// ----------------------------------------------------------------------
 
-// OVERVIEW
+const JobDetailsView = lazy(() => import('src/sections/organization/view/org-details-view'));
+
+// pages
 const IndexPage = lazy(() => import('src/pages/dashboard/app'));
 const OverviewEcommercePage = lazy(() => import('src/pages/dashboard/ecommerce'));
 const OverviewAnalyticsPage = lazy(() => import('src/pages/dashboard/analytics'));
@@ -62,6 +68,7 @@ const JobEditPage = lazy(() => import('src/pages/dashboard/org/edit'));
 const ProductListPageCO = lazy(() => import('src/pages/product/list'));
 const ProductDetailsPageCO = lazy(() => import('src/pages/product/details'));
 const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
+
 // TOUR
 const TourDetailsPage = lazy(() => import('src/pages/dashboard/tour/details'));
 const TourListPage = lazy(() => import('src/pages/dashboard/tour/list'));
@@ -71,7 +78,7 @@ const TourEditPage = lazy(() => import('src/pages/dashboard/tour/edit'));
 const FileManagerPage = lazy(() => import('src/pages/dashboard/file-manager'));
 // APP
 
-// Define a custom wrapper component for the ChatPage
+// Custom component for chat page navigation
 const ConditionalChatPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -82,7 +89,6 @@ const ConditionalChatPage = () => {
     return null; // Return null when 'id' is not present
   }
 
-  // Add a 'return null' statement for consistency
   return null;
 };
 
@@ -111,22 +117,12 @@ export const dashboardRoutes = [
     ),
     children: [
       { element: <IndexPage />, index: true },
-      // { path: 'ecommerce', element: <OverviewEcommercePage /> },
-      // { path: 'analytics', element: <OverviewAnalyticsPage /> },
       { path: 'banking', element: <OverviewBankingPage /> },
-      // { path: 'booking', element: <OverviewBookingPage /> },
-      // { path: 'file', element: <OverviewFilePage /> },
       {
         path: 'user',
         children: [
-          {
-            element: <UserProfilePage />,
-            index: true,
-          },
-          {
-            path: 'profile',
-            element: <UserProfilePage />,
-          },
+          { element: <UserProfilePage />, index: true },
+          { path: 'profile', element: <UserProfilePage /> },
           { path: 'cards', element: <UserCardsPage /> },
           { path: 'list', element: <UserListPage /> },
           { path: 'new', element: <UserCreatePage /> },
@@ -137,14 +133,8 @@ export const dashboardRoutes = [
       {
         path: 'pet',
         children: [
-          {
-            element: <PetProfilePage />,
-            index: true,
-          },
-          {
-            path: 'profile',
-            element: <PetProfilePage />,
-          },
+          { element: <PetProfilePage />, index: true },
+          { path: 'profile', element: <PetProfilePage /> },
           { path: 'cards', element: <PetCardsPage /> },
           { path: 'list', element: <PetListPage /> },
           { path: 'new', element: <PetCreatePage /> },
@@ -205,7 +195,21 @@ export const dashboardRoutes = [
         children: [
           { element: <JobListPage />, index: true },
           { path: 'list', element: <JobListPage /> },
-          { path: ':id', element: <JobDetailsPage /> },
+          {
+            path: ':id',
+            element: (
+              <JobDetailsContextProvider>
+                <JobDetailsView />
+              </JobDetailsContextProvider>
+            ),
+            children: [
+              { path: '', element: <Navigate to="pets" replace /> },
+              { path: 'pets', element: <PetsTab /> },
+              { path: 'fosters', element: <FostersTab /> },
+              { path: 'shop', element: <ShopTab /> },
+              { path: 'orders', element: <OrdersTab /> },
+            ],
+          },
           { path: 'new', element: <JobCreatePage /> },
           { path: ':id/edit', element: <JobEditPage /> },
           {
@@ -219,39 +223,8 @@ export const dashboardRoutes = [
           },
         ],
       },
-      // {
-      //   path: 'tour',
-      //   children: [
-      //     { element: <TourListPage />, index: true },
-      //     { path: 'list', element: <TourListPage /> },
-      //     { path: ':id', element: <TourDetailsPage /> },
-      //     { path: 'new', element: <TourCreatePage /> },
-      //     { path: ':id/edit', element: <TourEditPage /> },
-      //   ],
-      // },
-      // { path: 'file-manager', element: <FileManagerPage /> },
-      // { path: 'mail', element: <MailPage /> },
-      {
-        path: 'chat',
-        element: <ChatPage />,
-      },
-      {
-        path: 'chat/:id',
-        element: <ChatPage />,
-      },
-
-      // {
-      //   path: 'chat/:new', // Define the parameter in the route path
-      //   element: <ConditionalChatPage />, // Use the custom wrapper
-      // },
-      // {
-      //   path: 'chat', // Define the parameter in the route path
-      //   element: (
-      //     <AuthGuard>
-      //       <ChatPage />
-      //     </AuthGuard>
-      //   ), // Use the custom wrapper
-      // },
+      { path: 'chat', element: <ChatPage /> },
+      { path: 'chat/:id', element: <ChatPage /> },
       { path: 'calendar', element: <CalendarPage /> },
       { path: 'kanban', element: <KanbanPage /> },
       { path: 'permission', element: <PermissionDeniedPage /> },
