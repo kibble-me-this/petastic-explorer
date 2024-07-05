@@ -23,20 +23,21 @@ export default function PetCardsView() {
 
   // Usage example in a useEffect
   useEffect(() => {
-    setIsApiLoading(true);
-    getPetsByAccountId(user.email)
-      .then((data) => {
-        // Handle the fetched data here
-        console.log('Fetched pets:', data);
-        setApiPets(data.pets);
-        setIsApiLoading(false);
-      })
-      .catch((error) => {
-        // Handle errors here
-        console.error('Error fetching pets:', error);
-        setIsApiLoading(false);
-      });
+    if (user) {  // Ensure user is not null
+      setIsApiLoading(true);
+      getPetsByAccountId(user.email)
+        .then((data) => {
+          console.log('Fetched pets:', data);
+          setApiPets(data.pets);
+          setIsApiLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching pets:', error);
+          setIsApiLoading(false);
+        });
+    }
   }, [user]);
+
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>

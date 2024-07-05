@@ -225,7 +225,7 @@ export const useMockUser = [
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z3',
     pid: '416fb87',
     mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
-    status: 'pending',
+    status: 'active',
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
