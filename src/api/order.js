@@ -48,8 +48,9 @@ export async function createOrder(eventData) {
         quantity: item.quantity,
         seller_selection_criteria: {
             prime: true,
-            handling_days_max: 15,
-            max_days: 5,
+            marketplace: true,
+            handling_days_max: 20,
+            max_days: 20,
         }
     }));
 
@@ -166,8 +167,9 @@ function formatOrder(eventData, result, order_id, userEmail) {
 }
 
 // Function to send an order confirmation email using EmailJS
-// Function to send an order confirmation email using EmailJS
-export async function sendOrderConfirmationEmail(orderDetails, retry_order = false) {
+export async function sendOrderConfirmationEmail(orderDetails) {
+    const retry_order = process.env.REACT_APP_RETRY_ORDER === 'true';
+
     const {
         id,
         status,

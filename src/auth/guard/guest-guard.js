@@ -6,26 +6,28 @@ import { useRouter, useSearchParams } from 'src/routes/hooks';
 //
 import { useAuthContext } from '../hooks';
 
-// ----------------------------------------------------------------------
-
 export default function GuestGuard({ children }) {
   const router = useRouter();
-
   const searchParams = useSearchParams();
+  const { authenticated, initializing } = useAuthContext(); // Include initializing state
 
   const returnTo = searchParams.get('returnTo') || paths.dashboard.root;
 
-  const { authenticated } = useAuthContext();
-
   const check = useCallback(() => {
-    if (authenticated) {
-      router.replace(returnTo);
+    if (!initializing) {
+      if (authenticated) {
+        router.replace(returnTo);
+      }
     }
-  }, [authenticated, returnTo, router]);
+  }, [authenticated, returnTo, router, initializing]);
 
   useEffect(() => {
     check();
   }, [check]);
+
+  if (initializing || authenticated) {
+    return null; // Optionally, render a loading indicator here
+  }
 
   return <>{children}</>;
 }

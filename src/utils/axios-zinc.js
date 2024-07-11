@@ -41,13 +41,6 @@ const orderData = {
     password: 'd7Tll7Xj43Zy',
     totp_2fa_key: 'SPA3 X4TI APGV IMLE BYUV 3HI7 SDS5 6DYM TWEP HY77 Q5BW CY7Q LGIA',
   },
-  is_gift: false,
-  gift_message: '',
-  shipping: {
-    order_by: 'price',
-    max_days: 5,
-    max_price: 1000,
-  },
 };
 
 // ----------------------------------------------------------------------
@@ -93,7 +86,7 @@ export const fetcherProduct = async (productIds) => {
 export const dispatchZincOrder = async (args, products, shippingAddress, subTotal, webhooks) => {
   const [data, headers, url, config] = Array.isArray(args) ? args : [args];
 
-  const maxPrice = subTotal * 100 * 1.15;
+  const maxPrice = subTotal * 100 * 1.15 + 3000;
 
   const updatedOrderData = {
     ...orderData,
@@ -110,12 +103,13 @@ export const dispatchZincOrder = async (args, products, shippingAddress, subTota
       country: shippingAddress.country,
       phone_number: shippingAddress.phone,
     },
+    take_buybox_offers: true,
     is_gift: true,
     gift_message: "Petastic! The pet's network.",
     shipping: {
-      order_by: "speed",
-      max_days: 10,
-      max_price: 1000
+      order_by: "price",
+      max_days: 15,
+      max_price: 15000
     },
     webhooks: {
       request_succeeded: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_succeeded`,

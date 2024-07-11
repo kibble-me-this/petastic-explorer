@@ -6,8 +6,6 @@ import { useRouter } from 'src/routes/hooks';
 //
 import { useAuthContext } from '../hooks';
 
-// ----------------------------------------------------------------------
-
 const loginPaths = {
   magic: paths.auth.magic.login,
   jwt: paths.auth.jwt.login,
@@ -16,38 +14,29 @@ const loginPaths = {
   firebase: paths.auth.firebase.login,
 };
 
-// ----------------------------------------------------------------------
-
 export default function AuthGuard({ children }) {
   const router = useRouter();
-
-  const { authenticated, method } = useAuthContext();
-
+  const { authenticated, method, initializing } = useAuthContext(); // Include initializing state
   const [checked, setChecked] = useState(false);
 
   const check = useCallback(() => {
-    if (!authenticated) {
-      const searchParams = new URLSearchParams({
-        returnTo: window.location.pathname,
-      }).toString();
-
-      const loginPath = loginPaths[method];
-
-      const href = `${loginPath}?${searchParams}`;
-
-      router.replace(href);
-    } else {
-      setChecked(true);
+    if (!initializing) {
+      if (!authenticated) {
+        const searchParams = new URLSearchParams({ returnTo: window.location.pathname }).toString();
+        const loginPath = loginPaths[method];
+        router.replace(`${loginPath}?${searchParams}`);
+      } else {
+        setChecked(true);
+      }
     }
-  }, [authenticated, method, router]);
+  }, [authenticated, method, router, initializing]);
 
   useEffect(() => {
     check();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [check]);
 
-  if (!checked) {
-    return null;
+  if (!checked || initializing) {
+    return null; // Optionally, render a loading indicator here
   }
 
   return <>{children}</>;

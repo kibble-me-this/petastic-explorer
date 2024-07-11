@@ -60,21 +60,17 @@ export function AuthProvider({ children }) {
   const [magic, setMagic] = useState(null); // Create a state to hold the magic instance
 
   useEffect(() => {
-    // Initialize the magic instance here
     const magicInstance = new Magic(process.env.REACT_APP_MAGIC_PUBLISHABLE_KEY, {
       extensions: [new NearExtension({ rpcUrl: '' })],
     });
-    setMagic(magicInstance); // Store it in state
+    setMagic(magicInstance); // Initialize once and use this instance
   }, []);
 
   const initialize = useCallback(async () => {
     try {
       const accessToken = sessionStorage.getItem(STORAGE_KEY);
-
-      // if (accessToken && isValidToken(accessToken)) {
       if (accessToken) {
         setSession(accessToken);
-
         let user = null;
 
         if (magic) {
@@ -83,41 +79,34 @@ export function AuthProvider({ children }) {
             user = await magic.user.getMetadata();
             dispatch({
               type: 'LOGIN',
-              payload: {
-                user,
-              },
+              payload: { user },
             });
           }
         }
 
         dispatch({
           type: 'INITIAL',
-          payload: {
-            user,
-          },
+          payload: { user },
         });
       } else {
         dispatch({
           type: 'INITIAL',
-          payload: {
-            user: null,
-          },
+          payload: { user: null },
         });
       }
     } catch (error) {
       console.error(error);
       dispatch({
         type: 'INITIAL',
-        payload: {
-          user: null,
-        },
+        payload: { user: null },
       });
     }
-  }, [magic]);
+  }, [magic]); // Ensure magic is included in dependencies
 
   useEffect(() => {
     initialize();
   }, [initialize]);
+
 
   // LOGIN
   const login = useCallback(async (email, password) => {
