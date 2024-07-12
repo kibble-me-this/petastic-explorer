@@ -220,10 +220,13 @@ export const endpoints = {
     deleteFoster: '/api/fosters/{id}', // Endpoint to delete a foster by ID
   },
   fosters: {
-    getFosters: '/default/handleGetFosters', // Endpoint to get a list of fosters
-    createFoster: '/default/handleCreateFoster', // Endpoint to create a new foster
-    editFoster: '/api/fosters/{id}', // Endpoint to edit a foster by ID (PUT or PATCH)
-    deleteFoster: '/api/fosters/{id}', // Endpoint to delete a foster by ID
+    getFosters: '/default/handleGetFosters',
+    createFoster: '/default/handleCreateFoster',
+    editFoster: '/api/fosters/{id}',
+    deleteFoster: '/api/fosters/{id}',
+  },
+  user: {
+    list: '/default/handleGetUsers', // Endpoint to get a list of fosters
   },
   products: {
     list: '/default/handleGetProducts', // Endpoint to get a list of fosters

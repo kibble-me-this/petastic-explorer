@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -12,14 +12,14 @@ import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
+// api
+import { useGetUsers } from 'src/api/fosters';
 // routes
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 // _mock
 import { _userList, _roles, USER_STATUS_OPTIONS } from 'src/_mock';
-import { useMockUser } from 'src/hooks/use-mocked-user';
-
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
@@ -74,13 +74,17 @@ export default function UserListView() {
 
   const confirm = useBoolean();
 
-  const [tableData, setTableData] = useState(useMockUser);
+  const { users, statusCounts, isLoading, isError } = useGetUsers();
 
-  const [_tableData, _setTableData] = useState(useMockUser);
-
-
+  const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
+
+  useEffect(() => {
+    if (!isLoading && users.length) {
+      setTableData(users);
+    }
+  }, [isLoading, users]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -205,16 +209,12 @@ export default function UserListView() {
                       'default'
                     }
                   >
-                    {tab.value === 'all' && _userList.length}
-                    {tab.value === 'active' &&
-                      _userList.filter((user) => user.status === 'active').length}
-
-                    {tab.value === 'pending' &&
-                      _userList.filter((user) => user.status === 'pending').length}
-                    {tab.value === 'banned' &&
-                      _userList.filter((user) => user.status === 'banned').length}
-                    {tab.value === 'rejected' &&
-                      _userList.filter((user) => user.status === 'rejected').length}
+                    {tab.value === 'all' && users.length}
+                    {tab.value === 'active' && statusCounts.active}
+                    {tab.value === 'pending' && statusCounts.pending}
+                    {tab.value === 'banned' && statusCounts.banned}
+                    {tab.value === 'rejected' && statusCounts.rejected}
+                    {tab.value === 'error' && statusCounts.error}
                   </Label>
                 }
               />

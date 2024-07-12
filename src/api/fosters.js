@@ -6,6 +6,8 @@ import { fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
 // ----------------------------------------------------------------------
 
 const URL = endpoints.fosters;
+const _URL = endpoints.user;
+
 
 const options = {
   revalidateIfStale: false,
@@ -66,6 +68,21 @@ export function useGetFosters(account_id) {
 
   return memoizedValue;
 }
+
+export function useGetUsers() {
+  const { data, error } = useSWR([_URL.list, {}], fetcherANYML, options);
+
+  const memoizedValue = useMemo(() => ({
+    users: data?.users || [],
+    statusCounts: data?.statusCounts || {},
+    isLoading: !data && !error,
+    error,
+    isEmpty: !data?.users?.length,
+  }), [data, error]);
+
+  return memoizedValue;
+}
+
 
 // ----------------------------------------------------------------------
 
