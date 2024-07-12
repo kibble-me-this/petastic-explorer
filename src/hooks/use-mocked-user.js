@@ -1,4 +1,6 @@
 export const useMockUser = [
+
+  // carlos@petastic.com
   {
     id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7z1",
     pid: '416fb87',
@@ -27,6 +29,12 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5fe931824281717304399426',
         shelterName: 'West Coast Cane Corso Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5fe931824291715703113284',
+        shelterName: 'Top of The Hill Dog Rescue',
         affiliateSystemRoles: ['superadmin']
       },
       {
@@ -110,6 +118,8 @@ export const useMockUser = [
     ],
     pets: []
   },
+
+  // adena@petastic.com
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z2',
     pid: '416fb87',
@@ -137,6 +147,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5fe931824291715703113284',
+        shelterName: 'Top of The Hill Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5fe931824281717304399426',
         shelterName: 'West Coast Cane Corso Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -221,6 +237,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // josh@petastic.com
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z3',
     pid: '416fb87',
@@ -247,6 +265,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5fe931824291715703113284',
+        shelterName: 'Top of The Hill Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5fe931824281717304399426',
         shelterName: 'West Coast Cane Corso Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -331,6 +355,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // brixiesrescue@icloud.com
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z4',
     pid: '416fb87',
@@ -363,6 +389,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // nicolec@animalhaven.org
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z5',
     pid: '416fb87',
@@ -396,6 +424,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // kristink@animalhaven.org
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z6',
     pid: '416fb87',
@@ -428,6 +458,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // motv8one@aol.com
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z7',
     pid: '416fb87',
@@ -460,6 +492,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // rescuetailsmb@gmail.com
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z8',
     pid: '416fb87',
@@ -492,6 +526,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // jackie@fapspet.org
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z9',
     mNearPublicAddress: 'f89ecc199bdca4790045f4b6cc8aa797f3152dd12041e10f87271aa0921cbfb6',
@@ -500,7 +536,7 @@ export const useMockUser = [
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
-    email: 'jackie@fapspet.org ',
+    email: 'jackie@fapspet.org',
     name: '',
     displayName: 'Motivated Rescue',
     company: '',
@@ -524,6 +560,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // texasanimalrescuerehab@outlook.com'
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d710',
     mNearPublicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
@@ -556,6 +594,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // meagan@strongpawsrescue.org
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d711',
     mNearPublicAddress: '6fb865589bd69bd1ac01f0f5c331274156d79c4aeda4e3d6f57d570be327d321',
@@ -588,6 +628,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // lizzk@bubblesdogrescue.org
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d712',
     mNearPublicAddress: '135dad568da921e5196b290f2c6c6bc38bda71db361e029d3086121df154e471',
@@ -620,6 +662,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // info@bubblesdogrescue.org
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d715',
     mNearPublicAddress: '',
@@ -652,6 +696,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // westcoastcanecorsorescue@gmail.com  
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d713',
     mNearPublicAddress: 'c41cd612f2de5e969b34a88aecb2a51a94f1002a64b102b267ee2754f3180024',
@@ -684,6 +730,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // pawsitivebeginningsla@gmail.com
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d714',
     mNearPublicAddress: '7a50760f17a7a5bd1851b953d92365af2ebea63eae408b6fee7dc991da04d4b1',
@@ -713,6 +761,40 @@ export const useMockUser = [
         shelterId: '5ee8317f3ea1685197328376',
         shelterName: 'Pawsitive Beginnings',
         affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+
+  // topofthehilldogrescue@gmail.com
+  {
+    id: '7ce82603-0e55-4753-ae83-a2e30e5c5bad',
+    mNearPublicAddress: 'b9fc06d4369ccb134b567e828044e542e743cf7245befd04eb7faaee8fe7dcc9',
+    pid: '5eeffc8b99714e68a62a66c1',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'topofthehilldogrescue@gmail.com',
+    name: 'Max Tran',
+    displayName: 'Top of The Hill Dog Rescue',
+    company: '',
+    role: "User",
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: '',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824291715703113284',
+        shelterName: 'Top of The Hill Dog Rescue',
+        affiliateSystemRoles: ['admin']
       }
     ]
   }
