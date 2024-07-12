@@ -27,6 +27,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee8317f1bb1682615084643',
+        shelterName: 'Loving Pawsabilities',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5fe931824281717304399426',
         shelterName: 'West Coast Cane Corso Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -147,6 +153,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee8317f1bb1682615084643',
+        shelterName: 'Loving Pawsabilities',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5fe931824291715703113284',
         shelterName: 'Top of The Hill Dog Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -263,6 +275,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f1bb1682615084643',
+        shelterName: 'Loving Pawsabilities',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5fe931824291715703113284',
@@ -776,7 +794,7 @@ export const useMockUser = [
     avatarUrl: '',
     email: 'topofthehilldogrescue@gmail.com',
     name: 'Max Tran',
-    displayName: 'Top of The Hill Dog Rescue',
+    displayName: 'Max',
     company: '',
     role: "User",
     address: '',
@@ -794,6 +812,40 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5fe931824291715703113284',
         shelterName: 'Top of The Hill Dog Rescue',
+        affiliateSystemRoles: ['admin']
+      }
+    ]
+  },
+
+  // lovingpawsabilitiesinc@gmail.com
+  {
+    id: '',
+    mNearPublicAddress: '121d2232a2a152265c4c4ee790696349384f3cb2638fc925fe772ac3a8ae9663',
+    pid: '5eed0c39f5d8d9bcec6505d7',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'lovingpawsabilitiesinc@gmail.com',
+    name: 'Marina',
+    displayName: 'Marina',
+    company: 'Loving Pawsabilities',
+    role: "User",
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: '',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f1bb1682615084643',
+        shelterName: 'Loving Pawsabilities',
         affiliateSystemRoles: ['admin']
       }
     ]
