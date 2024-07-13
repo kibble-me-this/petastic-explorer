@@ -1,396 +1,396 @@
 export const useMockUser = [
 
   // carlos@petastic.com
-  {
-    id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7z1",
-    pid: '416fb87',
-    mNearPublicAddress: '416fb87e70e19cc52fd9ff28ce43cc8c3f3af33feae03a4d7ac73d6f6e9f36a1',
-    status: "active",
-    isVerified: true,
-    isPublic: true,
-    avatarUrl: "",
-    email: "carlos@petastic.com",
-    name: "Carlos Herrera",
-    displayName: 'Carlos',
-    company: "Petastic",
-    role: "Ecosystem Admin",
-    address: "360 NW 27th Ave",
-    city: "Miami",
-    state: "Florida",
-    zipCode: "33127",
-    country: "United States",
-    phoneNumber: "310-880-8673",
-    password: '********',
-    photoURL: '',
-    about: 'Animal advocate and foster parent.',
-    systemRoles: ['admin'],
-    affiliations: [
-      {
-        role: ['admin'],
-        shelterId: '5fe9318242a1713697029506',
-        shelterName: 'Mal\'s House Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f1bb1682615084643',
-        shelterName: 'Loving Pawsabilities',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281717304399426',
-        shelterName: 'West Coast Cane Corso Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824291715703113284',
-        shelterName: 'Top of The Hill Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f121686526084263',
-        shelterName: 'Animal Haven',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712564008136',
-        shelterName: 'Motivated-Ones Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f6501687352248090',
-        shelterName: 'California Bully Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281715365900379',
-        shelterName: 'New York Bully Crew',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180fb01683673939629',
-        shelterName: 'Strong Paws Rescue, Inc.',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f8a1683475024978',
-        shelterName: 'Second Chance Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f271685767429993',
-        shelterName: 'Muddy Paws Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824271705684215701',
-        shelterName: 'Brixies Rescue Inc',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee831824261713886583600',
-        shelterName: 'Rescue Tails',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712849717961',
-        shelterName: 'Fayetteville Animal Protection Society',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281711564491846',
-        shelterName: 'Texas Animal Rescue Rehab',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f49f1683402638385',
-        shelterName: 'Bubbles Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f3ea1685197328376',
-        shelterName: 'Pawsitive Beginnings',
-        affiliateSystemRoles: ['superadmin']
-      }
-    ],
-    pets: []
-  },
+  // {
+  //   id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7z1",
+  //   pid: '416fb87',
+  //   mNearPublicAddress: '416fb87e70e19cc52fd9ff28ce43cc8c3f3af33feae03a4d7ac73d6f6e9f36a1',
+  //   status: "active",
+  //   isVerified: true,
+  //   isPublic: true,
+  //   avatarUrl: "",
+  //   email: "carlos@petastic.com",
+  //   name: "Carlos Herrera",
+  //   displayName: 'Carlos',
+  //   company: "Petastic",
+  //   role: "Ecosystem Admin",
+  //   address: "360 NW 27th Ave",
+  //   city: "Miami",
+  //   state: "Florida",
+  //   zipCode: "33127",
+  //   country: "United States",
+  //   phoneNumber: "310-880-8673",
+  //   password: '********',
+  //   photoURL: '',
+  //   about: 'Animal advocate and foster parent.',
+  //   systemRoles: ['admin'],
+  //   affiliations: [
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe9318242a1713697029506',
+  //       shelterName: 'Mal\'s House Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f1bb1682615084643',
+  //       shelterName: 'Loving Pawsabilities',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281717304399426',
+  //       shelterName: 'West Coast Cane Corso Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824291715703113284',
+  //       shelterName: 'Top of The Hill Dog Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f121686526084263',
+  //       shelterName: 'Animal Haven',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281712564008136',
+  //       shelterName: 'Motivated-Ones Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f6501687352248090',
+  //       shelterName: 'California Bully Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281715365900379',
+  //       shelterName: 'New York Bully Crew',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180fb01683673939629',
+  //       shelterName: 'Strong Paws Rescue, Inc.',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f8a1683475024978',
+  //       shelterName: 'Second Chance Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f271685767429993',
+  //       shelterName: 'Muddy Paws Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824271705684215701',
+  //       shelterName: 'Brixies Rescue Inc',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee831824261713886583600',
+  //       shelterName: 'Rescue Tails',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281712849717961',
+  //       shelterName: 'Fayetteville Animal Protection Society',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281711564491846',
+  //       shelterName: 'Texas Animal Rescue Rehab',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f49f1683402638385',
+  //       shelterName: 'Bubbles Dog Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f3ea1685197328376',
+  //       shelterName: 'Pawsitive Beginnings',
+  //       affiliateSystemRoles: ['superadmin']
+  //     }
+  //   ],
+  //   pets: []
+  // },
 
   // adena@petastic.com
-  {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z2',
-    pid: '416fb87',
-    mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
-    status: "active",
-    isVerified: true,
-    isPublic: true,
-    avatarUrl: '',
-    email: 'adena@petastic.com',
-    name: 'Adena Lavin',
-    displayName: 'Adena',
-    company: 'Petastic',
-    role: "Ecosystem Admin",
-    address: '1010 Pet Ave',
-    city: 'Miami',
-    state: 'FL',
-    zipCode: '33130',
-    country: 'United States',
-    phoneNumber: '+852 9612 6122',
-    password: 'demo1234',
-    photoURL: '',
-    about: 'Animal advocate and foster parent.',
-    systemRoles: ['admin'],
+  // {
+  //   id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z2',
+  //   pid: '416fb87',
+  //   mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
+  //   status: "active",
+  //   isVerified: true,
+  //   isPublic: true,
+  //   avatarUrl: '',
+  //   email: 'adena@petastic.com',
+  //   name: 'Adena Lavin',
+  //   displayName: 'Adena',
+  //   company: 'Petastic',
+  //   role: "Ecosystem Admin",
+  //   address: '1010 Pet Ave',
+  //   city: 'Miami',
+  //   state: 'FL',
+  //   zipCode: '33130',
+  //   country: 'United States',
+  //   phoneNumber: '+852 9612 6122',
+  //   password: 'demo1234',
+  //   photoURL: '',
+  //   about: 'Animal advocate and foster parent.',
+  //   systemRoles: ['admin'],
 
-    affiliations: [
-      {
-        role: ['admin'],
-        shelterId: '5fe9318242a1713697029506',
-        shelterName: 'Mal\'s House Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f1bb1682615084643',
-        shelterName: 'Loving Pawsabilities',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824291715703113284',
-        shelterName: 'Top of The Hill Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281717304399426',
-        shelterName: 'West Coast Cane Corso Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f121686526084263',
-        shelterName: 'Animal Haven',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712564008136',
-        shelterName: 'Motivated-Ones Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f6501687352248090',
-        shelterName: 'California Bully Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281715365900379',
-        shelterName: 'New York Bully Crew',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180fb01683673939629',
-        shelterName: 'Strong Paws Rescue, Inc.',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f8a1683475024978',
-        shelterName: 'Second Chance Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f271685767429993',
-        shelterName: 'Muddy Paws Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824271705684215701',
-        shelterName: 'Brixies Rescue Inc',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee831824261713886583600',
-        shelterName: 'Rescue Tails',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712849717961',
-        shelterName: 'Fayetteville Animal Protection Society',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281711564491846',
-        shelterName: 'Texas Animal Rescue Rehab',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f49f1683402638385',
-        shelterName: 'Bubbles Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f3ea1685197328376',
-        shelterName: 'Pawsitive Beginnings',
-        affiliateSystemRoles: ['superadmin']
-      }
-    ]
-  },
+  //   affiliations: [
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe9318242a1713697029506',
+  //       shelterName: 'Mal\'s House Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f1bb1682615084643',
+  //       shelterName: 'Loving Pawsabilities',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824291715703113284',
+  //       shelterName: 'Top of The Hill Dog Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281717304399426',
+  //       shelterName: 'West Coast Cane Corso Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f121686526084263',
+  //       shelterName: 'Animal Haven',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281712564008136',
+  //       shelterName: 'Motivated-Ones Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f6501687352248090',
+  //       shelterName: 'California Bully Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281715365900379',
+  //       shelterName: 'New York Bully Crew',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180fb01683673939629',
+  //       shelterName: 'Strong Paws Rescue, Inc.',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f8a1683475024978',
+  //       shelterName: 'Second Chance Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f271685767429993',
+  //       shelterName: 'Muddy Paws Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824271705684215701',
+  //       shelterName: 'Brixies Rescue Inc',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee831824261713886583600',
+  //       shelterName: 'Rescue Tails',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281712849717961',
+  //       shelterName: 'Fayetteville Animal Protection Society',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281711564491846',
+  //       shelterName: 'Texas Animal Rescue Rehab',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f49f1683402638385',
+  //       shelterName: 'Bubbles Dog Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f3ea1685197328376',
+  //       shelterName: 'Pawsitive Beginnings',
+  //       affiliateSystemRoles: ['superadmin']
+  //     }
+  //   ]
+  // },
 
   // josh@petastic.com
-  {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z3',
-    pid: '416fb87',
-    mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
-    status: 'active',
-    isVerified: true,
-    isPublic: true,
-    avatarUrl: '',
-    email: 'josh@petastic.com',
-    name: 'Josh Bullock',
-    displayName: 'Josh',
-    company: 'Petastic',
-    role: "Ecosystem Admin",
-    address: '1010 Pet Ave',
-    city: 'Miami',
-    state: 'FL',
-    zipCode: '33130',
-    country: 'United States',
-    phoneNumber: '+1 856-625-2834',
-    password: 'demo1234',
-    photoURL: '',
-    about: 'Animal advocate and foster parent.',
-    systemRoles: ['admin'],
-    affiliations: [
-      {
-        role: ['admin'],
-        shelterId: '5fe9318242a1713697029506',
-        shelterName: 'Mal\'s House Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f1bb1682615084643',
-        shelterName: 'Loving Pawsabilities',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824291715703113284',
-        shelterName: 'Top of The Hill Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281717304399426',
-        shelterName: 'West Coast Cane Corso Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f121686526084263',
-        shelterName: 'Animal Haven',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712564008136',
-        shelterName: 'Motivated-Ones Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f6501687352248090',
-        shelterName: 'California Bully Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281715365900379',
-        shelterName: 'New York Bully Crew',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180fb01683673939629',
-        shelterName: 'Strong Paws Rescue, Inc.',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f8a1683475024978',
-        shelterName: 'Second Chance Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee83180f271685767429993',
-        shelterName: 'Muddy Paws Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824271705684215701',
-        shelterName: 'Brixies Rescue Inc',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee831824261713886583600',
-        shelterName: 'Rescue Tails',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281712849717961',
-        shelterName: 'Fayetteville Animal Protection Society',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5fe931824281711564491846',
-        shelterName: 'Texas Animal Rescue Rehab',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f49f1683402638385',
-        shelterName: 'Bubbles Dog Rescue',
-        affiliateSystemRoles: ['superadmin']
-      },
-      {
-        role: ['admin'],
-        shelterId: '5ee8317f3ea1685197328376',
-        shelterName: 'Pawsitive Beginnings',
-        affiliateSystemRoles: ['superadmin']
-      }
-    ]
-  },
+  // {
+  //   id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z3',
+  //   pid: '416fb87',
+  //   mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
+  //   status: 'active',
+  //   isVerified: true,
+  //   isPublic: true,
+  //   avatarUrl: '',
+  //   email: 'josh@petastic.com',
+  //   name: 'Josh Bullock',
+  //   displayName: 'Josh',
+  //   company: 'Petastic',
+  //   role: "Ecosystem Admin",
+  //   address: '1010 Pet Ave',
+  //   city: 'Miami',
+  //   state: 'FL',
+  //   zipCode: '33130',
+  //   country: 'United States',
+  //   phoneNumber: '+1 856-625-2834',
+  //   password: 'demo1234',
+  //   photoURL: '',
+  //   about: 'Animal advocate and foster parent.',
+  //   systemRoles: ['admin'],
+  //   affiliations: [
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe9318242a1713697029506',
+  //       shelterName: 'Mal\'s House Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f1bb1682615084643',
+  //       shelterName: 'Loving Pawsabilities',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824291715703113284',
+  //       shelterName: 'Top of The Hill Dog Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281717304399426',
+  //       shelterName: 'West Coast Cane Corso Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f121686526084263',
+  //       shelterName: 'Animal Haven',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281712564008136',
+  //       shelterName: 'Motivated-Ones Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f6501687352248090',
+  //       shelterName: 'California Bully Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281715365900379',
+  //       shelterName: 'New York Bully Crew',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180fb01683673939629',
+  //       shelterName: 'Strong Paws Rescue, Inc.',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f8a1683475024978',
+  //       shelterName: 'Second Chance Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee83180f271685767429993',
+  //       shelterName: 'Muddy Paws Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824271705684215701',
+  //       shelterName: 'Brixies Rescue Inc',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee831824261713886583600',
+  //       shelterName: 'Rescue Tails',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281712849717961',
+  //       shelterName: 'Fayetteville Animal Protection Society',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5fe931824281711564491846',
+  //       shelterName: 'Texas Animal Rescue Rehab',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f49f1683402638385',
+  //       shelterName: 'Bubbles Dog Rescue',
+  //       affiliateSystemRoles: ['superadmin']
+  //     },
+  //     {
+  //       role: ['admin'],
+  //       shelterId: '5ee8317f3ea1685197328376',
+  //       shelterName: 'Pawsitive Beginnings',
+  //       affiliateSystemRoles: ['superadmin']
+  //     }
+  //   ]
+  // },
 
   // brixiesrescue@icloud.com
   // {

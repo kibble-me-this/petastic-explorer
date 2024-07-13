@@ -30,6 +30,17 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
 
   const popover = usePopover();
 
+  const displayRole = (_role) => {
+    switch (_role) {
+      case 'ecosystem_user':
+        return 'Ecosystem User';
+      case 'ecosystem_admin':
+        return 'Ecosystem Admin';
+      default:
+        return _role.charAt(0).toUpperCase() + _role.slice(1);
+    }
+  };
+
   return (
     <>
       <TableRow hover selected={selected}>
@@ -55,7 +66,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{company}</TableCell>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{role}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{displayRole(role)}</TableCell>
 
         <TableCell>
           <Label
@@ -73,7 +84,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
 
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Quick Edit" placement="top" arrow>
-            <IconButton disabled color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
+            <IconButton color={quickEdit.value ? 'inherit' : 'default'} onClick={quickEdit.onTrue}>
               <Iconify icon="solar:pen-bold" />
             </IconButton>
           </Tooltip>
