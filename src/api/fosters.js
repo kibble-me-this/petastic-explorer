@@ -6,8 +6,6 @@ import { fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
 // ----------------------------------------------------------------------
 
 const URL = endpoints.fosters;
-const _URL = endpoints.user;
-
 
 const options = {
   revalidateIfStale: false,
@@ -15,30 +13,10 @@ const options = {
   revalidateOnReconnect: false,
 };
 
-// export function useGetFosters(account_id = '5ee83180f121686526084263') {
-//   const { data, error } = useSWR([URL, account_id], fetcherANYML);
-
-//   const memoizedValue = useMemo(() => {
-//     const processedFosters = data?.fosters.map((foster) => ({
-//       ...foster,
-//     }));
-
-//     return {
-//       fosters: processedFosters || [],
-//       isLoading: !data && !error,
-//       error,
-//       isValidating: !data && !error,
-//       isEmpty: !data?.fosters?.length,
-//     };
-//   }, [data, error]);
-
-//   return memoizedValue;
-// }
-
 const mockAddress =
 {
   id: 'mockId',
-  name: 'goo',
+  name: 'Mock Herrera',
   phoneNumber: '310-880-8673',
   address: '2900 NE 7Th Ave Unit 2006',
   city: 'Miami',
@@ -49,7 +27,6 @@ const mockAddress =
   addressType: 'HQ',
   primary: true,
 };
-
 
 export function useGetFosters(account_id) {
 
@@ -68,21 +45,6 @@ export function useGetFosters(account_id) {
 
   return memoizedValue;
 }
-
-export function useGetUsers() {
-  const { data, error } = useSWR([_URL.list, {}], fetcherANYML, options);
-
-  const memoizedValue = useMemo(() => ({
-    users: data?.users || [],
-    statusCounts: data?.statusCounts || {},
-    isLoading: !data && !error,
-    error,
-    isEmpty: !data?.users?.length,
-  }), [data, error]);
-
-  return memoizedValue;
-}
-
 
 // ----------------------------------------------------------------------
 
@@ -146,53 +108,3 @@ export async function createFoster(account_id, eventData) {
     throw error;
   }
 }
-
-
-
-
-// ----------------------------------------------------------------------
-
-// export async function updateFoster(eventData) {
-//   try {
-//     // Call the backend API to update the foster
-//     await axios.put(`${FOSTERS_URL}/${eventData.id}`, eventData);
-
-//     // Update the local data with the updated foster
-//     mutate(
-//       FOSTERS_URL,
-//       (currentData) => ({
-//         ...currentData,
-//         fosters: currentData.fosters.map((foster) =>
-//           foster.id === eventData.id ? { ...foster, ...eventData } : foster
-//         ),
-//       }),
-//       false
-//     );
-//   } catch (error) {
-//     console.error('Error updating foster:', error);
-//     throw error; // Rethrow the error for error handling
-//   }
-// }
-
-// ----------------------------------------------------------------------
-
-// export async function deleteFoster(eventId) {
-//   try {
-//     // Call the backend API to delete the foster
-//     await axios.delete(`${FOSTERS_URL}/${eventId}`);
-
-//     // Update the local data by removing the deleted foster
-//     mutate(
-//       FOSTERS_URL,
-//       (currentData) => ({
-//         ...currentData,
-//         fosters: currentData.fosters.filter((foster) => foster.id !== eventId),
-//       }),
-//       false
-//     );
-//   } catch (error) {
-//     console.error('Error deleting foster:', error);
-//     throw error; // Rethrow the error for error handling
-//   }
-// }
-

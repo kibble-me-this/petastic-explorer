@@ -227,6 +227,7 @@ export const endpoints = {
   },
   user: {
     list: '/default/handleGetUsers', // Endpoint to get a list of fosters
+    roles: '/default/handleGetUserRoles', // Endpoint to get a list of fosters
   },
   products: {
     list: '/default/handleGetProducts', // Endpoint to get a list of fosters

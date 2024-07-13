@@ -403,13 +403,13 @@ export function useNavData() {
       // MANAGEMENT
       // ----------------------------------------------------------------------
       {
-        roles: ['admin'], // Ensure this is set correctly
+        roles: ['ecosystem_admin'], // Ensure this is set correctly
         subheader: t('admin - ecosystem '),
         items: [
 
           // PRODUCT
           {
-            roles: ['admin'], // Ensure this is set correctly
+            roles: ['ecosystem_admin'], // Ensure this is set correctly
             title: t('products'),
             path: paths.dashboard.product.root,
             icon: ICONS.product,
@@ -431,7 +431,7 @@ export function useNavData() {
 
           // // ORDER
           {
-            roles: ['admin'], // Ensure this is set correctly
+            roles: ['ecosystem_admin'], // Ensure this is set correctly
             title: t('orders'),
             path: paths.dashboard.order.root,
             icon: ICONS.order,
@@ -445,7 +445,7 @@ export function useNavData() {
 
           // USER
           {
-            roles: ['admin'], // Ensure this is set correctly
+            roles: ['ecosystem_admin'], // Ensure this is set correctly
             title: t('users'),
             path: paths.dashboard.user.cards,
             icon: ICONS.user,
@@ -453,7 +453,7 @@ export function useNavData() {
               // { title: t('profile'), path: paths.dashboard.user.root },
               // { title: t('cards'), path: paths.dashboard.user.cards },
               {
-                roles: ['admin'], // Ensure this is set correctly
+                roles: ['ecosystem_admin'], // Ensure this is set correctly
                 title: t('list'), path: paths.dashboard.user.list
               },
               // { title: t('create'), path: paths.dashboard.user.new },

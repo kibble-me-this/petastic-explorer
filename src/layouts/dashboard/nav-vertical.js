@@ -6,9 +6,8 @@ import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 // hooks
 import { useResponsive } from 'src/hooks/use-responsive';
-// hooks
-import { useMockUser } from 'src/hooks/use-mocked-user';
 import { useAuthContext } from 'src/auth/hooks';
+import { useGetUserRoles } from 'src/api/user';
 // components
 import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
@@ -22,41 +21,31 @@ import { NavToggleButton } from '../_common';
 // ----------------------------------------------------------------------
 
 export default function NavVertical({ openNav, onCloseNav }) {
-  const { user } = useAuthContext();
-
+  const { user } = useAuthContext(); // Get user from the context
   const pathname = usePathname();
-
   const lgUp = useResponsive('up', 'lg');
-
   const navData = useNavData();
 
-  const mockUsers = useMockUser; // Ensure useMockUser is used correctly
+  const [userRoles, setUserRoles] = useState([]); // Initialize as an empty array
 
-  const [userRoles, setUserRoles] = useState(null); // Default to null
+  // Fetch user roles based on user email
+  const { roles, isLoading } = useGetUserRoles({ email: user?.email });
 
   useEffect(() => {
     if (openNav) {
       onCloseNav();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, openNav, onCloseNav]);
 
   useEffect(() => {
-    if (user) {
-      const matchedUser = mockUsers.find(mockUser => mockUser.email === user.email);
-      if (matchedUser) {
-        console.log('Matched user roles:', matchedUser.systemRoles); // Debugging log
-        setUserRoles(matchedUser.systemRoles || ['user']);
-      } else {
-        setUserRoles(['user']);
-      }
+    if (!isLoading && roles.length > 0) {
+      setUserRoles(roles);
+      console.log('Fetched user roles:', roles); // Debugging log
     }
-  }, [user, mockUsers]);
+  }, [isLoading, roles]);
 
-  console.log('Current user roles:', userRoles); // Debugging log
-
-  if (userRoles === null) {
-    return null; // or a loading spinner
+  if (isLoading) {
+    return <div>Loading...</div>; // or a loading spinner
   }
 
   const renderContent = (
