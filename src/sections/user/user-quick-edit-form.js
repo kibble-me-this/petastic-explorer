@@ -21,6 +21,8 @@ import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
 import { useSnackbar } from 'src/components/snackbar';
 import FormProvider, { RHFSelect, RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
+// api
+import { updateUser } from 'src/api/user';
 
 // ----------------------------------------------------------------------
 
@@ -52,6 +54,8 @@ export default function UserQuickEditForm({ currentUser, open, onClose }) {
       status: currentUser?.status,
       company: currentUser?.company || '',
       role: currentUser?.role || '',
+      pid: currentUser?.pid || '',
+      mainnetNearPublicAddress: currentUser?.mainnetNearPublicAddress || '',
     }),
     [currentUser]
   );
@@ -69,13 +73,13 @@ export default function UserQuickEditForm({ currentUser, open, onClose }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
+      await updateUser(currentUser.pid, data);
+      reset(data); // Reset the form with the updated data
       onClose();
       enqueueSnackbar('Update success!');
-      console.info('DATA', data);
     } catch (error) {
-      console.error(error);
+      console.error('Update Error', error);
+      enqueueSnackbar('Update failed', { variant: 'error' });
     }
   });
 
@@ -153,7 +157,9 @@ export default function UserQuickEditForm({ currentUser, open, onClose }) {
             <RHFTextField name="address" label="Address" />
             <RHFTextField name="zipCode" label="Zip/Code" />
             <RHFTextField name="company" label="Company" />
-            <RHFTextField name="role" label="Role" />
+            <RHFTextField disabled name="role" label="Role" />
+            <RHFTextField disabled name="pid" label="PID" />
+            <RHFTextField disabled name="mainnetNearPublicAddress" label="mainnetNearPublicAddress" />
           </Box>
         </DialogContent>
 

@@ -116,6 +116,23 @@ export const postRequestANYML = async (url, data, config = {}) => {
 };
 
 
+export const patchRequestANYML = async (url, data, config = {}) => {
+  try {
+    const response = await axiosInstanceANYML.patch(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...config.headers,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw (error.response && error.response.data) || 'Something went wrong';
+  }
+};
+
+
+
+
 // ====================
 // ZINC API
 // ====================
@@ -226,8 +243,9 @@ export const endpoints = {
     deleteFoster: '/api/fosters/{id}',
   },
   user: {
-    list: '/default/handleGetUsers', // Endpoint to get a list of fosters
-    roles: '/default/handleGetUserRoles', // Endpoint to get a list of fosters
+    list: '/default/handleGetUsers',
+    roles: '/default/handleGetUserRoles',
+    update: '/default/handleEditUser',
   },
   products: {
     list: '/default/handleGetProducts', // Endpoint to get a list of fosters

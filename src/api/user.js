@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import useSWR, { mutate } from 'swr';
 // utils
-import { fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
+import { fetcherANYML, postRequestANYML, patchRequestANYML, endpoints } from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -43,4 +43,18 @@ export function useGetUserRoles({ email, id }) {
   }), [data, error]);
 
   return memoizedValue;
+}
+
+// ----------------------------------------------------------------------
+
+
+export async function updateUser(accountId, updateFields) {
+
+  const url = `${URL.update}?pid=${accountId}`;
+
+  const config = {};
+
+  const response = await patchRequestANYML(url, updateFields, config);
+  await mutate([URL.list, {}]);
+  return response;
 }
