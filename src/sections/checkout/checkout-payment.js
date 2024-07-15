@@ -45,19 +45,19 @@ export default function CheckoutPayment() {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState('');
 
   if (user) {
-    user.anymalTokenBalance = 5000;
+    user.anymalTokenBalance = Infinity;
   }
 
   const PAYMENT_OPTIONS = [
-    {
-      value: 'credit',
-      label: 'Credit / Debit Card',
-      description: 'We support Mastercard, Visa, Discover and Stripe.',
-    },
+    // {
+    //   value: 'credit',
+    //   label: 'Credit / Debit Card',
+    //   description: 'We support Mastercard, Visa, Discover and Stripe.',
+    // },
     {
       value: 'token',
       label: 'Pay with \u24C0ibble Cash',
-      description: `You've earned 5000 ($5000 USD) \u24C0ibble 🐱🐶🐾`,
+      description: `You've activated \u221E \u24C0ibble Cash as a Tester (woah!) 🐱🐶🐾`,
       caption: `(~${fCurrency(user?.anymalTokenBalance || 0)} USD)`,
     },
   ];
