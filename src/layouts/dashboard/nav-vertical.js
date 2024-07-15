@@ -31,11 +31,18 @@ export default function NavVertical({ openNav, onCloseNav }) {
   // Fetch user roles based on user email
   const { roles, isLoading } = useGetUserRoles({ email: user?.email });
 
+  // useEffect(() => {
+  //   if (openNav) {
+  //     onCloseNav();
+  //   }
+  // }, [pathname, openNav, onCloseNav]);
+
   useEffect(() => {
     if (openNav) {
       onCloseNav();
     }
-  }, [pathname, openNav, onCloseNav]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   useEffect(() => {
     if (!isLoading && roles.length > 0) {

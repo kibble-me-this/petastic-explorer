@@ -246,6 +246,7 @@ export const endpoints = {
     list: '/default/handleGetUsers',
     roles: '/default/handleGetUserRoles',
     update: '/default/handleEditUser',
+    create: '/default/handleCreateUser',
   },
   products: {
     list: '/default/handleGetProducts', // Endpoint to get a list of fosters

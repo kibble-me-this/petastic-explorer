@@ -47,7 +47,6 @@ export function useGetUserRoles({ email, id }) {
 
 // ----------------------------------------------------------------------
 
-
 export async function updateUser(accountId, updateFields) {
 
   const url = `${URL.update}?pid=${accountId}`;
@@ -55,6 +54,22 @@ export async function updateUser(accountId, updateFields) {
   const config = {};
 
   const response = await patchRequestANYML(url, updateFields, config);
+  await mutate([URL.list, {}]);
+  return response;
+}
+
+// ----------------------------------------------------------------------
+
+export async function createUser(userData) {
+  const url = URL.create;
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await postRequestANYML(url, userData, config);
   await mutate([URL.list, {}]);
   return response;
 }
