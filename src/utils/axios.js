@@ -108,7 +108,12 @@ export const fetcherANYML = async (args) => {
 
 export const postRequestANYML = async (url, data, config = {}) => {
   try {
-    const response = await axiosInstanceANYML.post(url, data, config);
+    const response = await axiosInstanceANYML.post(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...config.headers,
+      },
+    });
     return response.data;
   } catch (error) {
     throw (error.response && error.response.data) || 'Something went wrong';

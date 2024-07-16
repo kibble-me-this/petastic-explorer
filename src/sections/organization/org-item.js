@@ -31,13 +31,13 @@ export default function OrganizationItem({ org, onView, onEdit, onDelete }) {
     // company,
     primary_account,
     pets,
+    petCount,
     candidates,
     experience,
     employmentTypes,
     salary,
     role
-  } =
-    org;
+  } = org;
 
   const id = primary_account.account_id
   const createdAt = primary_account.created_at;
@@ -89,7 +89,7 @@ export default function OrganizationItem({ org, onView, onEdit, onDelete }) {
             sx={{ color: 'primary.main', typography: 'caption' }}
           >
             <Iconify width={16} icon="solar:users-group-rounded-bold" />
-            {pets.length} Pets
+            {petCount} Pets
           </Stack>
         </Stack>
 
