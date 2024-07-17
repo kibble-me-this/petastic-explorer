@@ -25,6 +25,13 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+
+      {
+        role: ['admin'],
+        shelterId: '5ee8317fbe01686087521637',
+        shelterName: 'Operation Liberation, Inc',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee83181b841684112445898',
@@ -171,6 +178,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee8317fbe01686087521637',
+        shelterName: 'Operation Liberation, Inc',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee83181b841684112445898',
         shelterName: 'Rescue Texas',
         affiliateSystemRoles: ['superadmin']
@@ -311,6 +324,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317fbe01686087521637',
+        shelterName: 'Operation Liberation, Inc',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee83181b841684112445898',
@@ -998,6 +1017,38 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee83181b841684112445898',
         shelterName: 'Rescue Texas',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+  {
+    id: '59653e48-58d7-412a-bd65-7f2eaeadeedd',
+    mNearPublicAddress: 'e082f04f488261c50cafd681cacf51643dcc456a7183397515030e6702d75c25',
+    pid: '5eed54afaed35bd2c80c9d8d',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'elizabeth@operationliberation.org',
+    name: 'Elizabeth Jones',
+    displayName: '',
+    company: 'Operation Liberation, Inc',
+    role: "User",
+    address: '711 NE 16th Court',
+    city: 'Naples',
+    state: 'Fl',
+    zipCode: '77521',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317fbe01686087521637',
+        shelterName: 'Operation Liberation, Inc',
         affiliateSystemRoles: ['superadmin']
       }
     ]
