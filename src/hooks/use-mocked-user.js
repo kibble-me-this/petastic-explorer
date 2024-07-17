@@ -27,6 +27,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee831813c71690000253930',
+        shelterName: 'Sand Springs Animal Welfare',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5fe9318242a1713697029506',
         shelterName: 'Mal\'s House Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -159,6 +165,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee831813c71690000253930',
+        shelterName: 'Sand Springs Animal Welfare',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5fe9318242a1713697029506',
         shelterName: 'Mal\'s House Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -287,6 +299,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831813c71690000253930',
+        shelterName: 'Sand Springs Animal Welfare',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5fe9318242a1713697029506',
@@ -901,7 +919,40 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       }
     ]
+  },
+  {
+    id: '15655b2d-0f67-4d51-9cb8-90456eeb9b1b',
+    mNearPublicAddress: '',
+    pid: '5ee831813c71690000253930',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'tlarvid@sandspringsok.org',
+    name: 'Tracey Arvidson',
+    displayName: 'Sand Springs Animal Welfare',
+    company: '',
+    role: "User",
+    address: '8620 W 21st St',
+    city: 'Sand Springs',
+    state: 'OK',
+    zipCode: '74063',
+    country: 'USA',
+    phoneNumber: 'n/a',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831813c71690000253930',
+        shelterName: 'Sand Springs Animal Welfare',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
   }
+
 ];
 
 
