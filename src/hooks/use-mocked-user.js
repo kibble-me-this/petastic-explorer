@@ -2,8 +2,8 @@ export const useMockUser = [
 
   // carlos@petastic.com
   {
-    id: "e99f09a7-dd88-49d5-b1c8-1daf80c2d7z1",
-    pid: '416fb87',
+    id: "bd78eb8c-ee95-4d92-b45a-aa8d77439e26",
+    pid: '5ee2fd93bccd3286db09da9a',
     mNearPublicAddress: '416fb87e70e19cc52fd9ff28ce43cc8c3f3af33feae03a4d7ac73d6f6e9f36a1',
     status: "active",
     isVerified: true,
@@ -25,6 +25,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b841684112445898',
+        shelterName: 'Rescue Texas',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee831813c71690000253930',
@@ -139,8 +145,8 @@ export const useMockUser = [
 
   // adena@petastic.com
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z2',
-    pid: '416fb87',
+    id: '09c464b5-75f5-42f6-b155-581642035f86',
+    pid: '5ee52754302883acec80e933',
     mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
     status: "active",
     isVerified: true,
@@ -163,6 +169,12 @@ export const useMockUser = [
     systemRoles: ['admin'],
 
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b841684112445898',
+        shelterName: 'Rescue Texas',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee831813c71690000253930',
@@ -276,9 +288,9 @@ export const useMockUser = [
 
   // josh@petastic.com
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z3',
-    pid: '416fb87',
-    mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb18',
+    id: '8fa589f2-a4a9-4aa2-83e1-7da7c058a440',
+    pid: '5eee43ff30ff495b703d56ce',
+    mNearPublicAddress: 'e505362fd476dd644fd6b16ac1b4437626d1c2e6fb1f6de08adf03505cb1bb19',
     status: 'active',
     isVerified: true,
     isPublic: true,
@@ -299,6 +311,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b841684112445898',
+        shelterName: 'Rescue Texas',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee831813c71690000253930',
@@ -923,7 +941,7 @@ export const useMockUser = [
   {
     id: '15655b2d-0f67-4d51-9cb8-90456eeb9b1b',
     mNearPublicAddress: '',
-    pid: '5ee831813c71690000253930',
+    pid: '5ee831813c71690000223330',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -948,6 +966,38 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee831813c71690000253930',
         shelterName: 'Sand Springs Animal Welfare',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+  {
+    id: '07c435ab-9e82-490a-84b6-3ffc96f280f5',
+    mNearPublicAddress: 'xxx5ee',
+    pid: '5ee2d5876e121cf9a9544ab3',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'Info@rescuetexas.org',
+    name: '',
+    displayName: '',
+    company: '',
+    role: "User",
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: '',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b841684112445898',
+        shelterName: 'Rescue Texas',
         affiliateSystemRoles: ['superadmin']
       }
     ]
