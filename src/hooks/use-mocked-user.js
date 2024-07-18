@@ -25,7 +25,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
-
+      {
+        role: ['admin'],
+        shelterId: '5ee831810d51681938591381',
+        shelterName: 'Animal Farm Foundation, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee8317fbe01686087521637',
@@ -178,6 +183,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee831810d51681938591381',
+        shelterName: 'Animal Farm Foundation, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee8317fbe01686087521637',
         shelterName: 'Operation Liberation, Inc',
         affiliateSystemRoles: ['superadmin']
@@ -324,6 +335,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831810d51681938591381',
+        shelterName: 'Animal Farm Foundation, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee8317fbe01686087521637',
@@ -1052,7 +1069,76 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
+  },
+
+  {
+    id: '',
+    mNearPublicAddress: 'cdbb271fc1751b6d28d2431a8e53a1440fe33e91bcc10f19a43ecc3c0281f7f4',
+    pid: '',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'njuchem@animalfarmfoundation.org',
+    name: 'Acadia Generelli',
+    displayName: '',
+    company: 'Animal Farm Foundation',
+    role: "User",
+    address: '433 Pugsley Hill Rd',
+    city: 'Amenia',
+    state: 'NY',
+    zipCode: '12501',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831810d51681938591381',
+        shelterName: 'Animal Farm Foundation, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
   }
+  ,
+  {
+    id: '',
+    mNearPublicAddress: '',
+    pid: '',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@animalfarmfoundation.org',
+    name: 'Acadia Generelli',
+    displayName: '',
+    company: 'Animal Farm Foundation',
+    role: "User",
+    address: '433 Pugsley Hill Rd',
+    city: 'Amenia',
+    state: 'NY',
+    zipCode: '12501',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831810d51681938591381',
+        shelterName: 'Animal Farm Foundation, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  }
+
+
+
 
 ];
 
