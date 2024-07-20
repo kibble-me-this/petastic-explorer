@@ -174,7 +174,15 @@ export const useMockUser = [
         shelterId: '5eeeea3b94fee7562d5130c4',
         shelterName: "Gingeroo Animal Rescue Network",
         affiliateSystemRoles: ['admin']
-      }
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49b1682590785768',
+        shelterName: "Pup Culture Rescue",
+        affiliateSystemRoles: ['admin']
+      },
+
+
 
 
 
@@ -358,7 +366,12 @@ export const useMockUser = [
         shelterId: '5eeeea3b94fee7562d5130c4',
         shelterName: "Gingeroo Animal Rescue Network",
         affiliateSystemRoles: ['admin']
-      }
+      }, {
+        role: ['admin'],
+        shelterId: '5ee8317f49b1682590785768',
+        shelterName: "Pup Culture Rescue",
+        affiliateSystemRoles: ['admin']
+      },
     ]
   },
 
@@ -537,7 +550,13 @@ export const useMockUser = [
         shelterId: '5eeeea3b94fee7562d5130c4',
         shelterName: "Gingeroo Animal Rescue Network",
         affiliateSystemRoles: ['admin']
-      }
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49b1682590785768',
+        shelterName: "Pup Culture Rescue",
+        affiliateSystemRoles: ['admin']
+      },
     ]
   },
 
@@ -1405,21 +1424,50 @@ export const useMockUser = [
     about: '',
     systemRoles: '',
     affiliations: [
-
       {
         role: ['admin'],
         shelterId: '5eeeea3b94fee7562d5130c4',
         shelterName: "Gingeroo Animal Rescue Network",
         affiliateSystemRoles: ['admin']
       }
-
+    ]
+  },
+  // hello@pupculturerescue.org
+  {
+    id: '9589b630-5141-4bc0-b44b-914d9f683a6d',
+    mainnetNearPublicAddress: 'eaa475079dfac37b2892bde2ff23bee969d5553fb3df06704cb6c549281c730e',
+    pid: '5eee59286dff07f6b3729571',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'hello@pupculturerescue.org',
+    name: 'Victoria Shaffer',
+    displayName: '',
+    company: "Pup Culture Rescue",
+    role: "User",
+    address: '404 N. Lake Ave',
+    city: 'Pasadena',
+    state: 'CA',
+    zipCode: '91101',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49b1682590785768',
+        shelterName: "Pup Culture Rescue",
+        affiliateSystemRoles: ['admin']
+      },
     ]
   }
-
-
-
-
 ];
+
+
 
 
 export function useMockedUser() {
