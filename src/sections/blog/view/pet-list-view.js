@@ -27,7 +27,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 // import PostSearch from '../post-search';
 import PetListHorizontal from '../pet-list-horizontal';
 
-import { getShelterAccountId1 } from '../../../api/organization';
+// import { getShelterAccountId1 } from '../../../api/organization';
 
 // ----------------------------------------------------------------------
 
@@ -99,47 +99,47 @@ export default function PetListView() {
     [handleFilters]
   );
 
-  useEffect(() => {
-    setIsApiLoading(true);
+  // useEffect(() => {
+  //   setIsApiLoading(true);
 
-    // if (userMetadata) {
-    const shelterAccountId = getShelterAccountId1(user.publicAddress);
-    // const shelterAccountId = getShelterAccountId(
-    //   'fb9b34e032a94707e114023c44698716bef222d36310b48c7af02e5240c2b612'
-    // );
-    const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
+  //   // if (userMetadata) {
+  //   const shelterAccountId = getShelterAccountId1(user.publicAddress);
+  //   // const shelterAccountId = getShelterAccountId(
+  //   //   'fb9b34e032a94707e114023c44698716bef222d36310b48c7af02e5240c2b612'
+  //   // );
+  //   const apiUrl = `https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getPetsByAccountId?account_id=${shelterAccountId}`;
 
-    // Fetch data from the API
-    fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Assuming the API response contains an array of pets
-        setApiPets(data.pets); // Update the state with the fetched data
-        console.log(data.pets);
+  //   // Fetch data from the API
+  //   fetch(apiUrl)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       // Assuming the API response contains an array of pets
+  //       setApiPets(data.pets); // Update the state with the fetched data
+  //       console.log(data.pets);
 
-        setOwnerName(data.shelter_name_common);
-        // setIsApiLoading(false); // Set loading to false after data is fetched
+  //       setOwnerName(data.shelter_name_common);
+  //       // setIsApiLoading(false); // Set loading to false after data is fetched
 
-        // Apply filtering and sorting logic to apiPets and store the result in filteredAndSortedPets
-        const filteredAndSortedData = applyFilter({
-          inputData: data.pets, // Use the fetched data
-          filters,
-          sortBy,
-        });
-        setFilteredAndSortedPets(filteredAndSortedData);
-        setIsApiLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching user pets:', error);
-        setIsApiLoading(false);
-      });
-    // }
-  }, [filters, sortBy, user.publicAddress]);
+  //       // Apply filtering and sorting logic to apiPets and store the result in filteredAndSortedPets
+  //       const filteredAndSortedData = applyFilter({
+  //         inputData: data.pets, // Use the fetched data
+  //         filters,
+  //         sortBy,
+  //       });
+  //       setFilteredAndSortedPets(filteredAndSortedData);
+  //       setIsApiLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching user pets:', error);
+  //       setIsApiLoading(false);
+  //     });
+  //   // }
+  // }, [filters, sortBy, user.publicAddress]);
 
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>

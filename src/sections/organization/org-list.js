@@ -16,7 +16,7 @@ import OrganizationItem from './org-item';
 
 // ----------------------------------------------------------------------
 
-export default function OrganizationList({ orgs, isApiLoading }) {
+export default function OrganizationList({ orgs, isApiLoading, page, onPageChange, totalCount, pageSize }) {
   const router = useRouter();
 
   console.log('OrganizationList orgs: ', orgs);
@@ -81,17 +81,17 @@ export default function OrganizationList({ orgs, isApiLoading }) {
           ))}
       </Box>
 
-      {/* {orgs.length > 8 && (
-        <Pagination
-          count={8}
-          sx={{
-            mt: 8,
-            [`& .${paginationClasses.ul}`]: {
-              justifyContent: 'center',
-            },
-          }}
-        />
-      )} */}
+      <Pagination
+        count={Math.ceil(totalCount / pageSize)} // Use totalCount and pageSize to calculate the number of pages
+        page={page}
+        onChange={onPageChange}
+        sx={{
+          mt: 8,
+          [`& .${paginationClasses.ul}`]: {
+            justifyContent: 'center',
+          },
+        }}
+      />
     </>
   );
 }
@@ -99,4 +99,8 @@ export default function OrganizationList({ orgs, isApiLoading }) {
 OrganizationList.propTypes = {
   orgs: PropTypes.array,
   isApiLoading: PropTypes.bool,
+  page: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  totalCount: PropTypes.number.isRequired, // Add totalCount prop
+  pageSize: PropTypes.number.isRequired, // Add pageSize prop
 };

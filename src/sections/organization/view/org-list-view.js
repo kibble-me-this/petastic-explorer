@@ -54,20 +54,16 @@ export default function OrganizationListView() {
   const settings = useSettingsContext();
 
   const { user, logout } = useAuthContext();
-
-
   const { affiliations } = getShelterAccountId(user);
-
-  // const { _affiliations } = useGetAffiliations("5ee2fd93bccd3286db09da9a");
-
   const accountIds = affiliations ? affiliations.map(affiliation => affiliation.shelterId) : [];
-
-  const { organizations, isLoading: isOrgLoading, error: orgError, isValidating } = useGetOrganizations(accountIds);
-
 
   const openFilters = useBoolean();
 
   const [sortBy, setSortBy] = useState('latest');
+  const [page, setPage] = useState(1);
+  const [pageSize] = useState(12); // Define pageSize
+
+  const { organizations, totalCount, isLoading: isOrgLoading, error: orgError, isValidating } = useGetOrganizations(accountIds, page, pageSize);
 
   const [search, setSearch] = useState({
     query: '',
@@ -97,28 +93,6 @@ export default function OrganizationListView() {
     setSortBy(newValue);
   }, []);
 
-  // const handleSearch = useCallback(
-  //   (inputValue) => {
-  //     setSearch((prevState) => ({
-  //       ...prevState,
-  //       query: inputValue,
-  //     }));
-
-  //     if (inputValue) {
-  //       // const results = _jobs.filter(
-  //       const results = [organization].filter(
-  //         (job) => job.title.toLowerCase().indexOf(search.query.toLowerCase()) !== -1
-  //       );
-
-  //       setSearch((prevState) => ({
-  //         ...prevState,
-  //         results,
-  //       }));
-  //     }
-  //   },
-  //   [search.query]
-  // );
-
   const handleSearch = useCallback(
     (inputValue) => {
       setSearch((prevState) => ({
@@ -144,6 +118,10 @@ export default function OrganizationListView() {
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
+  }, []);
+
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
   }, []);
 
   const renderFilters = (
@@ -236,7 +214,14 @@ export default function OrganizationListView() {
 
       {notFound && <EmptyContent filled title="No Data" sx={{ py: 10 }} />}
 
-      <OrganizationList orgs={dataFiltered} isApiLoading={isOrgLoading} />
+      <OrganizationList
+        orgs={dataFiltered}
+        isApiLoading={isOrgLoading}
+        page={page}
+        onPageChange={handlePageChange}
+        totalCount={totalCount}
+        pageSize={pageSize}
+      />
     </Container>
   );
 }
