@@ -162,7 +162,15 @@ export const useMockUser = [
         shelterId: '5eec2d46fa4f16cbb6eb4e56',
         shelterName: "Miko's Rescue",
         affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eea12b1fd570ce9e3d203d9',
+        shelterName: "Show Me Your Pitties Rescue",
+        affiliateSystemRoles: ['admin']
       }
+
+
     ],
     pets: []
   },
@@ -330,6 +338,12 @@ export const useMockUser = [
         shelterId: '5eec2d46fa4f16cbb6eb4e56',
         shelterName: "Miko's Rescue",
         affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eea12b1fd570ce9e3d203d9',
+        shelterName: "Show Me Your Pitties Rescue",
+        affiliateSystemRoles: ['admin']
       }
     ]
   },
@@ -496,6 +510,12 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5eec2d46fa4f16cbb6eb4e56',
         shelterName: "Miko's Rescue",
+        affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eea12b1fd570ce9e3d203d9',
+        shelterName: "Show Me Your Pitties Rescue",
         affiliateSystemRoles: ['admin']
       }
     ]
@@ -1305,7 +1325,42 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
+  },
+  // showmeyourpittiesrescue@gmail.com
+  {
+    id: '27474aa6-0c7f-40c9-b458-44e1e70c95d3',
+    mainnetNearPublicAddress: '8cfc9bbb369f1283ab038adc9a620925c6a4523c58dbf80b06c7de7dc992348b',
+    pid: '5eeae3cff36b6e7ef0535eea',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'showmeyourpittiesrescue@gmail.com',
+    name: '[Full Name]',
+    displayName: '',
+    company: "Show Me Your Pitties Rescue",
+    role: "User",
+    address: '42847 Ranch Club Road',
+    city: 'Lake Hughes',
+    state: 'CA',
+    zipCode: '92504',
+    country: 'USA',
+    phoneNumber: '+1 (707) 494-3473',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eea12b1fd570ce9e3d203d9',
+        shelterName: "Show Me Your Pitties Rescue",
+        affiliateSystemRoles: ['admin']
+      }
+
+    ]
   }
+
 
 ];
 
