@@ -187,7 +187,12 @@ export const useMockUser = [
         shelterName: "4ever Yours Rescue Inc",
         affiliateSystemRoles: ['admin']
       },
-
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f24e1687303255024',
+        shelterName: "Grandma Betty's Animal Rescue",
+        affiliateSystemRoles: ['admin']
+      },
 
 
 
@@ -383,6 +388,13 @@ export const useMockUser = [
         shelterName: "4ever Yours Rescue Inc",
         affiliateSystemRoles: ['admin']
       },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f24e1687303255024',
+        shelterName: "Grandma Betty's Animal Rescue",
+        affiliateSystemRoles: ['admin']
+      },
+
 
     ]
   },
@@ -573,6 +585,12 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee8317f5631689138219059',
         shelterName: "4ever Yours Rescue Inc",
+        affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f24e1687303255024',
+        shelterName: "Grandma Betty's Animal Rescue",
         affiliateSystemRoles: ['admin']
       },
 
@@ -1516,8 +1534,42 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
+  },
+  // adoptions@grandmabettysanimalrescue.com
+  {
+    id: 'e61e0fd6-cf79-4b31-8da1-a0c0f0338145',
+    mainnetNearPublicAddress: 'xxxx5ee8317f24e1687303255024',
+    pid: '5eef70022c59bd5da1a1f20b',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'adoptions@grandmabettysanimalrescue.com',
+    name: 'Lisa Betty',
+    displayName: '',
+    company: "Grandma Betty's Animal Rescue",
+    role: "User",
+    address: '',
+    city: 'San Diego',
+    state: 'CA',
+    zipCode: '92129',
+    country: 'USA',
+    phoneNumber: '+1 (858) 649-9134',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f24e1687303255024',
+        shelterName: "Grandma Betty's Animal Rescue",
+        affiliateSystemRoles: ['admin']
+      }
+    ]
   }
 ];
+
 
 
 
