@@ -19,7 +19,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 // _mock
-import { _userList, _roles, USER_STATUS_OPTIONS } from 'src/_mock';
+import { _roles, USER_STATUS_OPTIONS } from 'src/_mock';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
@@ -74,7 +74,11 @@ export default function UserListView() {
 
   const confirm = useBoolean();
 
-  const { users, statusCounts, isLoading, isError } = useGetUsers();
+  // Set default page and pageSize
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(25);  // Set the default page size here
+
+  const { users, statusCounts, totalCount, isLoading, isError } = useGetUsers(page + 1, rowsPerPage);
 
   const [tableData, setTableData] = useState([]);
 
@@ -153,13 +157,22 @@ export default function UserListView() {
     setFilters(defaultFilters);
   }, []);
 
+  const handleChangePage = useCallback((event, newPage) => {
+    setPage(newPage);
+  }, []);
+
+  const handleChangeRowsPerPage = useCallback((event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  }, []);
+
   return (
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
           heading="List"
           links={[
-            // { name: 'Dashboard', href: paths.dashboard.root },
+            { name: 'Dashboard', href: paths.dashboard.root },
             {
               name: 'User',
               //  href: paths.dashboard.user.root 
@@ -306,11 +319,11 @@ export default function UserListView() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
-            page={table.page}
-            rowsPerPage={table.rowsPerPage}
-            onPageChange={table.onChangePage}
-            onRowsPerPageChange={table.onChangeRowsPerPage}
+            count={totalCount}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
             //
             dense={table.dense}
             onChangeDense={table.onChangeDense}

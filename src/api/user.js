@@ -15,12 +15,14 @@ const options = {
 
 // ----------------------------------------------------------------------
 
-export function useGetUsers() {
-  const { data, error } = useSWR([URL.list, {}], fetcherANYML, options);
+export function useGetUsers(page = 1, pageSize = 10) {
+  const { data, error } = useSWR([URL.list, { page, pageSize }], (url, params) =>
+    fetcherANYML(url, params), options);
 
   const memoizedValue = useMemo(() => ({
     users: data?.users || [],
     statusCounts: data?.statusCounts || {},
+    totalCount: data?.totalCount || 0,
     isLoading: !data && !error,
     error,
     isEmpty: !data?.users?.length,
