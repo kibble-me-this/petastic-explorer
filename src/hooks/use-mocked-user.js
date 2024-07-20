@@ -150,6 +150,12 @@ export const useMockUser = [
         shelterId: '5ee8317f3ea1685197328376',
         shelterName: 'Pawsitive Beginnings',
         affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee26ffc9806e2255757fb2c',
+        shelterName: 'Hope and Friends Rescue',
+        affiliateSystemRoles: ['admin']
       }
     ],
     pets: []
@@ -306,6 +312,12 @@ export const useMockUser = [
         shelterId: '5ee8317f3ea1685197328376',
         shelterName: 'Pawsitive Beginnings',
         affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee26ffc9806e2255757fb2c',
+        shelterName: 'Hope and Friends Rescue',
+        affiliateSystemRoles: ['admin']
       }
     ]
   },
@@ -335,6 +347,7 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+
       {
         role: ['admin'],
         shelterId: '5ee831810d51681938591381',
@@ -460,6 +473,12 @@ export const useMockUser = [
         shelterId: '5ee8317f3ea1685197328376',
         shelterName: 'Pawsitive Beginnings',
         affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee26ffc9806e2255757fb2c',
+        shelterName: 'Hope and Friends Rescue',
+        affiliateSystemRoles: ['admin']
       }
     ]
   },
@@ -1135,7 +1154,137 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
+  },
+  {
+    id: '717cbfc1-c723-4b16-bc1b-939dff695233',
+    mNearPublicAddress: 'xxxanimalfarm',
+    pid: '5ee2457cfd47bca79fbade3f',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@animalfarmfoundation.org',
+    name: 'Acadia Generelli',
+    displayName: '',
+    company: 'Animal Farm Foundation',
+    role: "User",
+    address: '433 Pugsley Hill Rd',
+    city: 'Amenia',
+    state: 'NY',
+    zipCode: '12501',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831810d51681938591381',
+        shelterName: 'Animal Farm Foundation, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  },
+
+  // lauraamoreno@icloud.com'
+  {
+    id: '6de1e8a7-d299-4231-b69f-e9fa221636c5',
+    mainnetNearPublicAddress: 'xxx5ee26ffc9806e2255757fb2c',
+    pid: '5eeeaddd46cd5e093a521c1f',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'lauraamoreno@icloud.com',
+    name: 'Laura Moreno',
+    displayName: '',
+    company: 'Hope and Friends Rescue',
+    role: "User",
+    address: '2772 Tropicana Dr',
+    city: 'Riverside',
+    state: 'CA',
+    zipCode: '92504',
+    country: 'USA',
+    phoneNumber: '+1 (562) 745-7359',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee26ffc9806e2255757fb2c',
+        shelterName: 'Hope and Friends Rescue',
+        affiliateSystemRoles: ['admin']
+      },
+    ]
+  },
+
+  // hopeandfriendsrescue@icloud.com'
+  {
+    id: '27474aa6-0c7f-40c9-b458-44e1e70c95d3',
+    mainnetNearPublicAddress: 'xxxx5ee26ffc9806e2255757fb2c',
+    pid: '5eeae3cff36b6e7ef0535eea',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'hopeandfriendsrescue@icloud.com',
+    name: 'Laura Moreno',
+    displayName: '',
+    company: 'Hope and Friends Rescue',
+    role: "User",
+    address: '2772 Tropicana Dr',
+    city: 'Riverside',
+    state: 'CA',
+    zipCode: '92504',
+    country: 'USA',
+    phoneNumber: '+1 (562) 745-7359',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee26ffc9806e2255757fb2c',
+        shelterName: 'Hope and Friends Rescue',
+        affiliateSystemRoles: ['admin']
+      },
+    ]
   }
+
+
+  // {
+  //   "body": {
+  //     "newOrganization": {
+  //       "primary_account": {
+  //         "account_type": "shelter",
+  //         "account_id": "",
+  //         "near_address": "",
+  //         "contact_info": {
+  //           "email": "lauraamoreno@icloud.com",
+  //           "phone": "+1 (562) 745-7359",
+  //           "country": "USA",
+  //           "state": "CA",
+  //           "city": "Riverside",
+  //           "address": "2772 Tropicana Dr"
+  //         },
+  //         "shelter_details": {
+  //           "shelter_name_common": "Hope and Friends Rescue",
+  //           "shelter_name_path": "hope-and-friends-rescue",
+  //           "pf_shelter_url": "N/A",
+  //           "pf_shelter_inventory_page": "N/A"
+  //         }
+  //       },
+  //       "pets": [],
+  //       "coop_id": "",
+  //       "ecommerce_eligible": ""
+  //     }
+  //   }
+  // }
 
 
 
