@@ -181,7 +181,12 @@ export const useMockUser = [
         shelterName: "Pup Culture Rescue",
         affiliateSystemRoles: ['admin']
       },
-
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f5631689138219059',
+        shelterName: "4ever Yours Rescue Inc",
+        affiliateSystemRoles: ['admin']
+      },
 
 
 
@@ -372,6 +377,13 @@ export const useMockUser = [
         shelterName: "Pup Culture Rescue",
         affiliateSystemRoles: ['admin']
       },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f5631689138219059',
+        shelterName: "4ever Yours Rescue Inc",
+        affiliateSystemRoles: ['admin']
+      },
+
     ]
   },
 
@@ -557,6 +569,13 @@ export const useMockUser = [
         shelterName: "Pup Culture Rescue",
         affiliateSystemRoles: ['admin']
       },
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f5631689138219059',
+        shelterName: "4ever Yours Rescue Inc",
+        affiliateSystemRoles: ['admin']
+      },
+
     ]
   },
 
@@ -1464,8 +1483,42 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
+  },
+  // 4everyoursrescue@gmail.com
+  {
+    id: '2287ff77-0db4-4f54-aa7f-fcca4a266c50',
+    mainnetNearPublicAddress: '60f877d9e4c6b9c9022c03576b2cb3244ba3e22165c92ba0e0e6684aebb8ed9a',
+    pid: '5eeae4344eb34e6a5d131a6a',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: '4everyoursrescue@gmail.com',
+    name: 'Divya Thompson',
+    displayName: '',
+    company: "4ever Yours Rescue Inc",
+    role: "User",
+    address: '',
+    city: 'Georgetown',
+    state: 'CA',
+    zipCode: '',
+    country: 'USA',
+    phoneNumber: '+1 916-915-3613',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f5631689138219059',
+        shelterName: "4ever Yours Rescue Inc",
+        affiliateSystemRoles: ['admin']
+      },
+    ]
   }
 ];
+
 
 
 
