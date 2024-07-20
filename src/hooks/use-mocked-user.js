@@ -168,7 +168,15 @@ export const useMockUser = [
         shelterId: '5eea12b1fd570ce9e3d203d9',
         shelterName: "Show Me Your Pitties Rescue",
         affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eeeea3b94fee7562d5130c4',
+        shelterName: "Gingeroo Animal Rescue Network",
+        affiliateSystemRoles: ['admin']
       }
+
+
 
 
     ],
@@ -344,6 +352,12 @@ export const useMockUser = [
         shelterId: '5eea12b1fd570ce9e3d203d9',
         shelterName: "Show Me Your Pitties Rescue",
         affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eeeea3b94fee7562d5130c4',
+        shelterName: "Gingeroo Animal Rescue Network",
+        affiliateSystemRoles: ['admin']
       }
     ]
   },
@@ -516,6 +530,12 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5eea12b1fd570ce9e3d203d9',
         shelterName: "Show Me Your Pitties Rescue",
+        affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eeeea3b94fee7562d5130c4',
+        shelterName: "Gingeroo Animal Rescue Network",
         affiliateSystemRoles: ['admin']
       }
     ]
@@ -1359,7 +1379,44 @@ export const useMockUser = [
       }
 
     ]
+  },
+  // KristinaVerdile@gmail.com
+  {
+    id: 'acdbbd56-b339-4d72-8701-0499cd6e347a',
+    mainnetNearPublicAddress: 'xxx5eeeea3b94fee7562d5130c4',
+    pid: '5ee668eb1175a0af76f61d53',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'KristinaVerdile@gmail.com',
+    name: 'Kristina Verdile',
+    displayName: '',
+    company: "Gingeroo Animal Rescue Network",
+    role: "User",
+    address: '42847 Ranch Club Road',
+    city: 'Lake Hughes',
+    state: 'CA',
+    zipCode: '92504',
+    country: 'USA',
+    phoneNumber: '+1 (707) 494-3473',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+
+      {
+        role: ['admin'],
+        shelterId: '5eeeea3b94fee7562d5130c4',
+        shelterName: "Gingeroo Animal Rescue Network",
+        affiliateSystemRoles: ['admin']
+      }
+
+    ]
   }
+
+
 
 
 ];
