@@ -156,6 +156,12 @@ export const useMockUser = [
         shelterId: '5ee26ffc9806e2255757fb2c',
         shelterName: 'Hope and Friends Rescue',
         affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eec2d46fa4f16cbb6eb4e56',
+        shelterName: "Miko's Rescue",
+        affiliateSystemRoles: ['admin']
       }
     ],
     pets: []
@@ -318,6 +324,12 @@ export const useMockUser = [
         shelterId: '5ee26ffc9806e2255757fb2c',
         shelterName: 'Hope and Friends Rescue',
         affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eec2d46fa4f16cbb6eb4e56',
+        shelterName: "Miko's Rescue",
+        affiliateSystemRoles: ['admin']
       }
     ]
   },
@@ -478,6 +490,12 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee26ffc9806e2255757fb2c',
         shelterName: 'Hope and Friends Rescue',
+        affiliateSystemRoles: ['admin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eec2d46fa4f16cbb6eb4e56',
+        shelterName: "Miko's Rescue",
         affiliateSystemRoles: ['admin']
       }
     ]
@@ -1254,40 +1272,40 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
+  },
+  // hello@mikosrescuemission.org
+  {
+    id: '7e474412-7562-43d9-af78-5b325ad7e4ce',
+    mainnetNearPublicAddress: 'a350c52e6f8a5e13fcaa0c2f0820a27bd4338b34d9d1508e122eaf60f2176e0a',
+    pid: '5eec878278f953acee0cba66',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'hello@mikosrescuemission.org',
+    name: 'Laura Moreno',
+    displayName: '',
+    company: "Miko's Rescue",
+    role: "User",
+    address: '',
+    city: 'Santa Clarita',
+    state: 'CA',
+    zipCode: '92504',
+    country: 'USA',
+    phoneNumber: '+1 (805) 205-6055',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eec2d46fa4f16cbb6eb4e56',
+        shelterName: "Miko's Rescue",
+        affiliateSystemRoles: ['admin']
+      },
+    ]
   }
-
-
-  // {
-  //   "body": {
-  //     "newOrganization": {
-  //       "primary_account": {
-  //         "account_type": "shelter",
-  //         "account_id": "",
-  //         "near_address": "",
-  //         "contact_info": {
-  //           "email": "lauraamoreno@icloud.com",
-  //           "phone": "+1 (562) 745-7359",
-  //           "country": "USA",
-  //           "state": "CA",
-  //           "city": "Riverside",
-  //           "address": "2772 Tropicana Dr"
-  //         },
-  //         "shelter_details": {
-  //           "shelter_name_common": "Hope and Friends Rescue",
-  //           "shelter_name_path": "hope-and-friends-rescue",
-  //           "pf_shelter_url": "N/A",
-  //           "pf_shelter_inventory_page": "N/A"
-  //         }
-  //       },
-  //       "pets": [],
-  //       "coop_id": "",
-  //       "ecommerce_eligible": ""
-  //     }
-  //   }
-  // }
-
-
-
 
 ];
 
