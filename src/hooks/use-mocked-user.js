@@ -836,6 +836,40 @@ export const useMockUser = [
     ]
   },
 
+  // SNL32692@gmail.com
+  {
+    id: '1b11cc7d-86b2-41cf-8d50-dae47c9f5af7',
+    mmainnetNearPublicAddress: 'ec06c616d04c40e28d6335b2045f2a7f3f0a992740ec5867262b0f107927c1a0',
+    pid: '5eefa1e781636ab5ac165b7c',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'SNL32692@gmail.com',
+    name: '[Full Name',
+    displayName: '',
+    company: '',
+    role: "Ecosystem User",
+    address: '1020 Rescue Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    zipCode: '90001',
+    country: 'United States',
+    phoneNumber: '',
+    password: 'demo1234',
+    photoURL: '',
+    about: 'Dedicated to saving animals.',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5fe931824281711564491846',
+        shelterName: 'Texas Animal Rescue Rehab',
+        affiliateSystemRoles: ['admin']
+      }
+    ]
+  },
+
   // meagan@strongpawsrescue.org
   {
     id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d711',
@@ -1171,6 +1205,41 @@ export const useMockUser = [
       }
     ]
   },
+
+  // rescuetexasdogs@gmail.com
+  {
+    id: '3bfe6fbc-ed1e-4a34-81e1-b49dc587a7ec',
+    mNearPublicAddress: 'xxx5ee83181b841684112445898',
+    pid: '5ee6eb5a4485cb23426e52c8',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'rescuetexasdogs@gmail.com',
+    name: '',
+    displayName: '',
+    company: '',
+    role: "User",
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: '',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b841684112445898',
+        shelterName: 'Rescue Texas',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+
   {
     id: '59653e48-58d7-412a-bd65-7f2eaeadeedd',
     mNearPublicAddress: 'e082f04f488261c50cafd681cacf51643dcc456a7183397515030e6702d75c25',
