@@ -1514,7 +1514,7 @@ export const useMockUser = [
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
-    email: 'KristinaVerdile@gmail.com',
+    email: 'kristinaverdile@gmail.com',
     name: 'Kristina Verdile',
     displayName: '',
     company: "Gingeroo Animal Rescue Network",
