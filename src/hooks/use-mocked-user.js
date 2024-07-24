@@ -836,7 +836,7 @@ export const useMockUser = [
     ]
   },
 
-  // SNL32692@gmail.com
+  // snl32692@gmail.com
   {
     id: '1b11cc7d-86b2-41cf-8d50-dae47c9f5af7',
     mmainnetNearPublicAddress: 'ec06c616d04c40e28d6335b2045f2a7f3f0a992740ec5867262b0f107927c1a0',
@@ -845,7 +845,7 @@ export const useMockUser = [
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
-    email: 'SNL32692@gmail.com',
+    email: 'snl32692@gmail.com',
     name: '[Full Name',
     displayName: '',
     company: '',
@@ -1249,6 +1249,39 @@ export const useMockUser = [
     isPublic: true,
     avatarUrl: '',
     email: 'elizabeth@operationliberation.org',
+    name: 'Elizabeth Jones',
+    displayName: '',
+    company: 'Operation Liberation, Inc',
+    role: "User",
+    address: '711 NE 16th Court',
+    city: 'Naples',
+    state: 'Fl',
+    zipCode: '77521',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317fbe01686087521637',
+        shelterName: 'Operation Liberation, Inc',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+
+  {
+    id: 'f3b8b03f-3213-427b-9ca5-9dcad1b44bd8',
+    mNearPublicAddress: 'xxx5ee8317fbe01686087521637',
+    pid: '5ee3af18ce4006f47c597ec4',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@operationliberation.org',
     name: 'Elizabeth Jones',
     displayName: '',
     company: 'Operation Liberation, Inc',
