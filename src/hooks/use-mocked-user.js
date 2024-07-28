@@ -25,6 +25,13 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b7b1685258481548',
+        shelterName: 'Caffeinated Canine Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee831810d51681938591381',
@@ -229,6 +236,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee83181b7b1685258481548',
+        shelterName: 'Caffeinated Canine Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee831810d51681938591381',
         shelterName: 'Animal Farm Foundation, Inc.',
         affiliateSystemRoles: ['superadmin']
@@ -425,6 +438,12 @@ export const useMockUser = [
     systemRoles: ['admin'],
     affiliations: [
 
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b7b1685258481548',
+        shelterName: 'Caffeinated Canine Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee831810d51681938591381',
@@ -1668,6 +1687,40 @@ export const useMockUser = [
         shelterName: "Grandma Betty's Animal Rescue",
         affiliateSystemRoles: ['admin']
       }
+    ]
+  },
+
+  // adopt@caffeinatedcaninerescuetx.org
+  {
+    id: '6f726e38-c147-4d8e-8076-6918854a81da',
+    mainnetNearPublicAddress: 'xxx5ee83181b7b1685258481548',
+    pid: '5eedf9cc4030b57461204eab',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'adopt@caffeinatedcaninerescuetx.org',
+    name: 'Leah McMaster',
+    displayName: '',
+    company: 'Caffeinated Canine Rescue',
+    role: "Ecosystem User",
+    address: '2413 Goodrich',
+    city: 'Pearland',
+    state: 'TX',
+    zipCode: '77581',
+    country: 'USA',
+    phoneNumber: '+1 (936) 419-1016',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee83181b7b1685258481548',
+        shelterName: 'Caffeinated Canine Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
     ]
   }
 ];
