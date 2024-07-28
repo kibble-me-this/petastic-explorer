@@ -107,8 +107,8 @@ export const dispatchZincOrder = async (args, products, shippingAddress, subTota
     is_gift: true,
     gift_message: "Petastic! The pet's network.",
     shipping: {
-      order_by: "price",
-      max_days: 15,
+      order_by: "speed",
+      max_days: 25,
       max_price: 15000
     },
     webhooks: {

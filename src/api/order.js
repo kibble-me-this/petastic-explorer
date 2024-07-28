@@ -49,8 +49,8 @@ export async function createOrder(eventData) {
         seller_selection_criteria: {
             prime: true,
             marketplace: true,
-            handling_days_max: 20,
-            max_days: 20,
+            handling_days_max: 25,
+            max_days: 25,
         }
     }));
 
