@@ -28,6 +28,13 @@ export const useMockUser = [
 
       {
         role: ['admin'],
+        shelterId: '5ee2f7d70f5f6f22a273f6df',
+        shelterName: 'RFRD Academy Canine Sanctuary, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+
+      {
+        role: ['admin'],
         shelterId: '5ee83181b7b1685258481548',
         shelterName: 'Caffeinated Canine Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -236,6 +243,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee2f7d70f5f6f22a273f6df',
+        shelterName: 'RFRD Academy Canine Sanctuary, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee83181b7b1685258481548',
         shelterName: 'Caffeinated Canine Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -437,6 +450,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee2f7d70f5f6f22a273f6df',
+        shelterName: 'RFRD Academy Canine Sanctuary, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
 
       {
         role: ['admin'],
@@ -1721,6 +1740,40 @@ export const useMockUser = [
         shelterName: 'Caffeinated Canine Rescue',
         affiliateSystemRoles: ['superadmin']
       },
+    ]
+  },
+
+  // rfrdacademy@gmail.com
+  {
+    id: '48cb3488-6b8e-4c10-9d7a-af0865033449',
+    mainnetNearPublicAddress: 'xxx5ee2f7d70f5f6f22a273f6df',
+    pid: '5eea4d80c15ce09c6667532b',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'rfrdacademy@gmail.com',
+    name: 'David Trinh',
+    displayName: '',
+    company: 'RFRD Academy Canine Sanctuary, Inc.',
+    role: "Ecosystem User",
+    address: '',
+    city: '260 E. Virginia St',
+    state: 'CA',
+    zipCode: '95116',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '408-504-7339',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee2f7d70f5f6f22a273f6df',
+        shelterName: 'RFRD Academy Canine Sanctuary, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      }
     ]
   }
 ];
