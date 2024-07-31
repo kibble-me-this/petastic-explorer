@@ -25,6 +25,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee07873b9fabcf42d311c83',
+        shelterName: 'Ace of Hearts Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
 
       {
         role: ['admin'],
@@ -243,6 +249,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee07873b9fabcf42d311c83',
+        shelterName: 'Ace of Hearts Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee2f7d70f5f6f22a273f6df',
         shelterName: 'RFRD Academy Canine Sanctuary, Inc.',
         affiliateSystemRoles: ['superadmin']
@@ -450,6 +462,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee07873b9fabcf42d311c83',
+        shelterName: 'Ace of Hearts Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee2f7d70f5f6f22a273f6df',
@@ -1772,6 +1790,39 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee2f7d70f5f6f22a273f6df',
         shelterName: 'RFRD Academy Canine Sanctuary, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+  // aceofheartsmngr@gmail.com
+  {
+    id: 'dc4229bd-9c85-4685-abae-a2af65090bdc',
+    mainnetNearPublicAddress: 'xxx5ee07873b9fabcf42d311c83',
+    pid: '5ee2cd331526afbe8143c2be',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'aceofheartsmngr@gmail.com',
+    name: '',
+    displayName: '',
+    company: 'Ace of Hearts Dog Rescue',
+    role: "Ecosystem User",
+    address: '508 N. Doheny Dr.',
+    city: 'Beverly Hills',
+    state: 'CA',
+    zipCode: '90213',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee07873b9fabcf42d311c83',
+        shelterName: 'Ace of Hearts Dog Rescue',
         affiliateSystemRoles: ['superadmin']
       }
     ]
