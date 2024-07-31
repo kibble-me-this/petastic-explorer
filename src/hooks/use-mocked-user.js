@@ -27,6 +27,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee40f8988544169beaf4031',
+        shelterName: 'Desert Dog Project',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee07873b9fabcf42d311c83',
         shelterName: 'Ace of Hearts Dog Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -245,8 +251,13 @@ export const useMockUser = [
     photoURL: '',
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
-
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee40f8988544169beaf4031',
+        shelterName: 'Desert Dog Project',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee07873b9fabcf42d311c83',
@@ -462,6 +473,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee40f8988544169beaf4031',
+        shelterName: 'Desert Dog Project',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee07873b9fabcf42d311c83',
@@ -1826,9 +1843,41 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
+  },
+  //  info@desertdogproject.com
+  {
+    id: 'd4b43337-9399-4bd1-990d-0052d77e7c1f',
+    mainnetNearPublicAddress: 'xxx5ee40f8988544169beaf4031',
+    pid: '5eecd62291441f7acfe3aa40',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@desertdogproject.com',
+    name: 'Julia Correll',
+    displayName: '',
+    company: 'Desert Dog Project',
+    role: "Ecosystem User",
+    address: '5532 E Woodridge Dt.',
+    city: 'Scottsdale',
+    state: 'AZ',
+    zipCode: '85254',
+    country: 'USA',
+    phoneNumber: '+1 203 257 7129',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee40f8988544169beaf4031',
+        shelterName: 'Desert Dog Project',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
   }
 ];
-
 
 
 
