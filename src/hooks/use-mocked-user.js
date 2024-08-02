@@ -1962,6 +1962,73 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
+  },
+  // sarah@bubblesdogrescue.org
+  {
+    id: '226a1eb4-9293-4285-9b02-1e1f25cbab22',
+    mainnetNearPublicAddress: 'xxx5ee8317f49f1683402638385',
+    pid: '',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'sarah@bubblesdogrescue.org',
+    name: 'Sarah',
+    displayName: '',
+    company: 'Bubbles Dog Rescue',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: '',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
+  },
+
+  // marlene@bubblesdogrescue.org
+  {
+    id: 'a72af472-ca90-40e5-97b5-3e7f3c944f71',
+    mainnetNearPublicAddress: 'xxx5ee8317f49f1683402638385',
+    pid: '5ee0a5e903f99fca397e47b1',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'marlene@bubblesdogrescue.org',
+    name: 'Marlene',
+    displayName: '',
+    company: 'Bubbles Dog Rescue',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: '',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f49f1683402638385',
+        shelterName: 'Bubbles Dog Rescue',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
   }
 ];
 
