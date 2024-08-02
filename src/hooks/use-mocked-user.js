@@ -25,6 +25,14 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+
+      {
+        role: ['admin'],
+        shelterId: '5ee831810691687089285749',
+        shelterName: '716 Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
+
       {
         role: ['admin'],
         shelterId: '5ee40f8988544169beaf4031',
@@ -254,6 +262,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee831810691687089285749',
+        shelterName: '716 Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee40f8988544169beaf4031',
         shelterName: 'Desert Dog Project',
         affiliateSystemRoles: ['superadmin']
@@ -473,6 +487,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831810691687089285749',
+        shelterName: '716 Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee40f8988544169beaf4031',
@@ -1844,7 +1864,7 @@ export const useMockUser = [
       }
     ]
   },
-  //  info@desertdogproject.com
+  //  info@desertdogproject.org
   {
     id: 'd4b43337-9399-4bd1-990d-0052d77e7c1f',
     mainnetNearPublicAddress: 'xxx5ee40f8988544169beaf4031',
@@ -1853,7 +1873,7 @@ export const useMockUser = [
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
-    email: 'info@desertdogproject.com',
+    email: 'info@desertdogproject.org',
     name: 'Julia Correll',
     displayName: '',
     company: 'Desert Dog Project',
@@ -1880,7 +1900,7 @@ export const useMockUser = [
   //  volunteer@californiabullyrescue.org
   {
     id: '8d24aafe-5504-4850-8067-b0eb6feef2d2',
-    mainnetNearPublicAddress: 'xxx5ee40f8988544169beaf4031',
+    mainnetNearPublicAddress: 'xxx5ee8317f6501687352248090',
     pid: '5ee8a4dbff093569dd46ba8c',
     status: "active",
     isVerified: true,
@@ -1896,7 +1916,7 @@ export const useMockUser = [
     state: 'CA',
     zipCode: '95380',
     country: 'USA',
-    phoneNumber: '+12095959712',
+    phoneNumber: '+1 203 257 7129',
     password: '',
     photoURL: '',
     about: '',
@@ -1909,8 +1929,43 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
+  },
+  //  info@716paws.com
+  {
+    id: '2d8b7a18-d888-46cc-a575-b33dc0925f9f',
+    mainnetNearPublicAddress: 'xxx5ee831810691687089285749',
+    pid: '5ee8a4dbff09359dd46ab8d',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@716paws.com',
+    name: 'Allison Rosa',
+    displayName: '',
+    company: '716 Paws',
+    role: "Ecosystem User",
+    address: '368 Darwin Drive',
+    city: 'Amherst',
+    state: 'NY',
+    zipCode: '14226',
+    country: 'USA',
+    phoneNumber: '716-864-5474',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831810691687089285749',
+        shelterName: '716 Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
   }
 ];
+
+
 
 
 
