@@ -1876,9 +1876,41 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
+  },
+  //  volunteer@californiabullyrescue.org
+  {
+    id: '8d24aafe-5504-4850-8067-b0eb6feef2d2',
+    mainnetNearPublicAddress: 'xxx5ee40f8988544169beaf4031',
+    pid: '5ee8a4dbff093569dd46ba8c',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'volunteer@californiabullyrescue.org',
+    name: 'Patricia A Joyce',
+    displayName: '',
+    company: 'California Bully Rescue',
+    role: "Ecosystem User",
+    address: '1120 Chelsea Pl',
+    city: 'Turlock',
+    state: 'CA',
+    zipCode: '95380',
+    country: 'USA',
+    phoneNumber: '+12095959712',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f6501687352248090',
+        shelterName: 'California Bully Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
   }
 ];
-
 
 
 
