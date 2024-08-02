@@ -1,25 +1,21 @@
-// @mui
+import React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
-// _mock
-import { _addressBooks } from 'src/_mock';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // api
 import { useGetFosters } from 'src/api/fosters';
 // components
 import Iconify from 'src/components/iconify';
-//
 import { useCheckoutContext } from './context';
 import CheckoutSummary from './checkout-summary';
 import { AddressNewFormFoster, AddressItem } from '../address';
 
 // ----------------------------------------------------------------------
 
-const mockAddress =
-{
+const mockAddress = {
   id: 'mockId',
   name: 'Carlos Herrera',
   phoneNumber: '310-880-8673',
@@ -35,17 +31,23 @@ const mockAddress =
 
 export default function CheckoutBillingAddress() {
   const checkout = useCheckoutContext();
-  const { fosters, isLoading } = useGetFosters(checkout.accountID || mockAddress.id);
+  const { fosters, isLoading, error } = useGetFosters(checkout.accountID || mockAddress.id);
   const addressForm = useBoolean();
+
+  if (isLoading) {
+    return <Typography>Loading addresses...</Typography>;
+  }
+
+  if (error) {
+    return <Typography>Error loading addresses: {error.message}</Typography>;
+  }
 
   return (
     <>
-      {isLoading ? (
-        <Typography>Loading addresses...</Typography> // Add a loading message here
-      ) : (
-        <Grid container spacing={3}>
-          <Grid xs={12} md={8}>
-            {fosters.slice(0, 50).map((address) => (
+      <Grid container spacing={3}>
+        <Grid xs={12} md={8}>
+          {fosters.length > 0 ? (
+            fosters.map((address) => (
               <AddressItem
                 key={address.id}
                 address={address}
@@ -72,38 +74,41 @@ export default function CheckoutBillingAddress() {
                   boxShadow: (theme) => theme.customShadows.card,
                 }}
               />
-            ))}
+            ))
+          ) : (
+            <Typography>No addresses found.</Typography>
+          )}
 
-            <Stack direction="row" justifyContent="space-between">
-              <Button
-                size="small"
-                color="inherit"
-                onClick={checkout.onBackStep}
-                startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
-              >
-                Back
-              </Button>
+          <Stack direction="row" justifyContent="space-between">
+            <Button
+              size="small"
+              color="inherit"
+              onClick={checkout.onBackStep}
+              startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
+            >
+              Back
+            </Button>
 
-              <Button
-                size="small"
-                color="primary"
-                onClick={addressForm.onTrue}
-                startIcon={<Iconify icon="mingcute:add-line" />}
-              >
-                New Address
-              </Button>
-            </Stack>
-          </Grid>
-
-          <Grid xs={12} md={4}>
-            <CheckoutSummary
-              total={checkout.total}
-              subTotal={checkout.subTotal}
-              discount={checkout.discount}
-            />
-          </Grid>
+            <Button
+              size="small"
+              color="primary"
+              onClick={addressForm.onTrue}
+              startIcon={<Iconify icon="mingcute:add-line" />}
+            >
+              New Address
+            </Button>
+          </Stack>
         </Grid>
-      )}
+
+        <Grid xs={12} md={4}>
+          <CheckoutSummary
+            total={checkout.total}
+            subTotal={checkout.subTotal}
+            discount={checkout.discount}
+          />
+        </Grid>
+      </Grid>
+
       <AddressNewFormFoster
         account_id={checkout.accountID}
         open={addressForm.value}
@@ -113,4 +118,3 @@ export default function CheckoutBillingAddress() {
     </>
   );
 }
-
