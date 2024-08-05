@@ -28,6 +28,13 @@ export const useMockUser = [
 
       {
         role: ['admin'],
+        shelterId: '5ee40c1885bdcf2a23570b79',
+        shelterName: 'Rescue Lyfe',
+        affiliateSystemRoles: ['superadmin']
+      },
+
+      {
+        role: ['admin'],
         shelterId: '5ee831810691687089285749',
         shelterName: '716 Paws',
         affiliateSystemRoles: ['superadmin']
@@ -262,6 +269,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee40c1885bdcf2a23570b79',
+        shelterName: 'Rescue Lyfe',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee831810691687089285749',
         shelterName: '716 Paws',
         affiliateSystemRoles: ['superadmin']
@@ -487,6 +500,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee40c1885bdcf2a23570b79',
+        shelterName: 'Rescue Lyfe',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee831810691687089285749',
@@ -2029,7 +2048,41 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
+  },
+  // therescuelyfe@gmail.com
+  {
+    id: '9672588a-0c6d-4dc0-9936-883f195a7e4e',
+    mainnetNearPublicAddress: 'xxx5ee40c1885bdcf2a23570b79',
+    pid: '5eeea8c840a628f533a28b04',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'therescuelyfe@gmail.com',
+    name: 'Cali Trevino',
+    displayName: '',
+    company: 'Rescue Lyfe',
+    role: 'Ecosystem User',
+    address: '41995 Boardwal',
+    city: 'Palm Desert',
+    state: 'CA',
+    zipCode: '92211',
+    country: 'USA',
+    phoneNumber: '+1 (909) 800-1836',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee40c1885bdcf2a23570b79',
+        shelterName: 'Rescue Lyfe',
+        affiliateSystemRoles: ['superadmin']
+      }
+    ]
   }
+
 ];
 
 
