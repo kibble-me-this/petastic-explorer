@@ -28,6 +28,12 @@ export const useMockUser = [
 
       {
         role: ['admin'],
+        shelterId: '5eefb377ab02268590a1f0fc',
+        shelterName: 'Lonely Paws Adoption Network',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee40c1885bdcf2a23570b79',
         shelterName: 'Rescue Lyfe',
         affiliateSystemRoles: ['superadmin']
@@ -269,6 +275,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5eefb377ab02268590a1f0fc',
+        shelterName: 'Lonely Paws Adoption Network',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee40c1885bdcf2a23570b79',
         shelterName: 'Rescue Lyfe',
         affiliateSystemRoles: ['superadmin']
@@ -500,6 +512,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eefb377ab02268590a1f0fc',
+        shelterName: 'Lonely Paws Adoption Network',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee40c1885bdcf2a23570b79',
@@ -2081,12 +2099,42 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
+  },
+
+  // lonelypawsadoptions@gmail.com
+  {
+    id: '82954ced-1ec4-4234-913d-3da127f471f0',
+    mainnetNearPublicAddress: 'xxx5eefb377ab02268590a1f0fc',
+    pid: '5eeab797f5cb34d99acb028c',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'lonelypawsadoptions@gmail.com',
+    name: 'Ria Radzik',
+    displayName: '',
+    company: 'Lonely Paws Adoption Network',
+    role: 'Ecosystem User',
+    address: '15 Codington Lane',
+    city: 'Glen Gardner',
+    state: 'New Jersey',
+    zipCode: '08826',
+    country: 'USA',
+    phoneNumber: '+17325895382',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eefb377ab02268590a1f0fc',
+        shelterName: 'Lonely Paws Adoption Network',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
   }
-
 ];
-
-
-
 
 
 
