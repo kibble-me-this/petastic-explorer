@@ -1967,7 +1967,7 @@ export const useMockUser = [
       },
     ]
   },
-  //  info@716paws.com
+  //  info@716paws.org
   {
     id: '2d8b7a18-d888-46cc-a575-b33dc0925f9f',
     mainnetNearPublicAddress: 'xxx5ee831810691687089285749',
@@ -1976,7 +1976,7 @@ export const useMockUser = [
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
-    email: 'info@716paws.com',
+    email: 'info@716paws.org',
     name: 'Allison Rosa',
     displayName: '',
     company: '716 Paws',
