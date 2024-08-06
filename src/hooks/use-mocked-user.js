@@ -1138,15 +1138,15 @@ export const useMockUser = [
 
   // pawsitivebeginningsla@gmail.com
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d714',
+    id: 'a88bf858-4db9-4171-a76d-1ae164174624',
     mNearPublicAddress: '7a50760f17a7a5bd1851b953d92365af2ebea63eae408b6fee7dc991da04d4b1',
-    pid: '',
+    pid: '5ee86189b708885d79f09d1a',
     status: "active",
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
     email: 'pawsitivebeginningsla@gmail.com',
-    name: '[Full Name',
+    name: '[Full Name]',
     displayName: '',
     company: '',
     role: "Ecosystem User",
