@@ -1148,7 +1148,7 @@ export const useMockUser = [
     email: 'pawsitivebeginningsla@gmail.com',
     name: '[Full Name]',
     displayName: '',
-    company: '',
+    company: 'Pawsitive Beginnings',
     role: "Ecosystem User",
     address: '1020 Rescue Ave',
     city: 'Los Angeles',
