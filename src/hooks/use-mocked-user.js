@@ -26,6 +26,13 @@ export const useMockUser = [
     systemRoles: ['admin'],
     affiliations: [
 
+
+      {
+        role: ['admin'],
+        shelterId: '5ee8318159e1688940607096',
+        shelterName: 'Saving Baja Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5eefb377ab02268590a1f0fc',
@@ -275,6 +282,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee8318159e1688940607096',
+        shelterName: 'Saving Baja Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5eefb377ab02268590a1f0fc',
         shelterName: 'Lonely Paws Adoption Network',
         affiliateSystemRoles: ['superadmin']
@@ -512,6 +525,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8318159e1688940607096',
+        shelterName: 'Saving Baja Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5eefb377ab02268590a1f0fc',
@@ -2133,8 +2152,44 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
+  },
+
+  // tori@bajapaws.org
+  {
+    id: '4e9e24cc-c0e3-4a8c-8dcb-b168065e26a3',
+    mainnetNearPublicAddress: 'xxx5ee8318159e1688940607096',
+    pid: '5ee35517a251d66d19fa79df',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'tori@bajapaws.org',
+    name: 'Victoria Timm',
+    displayName: '',
+    company: 'Saving Baja Paws',
+    role: 'Ecosystem User',
+    address: '1641 NE 143rd Ave',
+    city: 'Portland',
+    state: 'OR',
+    zipCode: '97230',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8318159e1688940607096',
+        shelterName: 'Saving Baja Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
   }
 ];
+
+
 
 
 
