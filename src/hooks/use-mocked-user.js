@@ -26,6 +26,14 @@ export const useMockUser = [
     systemRoles: ['admin'],
     affiliations: [
 
+
+      {
+        role: ['admin'],
+        shelterId: '5eeb3cf569ab192823ce234b',
+        shelterName: 'Meow2theResQ',
+        affiliateSystemRoles: ['superadmin']
+      },
+
       {
         role: ['admin'],
         shelterId: '5eecee6cd8a515ee24d7ff83',
@@ -287,6 +295,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5eeb3cf569ab192823ce234b',
+        shelterName: 'Meow2theResQ',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5eecee6cd8a515ee24d7ff83',
         shelterName: 'Animal Care Zone',
         affiliateSystemRoles: ['superadmin']
@@ -536,6 +550,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eeb3cf569ab192823ce234b',
+        shelterName: 'Meow2theResQ',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5eecee6cd8a515ee24d7ff83',
@@ -2207,9 +2227,9 @@ export const useMockUser = [
 
   // info@animalcarezone.org
   {
-    id: '',
+    id: 'd9e80903-7417-4bba-bee5-8a41b64aa027',
     mainnetNearPublicAddress: 'xxx5eecee6cd8a515ee24d7ff83',
-    pid: '',
+    pid: '5eeb369bd0ebfeab8201260a',
     status: 'active',
     isVerified: true,
     isPublic: true,
@@ -2234,6 +2254,40 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5eecee6cd8a515ee24d7ff83',
         shelterName: 'Animal Care Zone',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  },
+
+  // paulinak721@gmail.com
+  {
+    id: 'b661bed8-f9ee-4028-8772-967266bb080b',
+    mainnetNearPublicAddress: 'xxx5eeb3cf569ab192823ce234b',
+    pid: '5ee1c35ad43ca04d595d128f',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'paulinak721@gmail.com',
+    name: 'Paulina Kaczmarczyk',
+    displayName: '',
+    company: 'Meow2theResQ',
+    role: 'Ecosystem User',
+    address: '349 E Grand St',
+    city: 'Mount Vernon',
+    state: 'NY',
+    zipCode: '10552',
+    country: 'USA',
+    phoneNumber: '+19175155252',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eeb3cf569ab192823ce234b',
+        shelterName: 'Meow2theResQ',
         affiliateSystemRoles: ['superadmin']
       },
     ]
