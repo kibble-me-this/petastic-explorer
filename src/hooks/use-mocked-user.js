@@ -26,7 +26,12 @@ export const useMockUser = [
     systemRoles: ['admin'],
     affiliations: [
 
-
+      {
+        role: ['admin'],
+        shelterId: '5eecee6cd8a515ee24d7ff83',
+        shelterName: 'Animal Care Zone',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee8318159e1688940607096',
@@ -282,6 +287,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5eecee6cd8a515ee24d7ff83',
+        shelterName: 'Animal Care Zone',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee8318159e1688940607096',
         shelterName: 'Saving Baja Paws',
         affiliateSystemRoles: ['superadmin']
@@ -525,6 +536,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eecee6cd8a515ee24d7ff83',
+        shelterName: 'Animal Care Zone',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee8318159e1688940607096',
@@ -2183,6 +2200,40 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee8318159e1688940607096',
         shelterName: 'Saving Baja Paws',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  },
+
+  // info@animalcarezone.org
+  {
+    id: '',
+    mainnetNearPublicAddress: 'xxx5eecee6cd8a515ee24d7ff83',
+    pid: '',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@animalcarezone.org',
+    name: '',
+    displayName: '',
+    company: 'Animal Care Zone',
+    role: 'Ecosystem User',
+    address: '5854 Thelma Ave',
+    city: 'Buena Park',
+    state: 'CA',
+    zipCode: '90623',
+    country: 'USA',
+    phoneNumber: '+18188252596',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eecee6cd8a515ee24d7ff83',
+        shelterName: 'Animal Care Zone',
         affiliateSystemRoles: ['superadmin']
       },
     ]
