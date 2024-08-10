@@ -25,13 +25,35 @@ export default function AnalyticsWebsiteVisits({ title, subheader, chart, ...oth
     xaxis: {
       type: 'datetime',
     },
+    yaxis: [
+      {
+        title: {
+          text: 'Sales',
+        },
+        labels: {
+          formatter: (value) => `$${value.toLocaleString()}`,
+        },
+      },
+      {
+        opposite: true,
+        title: {
+          text: 'GMV',
+        },
+        labels: {
+          formatter: (value) => `$${value.toLocaleString()}`,
+        },
+        min: 0,
+        max: 20000, // Adjust based on the range of Team B & C data
+        tickAmount: 5,
+      },
+    ],
     tooltip: {
       shared: true,
       intersect: false,
       y: {
         formatter: (value) => {
           if (typeof value !== 'undefined') {
-            return `${value.toFixed(0)} visits`;
+            return `$${value.toLocaleString()}`;
           }
           return value;
         },
@@ -50,6 +72,8 @@ export default function AnalyticsWebsiteVisits({ title, subheader, chart, ...oth
     </Card>
   );
 }
+
+
 
 AnalyticsWebsiteVisits.propTypes = {
   chart: PropTypes.object,
