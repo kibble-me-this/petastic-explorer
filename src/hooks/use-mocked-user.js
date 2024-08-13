@@ -29,6 +29,26 @@ export const useMockUser = [
 
       {
         role: ['admin'],
+        shelterId: '5ee7189bc4e771a4661a0233',
+        shelterName: 'Eleventh Hour Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+
+      {
+        role: ['admin'],
+        shelterId: '5ee5b3223d16d5c0312edf88',
+        shelterName: 'The Asher House',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eee77204406e1c112eb98b8',
+        shelterName: 'Furrytail Endings',
+        affiliateSystemRoles: ['superadmin']
+      },
+
+      {
+        role: ['admin'],
         shelterId: '5eeb3cf569ab192823ce234b',
         shelterName: 'Meow2theResQ',
         affiliateSystemRoles: ['superadmin']
@@ -295,6 +315,24 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee7189bc4e771a4661a0233',
+        shelterName: 'Eleventh Hour Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee5b3223d16d5c0312edf88',
+        shelterName: 'The Asher House',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eee77204406e1c112eb98b8',
+        shelterName: 'Furrytail Endings',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5eeb3cf569ab192823ce234b',
         shelterName: 'Meow2theResQ',
         affiliateSystemRoles: ['superadmin']
@@ -550,6 +588,24 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee7189bc4e771a4661a0233',
+        shelterName: 'Eleventh Hour Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5ee5b3223d16d5c0312edf88',
+        shelterName: 'The Asher House',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
+        shelterId: '5eee77204406e1c112eb98b8',
+        shelterName: 'Furrytail Endings',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5eeb3cf569ab192823ce234b',
