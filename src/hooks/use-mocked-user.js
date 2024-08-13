@@ -2347,8 +2347,111 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
+  },
+
+  // divdiv365@gmail.com
+  {
+    id: 'c7c5604f-32fd-42d3-be1c-50f472ffad6e',
+    mainnetNearPublicAddress: 'c4db2fe689c85b224e870e337aeeb58d3d71e8466c95b8cac8d70202667ae64e',
+    pid: '5ee910d19f010fc32f1ecdca',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'pdivdiv365@gmail.com',
+    name: 'Divya Cowgil',
+    displayName: '',
+    company: 'Furrytail Endings',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5eee77204406e1c112eb98b8',
+        shelterName: 'Furrytail Endings',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  },
+
+  // kellymiller@optonline.net
+  {
+    id: 'cf2b6cd3-3d51-4ae6-b4d4-a8ac73123fbf',
+    mainnetNearPublicAddress: 'xxx5ee7189bc4e771a4661a0233',
+    pid: '5ee54c3b6c6ea8b4f20843d4',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'kellymiller@optonline.net',
+    name: 'Kelly Miller',
+    displayName: '',
+    company: 'Eleventh Hour Rescue',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee7189bc4e771a4661a0233',
+        shelterName: 'Eleventh Hour Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  },
+  // lee@theasherhouse.com
+  {
+    id: 'b3ab3f42-fdbe-4ea3-ab3e-3788c279ca72',
+    mainnetNearPublicAddress: 'xxx5ee5b3223d16d5c0312edf88',
+    pid: '5ee06d0c4dc14f97b7b04639',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'lee@theasherhouse.com',
+    name: 'Lee Asher',
+    displayName: '',
+    company: 'EThe Asher House',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee5b3223d16d5c0312edf88',
+        shelterName: 'The Asher House',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
   }
 ];
+
+
 
 
 
