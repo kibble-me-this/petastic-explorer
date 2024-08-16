@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';  // <-- Add Navigate here
 // layouts
 import MainLayout from 'src/layouts/main';
 import SimpleLayout from 'src/layouts/simple';
@@ -35,7 +35,7 @@ const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 
 const MagicLoginPage = lazy(() => import('src/pages/auth/magic/login'));
 
-
+const isMaintenanceMode = process.env.REACT_APP_MAINTENANCE;
 
 // ----------------------------------------------------------------------
 
@@ -53,9 +53,8 @@ export const mainRoutes = [
       {
         path: '/',
         children: [{
-          element:
-            <MagicLoginPage />
-          , index: true
+          element: isMaintenanceMode ? <Navigate to="/maintenance" replace /> : <MagicLoginPage />,
+          index: true
         }],
       },
       // {
