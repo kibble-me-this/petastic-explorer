@@ -230,7 +230,8 @@ export const endpoints = {
   },
   product: {
     list: '/api/product/list',
-    details: '/api/product/details',
+    // details: '/api/product/details',
+    details: '/default/getZincProductDetails',
     search: '/api/product/search',
   },
   // fosters: '/default/handleGetFosters',

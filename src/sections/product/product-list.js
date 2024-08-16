@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types';
-// @mui
 import Box from '@mui/material/Box';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
-//
 import ProductItem from './product-item';
 import { ProductItemSkeleton } from './product-skeleton';
 
-// ----------------------------------------------------------------------
-
-export default function ProductList({ products, loading, ...other }) {
+export default function ProductList({ products, loading, currentPage, totalPages, onPageChange, ...other }) {
   const renderSkeleton = (
     <>
       {[...Array(16)].map((_, index) => (
@@ -41,9 +37,11 @@ export default function ProductList({ products, loading, ...other }) {
         {loading ? renderSkeleton : renderList}
       </Box>
 
-      {/* {products.length > 8 && (
+      {totalPages > 1 && (
         <Pagination
-          count={8}
+          count={totalPages}
+          page={currentPage}
+          onChange={(e, value) => onPageChange(value)}
           sx={{
             mt: 8,
             [`& .${paginationClasses.ul}`]: {
@@ -51,7 +49,7 @@ export default function ProductList({ products, loading, ...other }) {
             },
           }}
         />
-      )} */}
+      )}
     </>
   );
 }
@@ -59,4 +57,7 @@ export default function ProductList({ products, loading, ...other }) {
 ProductList.propTypes = {
   loading: PropTypes.bool,
   products: PropTypes.array,
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // @mui
 import Fab from '@mui/material/Fab';
@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Chip from '@mui/material/Chip';
 import Select from '@mui/material/Select';
+
 // routes
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -38,8 +39,16 @@ export default function ProductItem({ product }) {
   const [totalReviews, setTotalReviews] = useState(product.review_count);
 
   const handleChange = (event) => {
-    setSelectedVariant(event.target.value);
-    console.log('Selected Variant:', event.target.value);
+    const variantId = event.target.value;
+    const selectedVariantData = product.variants.find(variant => variant.product_id === variantId);
+
+    if (selectedVariantData) {
+      setSelectedVariant(variantId);
+      setCoverUrlState(product.main_image); // You can update this if variant-specific images are available
+      setProductIdState(selectedVariantData.product_id);
+      setTitleState(product.title); // Adjust if title differs based on variants
+      // Optionally update price if variant-specific pricing is available
+    }
   };
 
   const {
@@ -51,7 +60,7 @@ export default function ProductItem({ product }) {
     original_retail_price: price,
     stars,
     review_count,
-    all_variants
+    variants
   } = product;
 
   const linkTo = paths.product.details(id);
@@ -131,6 +140,9 @@ export default function ProductItem({ product }) {
           alt={titleState}
           src={coverUrlState}
           ratio="1/1"
+          disabledEffect // This disables the blur effect
+          useIntersectionObserver // Enables lazy loading and intersection observer
+
           sx={{
             borderRadius: 1.5,
             opacity: !availableValueState ? 0.48 : 1,
@@ -178,11 +190,10 @@ export default function ProductItem({ product }) {
           </Box>
         </Stack>
       </Stack>
-      {all_variants && all_variants.length > 1 && (
+      {variants && variants.length > 1 && (
         <Stack direction="column" alignItems="center" spacing={2}>
           <Select value={selectedVariant} onChange={handleChange} sx={{ width: '100%' }}>
-            <MenuItem value={selectedVariant}>{selectedVariant}</MenuItem>
-            {all_variants.map((variant) => (
+            {variants.map((variant) => (
               <MenuItem key={variant.product_id} value={variant.product_id}>
                 {constructVariantLabel(variant)[1]}
               </MenuItem>

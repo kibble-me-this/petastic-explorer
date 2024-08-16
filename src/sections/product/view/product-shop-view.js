@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useDebounce } from 'src/hooks/use-debounce';
@@ -21,7 +20,7 @@ import {
   PRODUCT_CATEGORY_OPTIONS,
 } from 'src/_mock';
 // api
-import { useGetProducts } from 'src/api/product';
+import { useGetProducts, useSearchProducts, useGetProductDetails } from 'src/api/product';
 // components
 import EmptyContent from 'src/components/empty-content';
 import { useSettingsContext } from 'src/components/settings';
@@ -42,52 +41,56 @@ const defaultFilters = {
   rating: '',
   category: 'all',
   priceRange: [0, 200],
-  searchQuery: '', // New search query filter
 };
 
 // ----------------------------------------------------------------------
 
 export default function ProductShopView({ userId }) {
   const settings = useSettingsContext();
+
   const checkout = useCheckoutContext();
 
-  useEffect(() => {
-    if (userId) {
-      checkout.onUpdateAccountID(userId);
-    }
-  }, [userId, checkout]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit] = useState(9);
 
   const openFilters = useBoolean();
 
   const [sortBy, setSortBy] = useState('featured');
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const debouncedQuery = useDebounce(searchQuery);
+
   const [filters, setFilters] = useState(defaultFilters);
 
-  // Ensure useGetProducts is only called when userId is present
-  const { products, productsLoading, productsEmpty } = useGetProducts(userId, { enabled: !!userId });
+  const { products, productsLoading, productsError, productsEmpty, totalPages } = useGetProductDetails(userId, currentPage, limit);
+
+  const { searchResults, searchLoading } = useSearchProducts(debouncedQuery);
 
   const handleFilters = useCallback((name, value) => {
-    setFilters(prevState => ({
+    setFilters((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   }, []);
 
-  const dataFiltered = useMemo(() => applyFilter({
-    inputData: products || [],
+  const dataFiltered = applyFilter({
+    inputData: products,
     filters,
     sortBy,
-  }), [products, filters, sortBy]);
+  });
 
-  const canReset = useMemo(() => !isEqual(defaultFilters, filters), [filters]);
-  const notFound = useMemo(() => !dataFiltered.length && canReset, [dataFiltered, canReset]);
+  const canReset = !isEqual(defaultFilters, filters);
+
+  const notFound = !dataFiltered.length && canReset;
 
   const handleSortBy = useCallback((newValue) => {
     setSortBy(newValue);
   }, []);
 
-  const handleSearchQuery = useCallback((event) => {
-    handleFilters('searchQuery', event.target.value);
-  }, [handleFilters]);
+  const handleSearch = useCallback((inputValue) => {
+    setSearchQuery(inputValue);
+  }, []);
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
@@ -100,11 +103,12 @@ export default function ProductShopView({ userId }) {
       alignItems={{ xs: 'flex-end', sm: 'center' }}
       direction={{ xs: 'column', sm: 'row' }}
     >
-      <TextField
-        fullWidth
-        value={filters.searchQuery}
-        onChange={handleSearchQuery}
-        placeholder="Search products..."
+      <ProductSearch
+        query={debouncedQuery}
+        results={searchResults}
+        onSearch={handleSearch}
+        loading={searchLoading}
+        hrefItem={(id) => paths.product.details(id)}
       />
 
       <Stack direction="row" spacing={1} flexShrink={0}>
@@ -125,7 +129,7 @@ export default function ProductShopView({ userId }) {
           categoryOptions={['all', ...PRODUCT_CATEGORY_OPTIONS]}
         />
 
-        {/* <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} /> */}
+        <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} />
       </Stack>
     </Stack>
   );
@@ -142,7 +146,11 @@ export default function ProductShopView({ userId }) {
     />
   );
 
-  const renderNotFound = <EmptyContent filled title="No Products" sx={{ py: 10 }} />;
+  const renderNotFound = <EmptyContent filled title="No Data" sx={{ py: 10 }} />;
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <Container
@@ -175,7 +183,12 @@ export default function ProductShopView({ userId }) {
 
       {(notFound || productsEmpty) && renderNotFound}
 
-      <ProductList products={dataFiltered} loading={productsLoading} />
+      <ProductList
+        products={dataFiltered}
+        loading={productsLoading}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange} cr />
     </Container>
   );
 }
@@ -187,9 +200,10 @@ ProductShopView.propTypes = {
 // ----------------------------------------------------------------------
 
 function applyFilter({ inputData, filters, sortBy }) {
-  const { gender, category, colors, priceRange, rating, searchQuery } = filters;
+  const { gender, category, colors, priceRange, rating } = filters;
 
   const min = priceRange[0];
+
   const max = priceRange[1];
 
   // SORT BY
@@ -211,16 +225,16 @@ function applyFilter({ inputData, filters, sortBy }) {
 
   // FILTERS
   if (gender.length) {
-    inputData = inputData.filter((product) => gender.includes(product.categories[1]));
+    inputData = inputData.filter((product) => gender.includes(product.gender));
   }
 
   if (category !== 'all') {
-    inputData = inputData.filter((product) => product.categories && product.categories[2] === category);
+    inputData = inputData.filter((product) => product.category === category);
   }
 
   if (colors.length) {
     inputData = inputData.filter((product) =>
-      product.colors && product.colors.some((color) => colors.includes(color))
+      product.colors.some((color) => colors.includes(color))
     );
   }
 
@@ -240,15 +254,5 @@ function applyFilter({ inputData, filters, sortBy }) {
     });
   }
 
-  if (searchQuery) {
-    console.log('Search Query:', searchQuery); // Debug log
-    inputData = inputData.filter((product) => {
-      const title = product.title || '';
-      console.log('Product Title:', title); // Debug log
-      return title.toLowerCase().includes(searchQuery.toLowerCase());
-    });
-  }
-
   return inputData;
 }
-
