@@ -13,7 +13,7 @@ export default function MaintenanceView() {
   return (
     <Stack sx={{ alignItems: 'center', mt: 50 }}>
       <Typography variant="h3" sx={{ mb: 2 }}>
-        Pestic currently under maintenance
+        Petastic currently under maintenance
       </Typography>
 
       <Typography sx={{ color: 'text.secondary' }}>
