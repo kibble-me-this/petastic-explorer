@@ -35,7 +35,7 @@ const ChatPage = lazy(() => import('src/pages/dashboard/chat'));
 
 const MagicLoginPage = lazy(() => import('src/pages/auth/magic/login'));
 
-const isMaintenanceMode = process.env.REACT_APP_MAINTENANCE;
+const isMaintenanceMode = process.env.REACT_APP_MAINTENANCE === 'true';
 
 // ----------------------------------------------------------------------
 
@@ -107,6 +107,7 @@ export const mainRoutes = [
       { path: '500', element: <Page500 /> },
       { path: '404', element: <Page404 /> },
       { path: '403', element: <Page403 /> },
+      { path: '*', element: <Page404 /> },  // Catch-all for 404
     ],
   },
 ];
