@@ -190,7 +190,7 @@ export default function ProductItem({ product }) {
           </Box>
         </Stack>
       </Stack>
-      {variants && variants.length > 1 && (
+      {/* {variants && variants.length > 1 && (
         <Stack direction="column" alignItems="center" spacing={2}>
           <Select value={selectedVariant} onChange={handleChange} sx={{ width: '100%' }}>
             {variants.map((variant) => (
@@ -200,7 +200,7 @@ export default function ProductItem({ product }) {
             ))}
           </Select>
         </Stack>
-      )}
+      )} */}
     </Stack>
   );
 
