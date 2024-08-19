@@ -42,6 +42,8 @@ export default function ProductList({ products, loading, currentPage, totalPages
           count={totalPages}
           page={currentPage}
           onChange={(e, value) => onPageChange(value)}
+          siblingCount={1} // Control the number of pages shown around the current page
+          boundaryCount={1} // Control the number of pages shown at the beginning and end of the list
           sx={{
             mt: 8,
             [`& .${paginationClasses.ul}`]: {
@@ -50,6 +52,7 @@ export default function ProductList({ products, loading, currentPage, totalPages
           }}
         />
       )}
+
     </>
   );
 }

@@ -1,9 +1,10 @@
 import useSWR, { mutate } from 'swr';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import isEqual from 'lodash/isEqual'; // Import isEqual from lodash
 
 // utils
 import { fetcher, fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
+import { getStorage, removeStorage, setStorage, useLocalStorage } from 'src/hooks/use-local-storage';
 import { useGetZincProducts } from './zinc';
 import uuidv4 from '../utils/uuidv4';
 import { getCacheFlagKey, setCacheFlag, fetcherWithLocalStorage, getVersionKey, setVersionKey } from './cache';
@@ -18,27 +19,6 @@ const options = {
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
 };
-
-// const getCacheFlagKey = (userId) => `newProductsAvail-${userId}`;
-// const setCacheFlag = (userId, flag) => localStorage.setItem(getCacheFlagKey(userId), flag.toString());
-
-// // In-memory cache
-// const cache = {};
-
-// // Custom fetcher to check cache first
-// const fetcherWithCache = async (key, query) => {
-//   // Check if data is already in cache
-//   if (cache[key]) {
-//     return cache[key];
-//   }
-
-//   // If not in cache, fetch data from API
-//   const data = await fetcher(query);
-//   // Save the fetched data in cache
-//   cache[key] = data;
-
-//   return data;
-// };
 
 // ----------------------------------------------------------------------
 
@@ -255,51 +235,6 @@ const mockProducts = [
     ]
   },]
 
-// export function useGetProducts(account_id, { enabled = true } = {}) {
-//   const { data, isLoading, error, isValidating } = useSWR(
-//     enabled && account_id ? [PRODUCTS_URL, { account_id }] : null,
-//     () => fetcherANYML([PRODUCTS_URL.list, { account_id }]),
-//     options
-//   );
-
-//   const [productIds, setProductIds] = useState([]);
-//   const [version, setVersion] = useState(null);
-
-//   useEffect(() => {
-//     if (data) {
-//       const newProductIds = data.products.map(product => product.id);
-//       console.log("Fetched product IDs:", newProductIds);
-
-//       if (!isEqual(productIds, newProductIds)) {
-//         console.log("Updating product IDs");
-//         setProductIds(newProductIds);
-//       } else {
-//         console.log("Product IDs unchanged");
-//       }
-
-//       const localVersion = getVersionKey(account_id);
-//       if (data.version_products !== version) {
-//         setVersion(data.version_products);
-//         if (!localVersion) {
-//           setVersionKey(account_id, data.version_products);
-//         }
-//       }
-//     }
-//   }, [data, productIds, version, account_id]);
-
-//   const zincProducts = useGetZincProducts(account_id, productIds, version);
-
-//   const combinedState = useMemo(() => ({
-//     products: zincProducts.products,
-//     productsLoading: isLoading || zincProducts.productsLoading,
-//     productsError: error || zincProducts.productsError,
-//     productsValidating: isValidating || zincProducts.productsValidating,
-//     productsEmpty: !isLoading && !zincProducts.productsLoading && zincProducts.productsEmpty,
-//     version,
-//   }), [zincProducts, isLoading, error, isValidating, version]);
-
-//   return combinedState;
-// }
 
 export function useGetProducts(account_id, { enabled = true } = {}) {
   const { data, isLoading, error, isValidating } = useSWR(
@@ -324,46 +259,55 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
   return combinedState;
 }
 
-
-const postFetcher = async (url, data) => {
-  const payload = JSON.stringify(data);  // Directly stringify the data
-
-  console.log('URL:', url);
-  console.log('Payload:', payload);
-
-  const response = await postRequestANYML(url, payload);
-  console.log('Response:', response);
-
-  return response;
-};
-
-
-
 // ----------------------------------------------------------------------
 
 export function useGetProductDetails(accountId, page = 1, limit = 10) {
-  const isValidAccountId = Boolean(accountId); // Clearer intention
+  const isValidAccountId = Boolean(accountId);
 
-  // Using SWR to fetch product details with pagination support
+  // Define the local storage key dynamically based on accountId
+  const storageKey = `p_${accountId}`;
+
+  // Use the custom hook to manage local storage state
+  const { state: cachedData, update: updateCache } = useLocalStorage(storageKey, {
+    products: [],
+    lastFetched: 0, // Store a timestamp to manage cache expiration
+  });
+
+  // Memoize the cache validation function to prevent it from being redefined on each render
+  const isCacheValid = useCallback(() => {
+    const cacheExpiration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+    return Date.now() - cachedData.lastFetched < cacheExpiration;
+  }, [cachedData.lastFetched]);
+
+  // Fetch product details using SWR if cache is invalid or expired
   const { data, isLoading, error, isValidating } = useSWR(
-    isValidAccountId ? [URL.details, accountId, page, limit] : null,
+    isValidAccountId && !isCacheValid() ? [URL.details, accountId, page, limit] : null,
     async ([url, account_id, currentPage, pageLimit]) => {
-      console.log("Sending Request to:", url);
-      console.log("Account ID Passed:", account_id);
-      console.log("Page and Limit:", currentPage, pageLimit);
+      // Send the API request with the pagination parameters
+      const response = await postRequestANYML(url, { account_id, page: currentPage, limit: pageLimit });
 
-      // Create the correct payload structure
-      const response = await postFetcher(url, { account_id, page: currentPage, limit: pageLimit });
-
+      // Parse response body
       let responseBody = response?.body;
-
       if (typeof responseBody === 'string') {
-        try {
-          responseBody = JSON.parse(responseBody);
-        } catch (e) {
-          console.error("Error parsing JSON response:", e);
-          throw new Error("Invalid JSON response format.");
-        }
+        responseBody = JSON.parse(responseBody);
+      }
+
+      // Log the products and response to check if the data is present
+      console.log("Fetched products:", responseBody.products);
+      console.log("Response Body:", responseBody);
+
+      // Update local cache with the new data and timestamp if data exists
+      if (responseBody.products && responseBody.products.length > 0) {
+        console.log('Updating cache with new products and pagination metadata:', responseBody.products);
+        updateCache({
+          products: responseBody.products,
+          currentPage: responseBody.currentPage,
+          totalProducts: responseBody.totalProducts,
+          totalPages: responseBody.totalPages,
+          lastFetched: Date.now(),
+        });
+      } else {
+        console.warn("No products found, cache will not be updated.");
       }
 
       return { ...response, body: responseBody };
@@ -375,56 +319,24 @@ export function useGetProductDetails(accountId, page = 1, limit = 10) {
     }
   );
 
-  // Memoized output to prevent unnecessary recalculations
+  // If cache is valid, return cached data, otherwise return SWR data
+  const finalProducts = useMemo(() => isCacheValid() ? cachedData.products : (data?.body?.products || []), [cachedData.products, data, isCacheValid]);
+
   return useMemo(() => ({
-    products: data?.body?.products || [],
-    currentPage: data?.body?.currentPage || page,
-    totalProducts: data?.body?.totalProducts || 0,
-    totalPages: data?.body?.totalPages || 1,
+    products: finalProducts,
+    currentPage: isCacheValid() ? cachedData.currentPage : (data?.body?.currentPage || page),
+    totalProducts: isCacheValid() ? cachedData.totalProducts : (data?.body?.totalProducts || 0),
+    totalPages: isCacheValid() ? cachedData.totalPages : (data?.body?.totalPages || 1),
     productsLoading: isLoading,
     productsError: error,
     productsValidating: isValidating,
-    productsEmpty: !isLoading && (!data?.body?.products || data.body.products.length === 0),
-  }), [data, error, isLoading, isValidating, page]);
+    productsEmpty: !isLoading && finalProducts.length === 0,
+  }), [finalProducts, cachedData, data, error, isLoading, isValidating, page, isCacheValid]);
 }
 
 
 
 
-
-
-
-
-
-
-
-
-// ----------------------------------------------------------------------
-
-// export function useSearchProducts(query) {
-//   const searchURL = query ? [endpoints.product.search, { params: { query } }] : null;
-
-//   const { data, isLoading, error, isValidating } = useSWR(
-//     searchURL ? JSON.stringify(searchURL) : null,
-//     searchURL ? () => fetcherWithLocalStorage(searchURL) : null,
-//     {
-//       keepPreviousData: true,
-//     }
-//   );
-
-//   const memoizedValue = useMemo(
-//     () => ({
-//       searchResults: (data && data.results) ? data.results : [],
-//       searchLoading: isLoading,
-//       searchError: error,
-//       searchValidating: isValidating,
-//       searchEmpty: !isLoading && (!data || !data.results || data.results.length === 0),
-//     }),
-//     [data, error, isLoading, isValidating]
-//   );
-
-//   return memoizedValue;
-// }
 
 // ----------------------------------------------------------------------
 
@@ -484,23 +396,26 @@ function formatProduct(productData) {
 
 // ----------------------------------------------------------------------
 
-export function useSearchProducts(query) {
-  // const URL = query ? [endpoints.product.search, { params: { query } }] : null;
+export function useSearchProducts(query, accountId) {
+  // Use `useGetProductDetails` to get the product data, which will be cached by SWR
+  const { products, productsLoading, productsError } = useGetProductDetails(accountId);
 
-  const { data, isLoading, error, isValidating } = useSWR(URL, fetcher, {
-    keepPreviousData: true,
-  });
+  // Filter products based on the search query
+  const searchResults = useMemo(() => {
+    if (!query) return products;
 
-  const memoizedValue = useMemo(
-    () => ({
-      searchResults: data?.results || [],
-      searchLoading: isLoading,
-      searchError: error,
-      searchValidating: isValidating,
-      searchEmpty: !isLoading && !data?.results.length,
-    }),
-    [data?.results, error, isLoading, isValidating]
-  );
+    const lowercasedQuery = query.toLowerCase();
 
-  return memoizedValue;
+    return products.filter((product) =>
+      product.title.toLowerCase().includes(lowercasedQuery)
+    );
+  }, [query, products]);
+
+  // Return the filtered search results
+  return {
+    searchResults,
+    searchLoading: productsLoading,
+    searchError: productsError,
+    searchEmpty: !productsLoading && searchResults.length === 0,
+  };
 }
