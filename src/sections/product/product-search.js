@@ -13,24 +13,41 @@ import { useRouter } from 'src/routes/hooks';
 // components
 import Iconify from 'src/components/iconify';
 import SearchNotFound from 'src/components/search-not-found';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
-export default function ProductSearch({ query, results, onSearch, hrefItem, loading }) {
+export default function ProductSearch({ query, results, onSearch, hrefItem, loading, onSelectProduct }) {
+  const [inputValue, setInputValue] = useState(query); // Controlled input state
+  const [isClearing, setIsClearing] = useState(false); // Track when the input is being cleared
   const router = useRouter();
 
-  const handleClick = (id) => {
-    router.push(hrefItem(id));
+  const handleClick = (id, title) => {
+    // Trigger the callback to select the product
+    onSelectProduct(id);
+    // Set the input value to the selected product's title (optional)
+    setInputValue(title);
   };
 
   const handleKeyUp = (event) => {
-    if (query) {
+    if (inputValue) {
       if (event.key === 'Enter') {
-        const selectItem = results.filter((product) => product.title === query)[0];
+        const selectItem = results.filter((product) => product.title === inputValue)[0];
         if (selectItem) {
-          handleClick(selectItem.product_id);
+          handleClick(selectItem.product_id, selectItem.title);
         }
       }
+    }
+  };
+
+  const handleInputChange = (event, newValue) => {
+    setInputValue(newValue); // Keep inputValue updated
+    if (newValue === '') {
+      setIsClearing(true); // Mark as clearing if input is empty
+      onSearch(''); // Trigger the search logic with an empty string to reset
+    } else {
+      setIsClearing(false); // Reset clearing state
+      onSearch(newValue); // Trigger the search logic with the new value
     }
   };
 
@@ -41,10 +58,13 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
       autoHighlight
       popupIcon={null}
       options={results}
-      onInputChange={(event, newValue) => onSearch(newValue)}
+      inputValue={inputValue} // Bind inputValue to the input field
+      onInputChange={handleInputChange}
       getOptionLabel={(option) => option.title}
       noOptionsText={<SearchNotFound query={query} sx={{ bgcolor: 'unset' }} />}
       isOptionEqualToValue={(option, value) => option.product_id === value.product_id}
+      clearOnBlur={false} // Prevent clearing when losing focus
+      clearOnEscape // Allow clearing on escape key
       slotProps={{
         popper: {
           placement: 'bottom-start',
@@ -81,12 +101,12 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
           }}
         />
       )}
-      renderOption={(props, product, { inputValue }) => {
-        const matches = match(product.title, inputValue);
+      renderOption={(props, product, { inputValue: searchInputValue }) => { // Renamed inputValue to searchInputValue
+        const matches = match(product.title, searchInputValue);
         const parts = parse(product.title, matches);
 
         return (
-          <Box component="li" {...props} onClick={() => handleClick(product.product_id)} key={product.product_id}>
+          <Box component="li" {...props} onClick={() => handleClick(product.product_id, product.title)} key={product.product_id}>
             <Avatar
               key={product.product_id}
               alt={product.title}
@@ -101,7 +121,7 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
               }}
             />
 
-            <div key={inputValue}>
+            <div key={searchInputValue}>
               {parts.map((part, index) => (
                 <Typography
                   key={index}
@@ -119,7 +139,6 @@ export default function ProductSearch({ query, results, onSearch, hrefItem, load
           </Box>
         );
       }}
-
     />
   );
 }
@@ -130,4 +149,5 @@ ProductSearch.propTypes = {
   onSearch: PropTypes.func,
   query: PropTypes.string,
   results: PropTypes.array,
+  onSelectProduct: PropTypes.func, // Prop to handle product selection
 };

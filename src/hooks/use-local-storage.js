@@ -87,3 +87,36 @@ export const removeStorage = (key) => {
     console.error(error);
   }
 };
+
+export function useProductCache(accountId) {
+  const storageKey = `product_cache_${accountId}`;
+
+  // Initialize state with cached data or empty
+  const [cache, setCache] = useState(() => {
+    try {
+      const cachedData = window.localStorage.getItem(storageKey);
+      return cachedData ? JSON.parse(cachedData) : { products: [], lastFetched: 0 };
+    } catch (error) {
+      console.error('Error reading local storage:', error);
+      return { products: [], lastFetched: 0 };
+    }
+  });
+
+  // Function to update the cache
+  const updateProductCache = useCallback((newCache) => {
+    try {
+      setCache(newCache);
+      window.localStorage.setItem(storageKey, JSON.stringify(newCache));
+    } catch (error) {
+      console.error('Error setting local storage:', error);
+    }
+  }, [storageKey]);
+
+  // Cache validation
+  const isCacheValid = useCallback(() => {
+    const cacheExpiration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+    return Date.now() - cache.lastFetched < cacheExpiration;
+  }, [cache]);
+
+  return { cache, updateProductCache, isCacheValid };
+}

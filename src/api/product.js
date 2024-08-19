@@ -4,7 +4,7 @@ import isEqual from 'lodash/isEqual'; // Import isEqual from lodash
 
 // utils
 import { fetcher, fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
-import { getStorage, removeStorage, setStorage, useLocalStorage } from 'src/hooks/use-local-storage';
+import { getStorage, removeStorage, setStorage, useLocalStorage, useProductCache } from 'src/hooks/use-local-storage';
 import { useGetZincProducts } from './zinc';
 import uuidv4 from '../utils/uuidv4';
 import { getCacheFlagKey, setCacheFlag, fetcherWithLocalStorage, getVersionKey, setVersionKey } from './cache';
@@ -264,53 +264,36 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
 export function useGetProductDetails(accountId, page = 1, limit = 10) {
   const isValidAccountId = Boolean(accountId);
 
-  // Define the local storage key dynamically based on accountId
-  const storageKey = `p_${accountId}`;
+  const { cache, updateProductCache, isCacheValid } = useProductCache(accountId); // Use the custom hook
 
-  // Use the custom hook to manage local storage state
-  const { state: cachedData, update: updateCache } = useLocalStorage(storageKey, {
-    products: [],
-    lastFetched: 0, // Store a timestamp to manage cache expiration
-  });
-
-  // Memoize the cache validation function to prevent it from being redefined on each render
-  const isCacheValid = useCallback(() => {
-    const cacheExpiration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-    return Date.now() - cachedData.lastFetched < cacheExpiration;
-  }, [cachedData.lastFetched]);
-
-  // Fetch product details using SWR if cache is invalid or expired
-  const { data, isLoading, error, isValidating } = useSWR(
+  const { data, isLoading, error: swrError, isValidating } = useSWR(
     isValidAccountId && !isCacheValid() ? [URL.details, accountId, page, limit] : null,
     async ([url, account_id, currentPage, pageLimit]) => {
-      // Send the API request with the pagination parameters
-      const response = await postRequestANYML(url, { account_id, page: currentPage, limit: pageLimit });
+      try {
+        const response = await postRequestANYML(url, { account_id, page: currentPage, limit: pageLimit });
 
-      // Parse response body
-      let responseBody = response?.body;
-      if (typeof responseBody === 'string') {
-        responseBody = JSON.parse(responseBody);
+        let responseBody = response?.body;
+        if (typeof responseBody === 'string') {
+          responseBody = JSON.parse(responseBody);
+        }
+
+        if (responseBody.products && responseBody.products.length > 0) {
+          console.log('Fetched products:', responseBody.products);
+
+          // Update the product cache with the new data
+          updateProductCache({
+            products: responseBody.products,
+            currentPage: responseBody.currentPage,
+            totalProducts: responseBody.totalProducts,
+            totalPages: responseBody.totalPages,
+            lastFetched: Date.now(),
+          });
+        } else {
+          console.warn('No products found, cache will not be updated.');
+        }
+      } catch (fetchError) {
+        console.error('Error fetching products:', fetchError);
       }
-
-      // Log the products and response to check if the data is present
-      console.log("Fetched products:", responseBody.products);
-      console.log("Response Body:", responseBody);
-
-      // Update local cache with the new data and timestamp if data exists
-      if (responseBody.products && responseBody.products.length > 0) {
-        console.log('Updating cache with new products and pagination metadata:', responseBody.products);
-        updateCache({
-          products: responseBody.products,
-          currentPage: responseBody.currentPage,
-          totalProducts: responseBody.totalProducts,
-          totalPages: responseBody.totalPages,
-          lastFetched: Date.now(),
-        });
-      } else {
-        console.warn("No products found, cache will not be updated.");
-      }
-
-      return { ...response, body: responseBody };
     },
     {
       revalidateIfStale: false,
@@ -319,20 +302,21 @@ export function useGetProductDetails(accountId, page = 1, limit = 10) {
     }
   );
 
-  // If cache is valid, return cached data, otherwise return SWR data
-  const finalProducts = useMemo(() => isCacheValid() ? cachedData.products : (data?.body?.products || []), [cachedData.products, data, isCacheValid]);
+  const finalProducts = useMemo(() => isCacheValid() ? cache.products : (data?.body?.products || []), [cache.products, data, isCacheValid]);
 
   return useMemo(() => ({
     products: finalProducts,
-    currentPage: isCacheValid() ? cachedData.currentPage : (data?.body?.currentPage || page),
-    totalProducts: isCacheValid() ? cachedData.totalProducts : (data?.body?.totalProducts || 0),
-    totalPages: isCacheValid() ? cachedData.totalPages : (data?.body?.totalPages || 1),
+    currentPage: isCacheValid() ? cache.currentPage : (data?.body?.currentPage || page),
+    totalProducts: isCacheValid() ? cache.totalProducts : (data?.body?.totalProducts || 0),
+    totalPages: isCacheValid() ? cache.totalPages : (data?.body?.totalPages || 1),
     productsLoading: isLoading,
-    productsError: error,
+    productsError: swrError,
     productsValidating: isValidating,
     productsEmpty: !isLoading && finalProducts.length === 0,
-  }), [finalProducts, cachedData, data, error, isLoading, isValidating, page, isCacheValid]);
+  }), [finalProducts, cache, data, swrError, isLoading, isValidating, page, isCacheValid]);
 }
+
+
 
 
 

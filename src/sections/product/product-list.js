@@ -4,7 +4,7 @@ import Pagination, { paginationClasses } from '@mui/material/Pagination';
 import ProductItem from './product-item';
 import { ProductItemSkeleton } from './product-skeleton';
 
-export default function ProductList({ products, loading, currentPage, totalPages, onPageChange, ...other }) {
+export default function ProductList({ products, loading, currentPage, totalPages, onPageChange, selectedProductId, ...other }) {
   const renderSkeleton = (
     <>
       {[...Array(16)].map((_, index) => (
@@ -13,17 +13,24 @@ export default function ProductList({ products, loading, currentPage, totalPages
     </>
   );
 
-  const renderList = (
-    <>
-      {products.map((product) => (
-        <ProductItem key={product.id} product={product} />
-      ))}
-    </>
-  );
+  const renderList = () => {
+    if (loading) {
+      return renderSkeleton;
+    }
+
+    if (products.length === 1) {
+      return <ProductItem key={products[0].id} product={products[0]} />;
+    }
+
+    return products.map((product) => (
+      <ProductItem key={product.id} product={product} />
+    ));
+  };
 
   return (
     <>
       <Box
+        key={selectedProductId || `page-${currentPage}`} // Ensure re-render on selected product change
         gap={3}
         display="grid"
         gridTemplateColumns={{
@@ -34,10 +41,10 @@ export default function ProductList({ products, loading, currentPage, totalPages
         }}
         {...other}
       >
-        {loading ? renderSkeleton : renderList}
+        {renderList()}
       </Box>
 
-      {totalPages > 1 && (
+      {totalPages > 1 && products.length > 1 && ( // Pagination only when there are multiple pages and products
         <Pagination
           count={totalPages}
           page={currentPage}
@@ -52,7 +59,6 @@ export default function ProductList({ products, loading, currentPage, totalPages
           }}
         />
       )}
-
     </>
   );
 }
@@ -63,4 +69,5 @@ ProductList.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
+  selectedProductId: PropTypes.string, // Added prop to handle selected product
 };
