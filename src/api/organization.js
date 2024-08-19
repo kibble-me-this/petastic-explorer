@@ -76,3 +76,29 @@ export function getShelterAccountId(user) {
 
   return { affiliations: [] };
 }
+
+// ----------------------------------------------------------------------
+
+export function useSearchOrganizations(query, accountIds) {
+  // Use `useGetOrganizations` to get the organization data, which will be cached by SWR
+  const { organizations, isLoading, error } = useGetOrganizations(accountIds);
+
+  // Filter organizations based on the search query
+  const searchResults = useMemo(() => {
+    if (!query) return organizations;
+
+    const lowercasedQuery = query.toLowerCase();
+
+    return organizations.filter((org) =>
+      org.primary_account?.shelter_details?.shelter_name_common.toLowerCase().includes(lowercasedQuery)
+    );
+  }, [query, organizations]);
+
+  // Return the filtered search results
+  return {
+    searchResults,
+    searchLoading: isLoading,
+    searchError: error,
+    searchEmpty: !isLoading && searchResults.length === 0,
+  };
+}

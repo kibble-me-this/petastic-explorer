@@ -65,6 +65,8 @@ export default function OrganizationListView() {
 
   const { organizations, totalCount, isLoading: isOrgLoading, error: orgError, isValidating } = useGetOrganizations(accountIds, page, pageSize);
 
+  const [searchQuery, setSearchQuery] = useState('');
+
   const [search, setSearch] = useState({
     query: '',
     results: [],
@@ -76,7 +78,14 @@ export default function OrganizationListView() {
     inputData: organizations,
     filters,
     sortBy,
+    searchQuery, // Include search query in filter application
   });
+
+  // const dataFiltered = applyFilter({
+  //   inputData: organizations,
+  //   filters,
+  //   sortBy,
+  // });
 
   const canReset = !isEqual(defaultFilters, filters);
 
@@ -93,28 +102,39 @@ export default function OrganizationListView() {
     setSortBy(newValue);
   }, []);
 
+  // const handleSearch = useCallback(
+  //   (inputValue) => {
+  //     setSearch((prevState) => ({
+  //       ...prevState,
+  //       query: inputValue,
+  //     }));
+
+  //     if (inputValue) {
+  //       const results = organizations
+  //         ? organizations.filter(
+  //           (org) => org.primary_account?.shelter_details?.shelter_name_common &&
+  //             org.primary_account.shelter_details.shelter_name_common
+  //               .toLowerCase()
+  //               .includes(inputValue.toLowerCase())
+  //         )
+  //         : [];
+
+  //       setSearch((prevState) => ({
+  //         ...prevState,
+  //         results,
+  //       }));
+  //     }
+  //   },
+  //   [organizations]
+  // );
+
   const handleSearch = useCallback(
     (inputValue) => {
-      setSearch((prevState) => ({
-        ...prevState,
-        query: inputValue,
-      }));
-
-      if (inputValue) {
-        const results = organizations
-          ? [organizations].filter(
-            (org) => org.title.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
-          )
-          : [];
-
-        setSearch((prevState) => ({
-          ...prevState,
-          results,
-        }));
-      }
+      setSearchQuery(inputValue);  // Update the search query in state
     },
-    [organizations]
+    []
   );
+
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
@@ -131,11 +151,18 @@ export default function OrganizationListView() {
       alignItems={{ xs: 'flex-end', sm: 'center' }}
       direction={{ xs: 'column', sm: 'row' }}
     >
-      <OrganizationSearch
+      {/* <OrganizationSearch
         query={search.query}
         results={search.results}
         onSearch={handleSearch}
         hrefItem={(id) => paths.dashboard.job.details(id)}
+      /> */}
+
+      <OrganizationSearch
+        query={searchQuery}              // Pass the current search query
+        onSearch={handleSearch}           // Pass the search handler correctly
+        accountIds={accountIds}           // Pass the relevant account IDs
+        hrefItem={(id) => `/organization/${id}`}  // Navigation path
       />
 
       <Stack direction="row" spacing={1} flexShrink={0}>
@@ -228,44 +255,58 @@ export default function OrganizationListView() {
 
 // ----------------------------------------------------------------------
 
-const applyFilter = ({ inputData, filters, sortBy }) => {
+const applyFilter = ({ inputData, filters, sortBy, searchQuery }) => {
   const { employmentTypes, experience, roles, locations, benefits } = filters;
 
-  // SORT BY
-  if (sortBy === 'latest') {
-    inputData = orderBy(inputData, ['createdAt'], ['desc']);
-  }
+  let filteredData = inputData;
 
-  if (sortBy === 'oldest') {
-    inputData = orderBy(inputData, ['createdAt'], ['asc']);
-  }
-
-  if (sortBy === 'popular') {
-    inputData = orderBy(inputData, ['totalViews'], ['desc']);
+  // SEARCH
+  if (searchQuery) {
+    filteredData = filteredData.filter(org =>
+      org.primary_account?.shelter_details?.shelter_name_common
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    );
   }
 
   // FILTERS
   if (employmentTypes.length) {
-    inputData = inputData.filter((org) =>
-      org.employmentTypes.some((item) => employmentTypes.includes(item))
+    filteredData = filteredData.filter(org =>
+      org.employmentTypes.some(item => employmentTypes.includes(item))
     );
   }
 
   if (experience !== 'all') {
-    inputData = inputData.filter((org) => org.experience === experience);
+    filteredData = filteredData.filter(org => org.experience === experience);
   }
 
   if (roles.length) {
-    inputData = inputData.filter((org) => roles.includes(org.role));
+    filteredData = filteredData.filter(org => roles.includes(org.role));
   }
 
   if (locations.length) {
-    inputData = inputData.filter((org) => org.locations.some((item) => locations.includes(item)));
+    filteredData = filteredData.filter(org =>
+      org.locations.some(item => locations.includes(item))
+    );
   }
 
   if (benefits.length) {
-    inputData = inputData.filter((org) => org.benefits.some((item) => benefits.includes(item)));
+    filteredData = filteredData.filter(org => org.benefits.some(item => benefits.includes(item)));
   }
 
-  return inputData;
+  // SORT BY
+  if (sortBy === 'latest') {
+    filteredData = orderBy(filteredData, ['createdAt'], ['desc']);
+  }
+
+  if (sortBy === 'oldest') {
+    filteredData = orderBy(filteredData, ['createdAt'], ['asc']);
+  }
+
+  if (sortBy === 'popular') {
+    filteredData = orderBy(filteredData, ['totalViews'], ['desc']);
+  }
+
+  return filteredData;
 };
+
