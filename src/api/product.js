@@ -316,11 +316,52 @@ export function useGetProductDetails(accountId, page = 1, limit = 10) {
   }), [finalProducts, cache, data, swrError, isLoading, isValidating, page, isCacheValid]);
 }
 
+// ----------------------------------------------------------------------
 
+export function useFetchAndMergeVariants(productId) {
+  const fetchAndMergeVariants = async () => {
+    if (!productId) return;
 
+    try {
+      // Fetch the variant details from your Lambda function
+      const response = await postRequestANYML(URL.variants, { productIds: [productId] });
+      const data = response?.products?.[0];
 
+      if (data) {
+        // Update the SWR cache with the new variant data
+        mutate(
+          [URL.details, productId],
+          (currentData) => {
+            if (!currentData || !currentData.product) return currentData;
 
+            // Merge the variant data with the current product data
+            const updatedProduct = {
+              ...currentData.product,
+              variants: data.variants, // Overwrite the variants with the new data
+              // Optionally update other fields like price, image, etc.
+              price: data.price,
+              main_image: data.main_image,
+              stars: data.stars,
+              review_count: data.review_count,
+            };
 
+            return {
+              ...currentData,
+              product: updatedProduct,
+            };
+          },
+          false // Do not revalidate
+        );
+      }
+    } catch (error) {
+      console.error('Error fetching and merging variant details:', error);
+    }
+  };
+
+  return {
+    fetchAndMergeVariants,
+  };
+}
 
 // ----------------------------------------------------------------------
 

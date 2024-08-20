@@ -49,6 +49,12 @@ export default function ProductShopView({ userId }) {
   const settings = useSettingsContext();
   const checkout = useCheckoutContext();
 
+  useEffect(() => {
+    if (userId) {
+      checkout.onUpdateAccountID(userId);
+    }
+  }, [userId, checkout]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [limit] = useState(9);
   const [loadedPages, setLoadedPages] = useState({}); // Store already loaded pages

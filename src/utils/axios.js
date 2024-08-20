@@ -232,6 +232,7 @@ export const endpoints = {
     list: '/api/product/list',
     // details: '/api/product/details',
     details: '/default/getZincProductDetails',
+    variants: 'details/getZincProductDetailsByID',
     search: '/api/product/search',
   },
   // fosters: '/default/handleGetFosters',
