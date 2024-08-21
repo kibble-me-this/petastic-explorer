@@ -236,6 +236,29 @@ const mockProducts = [
   },]
 
 
+// export function useGetProducts(account_id, { enabled = true } = {}) {
+//   const { data, isLoading, error, isValidating } = useSWR(
+//     enabled && account_id ? [PRODUCTS_URL, { account_id }] : null,
+//     () => fetcherANYML([PRODUCTS_URL.list, { account_id }]),
+//     options
+//   );
+
+//   const zincProducts = mockProducts;
+
+//   const combinedState = useMemo(() => ({
+//     products: zincProducts,
+//     productsLoading: isLoading, // || zincProducts.productsLoading,
+//     productsError: error || zincProducts.productsError,
+//     productsValidating: isValidating || zincProducts.productsValidating,
+//     productsEmpty: !isLoading && !zincProducts.productsLoading && zincProducts.productsEmpty,
+//     // version,
+//   }), [zincProducts, isLoading, error, isValidating,
+//     // version
+//   ]);
+
+//   return combinedState;
+// }
+
 export function useGetProducts(account_id, { enabled = true } = {}) {
   const { data, isLoading, error, isValidating } = useSWR(
     enabled && account_id ? [PRODUCTS_URL, { account_id }] : null,
@@ -243,18 +266,41 @@ export function useGetProducts(account_id, { enabled = true } = {}) {
     options
   );
 
-  const zincProducts = mockProducts;
+  const [productIds, setProductIds] = useState([]);
+  const [version, setVersion] = useState(null);
+
+  useEffect(() => {
+    if (data) {
+      const newProductIds = data.products.map(product => product.id);
+      console.log("Fetched product IDs:", newProductIds);
+
+      if (!isEqual(productIds, newProductIds)) {
+        console.log("Updating product IDs");
+        setProductIds(newProductIds);
+      } else {
+        console.log("Product IDs unchanged");
+      }
+
+      const localVersion = getVersionKey(account_id);
+      if (data.version_products !== version) {
+        setVersion(data.version_products);
+        if (!localVersion) {
+          setVersionKey(account_id, data.version_products);
+        }
+      }
+    }
+  }, [data, productIds, version, account_id]);
+
+  const zincProducts = useGetZincProducts(account_id, productIds, version);
 
   const combinedState = useMemo(() => ({
-    products: zincProducts,
-    productsLoading: isLoading, // || zincProducts.productsLoading,
+    products: zincProducts.products,
+    productsLoading: isLoading || zincProducts.productsLoading,
     productsError: error || zincProducts.productsError,
     productsValidating: isValidating || zincProducts.productsValidating,
     productsEmpty: !isLoading && !zincProducts.productsLoading && zincProducts.productsEmpty,
-    // version,
-  }), [zincProducts, isLoading, error, isValidating,
-    // version
-  ]);
+    version,
+  }), [zincProducts, isLoading, error, isValidating, version]);
 
   return combinedState;
 }
