@@ -25,6 +25,14 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f47b1688327911328',
+        shelterName: 'Pups Without Borders',
+        affiliateSystemRoles: ['superadmin']
+      },
+
       {
         role: ['admin'],
         shelterId: '5ee8317f3b01686155338599',
@@ -320,6 +328,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee8317f47b1688327911328',
+        shelterName: 'Pups Without Borders',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee8317f3b01686155338599',
         shelterName: 'Caring Songs Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -600,6 +614,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f47b1688327911328',
+        shelterName: 'Pups Without Borders',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee8317f3b01686155338599',
@@ -2479,7 +2499,7 @@ export const useMockUser = [
     isPublic: true,
     avatarUrl: '',
     email: 'abridgehomerescue@gmail.com',
-    name: 'Caring Songs Rescueyeah',
+    name: 'Caring Songs Rescue',
     displayName: '',
     company: '',
     role: 'Ecosystem User',
@@ -2502,9 +2522,41 @@ export const useMockUser = [
       },
     ]
   }
+  ,
+  // evie@pupswithoutborders.org
+  {
+    id: '615f25c5-9d9a-4d9e-9d9f-03c2cf2c4fe7',
+    mainnetNearPublicAddress: '10355b78061cf0b7c2d7656b9d2e07f61333a5565181217ee89f4203653852ee',
+    pid: '5eef6be3026e446fa12391b9',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'evie@pupswithoutborders.org',
+    name: '',
+    displayName: '',
+    company: 'Pups Without Borders',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f47b1688327911328',
+        shelterName: 'Pups Without Borders',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  }
 ];
-
-
 
 
 
