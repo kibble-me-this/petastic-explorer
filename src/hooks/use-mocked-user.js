@@ -26,6 +26,14 @@ export const useMockUser = [
     systemRoles: ['admin'],
     affiliations: [
 
+
+      {
+        role: ['admin'],
+        shelterId: '5ee5729d3f3d0869dafcdce6',
+        shelterName: 'Girls Who Love Dogs',
+        affiliateSystemRoles: ['superadmin']
+      },
+
       {
         role: ['admin'],
         shelterId: '5ee8317f47b1688327911328',
@@ -328,6 +336,12 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee5729d3f3d0869dafcdce6',
+        shelterName: 'Girls Who Love Dogs',
+        affiliateSystemRoles: ['superadmin']
+      },
+      {
+        role: ['admin'],
         shelterId: '5ee8317f47b1688327911328',
         shelterName: 'Pups Without Borders',
         affiliateSystemRoles: ['superadmin']
@@ -614,6 +628,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee5729d3f3d0869dafcdce6',
+        shelterName: 'Girls Who Love Dogs',
+        affiliateSystemRoles: ['superadmin']
+      },
       {
         role: ['admin'],
         shelterId: '5ee8317f47b1688327911328',
@@ -2552,6 +2572,40 @@ export const useMockUser = [
         role: ['admin'],
         shelterId: '5ee8317f47b1688327911328',
         shelterName: 'Pups Without Borders',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  },
+
+  // gwldr@icloud.com
+  {
+    id: 'bae04086-9177-466b-9cfd-22985b89f3d0',
+    mainnetNearPublicAddress: 'xxx5ee5729d3f3d0869dafcdce6',
+    pid: '5eee0ffd63474dbf3c36217d',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'gwldr@icloud.com',
+    name: '',
+    displayName: '',
+    company: 'Girls Who Love Dogs',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee5729d3f3d0869dafcdce6',
+        shelterName: 'Girls Who Love Dogs',
         affiliateSystemRoles: ['superadmin']
       },
     ]
