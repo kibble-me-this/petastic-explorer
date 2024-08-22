@@ -25,7 +25,12 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
-
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f3b01686155338599',
+        shelterName: 'Caring Songs Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
 
       {
         role: ['admin'],
@@ -315,6 +320,13 @@ export const useMockUser = [
     affiliations: [
       {
         role: ['admin'],
+        shelterId: '5ee8317f3b01686155338599',
+        shelterName: 'Caring Songs Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+
+      {
+        role: ['admin'],
         shelterId: '5ee7189bc4e771a4661a0233',
         shelterName: 'Eleventh Hour Rescue',
         affiliateSystemRoles: ['superadmin']
@@ -588,6 +600,13 @@ export const useMockUser = [
     about: 'Animal advocate and foster parent.',
     systemRoles: ['admin'],
     affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f3b01686155338599',
+        shelterName: 'Caring Songs Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+
       {
         role: ['admin'],
         shelterId: '5ee7189bc4e771a4661a0233',
@@ -2449,8 +2468,41 @@ export const useMockUser = [
       },
     ]
   }
+  ,
+  // abridgehomerescue@gmail.com
+  {
+    id: '66eae4c7-9395-44c9-a719-fb76e0936d16',
+    mainnetNearPublicAddress: 'b55bffcf5ca3433ed4e92a06e8c22fcac9b2a584c0f9631c70f1690cad762044',
+    pid: '5ee6d9cc24dc2f34518fcca8',
+    status: 'active',
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'abridgehomerescue@gmail.com',
+    name: 'Caring Songs Rescueyeah',
+    displayName: '',
+    company: '',
+    role: 'Ecosystem User',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee8317f3b01686155338599',
+        shelterName: 'Caring Songs Rescue',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  }
 ];
-
 
 
 
