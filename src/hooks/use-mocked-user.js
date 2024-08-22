@@ -2358,7 +2358,7 @@ export const useMockUser = [
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
-    email: 'pdivdiv365@gmail.com',
+    email: 'divdiv365@gmail.com',
     name: 'Divya Cowgil',
     displayName: '',
     company: 'Furrytail Endings',
