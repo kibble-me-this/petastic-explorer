@@ -51,15 +51,33 @@ export function useGetAffiliations(pid) {
     fetcherANYML
   );
 
-  const memoizedValue = useMemo(() => ({
-    affiliates: data?.affiliatePids || [],
-    isLoading,
-    error,
-    isEmpty: !isLoading && !data?.affiliatePids?.length,
-  }), [data, error, isLoading]);
+  const memoizedValue = useMemo(() => {
+    let parsedData;
+    if (data && typeof data.body === 'string') {
+      // Parse the body if it's a JSON string (as it would be from AWS API Gateway)
+      try {
+        parsedData = JSON.parse(data.body);
+      } catch (err) {
+        console.error('Failed to parse response body', err);
+        parsedData = {};
+      }
+    } else {
+      parsedData = data;
+    }
+
+    const affiliations = parsedData?.affiliations || []; // Extract the affiliations array
+
+    return {
+      affiliates: affiliations, // Pass the correct array to affiliates
+      isLoading,
+      error,
+      isEmpty: !isLoading && affiliations.length === 0,
+    };
+  }, [data, error, isLoading]);
 
   return memoizedValue;
 }
+
 
 // ----------------------------------------------------------------------
 
