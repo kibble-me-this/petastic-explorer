@@ -20,27 +20,31 @@ import IncrementerButton from '../product/common/incrementer-button';
 // ----------------------------------------------------------------------
 
 export default function CheckoutCartProduct({ row, onDelete, onDecrease, onIncrease }) {
-  const { brand: name, size, price, colors, originalCoverUrl: coverUrl, quantity, available } = row;
+  const { brand, title, size, price, originalCoverUrl: coverUrl, quantity, available } = row;
 
   return (
     <TableRow>
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar variant="rounded" alt={name} src={coverUrl} sx={{ width: 64, height: 64 }} />
+        <Avatar variant="rounded" alt={brand} src={coverUrl} sx={{ width: 64, height: 64 }} />
 
         <Stack spacing={0.5}>
           <Typography noWrap variant="subtitle2" sx={{ pl: 3, maxWidth: 240 }}>
-            {name}
+            {brand}
           </Typography>
 
-          {/* <Stack
+          <Stack
             direction="row"
             alignItems="center"
             sx={{ typography: 'body2', color: 'text.secondary' }}
           >
-            size: <Label sx={{ ml: 0.5 }}> {size} </Label>
-            <Divider orientation="vertical" sx={{ mx: 1, height: 16 }} />
-            <ColorPreview colors={colors} />
-          </Stack> */}
+            {/* <Label sx={{ ml: 0.5 }}> {title} </Label> */}
+            <Typography noWrap variant="subtitle2" sx={{ pl: 3, maxWidth: 240 }}>
+              {title}
+            </Typography>
+            {/* <Divider orientation="vertical" sx={{ mx: 1, height: 16 }} />
+            <Label sx={{ ml: 0.5 }}> {size} </Label> */}
+
+          </Stack>
         </Stack>
       </TableCell>
 

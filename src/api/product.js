@@ -109,9 +109,13 @@ export function useGetProductDetails(accountId, page = 1, limit = 10) {
         if (responseBody.products && responseBody.products.length > 0) {
           console.log('Fetched products:', responseBody.products);
 
-          // Update the product cache with the new data
+          // Update the product cache with the new data, including brand and categories
           updateProductCache({
-            products: responseBody.products,
+            products: responseBody.products.map(product => ({
+              ...product,
+              brand: product.brand, // Add the brand attribute to each product
+              categories: product.categories, // Add the categories attribute to each product
+            })),
             currentPage: responseBody.currentPage,
             totalProducts: responseBody.totalProducts,
             totalPages: responseBody.totalPages,
@@ -131,6 +135,7 @@ export function useGetProductDetails(accountId, page = 1, limit = 10) {
     }
   );
 
+  // Extract the final products from the cache or the API response
   const finalProducts = useMemo(() => isCacheValid() ? cache.products : (data?.body?.products || []), [cache.products, data, isCacheValid]);
 
   return useMemo(() => ({
@@ -144,6 +149,7 @@ export function useGetProductDetails(accountId, page = 1, limit = 10) {
     productsEmpty: !isLoading && finalProducts.length === 0,
   }), [finalProducts, cache, data, swrError, isLoading, isValidating, page, isCacheValid]);
 }
+
 
 // ----------------------------------------------------------------------
 

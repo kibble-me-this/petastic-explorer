@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 // @mui
 import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
@@ -22,64 +23,105 @@ import { fShortenNumber, fCurrency } from 'src/utils/format-number';
 import Label from 'src/components/label';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
+// components
+import { ProductItemSkeleton } from './product-skeleton';
 import { useCheckoutContext } from '../checkout/context';
 
 // ----------------------------------------------------------------------
 
 export default function ProductItem({ product }) {
   const { onAddToCart } = useCheckoutContext();
-  const [selectedVariant, setSelectedVariant] = useState('');
+  const [selectedVariant, setSelectedVariant] = useState(product.product_id); // Initially set to the first product
   const [coverUrlState, setCoverUrlState] = useState(product.main_image);
   const [titleState, setTitleState] = useState(product.title);
-  const [priceState, setPriceState] = useState(product.original_retail_price / 100);
-  const [priceSaleState, setPriceSaleState] = useState(product.price / 100);
+  const [priceSaleState, setPriceSaleState] = useState(product.price / 100); // Initially the product's price
   const [productIdState, setProductIdState] = useState(product.product_id);
   const [availableValueState, setAvailableValueState] = useState(product?.price);
   const [totalRatings, setTotalRatings] = useState(product.stars);
   const [totalReviews, setTotalReviews] = useState(product.review_count);
+  const [loading, setLoading] = useState(false); // Loading state for variant details
+  const [variantSize, setVariantSize] = useState('UNKNOWN'); // Define variantSize state
 
-  const handleChange = (event) => {
-    const variantId = event.target.value;
-    const selectedVariantData = product.variants.find(variant => variant.product_id === variantId);
 
-    if (selectedVariantData) {
-      setSelectedVariant(variantId);
-      setCoverUrlState(product.main_image); // You can update this if variant-specific images are available
-      setProductIdState(selectedVariantData.product_id);
-      setTitleState(product.title); // Adjust if title differs based on variants
-      // Optionally update price if variant-specific pricing is available
+  // Function to fetch product and variant details from your Lambda endpoint
+  const fetchVariantDetails = async (productId) => {
+    setLoading(true); // Start loading
+    try {
+      const response = await axios.post('https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getZincProductDetailsByID', { productIds: [productId] });
+
+      // Parse the response body, since it's a JSON string
+      const parsedBody = JSON.parse(response.data.body);
+
+      // Extract the product data
+      const productData = parsedBody.products[0];
+      return productData;
+    } catch (error) {
+      console.error('Error fetching variant details:', error);
+      return null;
+    } finally {
+      setLoading(false); // End loading
     }
   };
+
+  const handleChange = async (event) => {
+    const variantId = event.target.value;
+
+    // Fetch the variant details from your Lambda endpoint
+    const variantDetails = await fetchVariantDetails(variantId);
+
+    if (variantDetails) {
+      // Update the item's display with fetched attributes
+      setSelectedVariant(variantId);
+      setCoverUrlState(variantDetails.main_image || product.main_image); // Update image
+      setProductIdState(variantDetails.product_id || variantId);
+      setTitleState(variantDetails.title || product.title); // Update title if variant has a different title
+      setPriceSaleState(variantDetails.price / 100 || priceSaleState); // Update price once fetched
+      setTotalRatings(variantDetails.stars || totalRatings);
+      setTotalReviews(variantDetails.review_count || totalReviews);
+
+      // Check if variant_specifics exists before trying to access it
+      if (variantDetails.variant_specifics && Array.isArray(variantDetails.variant_specifics)) {
+        const foundVariantSize = variantDetails.variant_specifics.find(
+          (specific) => specific.dimension.toLowerCase() === 'size'
+        );
+        setVariantSize(foundVariantSize ? foundVariantSize.value : 'UNKNOWN');
+      } else {
+        setVariantSize('UNKNOWN');
+      }
+    }
+  };
+
+
 
   const {
     product_id: id,
     brand,
-    main_image: originalCoverUrl,
-    price: priceSale,
     status: available,
-    original_retail_price: price,
-    stars,
-    review_count,
-    variants
   } = product;
 
   const linkTo = paths.product.details(id);
 
   const handleAddCart = async () => {
     const newProduct = {
-      id: productIdState,
+      id: selectedVariant || productIdState, // Use the selected variant's product ID, fallback to productIdState
       brand,
-      originalCoverUrl: coverUrlState,
-      available: availableValueState,
-      price: priceSaleState,
-      quantity: 1,
+      title: titleState, // Add the title to the product object
+      originalCoverUrl: coverUrlState, // Use the variant-specific image if available
+      available: availableValueState, // Use the variant's availability (price) status
+      price: priceSaleState || product.price / 100, // Use the selected variant's price or fallback to the product's price
+      quantity: 1, // Default to 1
+      size: variantSize || 'UNKNOWN', // Pass the selected variant size to the cart
     };
+
     try {
+      // Add the product (or variant) to the cart via the context function
       onAddToCart(newProduct);
     } catch (error) {
-      console.error(error);
+      // Log any error encountered during the process
+      console.error('Error adding product to cart:', error);
     }
   };
+
 
   const renderLabels = (
     <Stack
@@ -105,8 +147,8 @@ export default function ProductItem({ product }) {
         typography: 'body2',
       }}
     >
-      <Rating size="small" value={stars} precision={0.1} readOnly sx={{ mr: 1 }} />
-      {`(${fShortenNumber(review_count)} reviews)`}
+      <Rating size="small" value={totalRatings} precision={0.1} readOnly sx={{ mr: 1 }} />
+      {`(${fShortenNumber(totalReviews)} reviews)`}
     </Stack>
   );
 
@@ -140,9 +182,8 @@ export default function ProductItem({ product }) {
           alt={titleState}
           src={coverUrlState}
           ratio="1/1"
-          disabledEffect // This disables the blur effect
-          useIntersectionObserver // Enables lazy loading and intersection observer
-
+          disabledEffect
+          useIntersectionObserver
           sx={{
             borderRadius: 1.5,
             opacity: !availableValueState ? 0.48 : 1,
@@ -163,16 +204,21 @@ export default function ProductItem({ product }) {
         noWrap
         sx={{ textDecoration: 'none', color: 'inherit', pointerEvents: 'none', cursor: 'default' }}
       >
+        <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'uppercase' }}>
+          {brand || 'Unknown Brand'}
+        </Typography>
         <Typography sx={{ whiteSpace: 'break-spaces' }}>{titleState}</Typography>
         {renderRating}
       </Link>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="column" spacing={0.5} sx={{ typography: 'subtitle1' }}>
           <Stack direction="row" spacing={2.5} alignItems="center" justifyContent="space-between">
-            <Box component="span">{fCurrency(priceSaleState)}</Box>
+            <Box component="span">
+              {fCurrency(priceSaleState)} {/* Show the price */}
+            </Box>
             <Box component="span">
               <Chip
-                variant='outlined'
+                variant="outlined"
                 icon={<img src="/assets/icons/brands/ic_amazon_match.svg" alt="Amazon Icon" />}
                 label="Price match"
                 sx={{
@@ -190,12 +236,15 @@ export default function ProductItem({ product }) {
           </Box>
         </Stack>
       </Stack>
-      {variants && variants.length > 1 && (
+      {/* Show dropdown only if the product has more than 1 variant */}
+      {product.variants && product.variants.length > 1 && (
         <Stack direction="column" alignItems="center" spacing={2}>
           <Select value={selectedVariant} onChange={handleChange} sx={{ width: '100%' }}>
-            {variants.map((variant) => (
+            {product.variants.map((variant) => (
               <MenuItem key={variant.product_id} value={variant.product_id}>
-                {constructVariantLabel(variant)[1]}
+                {variant.variant_specifics
+                  .map((specific) => specific.value.toUpperCase()) // Convert each attribute to uppercase
+                  .join(' / ') || 'UNKNOWN VARIANT'}
               </MenuItem>
             ))}
           </Select>
@@ -203,6 +252,7 @@ export default function ProductItem({ product }) {
       )}
     </Stack>
   );
+
 
   return (
     <Card
@@ -212,9 +262,15 @@ export default function ProductItem({ product }) {
         },
       }}
     >
-      {renderLabels}
-      {renderImg}
-      {renderContent}
+      {loading ? (
+        <ProductItemSkeleton /> // Skeleton is shown when loading
+      ) : (
+        <>
+          {renderLabels}
+          {renderImg}
+          {renderContent}
+        </>
+      )}
     </Card>
   );
 }
@@ -222,8 +278,3 @@ export default function ProductItem({ product }) {
 ProductItem.propTypes = {
   product: PropTypes.object,
 };
-
-function constructVariantLabel(variant) {
-  const dimensionValues = variant.variant_specifics.map((spec) => spec.value);
-  return [variant.product_id, dimensionValues.join(' | ')];
-}
