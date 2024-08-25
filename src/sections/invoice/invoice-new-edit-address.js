@@ -104,7 +104,7 @@ export default function InvoiceNewEditAddress() {
             startIcon={<Iconify icon="mingcute:add-line" />}
             sx={{ alignSelf: 'flex-end' }}
           >
-            New
+            News
           </Button>
         }
       />
@@ -122,7 +122,7 @@ export default function InvoiceNewEditAddress() {
             startIcon={<Iconify icon="mingcute:add-line" />}
             sx={{ alignSelf: 'flex-end' }}
           >
-            New
+            News
           </Button>
         }
       />

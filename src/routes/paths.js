@@ -220,6 +220,10 @@ export const paths = {
         details: `${ROOTS.DASHBOARD}/org/${MOCK_ID}`,
         edit: `${ROOTS.DASHBOARD}/org/${MOCK_ID}/edit`,
       },
+      admin: {
+        root: `${ROOTS.DASHBOARD}/org/admin/list`,
+        new: `${ROOTS.DASHBOARD}/org/admin/new`,
+      }
     },
     tour: {
       root: `${ROOTS.DASHBOARD}/tour`,

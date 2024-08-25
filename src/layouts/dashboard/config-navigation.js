@@ -429,6 +429,8 @@ export function useNavData() {
             ],
           },
 
+
+
           // // ORDER
           {
             roles: ['ecosystem_admin'], // Ensure this is set correctly
@@ -459,6 +461,28 @@ export function useNavData() {
               // { title: t('create'), path: paths.dashboard.user.new },
               // { title: t('edit'), path: paths.dashboard.user.demo.edit },
               // { title: t('account'), path: paths.dashboard.user.account },
+            ],
+          },
+
+          // ORGS
+          {
+            roles: ['ecosystem_admin'], // Ensure this is set correctly
+            title: t('orgs'),
+            path: paths.dashboard.product.root,
+            icon: ICONS.job,
+            children: [
+              { title: t('list'), path: paths.dashboard.org.admin.root },
+              {
+                title: t('details'),
+                path: paths.dashboard.product.demo.details, disabled: true,
+
+              },
+              {
+                title: t('create'), path: paths.dashboard.org.admin.new, disabled: false,
+              },
+              {
+                title: t('edit'), path: paths.dashboard.product.demo.edit, disabled: true,
+              },
             ],
           },
 

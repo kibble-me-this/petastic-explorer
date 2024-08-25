@@ -1,6 +1,6 @@
 export const useMockUser = [
 
-  // carlos@petastic.com
+  // carlos@petastic.com --
   {
     id: "bd78eb8c-ee95-4d92-b45a-aa8d77439e26",
     pid: '5ee2fd93bccd3286db09da9a',
@@ -307,9 +307,10 @@ export const useMockUser = [
 
     ],
     pets: []
-  },
+  }
+  ,
 
-  // adena@petastic.com
+  // adena@petastic.com --
   {
     id: '09c464b5-75f5-42f6-b155-581642035f86',
     pid: '5ee52754302883acec80e933',
@@ -601,9 +602,10 @@ export const useMockUser = [
 
 
     ]
-  },
+  }
+  ,
 
-  // josh@petastic.com
+  // josh@petastic.com --
   {
     id: '8fa589f2-a4a9-4aa2-83e1-7da7c058a440',
     pid: '5eee43ff30ff495b703d56ce',
@@ -896,12 +898,13 @@ export const useMockUser = [
       },
 
     ]
-  },
+  }
+  ,
 
-  // brixiesrescue@icloud.com
+  // brixiesrescue@icloud.com --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z4',
-    pid: '',
+    id: 'e8ff5ef7-219e-4e94-8e68-422f343da925',
+    pid: '5ee53887b19cdcded45113ca',
     mNearPublicAddress: 'null',
     status: "active",
     isVerified: true,
@@ -930,12 +933,13 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       }
     ]
-  },
+  }
+  ,
 
-  // nicolec@animalhaven.org
+  // nicolec@animalhaven.org --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z5',
-    pid: '',
+    id: 'e0d54809-f3fe-4352-b237-f9bc245edfc9',
+    pid: '5eebd9baa468ff23babad0dc',
     mNearPublicAddress: 'e43f2104635c62f96227ce5dc039d4cd28cc3b94f34b3935f26d972376c00c54',
     status: "active",
     isVerified: true,
@@ -965,7 +969,8 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       }
     ]
-  },
+  }
+  ,
 
   // kristink@animalhaven.org
   {
@@ -999,12 +1004,13 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       }
     ]
-  },
+  }
+  ,
 
-  // motv8one@aol.com
+  // motv8one@aol.com -- 
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z7',
-    pid: '416fb87',
+    id: 'e09ac23f-e00a-4ed9-a3f8-ca7dc458adb0',
+    pid: '5eedf19e2a063d99f413aab8',
     mNearPublicAddress: '6730f421370e81c581ee2877fd105ec22dc28783590534ee35b3929e617ccfb9',
     status: "active",
     isVerified: true,
@@ -1035,10 +1041,10 @@ export const useMockUser = [
     ]
   },
 
-  // rescuetailsmb@gmail.com
+  // rescuetailsmb@gmail.com --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z8',
-    pid: '416fb87',
+    id: 'bda5f3d4-8aea-422e-bf69-a7a89f103cde',
+    pid: '5eeeb0837c9b4c962c22d2ff',
     mNearPublicAddress: '',
     status: "active",
     isVerified: true,
@@ -1069,11 +1075,11 @@ export const useMockUser = [
     ]
   },
 
-  // jackie@fapspet.org
+  // jackie@fapspet.org -- 
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d7z9',
+    id: '2a09adbe-a1a4-49a9-b7d8-ff111b1947f9',
     mNearPublicAddress: 'f89ecc199bdca4790045f4b6cc8aa797f3152dd12041e10f87271aa0921cbfb6',
-    pid: '416fb87',
+    pid: '5ee87c7d2cc4c9f9bee43ea8',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1103,17 +1109,17 @@ export const useMockUser = [
     ]
   },
 
-  // texasanimalrescuerehab@outlook.com'
+  // texasanimalrescuerehab@outlook.com' --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d710',
+    id: '55e66dd8-d94f-4f6e-98ac-baa5a1418d81',
     mNearPublicAddress: 'xxxx',
-    pid: '416fb87',
+    pid: '5ee1a63c85a62cf889d2b149',
     status: "active",
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
     email: 'texasanimalrescuerehab@outlook.com',
-    name: '[Full Name',
+    name: '[Full Name]',
     displayName: '',
     company: '',
     role: "Ecosystem User",
@@ -1137,7 +1143,7 @@ export const useMockUser = [
     ]
   },
 
-  // snl32692@gmail.com
+  // snl32692@gmail.com --
   {
     id: '1b11cc7d-86b2-41cf-8d50-dae47c9f5af7',
     mmainnetNearPublicAddress: 'ec06c616d04c40e28d6335b2045f2a7f3f0a992740ec5867262b0f107927c1a0',
@@ -1171,11 +1177,11 @@ export const useMockUser = [
     ]
   },
 
-  // meagan@strongpawsrescue.org
+  // meagan@strongpawsrescue.org --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d711',
+    id: '685ba2d8-2ab8-478a-b65b-45bfb016985b',
     mNearPublicAddress: '6fb865589bd69bd1ac01f0f5c331274156d79c4aeda4e3d6f57d570be327d321',
-    pid: '416fb87',
+    pid: '5ee19f10ddf43e5b1b65f481',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1205,11 +1211,11 @@ export const useMockUser = [
     ]
   },
 
-  // lizzk@bubblesdogrescue.org
+  // lizzk@bubblesdogrescue.org --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d712',
+    id: '620ea98f-4736-4657-962e-5a06fc75561a',
     mNearPublicAddress: '135dad568da921e5196b290f2c6c6bc38bda71db361e029d3086121df154e471',
-    pid: '',
+    pid: '5ee68558b71f6d4f6161695d',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1239,11 +1245,11 @@ export const useMockUser = [
     ]
   },
 
-  // info@bubblesdogrescue.org
+  // info@bubblesdogrescue.org --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d715',
+    id: '7714d623-47d5-4d24-9ff6-e568a66f5793',
     mNearPublicAddress: '5cd9e75bb194864db73ca6126e264a5c4009ee3a19319766ebfb6eebac0c3ca8',
-    pid: '',
+    pid: '5ee7199ea08b1a13636441ac',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1273,11 +1279,11 @@ export const useMockUser = [
     ]
   },
 
-  // westcoastcanecorsorescue@gmail.com  
+  // westcoastcanecorsorescue@gmail.com --
   {
-    id: 'e99f09a7-dd88-49d5-b1c8-1daf80c2d713',
+    id: '309750ca-9fc8-42f7-a238-4f42c73225f1',
     mNearPublicAddress: 'c41cd612f2de5e969b34a88aecb2a51a94f1002a64b102b267ee2754f3180024',
-    pid: '',
+    pid: '5eef9a9da2616c8a481547b7',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1307,7 +1313,7 @@ export const useMockUser = [
     ]
   },
 
-  // pawsitivebeginningsla@gmail.com
+  // pawsitivebeginningsla@gmail.com --
   {
     id: 'a88bf858-4db9-4171-a76d-1ae164174624',
     mNearPublicAddress: '7a50760f17a7a5bd1851b953d92365af2ebea63eae408b6fee7dc991da04d4b1',
@@ -1341,7 +1347,7 @@ export const useMockUser = [
     ]
   },
 
-  // topofthehilldogrescue@gmail.com
+  // topofthehilldogrescue@gmail.com --
   {
     id: '7ce82603-0e55-4753-ae83-a2e30e5c5bad',
     mNearPublicAddress: 'b9fc06d4369ccb134b567e828044e542e743cf7245befd04eb7faaee8fe7dcc9',
@@ -1375,7 +1381,7 @@ export const useMockUser = [
     ]
   },
 
-  // lovingpawsabilitiesinc@gmail.com
+  // lovingpawsabilitiesinc@gmail.com -- 
   {
     id: 'da64b2ba-26b1-4e67-8a3a-aab01000ffbc',
     mNearPublicAddress: '121d2232a2a152265c4c4ee790696349384f3cb2638fc925fe772ac3a8ae9663',
@@ -1409,7 +1415,7 @@ export const useMockUser = [
     ]
   },
 
-  // liliana_rios_13@yahoo.com
+  // liliana_rios_13@yahoo.com --
   {
     id: '4f872ca5-7adc-49a4-af9e-8d00baa61692',
     mNearPublicAddress: 'null',
@@ -1442,6 +1448,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // tlarvid@sandspringsok.org --
   {
     id: '15655b2d-0f67-4d51-9cb8-90456eeb9b1b',
     mNearPublicAddress: '',
@@ -1474,6 +1482,8 @@ export const useMockUser = [
       }
     ]
   },
+
+  // info@rescuetexas.org
   {
     id: '07c435ab-9e82-490a-84b6-3ffc96f280f5',
     mNearPublicAddress: 'xxx5ee',
@@ -1482,7 +1492,7 @@ export const useMockUser = [
     isVerified: true,
     isPublic: true,
     avatarUrl: '',
-    email: 'Info@rescuetexas.org',
+    email: 'info@rescuetexas.org',
     name: '',
     displayName: '',
     company: '',
@@ -1505,9 +1515,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
+  }
+  ,
 
-  // rescuetexasdogs@gmail.com
+  // rescuetexasdogs@gmail.com --
   {
     id: '3bfe6fbc-ed1e-4a34-81e1-b49dc587a7ec',
     mNearPublicAddress: 'xxx5ee83181b841684112445898',
@@ -1539,8 +1550,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
+  }
+  ,
 
+  // elizabeth@operationliberation.org --
   {
     id: '59653e48-58d7-412a-bd65-7f2eaeadeedd',
     mNearPublicAddress: 'e082f04f488261c50cafd681cacf51643dcc456a7183397515030e6702d75c25',
@@ -1572,8 +1585,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
+  }
+  ,
 
+  // info@operationliberation.org --
   {
     id: 'f3b8b03f-3213-427b-9ca5-9dcad1b44bd8',
     mNearPublicAddress: 'xxx5ee8317fbe01686087521637',
@@ -1605,12 +1620,14 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
+  }
+  ,
 
+  // njuchem@animalfarmfoundation.org --
   {
     id: '27474aa6-0c7f-40c9-b458-44e1e70c95d3',
     mNearPublicAddress: 'cdbb271fc1751b6d28d2431a8e53a1440fe33e91bcc10f19a43ecc3c0281f7f4',
-    pid: '27474aa6-0c7f-40c9-b458-44e1e70c95d3',
+    pid: '5eeae3cff36b6e7ef0535eea',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1640,72 +1657,43 @@ export const useMockUser = [
     ]
   }
   ,
-  {
-    id: '717cbfc1-c723-4b16-bc1b-939dff695233',
-    mNearPublicAddress: 'xxxanimalfarm',
-    pid: '5ee2457cfd47bca79fbade3f',
-    status: "active",
-    isVerified: true,
-    isPublic: true,
-    avatarUrl: '',
-    email: 'info@animalfarmfoundation.org',
-    name: 'Acadia Generelli',
-    displayName: '',
-    company: 'Animal Farm Foundation',
-    role: "User",
-    address: '433 Pugsley Hill Rd',
-    city: 'Amenia',
-    state: 'NY',
-    zipCode: '12501',
-    country: 'USA',
-    phoneNumber: '',
-    password: '',
-    photoURL: '',
-    about: '',
-    systemRoles: '',
-    affiliations: [
-      {
-        role: ['admin'],
-        shelterId: '5ee831810d51681938591381',
-        shelterName: 'Animal Farm Foundation, Inc.',
-        affiliateSystemRoles: ['superadmin']
-      },
-    ]
-  },
-  {
-    id: '717cbfc1-c723-4b16-bc1b-939dff695233',
-    mNearPublicAddress: 'xxxanimalfarm',
-    pid: '5ee2457cfd47bca79fbade3f',
-    status: "active",
-    isVerified: true,
-    isPublic: true,
-    avatarUrl: '',
-    email: 'info@animalfarmfoundation.org',
-    name: 'Acadia Generelli',
-    displayName: '',
-    company: 'Animal Farm Foundation',
-    role: "User",
-    address: '433 Pugsley Hill Rd',
-    city: 'Amenia',
-    state: 'NY',
-    zipCode: '12501',
-    country: 'USA',
-    phoneNumber: '',
-    password: '',
-    photoURL: '',
-    about: '',
-    systemRoles: '',
-    affiliations: [
-      {
-        role: ['admin'],
-        shelterId: '5ee831810d51681938591381',
-        shelterName: 'Animal Farm Foundation, Inc.',
-        affiliateSystemRoles: ['superadmin']
-      },
-    ]
-  },
 
-  // lauraamoreno@icloud.com'
+  // info@animalfarmfoundation.org --
+  {
+    id: '717cbfc1-c723-4b16-bc1b-939dff695233',
+    mNearPublicAddress: 'xxxanimalfarm',
+    pid: '5ee2457cfd47bca79fbade3f',
+    status: "active",
+    isVerified: true,
+    isPublic: true,
+    avatarUrl: '',
+    email: 'info@animalfarmfoundation.org',
+    name: 'Acadia Generelli',
+    displayName: '',
+    company: 'Animal Farm Foundation',
+    role: "User",
+    address: '433 Pugsley Hill Rd',
+    city: 'Amenia',
+    state: 'NY',
+    zipCode: '12501',
+    country: 'USA',
+    phoneNumber: '',
+    password: '',
+    photoURL: '',
+    about: '',
+    systemRoles: '',
+    affiliations: [
+      {
+        role: ['admin'],
+        shelterId: '5ee831810d51681938591381',
+        shelterName: 'Animal Farm Foundation, Inc.',
+        affiliateSystemRoles: ['superadmin']
+      },
+    ]
+  }
+  ,
+
+  // lauraamoreno@icloud.com --
   {
     id: '6de1e8a7-d299-4231-b69f-e9fa221636c5',
     mainnetNearPublicAddress: 'xxx5ee26ffc9806e2255757fb2c',
@@ -1737,13 +1725,14 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
-  },
+  }
+  ,
 
-  // hopeandfriendsrescue@icloud.com'
+  // hopeandfriendsrescue@icloud.com --
   {
     id: '27474aa6-0c7f-40c9-b458-44e1e70c95d3',
     mainnetNearPublicAddress: 'xxxx5ee26ffc9806e2255757fb2c',
-    pid: '5eeae3cff36b6e7ef0535eea',
+    pid: '5ee61fad77c566a9c9efdc20',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1771,8 +1760,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
-  },
-  // hello@mikosrescuemission.org
+  }
+  ,
+
+  // hello@mikosrescuemission.org --
   {
     id: '7e474412-7562-43d9-af78-5b325ad7e4ce',
     mainnetNearPublicAddress: 'a350c52e6f8a5e13fcaa0c2f0820a27bd4338b34d9d1508e122eaf60f2176e0a',
@@ -1804,12 +1795,14 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
-  },
-  // showmeyourpittiesrescue@gmail.com
+  }
+  ,
+
+  // showmeyourpittiesrescue@gmail.com --
   {
     id: '27474aa6-0c7f-40c9-b458-44e1e70c95d3',
     mainnetNearPublicAddress: '8cfc9bbb369f1283ab038adc9a620925c6a4523c58dbf80b06c7de7dc992348b',
-    pid: '5eeae3cff36b6e7ef0535eea',
+    pid: '5ee86e85eea48084e97eb25e',
     status: "active",
     isVerified: true,
     isPublic: true,
@@ -1838,8 +1831,10 @@ export const useMockUser = [
       }
 
     ]
-  },
-  // KristinaVerdile@gmail.com
+  }
+  ,
+
+  // kristinaVerdile@gmail.com
   {
     id: 'acdbbd56-b339-4d72-8701-0499cd6e347a',
     mainnetNearPublicAddress: 'xxx5eeeea3b94fee7562d5130c4',
@@ -1871,8 +1866,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       }
     ]
-  },
-  // hello@pupculturerescue.org
+  }
+  ,
+
+  // hello@pupculturerescue.org -- 
   {
     id: '9589b630-5141-4bc0-b44b-914d9f683a6d',
     mainnetNearPublicAddress: 'eaa475079dfac37b2892bde2ff23bee969d5553fb3df06704cb6c549281c730e',
@@ -1904,8 +1901,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
-  },
-  // 4everyoursrescue@gmail.com
+  }
+  ,
+
+  // 4everyoursrescue@gmail.com --
   {
     id: '2287ff77-0db4-4f54-aa7f-fcca4a266c50',
     mainnetNearPublicAddress: '60f877d9e4c6b9c9022c03576b2cb3244ba3e22165c92ba0e0e6684aebb8ed9a',
@@ -1937,8 +1936,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       },
     ]
-  },
-  // adoptions@grandmabettysanimalrescue.com
+  }
+  ,
+
+  // adoptions@grandmabettysanimalrescue.com --
   {
     id: 'e61e0fd6-cf79-4b31-8da1-a0c0f0338145',
     mainnetNearPublicAddress: 'xxxx5ee8317f24e1687303255024',
@@ -1970,9 +1971,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['admin']
       }
     ]
-  },
+  }
+  ,
 
-  // adopt@caffeinatedcaninerescuetx.org
+  // adopt@caffeinatedcaninerescuetx.org --
   {
     id: '6f726e38-c147-4d8e-8076-6918854a81da',
     mainnetNearPublicAddress: 'xxx5ee83181b7b1685258481548',
@@ -2004,9 +2006,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
+  }
+  ,
 
-  // rfrdacademy@gmail.com
+  // rfrdacademy@gmail.com --
   {
     id: '48cb3488-6b8e-4c10-9d7a-af0865033449',
     mainnetNearPublicAddress: 'xxx5ee2f7d70f5f6f22a273f6df',
@@ -2038,8 +2041,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
-  // aceofheartsmngr@gmail.com
+  }
+  ,
+
+  // aceofheartsmngr@gmail.com --
   {
     id: 'dc4229bd-9c85-4685-abae-a2af65090bdc',
     mainnetNearPublicAddress: 'xxx5ee07873b9fabcf42d311c83',
@@ -2071,8 +2076,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
-  //  info@desertdogproject.org
+  }
+  ,
+
+  // info@desertdogproject.org --
   {
     id: 'd4b43337-9399-4bd1-990d-0052d77e7c1f',
     mainnetNearPublicAddress: 'xxx5ee40f8988544169beaf4031',
@@ -2104,8 +2111,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
-  //  volunteer@californiabullyrescue.org
+  }
+  ,
+
+  //  volunteer@californiabullyrescue.org --
   {
     id: '8d24aafe-5504-4850-8067-b0eb6feef2d2',
     mainnetNearPublicAddress: 'xxx5ee8317f6501687352248090',
@@ -2137,8 +2146,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
-  //  info@716paws.org
+  }
+  ,
+
+  //  info@716paws.org --
   {
     id: '2d8b7a18-d888-46cc-a575-b33dc0925f9f',
     mainnetNearPublicAddress: 'xxx5ee831810691687089285749',
@@ -2170,12 +2181,14 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
-  // sarah@bubblesdogrescue.org
+  }
+  ,
+
+  // sarah@bubblesdogrescue.org --
   {
     id: '226a1eb4-9293-4285-9b02-1e1f25cbab22',
     mainnetNearPublicAddress: 'xxx5ee8317f49f1683402638385',
-    pid: '',
+    pid: '5ee344cdafa095bc672a2f71',
     status: 'active',
     isVerified: true,
     isPublic: true,
@@ -2203,9 +2216,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
+  }
+  ,
 
-  // marlene@bubblesdogrescue.org
+  // marlene@bubblesdogrescue.org --
   {
     id: 'a72af472-ca90-40e5-97b5-3e7f3c944f71',
     mainnetNearPublicAddress: 'xxx5ee8317f49f1683402638385',
@@ -2237,8 +2251,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
-  // therescuelyfe@gmail.com
+  }
+  ,
+
+  // therescuelyfe@gmail.com --
   {
     id: '9672588a-0c6d-4dc0-9936-883f195a7e4e',
     mainnetNearPublicAddress: 'xxx5ee40c1885bdcf2a23570b79',
@@ -2270,9 +2286,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       }
     ]
-  },
+  }
+  ,
 
-  // lonelypawsadoptions@gmail.com
+  // lonelypawsadoptions@gmail.com --
   {
     id: '82954ced-1ec4-4234-913d-3da127f471f0',
     mainnetNearPublicAddress: 'xxx5eefb377ab02268590a1f0fc',
@@ -2304,9 +2321,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
+  }
+  ,
 
-  // tori@bajapaws.org
+  // tori@bajapaws.org --
   {
     id: '4e9e24cc-c0e3-4a8c-8dcb-b168065e26a3',
     mainnetNearPublicAddress: 'xxx5ee8318159e1688940607096',
@@ -2338,9 +2356,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
+  }
+  ,
 
-  // info@animalcarezone.org
+  // info@animalcarezone.org --
   {
     id: 'd9e80903-7417-4bba-bee5-8a41b64aa027',
     mainnetNearPublicAddress: 'xxx5eecee6cd8a515ee24d7ff83',
@@ -2372,9 +2391,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
+  }
+  ,
 
-  // paulinak721@gmail.com
+  // paulinak721@gmail.com --
   {
     id: 'b661bed8-f9ee-4028-8772-967266bb080b',
     mainnetNearPublicAddress: 'xxx5eeb3cf569ab192823ce234b',
@@ -2406,9 +2426,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
+  }
+  ,
 
-  // divdiv365@gmail.com
+  // divdiv365@gmail.com --
   {
     id: 'c7c5604f-32fd-42d3-be1c-50f472ffad6e',
     mainnetNearPublicAddress: 'c4db2fe689c85b224e870e337aeeb58d3d71e8466c95b8cac8d70202667ae64e',
@@ -2440,9 +2461,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
+  }
+  ,
 
-  // kellymiller@optonline.net
+  // kellymiller@optonline.net --
   {
     id: 'cf2b6cd3-3d51-4ae6-b4d4-a8ac73123fbf',
     mainnetNearPublicAddress: 'xxx5ee7189bc4e771a4661a0233',
@@ -2474,8 +2496,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
-  // lee@theasherhouse.com
+  }
+  ,
+
+  // lee@theasherhouse.com --
   {
     id: 'b3ab3f42-fdbe-4ea3-ab3e-3788c279ca72',
     mainnetNearPublicAddress: 'xxx5ee5b3223d16d5c0312edf88',
@@ -2509,7 +2533,8 @@ export const useMockUser = [
     ]
   }
   ,
-  // abridgehomerescue@gmail.com
+
+  // abridgehomerescue@gmail.com -- 
   {
     id: '66eae4c7-9395-44c9-a719-fb76e0936d16',
     mainnetNearPublicAddress: 'b55bffcf5ca3433ed4e92a06e8c22fcac9b2a584c0f9631c70f1690cad762044',
@@ -2543,7 +2568,8 @@ export const useMockUser = [
     ]
   }
   ,
-  // evie@pupswithoutborders.org
+
+  // evie@pupswithoutborders.org --
   {
     id: '615f25c5-9d9a-4d9e-9d9f-03c2cf2c4fe7',
     mainnetNearPublicAddress: '10355b78061cf0b7c2d7656b9d2e07f61333a5565181217ee89f4203653852ee',
@@ -2575,9 +2601,10 @@ export const useMockUser = [
         affiliateSystemRoles: ['superadmin']
       },
     ]
-  },
+  }
+  ,
 
-  // gwldr@icloud.com
+  // gwldr@icloud.com --
   {
     id: 'bae04086-9177-466b-9cfd-22985b89f3d0',
     mainnetNearPublicAddress: 'xxx5ee5729d3f3d0869dafcdce6',
@@ -2610,6 +2637,7 @@ export const useMockUser = [
       },
     ]
   }
+
 ];
 
 

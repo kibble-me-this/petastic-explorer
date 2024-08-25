@@ -28,6 +28,10 @@ const ProductDetailsPage = lazy(() => import('src/pages/dashboard/product/detail
 const ProductListPage = lazy(() => import('src/pages/dashboard/product/list'));
 const ProductCreatePage = lazy(() => import('src/pages/dashboard/product/new'));
 const ProductEditPage = lazy(() => import('src/pages/dashboard/product/edit'));
+
+// PRODUCT ADMIN
+const ProductListAdminPage = lazy(() => import('src/pages/dashboard/product/admin/list'));
+
 // ORDER
 const OrderListPage = lazy(() => import('src/pages/dashboard/order/list'));
 const OrderDetailsPage = lazy(() => import('src/pages/dashboard/order/details'));
@@ -60,7 +64,8 @@ const PetsPage = lazy(() => import('src/pages/dashboard/orgpet/list'));
 const PetPage = lazy(() => import('src/pages/dashboard/orgpet/details'));
 const NewPetPage = lazy(() => import('src/pages/dashboard/orgpet/new'));
 const EditPetPage = lazy(() => import('src/pages/dashboard/orgpet/edit'));
-// JOB
+
+// ORGANIZATIONS
 const JobDetailsPage = lazy(() => import('src/pages/dashboard/org/details'));
 const JobListPage = lazy(() => import('src/pages/dashboard/org/list'));
 const JobCreatePage = lazy(() => import('src/pages/dashboard/org/new'));
@@ -68,6 +73,11 @@ const JobEditPage = lazy(() => import('src/pages/dashboard/org/edit'));
 const ProductListPageCO = lazy(() => import('src/pages/product/list'));
 const ProductDetailsPageCO = lazy(() => import('src/pages/product/details'));
 const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
+
+// ORGANIZATIONS ADMIN
+const OrganizationListAdminPage = lazy(() => import('src/pages/dashboard/org/admin/list'));
+const OrganizationCreateAdminPage = lazy(() => import('src/pages/dashboard/org/admin/new'));
+
 
 // TOUR
 const TourDetailsPage = lazy(() => import('src/pages/dashboard/tour/details'));
@@ -150,6 +160,9 @@ export const dashboardRoutes = [
           { path: ':id', element: <ProductDetailsPage /> },
           { path: 'new', element: <ProductCreatePage /> },
           { path: ':id/edit', element: <ProductEditPage /> },
+
+          // admin
+          { path: 'admin/list', element: <ProductListAdminPage /> },
         ],
       },
       {
@@ -221,6 +234,11 @@ export const dashboardRoutes = [
               { path: 'checkout', element: <ProductCheckoutPage /> },
             ],
           },
+
+          // admin
+          { path: 'admin/list', element: <OrganizationListAdminPage /> },
+          { path: 'admin/new', element: <OrganizationCreateAdminPage /> },
+
         ],
       },
       { path: 'chat', element: <ChatPage /> },

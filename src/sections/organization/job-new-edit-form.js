@@ -1,444 +1,348 @@
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
-import { useMemo, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form'; // Import useFieldArray for dynamic fields
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
-// @mui
+import debounce from 'lodash/debounce';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
 import Card from '@mui/material/Card';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Unstable_Grid2';
-import ButtonBase from '@mui/material/ButtonBase';
-import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControlLabel from '@mui/material/FormControlLabel';
-// hooks
-import { useResponsive } from 'src/hooks/use-responsive';
-// routes
-import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
-// _mock
-import {
-  _roles,
-  JOB_SKILL_OPTIONS,
-  JOB_BENEFIT_OPTIONS,
-  JOB_EXPERIENCE_OPTIONS,
-  JOB_EMPLOYMENT_TYPE_OPTIONS,
-  JOB_WORKING_SCHEDULE_OPTIONS,
-} from 'src/_mock';
-// assets
-import { countries } from 'src/assets/data';
-// components
+import { CircularProgress, TextField, InputAdornment, Button, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Alert } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+import * as Yup from 'yup';
+// Components
 import Iconify from 'src/components/iconify';
 import { useSnackbar } from 'src/components/snackbar';
-import FormProvider, {
-  RHFEditor,
-  RHFSwitch,
-  RHFTextField,
-  RHFRadioGroup,
-  RHFAutocomplete,
-  RHFMultiCheckbox,
-} from 'src/components/hook-form';
+import FormProvider from 'src/components/hook-form';
 
-// ----------------------------------------------------------------------
-
-export default function JobNewEditForm({ currentJob }) {
-  const router = useRouter();
-
-  const mdUp = useResponsive('up', 'md');
-
+export default function ShelterForm({ currentJob }) {
   const { enqueueSnackbar } = useSnackbar();
 
-  const NewJobSchema = Yup.object().shape({
-    title: Yup.string().required('Title is required'),
-    content: Yup.string().required('Content is required'),
-    employmentTypes: Yup.array().min(1, 'Choose at least one option'),
-    role: Yup.string().required('Role is required'),
-    skills: Yup.array().min(1, 'Choose at least one option'),
-    workingSchedule: Yup.array().min(1, 'Choose at least one option'),
-    benefits: Yup.array().min(1, 'Choose at least one option'),
-    locations: Yup.array().min(1, 'Choose at least one option'),
-    expiredDate: Yup.mixed().nullable().required('Expired date is required'),
-    salary: Yup.object().shape({
-      type: Yup.string(),
-      price: Yup.number().min(1, 'Price is required'),
-      negotiable: Yup.boolean(),
-    }),
-    experience: Yup.string(),
+  const [shelterResults, setShelterResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedShelter, setSelectedShelter] = useState(null);
+  const [customShelter, setCustomShelter] = useState('');
+  const [isCustomShelter, setIsCustomShelter] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [accountId, setAccountId] = useState(''); // State to store the account_id
+
+  // Schema for validation using Yup
+  const ShelterFormSchema = Yup.object().shape({
+    shelterName: Yup.string().required('Shelter name is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    city: Yup.string().required('City is required'),
+    state: Yup.string().required('State is required'),
+    affiliatedEmails: Yup.array()
+      .of(
+        Yup.object().shape({
+          email: Yup.string().email('Invalid email').required('Email is required'),
+        })
+      )
+      .min(1, 'At least one email is required'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      title: currentJob?.title || '',
-      content: currentJob?.content || '',
-      employmentTypes: currentJob?.employmentTypes || [],
-      experience: currentJob?.experience || '1 year exp',
-      role: currentJob?.role || _roles[1],
-      skills: currentJob?.skills || [],
-      workingSchedule: currentJob?.workingSchedule || [],
-      locations: currentJob?.locations || [],
-      benefits: currentJob?.benefits || [],
-      expiredDate: currentJob?.expiredDate || null,
-      salary: currentJob?.salary || {
-        type: 'Hourly',
-        price: 0,
-        negotiable: false,
-      },
+      shelterName: selectedShelter?.name || '',
+      email: '',
+      city: '',
+      state: '',
+      affiliatedEmails: [{ email: '' }],
     }),
-    [currentJob]
+    [selectedShelter]
   );
 
   const methods = useForm({
-    resolver: yupResolver(NewJobSchema),
+    resolver: yupResolver(ShelterFormSchema),
     defaultValues,
   });
 
-  const {
-    reset,
+  const { reset, handleSubmit, formState: { isSubmitting, errors }, register, control } = methods;
+
+  const { fields, append, remove } = useFieldArray({
     control,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
+    name: 'affiliatedEmails',
+  });
 
   useEffect(() => {
-    if (currentJob) {
+    if (selectedShelter) {
       reset(defaultValues);
     }
-  }, [currentJob, defaultValues, reset]);
+  }, [selectedShelter, defaultValues, reset]);
+
+  const fetchShelters = useMemo(
+    () =>
+      debounce(async (partialName) => {
+        if (!partialName) return;
+        setLoading(true);
+        try {
+          const response = await fetch(`https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getSheltersByPartialName?partialName=${partialName}`);
+          const data = await response.json();
+          setShelterResults(Array.isArray(data) ? data : []);
+          setIsCustomShelter(false);
+        } catch (error) {
+          enqueueSnackbar('Failed to fetch shelters', { variant: 'error' });
+          setShelterResults([]);
+        } finally {
+          setLoading(false);
+        }
+      }, 500),
+    [enqueueSnackbar]
+  );
+
+  const onInputChange = (event, newValue) => {
+    setCustomShelter(newValue);
+
+    if (newValue) {
+      fetchShelters(newValue);
+    }
+
+    if (!shelterResults.some((shelter) => shelter.name === newValue)) {
+      setIsCustomShelter(true);
+    } else {
+      setIsCustomShelter(false);
+    }
+  };
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      console.log('Submitting form with data:', data);
+      enqueueSnackbar('Shelter data saved successfully!');
       reset();
-      enqueueSnackbar(currentJob ? 'Update success!' : 'Create success!');
-      router.push(paths.dashboard.job.root);
-      console.info('DATA', data);
     } catch (error) {
       console.error(error);
+      enqueueSnackbar('Failed to save shelter data', { variant: 'error' });
     }
   });
 
-  const renderDetails = (
-    <>
-      {mdUp && (
-        <Grid md={4}>
-          <Typography variant="h6" sx={{ mb: 0.5 }}>
-            Details
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Title, short description, image...
-          </Typography>
-        </Grid>
-      )}
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
 
-      <Grid xs={12} md={8}>
-        <Card>
-          {!mdUp && <CardHeader title="Details" />}
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
 
-          <Stack spacing={3} sx={{ p: 3 }}>
-            <Stack spacing={1.5}>
-              <Typography variant="subtitle2">Title</Typography>
-              <RHFTextField name="title" placeholder="Ex: Software Engineer..." />
-            </Stack>
+  const handleCustomShelterSubmit = async (data) => {
+    setLoading(true);
+    try {
+      // Make POST request to the Lambda endpoint
+      const response = await fetch('https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/handleCreateOrganization', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          newOrganization: {
+            primary_account: {
+              contact_info: {
+                email: data.email,
+                city: data.city,
+                state: data.state,
+              },
+              shelter_details: {
+                shelter_name_common: data.shelterName,
+                shelter_name_path: data.shelterName.toLowerCase().replace(/ /g, '-'),
+              }
+            },
+          },
+        }),
+      });
 
-            <Stack spacing={1.5}>
-              <Typography variant="subtitle2">Content</Typography>
-              <RHFEditor simple name="content" />
-            </Stack>
-          </Stack>
-        </Card>
-      </Grid>
-    </>
-  );
+      const responseData = await response.json();
 
-  const renderProperties = (
-    <>
-      {mdUp && (
-        <Grid md={4}>
-          <Typography variant="h6" sx={{ mb: 0.5 }}>
-            Properties
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Additional functions and attributes...
-          </Typography>
-        </Grid>
-      )}
+      if (!response.ok) throw new Error('Failed to submit shelter information');
 
-      <Grid xs={12} md={8}>
-        <Card>
-          {!mdUp && <CardHeader title="Properties" />}
+      // Store the account_id in the state
+      setAccountId(responseData.account_id);
 
-          <Stack spacing={3} sx={{ p: 3 }}>
-            <Stack spacing={1}>
-              <Typography variant="subtitle2">Employment type</Typography>
-              <RHFMultiCheckbox
-                row
-                spacing={4}
-                name="employmentTypes"
-                options={JOB_EMPLOYMENT_TYPE_OPTIONS}
-              />
-            </Stack>
-
-            <Stack spacing={1}>
-              <Typography variant="subtitle2">Experience</Typography>
-              <RHFRadioGroup row spacing={4} name="experience" options={JOB_EXPERIENCE_OPTIONS} />
-            </Stack>
-
-            <Stack spacing={1.5}>
-              <Typography variant="subtitle2">Role</Typography>
-              <RHFAutocomplete
-                name="role"
-                autoHighlight
-                options={_roles.map((option) => option)}
-                getOptionLabel={(option) => option}
-                renderOption={(props, option) => (
-                  <li {...props} key={option}>
-                    {option}
-                  </li>
-                )}
-              />
-            </Stack>
-
-            <Stack spacing={1.5}>
-              <Typography variant="subtitle2">Skills</Typography>
-              <RHFAutocomplete
-                name="skills"
-                placeholder="+ Skills"
-                multiple
-                disableCloseOnSelect
-                options={JOB_SKILL_OPTIONS.map((option) => option)}
-                getOptionLabel={(option) => option}
-                renderOption={(props, option) => (
-                  <li {...props} key={option}>
-                    {option}
-                  </li>
-                )}
-                renderTags={(selected, getTagProps) =>
-                  selected.map((option, index) => (
-                    <Chip
-                      {...getTagProps({ index })}
-                      key={option}
-                      label={option}
-                      size="small"
-                      color="info"
-                      variant="soft"
-                    />
-                  ))
-                }
-              />
-            </Stack>
-
-            <Stack spacing={1.5}>
-              <Typography variant="subtitle2">Working schedule</Typography>
-              <RHFAutocomplete
-                name="workingSchedule"
-                placeholder="+ Schedule"
-                multiple
-                disableCloseOnSelect
-                options={JOB_WORKING_SCHEDULE_OPTIONS.map((option) => option)}
-                getOptionLabel={(option) => option}
-                renderOption={(props, option) => (
-                  <li {...props} key={option}>
-                    {option}
-                  </li>
-                )}
-                renderTags={(selected, getTagProps) =>
-                  selected.map((option, index) => (
-                    <Chip
-                      {...getTagProps({ index })}
-                      key={option}
-                      label={option}
-                      size="small"
-                      color="info"
-                      variant="soft"
-                    />
-                  ))
-                }
-              />
-            </Stack>
-
-            <Stack spacing={1.5}>
-              <Typography variant="subtitle2">Locations</Typography>
-              <RHFAutocomplete
-                name="locations"
-                placeholder="+ Locations"
-                multiple
-                disableCloseOnSelect
-                options={countries.map((option) => option.label)}
-                getOptionLabel={(option) => option}
-                renderOption={(props, option) => {
-                  const { code, label, phone } = countries.filter(
-                    (country) => country.label === option
-                  )[0];
-
-                  if (!label) {
-                    return null;
-                  }
-
-                  return (
-                    <li {...props} key={label}>
-                      <Iconify
-                        key={label}
-                        icon={`circle-flags:${code.toLowerCase()}`}
-                        width={28}
-                        sx={{ mr: 1 }}
-                      />
-                      {label} ({code}) +{phone}
-                    </li>
-                  );
-                }}
-                renderTags={(selected, getTagProps) =>
-                  selected.map((option, index) => (
-                    <Chip
-                      {...getTagProps({ index })}
-                      key={option}
-                      label={option}
-                      size="small"
-                      color="info"
-                      variant="soft"
-                    />
-                  ))
-                }
-              />
-            </Stack>
-
-            <Stack spacing={1.5}>
-              <Typography variant="subtitle2">Expired</Typography>
-              <Controller
-                name="expiredDate"
-                control={control}
-                render={({ field, fieldState: { error } }) => (
-                  <DatePicker
-                    {...field}
-                    format="dd/MM/yyyy"
-                    slotProps={{
-                      textField: {
-                        fullWidth: true,
-                        error: !!error,
-                        helperText: error?.message,
-                      },
-                    }}
-                  />
-                )}
-              />
-            </Stack>
-
-            <Stack spacing={2}>
-              <Typography variant="subtitle2">Salary</Typography>
-
-              <Controller
-                name="salary.type"
-                control={control}
-                render={({ field }) => (
-                  <Box gap={2} display="grid" gridTemplateColumns="repeat(2, 1fr)">
-                    {[
-                      {
-                        label: 'Hourly',
-                        icon: <Iconify icon="solar:clock-circle-bold" width={32} sx={{ mb: 2 }} />,
-                      },
-                      {
-                        label: 'Custom',
-                        icon: <Iconify icon="solar:wad-of-money-bold" width={32} sx={{ mb: 2 }} />,
-                      },
-                    ].map((item) => (
-                      <Paper
-                        component={ButtonBase}
-                        variant="outlined"
-                        key={item.label}
-                        onClick={() => field.onChange(item.label)}
-                        sx={{
-                          p: 2.5,
-                          borderRadius: 1,
-                          typography: 'subtitle2',
-                          flexDirection: 'column',
-                          ...(item.label === field.value && {
-                            borderWidth: 2,
-                            borderColor: 'text.primary',
-                          }),
-                        }}
-                      >
-                        {item.icon}
-                        {item.label}
-                      </Paper>
-                    ))}
-                  </Box>
-                )}
-              />
-
-              <RHFTextField
-                name="salary.price"
-                placeholder="0.00"
-                type="number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Box sx={{ typography: 'subtitle2', color: 'text.disabled' }}>$</Box>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <RHFSwitch name="salary.negotiable" label="Salary is negotiable" />
-            </Stack>
-
-            <Stack spacing={1}>
-              <Typography variant="subtitle2">Benefits</Typography>
-              <RHFMultiCheckbox
-                name="benefits"
-                options={JOB_BENEFIT_OPTIONS}
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(2, 1fr)',
-                }}
-              />
-            </Stack>
-          </Stack>
-        </Card>
-      </Grid>
-    </>
-  );
-
-  const renderActions = (
-    <>
-      {mdUp && <Grid md={4} />}
-      <Grid xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
-        <FormControlLabel
-          control={<Switch defaultChecked />}
-          label="Publish"
-          sx={{ flexGrow: 1, pl: 3 }}
-        />
-
-        <LoadingButton
-          type="submit"
-          variant="contained"
-          size="large"
-          loading={isSubmitting}
-          sx={{ ml: 2 }}
-        >
-          {!currentJob ? 'Create Job' : 'Save Changes'}
-        </LoadingButton>
-      </Grid>
-    </>
-  );
+      enqueueSnackbar('Shelter data saved successfully!', { variant: 'success' });
+      setDialogOpen(false); // Close the dialog on success
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar('Failed to save shelter data', { variant: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <FormProvider methods={methods} onSubmit={onSubmit}>
-      <Grid container spacing={3}>
-        {renderDetails}
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <Card>
+        {/* Header with Icon */}
+        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2 }}>
+          <Typography variant="h6">Shelter Form</Typography>
+          <IconButton onClick={handleDialogOpen}>
+            <Iconify icon="mingcute:add-line" />
+          </IconButton>
+        </Stack>
 
-        {renderProperties}
+        {/* Dialog Box */}
+        <Dialog open={dialogOpen} onClose={handleDialogClose}>
+          <DialogTitle>Add Shelter Information</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please fill in the following shelter information.
+            </DialogContentText>
 
-        {renderActions}
-      </Grid>
+            <Stack spacing={2} sx={{ mt: 2 }}>
+              <TextField
+                label="Shelter Name"
+                fullWidth
+                {...register('shelterName')}
+                error={!!errors.shelterName}
+                helperText={errors.shelterName?.message}
+              />
+              <TextField
+                label="Email"
+                fullWidth
+                {...register('email')}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+              <TextField
+                label="City"
+                fullWidth
+                {...register('city')}
+                error={!!errors.city}
+                helperText={errors.city?.message}
+              />
+              <TextField
+                label="State"
+                fullWidth
+                {...register('state')}
+                error={!!errors.state}
+                helperText={errors.state?.message}
+              />
+            </Stack>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose}>Cancel</Button>
+            <LoadingButton
+              onClick={handleSubmit(handleCustomShelterSubmit)}
+              loading={loading || isSubmitting}
+              variant="contained"
+            >
+              Submit
+            </LoadingButton>
+          </DialogActions>
+        </Dialog>
+
+        <Grid container spacing={3}>
+          <Grid xs={12}>
+            <Card>
+              <Stack spacing={3} sx={{ p: 3 }}>
+                <Stack spacing={1.5} direction="row" alignItems="center">
+                  <Autocomplete
+                    sx={{ flexGrow: 1 }}
+                    options={shelterResults || []}
+                    loading={loading}
+                    autoHighlight
+                    getOptionLabel={(option) =>
+                      `${option.name} (${option.city}, ${option.state})`
+                    } // Label includes the name, city, and state
+                    renderOption={(props, option) => (
+                      <li {...props}>
+                        <Stack>
+                          <Typography variant="body1">{option.name}</Typography>
+                          <Typography variant="body2" color="textSecondary">
+                            {`${option.city}, ${option.state} - ID: ${option.account_id}`}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary">
+                            {`Number of Pets: ${option.numberOfPets}`}
+                          </Typography>
+                        </Stack>
+                      </li>
+                    )} // Render custom option with name, city, state, account_id, and number of pets
+                    onInputChange={(_, newValue) => onInputChange(_, newValue)}
+                    onChange={(event, newValue) => {
+                      setSelectedShelter(newValue);
+                      setCustomShelter('');
+                      setIsCustomShelter(false);
+                    }}
+                    noOptionsText="No Results"
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        placeholder="Type to find a shelter..."
+                        InputProps={{
+                          ...params.InputProps,
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Iconify icon="eva:search-fill" sx={{ ml: 1, color: 'text.disabled' }} />
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <>
+                              {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                              {params.InputProps.endAdornment}
+                            </>
+                          ),
+                        }}
+                      />
+                    )}
+                  />
+                </Stack>
+
+                {/* Dynamic email fields */}
+                {fields.map((field, index) => (
+                  <Stack key={field.id} direction="row" alignItems="center" spacing={2} mt={3}>
+                    <TextField
+                      fullWidth
+                      label={`Affiliated Account Email ${index + 1}`}
+                      {...register(`affiliatedEmails.${index}.email`)}
+                      error={!!errors.affiliatedEmails?.[index]?.email}
+                      helperText={errors.affiliatedEmails?.[index]?.email?.message}
+                    />
+                    <IconButton
+                      color="error"
+                      onClick={() => remove(index)}
+                      disabled={fields.length === 1} // Prevent removing the last email field
+                    >
+                      <Iconify icon="solar:trash-bin-trash-bold" />
+                    </IconButton>
+                  </Stack>
+                ))}
+
+                <Button
+                  variant="outlined"
+                  onClick={() => append({ email: '' })}
+                  sx={{ mt: 2 }}
+                >
+                  Add Email
+                </Button>
+              </Stack>
+            </Card>
+          </Grid>
+
+          <Grid xs={12}>
+            <Stack justifyContent="flex-end" direction="row" spacing={2} sx={{ mt: 3 }}>
+              <LoadingButton
+                size="large"
+                variant="contained"
+                loading={isSubmitting}
+                onClick={handleSubmit(onSubmit)}
+              >
+                Save Shelter Info
+              </LoadingButton>
+            </Stack>
+          </Grid>
+
+          {/* Show the account_id after successful submission */}
+          {accountId && (
+            <Grid xs={12}>
+              <Alert severity="success">
+                Organization created successfully! Account ID: {accountId}
+              </Alert>
+            </Grid>
+          )}
+        </Grid>
+      </Card>
     </FormProvider>
   );
 }
 
-JobNewEditForm.propTypes = {
+ShelterForm.propTypes = {
   currentJob: PropTypes.object,
 };
