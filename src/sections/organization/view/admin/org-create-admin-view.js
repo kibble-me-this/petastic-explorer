@@ -18,13 +18,13 @@ export default function OrganizationCreateView() {
             <CustomBreadcrumbs
                 heading="Create a new organization"
                 links={[
-                    {
-                        name: 'Dashboard',
-                        href: paths.dashboard.root,
-                    },
+                    // {
+                    //     name: 'Dashboard',
+                    //     href: paths.dashboard.root,
+                    // },
                     {
                         name: 'Organizations',
-                        href: paths.dashboard.organization.root,
+                        href: paths.dashboard.org.admin.root,
                     },
                     { name: 'New organization' },
                 ]}

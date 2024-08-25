@@ -29,7 +29,7 @@ export default function ShelterForm({ currentJob }) {
 
   // Schema for validation using Yup
   const ShelterFormSchema = Yup.object().shape({
-    shelterName: Yup.string().required('Shelter name is required'),
+    shelterName: Yup.string().required('Organization name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     city: Yup.string().required('City is required'),
     state: Yup.string().required('State is required'),
@@ -44,7 +44,7 @@ export default function ShelterForm({ currentJob }) {
 
   const defaultValues = useMemo(
     () => ({
-      shelterName: selectedShelter?.name || '',
+      Name: selectedShelter?.name || '',
       email: '',
       city: '',
       state: '',
@@ -108,7 +108,7 @@ export default function ShelterForm({ currentJob }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       console.log('Submitting form with data:', data);
-      enqueueSnackbar('Shelter data saved successfully!');
+      enqueueSnackbar('Organization data saved successfully!');
       reset();
     } catch (error) {
       console.error(error);
@@ -157,7 +157,7 @@ export default function ShelterForm({ currentJob }) {
       // Store the account_id in the state
       setAccountId(responseData.account_id);
 
-      enqueueSnackbar('Shelter data saved successfully!', { variant: 'success' });
+      enqueueSnackbar('Organization data saved successfully!', { variant: 'success' });
       setDialogOpen(false); // Close the dialog on success
     } catch (error) {
       console.error(error);
@@ -172,7 +172,7 @@ export default function ShelterForm({ currentJob }) {
       <Card>
         {/* Header with Icon */}
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2 }}>
-          <Typography variant="h6">Shelter Form</Typography>
+          <Typography variant="h6">Organization Form</Typography>
           <IconButton onClick={handleDialogOpen}>
             <Iconify icon="mingcute:add-line" />
           </IconButton>
@@ -180,15 +180,15 @@ export default function ShelterForm({ currentJob }) {
 
         {/* Dialog Box */}
         <Dialog open={dialogOpen} onClose={handleDialogClose}>
-          <DialogTitle>Add Shelter Information</DialogTitle>
+          <DialogTitle>Add New Organization</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Please fill in the following shelter information.
+              Please fill in the following information.
             </DialogContentText>
 
             <Stack spacing={2} sx={{ mt: 2 }}>
               <TextField
-                label="Shelter Name"
+                label="Organization Name"
                 fullWidth
                 {...register('shelterName')}
                 error={!!errors.shelterName}
@@ -265,7 +265,7 @@ export default function ShelterForm({ currentJob }) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        placeholder="Type to find a shelter..."
+                        placeholder="Type to find a organization..."
                         InputProps={{
                           ...params.InputProps,
                           startAdornment: (
@@ -324,7 +324,7 @@ export default function ShelterForm({ currentJob }) {
                 loading={isSubmitting}
                 onClick={handleSubmit(onSubmit)}
               >
-                Save Shelter Info
+                Save Organization Info
               </LoadingButton>
             </Stack>
           </Grid>
