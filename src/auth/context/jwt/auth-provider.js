@@ -4,16 +4,10 @@ import { useEffect, useReducer, useCallback, useMemo, useState } from 'react';
 import { Magic } from 'magic-sdk';
 import { NearExtension } from '@magic-ext/near';
 import { OAuthExtension } from '@magic-ext/oauth';
-import { axiosInstance, endpoints } from 'src/utils/axios';
+import { axiosInstance, fetcherANYML, endpoints } from 'src/utils/axios'; // Use fetcherANYML directly
 //
 import { AuthContext } from './auth-context';
 import { isValidToken, setSession } from './utils';
-
-// ----------------------------------------------------------------------
-
-// NOTE:
-// We only build demo at basic level.
-// Customer will need to do some extra handling yourself if you want to extend the logic and other features...
 
 // ----------------------------------------------------------------------
 
@@ -23,32 +17,30 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-  if (action.type === 'INITIAL') {
-    return {
-      loading: false,
-      user: action.payload.user,
-    };
+  switch (action.type) {
+    case 'INITIAL':
+      return {
+        loading: false,
+        user: action.payload.user,
+      };
+    case 'LOGIN':
+      return {
+        ...state,
+        user: action.payload.user,
+      };
+    case 'REGISTER':
+      return {
+        ...state,
+        user: action.payload.user,
+      };
+    case 'LOGOUT':
+      return {
+        ...state,
+        user: null,
+      };
+    default:
+      return state;
   }
-  if (action.type === 'LOGIN') {
-    return {
-      ...state,
-      user: action.payload.user,
-    };
-  }
-  if (action.type === 'REGISTER') {
-    return {
-      ...state,
-      user: action.payload.user,
-    };
-  }
-  if (action.type === 'LOGOUT') {
-    return {
-      ...state,
-      user: null,
-    };
-  }
-  console.log('reducer state: ', state);
-  return state;
 };
 
 // ----------------------------------------------------------------------
@@ -66,28 +58,46 @@ export function AuthProvider({ children }) {
     setMagic(magicInstance); // Initialize once and use this instance
   }, []);
 
+  const fetchUserByEmail = async (email) => {
+    try {
+      const response = await fetcherANYML(`${endpoints.user.list}?email=${email}`);
+      return response.users && response.users.length > 0 ? response.users[0] : null;
+    } catch (error) {
+      console.error('Error fetching user by email:', error);
+      return null;
+    }
+  };
+
   const initialize = useCallback(async () => {
     try {
       const accessToken = sessionStorage.getItem(STORAGE_KEY);
-      if (accessToken) {
+      if (accessToken && magic) {
         setSession(accessToken);
-        let user = null;
 
-        if (magic) {
-          const magicIsLoggedIn = await magic.user.isLoggedIn();
-          if (magicIsLoggedIn) {
-            user = await magic.user.getMetadata();
-            dispatch({
-              type: 'LOGIN',
-              payload: { user },
-            });
+        const magicIsLoggedIn = await magic.user.isLoggedIn();
+        if (magicIsLoggedIn) {
+          // Retrieve user metadata from Magic
+          const user = await magic.user.getMetadata();
+
+          // Fetch the user from your database by email
+          const dbUser = await fetchUserByEmail(user.email);
+
+          if (dbUser) {
+            // Get the pid from the returned users data
+            user.pid = dbUser.pid;
+          } else {
+            // Default/fallback pid
+            user.pid = "5ee2fd93bccd3286db09da9a";
           }
-        }
 
-        dispatch({
-          type: 'INITIAL',
-          payload: { user },
-        });
+          // Dispatch the updated user object
+          dispatch({
+            type: 'LOGIN',
+            payload: { user },
+          });
+        } else {
+          dispatch({ type: 'INITIAL', payload: { user: null } });
+        }
       } else {
         dispatch({
           type: 'INITIAL',
@@ -95,18 +105,17 @@ export function AuthProvider({ children }) {
         });
       }
     } catch (error) {
-      console.error(error);
+      console.error('Initialization error:', error);
       dispatch({
         type: 'INITIAL',
         payload: { user: null },
       });
     }
-  }, [magic]); // Ensure magic is included in dependencies
+  }, [magic]);
 
   useEffect(() => {
     initialize();
   }, [initialize]);
-
 
   // LOGIN
   const login = useCallback(async (email, password) => {
@@ -116,7 +125,6 @@ export function AuthProvider({ children }) {
     };
 
     const response = await axiosInstance.post(endpoints.auth.login, data);
-
     const { accessToken, user } = response.data;
 
     setSession(accessToken);
@@ -131,35 +139,34 @@ export function AuthProvider({ children }) {
 
   const loginMagic = useCallback(
     async (email) => {
-      console.log('Calling loginMagic:', email);
       try {
         if (magic) {
-          // Check if the magic instance exists in the state
           // Send the Magic link to the user's email
-          const res = await magic.auth.loginWithMagicLink({ email });
+          await magic.auth.loginWithMagicLink({ email });
           const accessToken = await magic.user.getIdToken();
           setSession(accessToken);
 
           // Check if the user is logged in
           const magicIsLoggedIn = await magic.user.isLoggedIn();
           if (magicIsLoggedIn) {
-            // If the user is logged in, retrieve user metadata
+            // Retrieve user metadata from Magic
             const user = await magic.user.getMetadata();
-            const publicAddress = user.publicAddress;
 
-            console.log('userMetadata', user);
+            // Fetch the user from your database by email
+            const dbUser = await fetchUserByEmail(user.email);
 
-            // You can now use this user metadata or NEAR public address as needed
+            if (dbUser) {
+              // Get the pid from the returned users data
+              user.pid = dbUser.pid;
+            } else {
+              // Default/fallback pid
+              user.pid = "5ee2fd93bccd3286db09da9a";
+            }
 
-            // Update the session with the NEAR public address or any other necessary data
-            // setSession(publicAddress);
-
-            // Update the context to reflect the user's authentication status
+            // Dispatch the updated user object
             dispatch({
               type: 'LOGIN',
-              payload: {
-                user, // Use the actual user data received from getMetadata
-              },
+              payload: { user },
             });
           }
         }
@@ -180,7 +187,6 @@ export function AuthProvider({ children }) {
     };
 
     const response = await axiosInstance.post(endpoints.auth.register, data);
-
     const { accessToken, user } = response.data;
 
     sessionStorage.setItem(STORAGE_KEY, accessToken);
@@ -204,9 +210,6 @@ export function AuthProvider({ children }) {
   // ----------------------------------------------------------------------
 
   const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
-  console.log('state.user: ', state.user);
-
-  console.log('checkAuthenticated: ', checkAuthenticated);
   const status = state.loading ? 'loading' : checkAuthenticated;
 
   const memoizedValue = useMemo(
@@ -216,7 +219,6 @@ export function AuthProvider({ children }) {
       loading: status === 'loading',
       authenticated: status === 'authenticated',
       unauthenticated: status === 'unauthenticated',
-      //
       login,
       loginMagic,
       register,

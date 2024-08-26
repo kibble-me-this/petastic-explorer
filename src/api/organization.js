@@ -19,12 +19,19 @@ const postFetcher = async (url, data) => postRequestANYML(url, data);
 
 // ----------------------------------------------------------------------
 
-export function useGetOrganizations(accountIds, page = 1, pageSize = 10) {
-  const idsArray = Array.isArray(accountIds) ? accountIds : [accountIds];
+export function useGetOrganizations(accountIds = [], page = 1, pageSize = 10) {
+  // Build the SWR key for caching
+  const swrKey = accountIds.length ? [endpoints.organization.list, accountIds, page, pageSize] : null;
 
+  // SWR hook to fetch data using postFetcher
   const { data, isLoading, error, isValidating } = useSWR(
-    idsArray.length ? [endpoints.organization.list, idsArray, page, pageSize] : null,
-    ([url, ids, pg, pgSize]) => postFetcher(url, { account_ids: ids, page: pg, pageSize: pgSize }),
+    swrKey,
+    ([url, ids, pg, pgSize]) =>
+      postFetcher(url, {
+        account_ids: ids,    // Pass account IDs as array
+        page: pg,            // Pagination page
+        pageSize: pgSize,    // Number of items per page
+      }),
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,
@@ -32,9 +39,10 @@ export function useGetOrganizations(accountIds, page = 1, pageSize = 10) {
     }
   );
 
+  // Memoize the result to avoid unnecessary re-renders
   const memoizedValue = useMemo(() => ({
-    organizations: data?.results || [],
-    totalCount: data?.totalCount || 0,
+    organizations: data?.results || [],     // Use the `results` from Lambda response
+    totalCount: data?.totalCount || 0,      // Use the `totalCount` from Lambda response
     isLoading,
     error,
     isValidating,

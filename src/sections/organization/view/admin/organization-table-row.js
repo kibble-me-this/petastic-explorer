@@ -42,7 +42,6 @@ export default function OrganizationTableRow({
     const popover = usePopover();
 
     // Validate createdAt
-    // Validate createdAt
     const createdDate = new Date(createdAt);
     const isValidCreatedAt = !Number.isNaN(createdDate.getTime());
 

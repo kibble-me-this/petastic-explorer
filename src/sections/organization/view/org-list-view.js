@@ -53,8 +53,8 @@ const defaultFilters = {
 export default function OrganizationListView() {
   const settings = useSettingsContext();
 
-  const { user, logout } = useAuthContext();
-  const { affiliates, isLoading: isAffiliatesLoading } = useGetAffiliations("5ee2fd93bccd3286db09da9a");
+  const { user } = useAuthContext();
+  const { affiliates, isLoading: isAffiliatesLoading } = useGetAffiliations(user?.pid || null);
   const accountIds = affiliates.map(aff => aff.shelterId);
 
   const openFilters = useBoolean();

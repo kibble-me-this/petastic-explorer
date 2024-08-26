@@ -15,18 +15,35 @@ const options = {
 
 // ----------------------------------------------------------------------
 
-export function useGetUsers(page = 1, pageSize = 10) {
-  const { data, error } = useSWR([URL.list, { page, pageSize }], (url, params) =>
-    fetcherANYML(url, params), options);
+export function useGetUsers({ page = 1, pageSize = 10, email = null }) {
+  const queryParams = email ? { email } : { page, pageSize };
 
-  const memoizedValue = useMemo(() => ({
-    users: data?.users || [],
-    statusCounts: data?.statusCounts || {},
-    totalCount: data?.totalCount || 0,
-    isLoading: !data && !error,
-    error,
-    isEmpty: !data?.users?.length,
-  }), [data, error]);
+  const queryUrl = email ? `${URL.list}?email=${email}` : URL.list;
+
+  const { data, error } = useSWR([queryUrl, queryParams], (fetchUrl, fetchParams) =>
+    fetcherANYML(fetchUrl, fetchParams), options);
+
+  const memoizedValue = useMemo(() => {
+    if (email) {
+      return {
+        users: data?.user ? [data.user] : [],
+        statusCounts: data?.statusCounts || {},
+        totalCount: data?.totalCount || 0,
+        isLoading: !data && !error,
+        error,
+        isEmpty: !data?.user,
+      };
+    }
+
+    return {
+      users: data?.users || [],
+      statusCounts: data?.statusCounts || {},
+      totalCount: data?.totalCount || 0,
+      isLoading: !data && !error,
+      error,
+      isEmpty: !data?.users?.length,
+    };
+  }, [data, error, email]);
 
   return memoizedValue;
 }

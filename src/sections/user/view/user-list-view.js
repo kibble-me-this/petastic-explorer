@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useEffect, useState, useCallback } from 'react';
+import { useMemo, useEffect, useState, useCallback } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -87,14 +87,16 @@ export default function UserListView() {
   useEffect(() => {
     if (!isLoading && users.length) {
       setTableData(users);
+    } else if (isError) {
+      setTableData([]); // Or handle errors more gracefully
     }
-  }, [isLoading, users]);
+  }, [isLoading, users, isError]);
 
-  const dataFiltered = applyFilter({
+  const dataFiltered = useMemo(() => applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
     filters,
-  });
+  }), [tableData, table.order, table.orderBy, filters]);
 
   const dataInPage = dataFiltered.slice(
     table.page * table.rowsPerPage,
@@ -362,29 +364,28 @@ export default function UserListView() {
 function applyFilter({ inputData, comparator, filters }) {
   const { name, status, role } = filters;
 
-  const stabilizedThis = inputData.map((el, index) => [el, index]);
+  let filteredData = [...inputData];
 
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
+  // Apply comparator for sorting
+  filteredData.sort(comparator);
 
-  inputData = stabilizedThis.map((el) => el[0]);
-
+  // Apply filters by name
   if (name) {
-    inputData = inputData.filter(
-      (user) => user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
+    filteredData = filteredData.filter((user) =>
+      user.name.toLowerCase().includes(name.toLowerCase())
     );
   }
 
+  // Apply status filter
   if (status !== 'all') {
-    inputData = inputData.filter((user) => user.status === status);
+    filteredData = filteredData.filter((user) => user.status === status);
   }
 
+  // Apply role filter
   if (role.length) {
-    inputData = inputData.filter((user) => role.includes(user.role));
+    filteredData = filteredData.filter((user) => role.includes(user.role));
   }
 
-  return inputData;
+  return filteredData;
 }
+
