@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect, useMemo } from 'react';
-import { useForm, useFieldArray, FormProvider as RHFormProvider } from 'react-hook-form';
+import { useForm, FormProvider as RHFormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import debounce from 'lodash/debounce';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -14,7 +14,6 @@ import * as Yup from 'yup';
 // Components
 import Iconify from 'src/components/iconify';
 import { useSnackbar } from 'src/components/snackbar';
-import FormProvider from 'src/components/hook-form';
 
 export default function ShelterForm({ currentJob }) {
     const { enqueueSnackbar } = useSnackbar();
@@ -22,58 +21,31 @@ export default function ShelterForm({ currentJob }) {
     const [shelterResults, setShelterResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedShelter, setSelectedShelter] = useState(null);
-    const [customShelter, setCustomShelter] = useState('');
-    const [isCustomShelter, setIsCustomShelter] = useState(false);
-    const [dialogOpen, setDialogOpen] = useState(false); // State to control dialog open/close
     const [accountId, setAccountId] = useState('');
-    const [showEmailFields, setShowEmailFields] = useState(false);
+    const [submitLoading, setSubmitLoading] = useState(false); // Loading state for submit button
+    const [dialogOpen, setDialogOpen] = useState(false); // Dialog open/close state
 
-    // Schema for validation using Yup
+    // Validation Schema for both forms
     const ShelterFormSchema = Yup.object().shape({
-        shelterName: Yup.string().required('Organization name is required'),
+        shelterName: Yup.string(),
         email: Yup.string().email('Invalid email').required('Email is required'),
-        city: Yup.string().required('City is required'),
-        state: Yup.string().required('State is required'),
-        affiliatedEmails: Yup.array()
-            .of(
-                Yup.object().shape({
-                    email: Yup.string().email('Invalid email').required('Email is required'),
-                })
-            )
-            .min(1, 'At least one email is required'),
     });
 
     const defaultValues = useMemo(
         () => ({
-            Name: selectedShelter?.name || '',
             email: '',
-            city: '',
-            state: '',
-            affiliatedEmails: [],
         }),
-        [selectedShelter]
+        []
     );
 
-    // Main Form Methods
+    // Main form methods (for claiming an organization)
     const mainFormMethods = useForm({
         resolver: yupResolver(ShelterFormSchema),
         defaultValues,
     });
 
-    const { reset: resetMainForm, handleSubmit: handleMainSubmit, formState: { isSubmitting: isMainSubmitting }, register, control } = mainFormMethods;
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: 'affiliatedEmails',
-    });
-
-    useEffect(() => {
-        if (selectedShelter) {
-            resetMainForm(defaultValues);
-        }
-    }, [selectedShelter, defaultValues, resetMainForm]);
-
-    // Dialog Form Methods
-    const dialogFormMethods = useForm({
+    // New Organization form methods (for adding a new organization)
+    const newOrgFormMethods = useForm({
         resolver: yupResolver(ShelterFormSchema),
         defaultValues: {
             shelterName: '',
@@ -83,8 +55,16 @@ export default function ShelterForm({ currentJob }) {
         },
     });
 
-    const { reset: resetDialogForm, handleSubmit: handleDialogSubmit, formState: { isSubmitting: isDialogSubmitting }, register: dialogRegister, formState: { errors: dialogErrors } } = dialogFormMethods;
+    const { reset: resetMainForm, handleSubmit: handleMainSubmit, formState: { errors }, register } = mainFormMethods;
+    const { reset: resetNewOrgForm, handleSubmit: handleNewOrgSubmit, formState: { errors: orgErrors }, register: orgRegister } = newOrgFormMethods;
 
+    useEffect(() => {
+        if (selectedShelter) {
+            resetMainForm(defaultValues);
+        }
+    }, [selectedShelter, defaultValues, resetMainForm]);
+
+    // Fetch shelters logic
     const fetchShelters = useMemo(
         () =>
             debounce(async (partialName) => {
@@ -94,7 +74,6 @@ export default function ShelterForm({ currentJob }) {
                     const response = await fetch(`https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/getSheltersByPartialName?partialName=${partialName}`);
                     const data = await response.json();
                     setShelterResults(Array.isArray(data) ? data : []);
-                    setIsCustomShelter(false);
                 } catch (error) {
                     enqueueSnackbar('Failed to fetch shelters', { variant: 'error' });
                     setShelterResults([]);
@@ -106,35 +85,31 @@ export default function ShelterForm({ currentJob }) {
     );
 
     const onInputChange = (event, newValue) => {
-        setCustomShelter(newValue);
-
         if (newValue) {
             fetchShelters(newValue);
         }
-
-        if (!shelterResults.some((shelter) => shelter.name === newValue)) {
-            setIsCustomShelter(true);
-        } else {
-            setIsCustomShelter(false);
-        }
     };
 
+    // Main form submit handler for claiming an organization
     const handleMainFormSubmit = handleMainSubmit(async (data) => {
         try {
+            setSubmitLoading(true); // Set loading to true when form submission starts
+
             if (!selectedShelter || !selectedShelter.account_id) {
                 enqueueSnackbar('Please select a shelter before submitting.', { variant: 'error' });
+                setSubmitLoading(false); // Reset loading state on error
                 return;
             }
 
             const newUserPayload = {
                 email: data.email,
-                company: selectedShelter.shelterName,
+                company: selectedShelter.name,
                 role: "Ecosystem User",
                 affiliations: [
                     {
                         role: ["admin"],
                         shelterId: selectedShelter.account_id,
-                        shelterName: selectedShelter.shelterName,
+                        shelterName: selectedShelter.name,
                         affiliateSystemRoles: ["admin"],
                     }
                 ]
@@ -150,13 +125,15 @@ export default function ShelterForm({ currentJob }) {
 
             enqueueSnackbar('User created successfully!', { variant: 'success' });
             resetMainForm();
-            setShowEmailFields(false);
         } catch (error) {
             enqueueSnackbar('Failed to create user', { variant: 'error' });
+        } finally {
+            setSubmitLoading(false); // Reset loading state once the request is finished
         }
     });
 
-    const handleDialogFormSubmit = handleDialogSubmit(async (data) => {
+    // New organization form submit handler for adding a new organization
+    const handleNewOrgFormSubmit = handleNewOrgSubmit(async (data) => {
         setLoading(true);
         try {
             const payload = {
@@ -186,8 +163,8 @@ export default function ShelterForm({ currentJob }) {
             const responseData = await response.json();
             setAccountId(responseData.account_id);
             enqueueSnackbar('Organization created successfully!', { variant: 'success' });
-            setDialogOpen(false);
-            resetDialogForm();
+            resetNewOrgForm();
+            setDialogOpen(false); // Close the dialog upon successful submission
         } catch (error) {
             enqueueSnackbar('Failed to create organization', { variant: 'error' });
         } finally {
@@ -195,19 +172,14 @@ export default function ShelterForm({ currentJob }) {
         }
     });
 
-    // Define the dialog open/close handlers
-    const handleDialogOpen = () => {
-        setDialogOpen(true);
-    };
-
-    const handleDialogClose = () => {
-        setDialogOpen(false);
-    };
+    // Dialog open/close handlers
+    const handleDialogOpen = () => setDialogOpen(true);
+    const handleDialogClose = () => setDialogOpen(false);
 
     return (
         <Grid container spacing={3}>
-            {/* Main Form */}
-            <Grid xs={12} md={8}>
+            {/* Main Form for claiming an organization */}
+            <Grid xs={12} md={6}>
                 <Card>
                     <RHFormProvider {...mainFormMethods}>
                         <form onSubmit={handleMainFormSubmit}>
@@ -219,80 +191,57 @@ export default function ShelterForm({ currentJob }) {
                             </Stack>
 
                             <Stack spacing={3} sx={{ p: 3 }}>
-                                <Stack spacing={1.5} direction="row" alignItems="center">
-                                    <Autocomplete
-                                        sx={{ flexGrow: 1 }}
-                                        options={shelterResults || []}
-                                        loading={loading}
-                                        autoHighlight
-                                        getOptionLabel={(option) => `${option.name} (${option.city}, ${option.state}, ${option.account_id})`}
-                                        renderOption={(props, option) => (
-                                            <li {...props}>
-                                                <Stack>
-                                                    <Typography variant="body1">{option.name}</Typography>
-                                                    <Typography variant="body2" color="textSecondary">
-                                                        {`${option.city}, ${option.state} - ID: ${option.account_id}`}
-                                                    </Typography>
-                                                </Stack>
-                                            </li>
-                                        )}
-                                        onInputChange={(_, newValue) => onInputChange(_, newValue)}
-                                        onChange={(event, newValue) => {
-                                            setSelectedShelter(newValue);
-                                            setCustomShelter('');
-                                            setIsCustomShelter(false);
-                                        }}
-                                        noOptionsText="No Results"
-                                        renderInput={(params) => (
-                                            <TextField
-                                                {...params}
-                                                placeholder="Type to find a organization..."
-                                                InputProps={{
-                                                    ...params.InputProps,
-                                                    startAdornment: (
-                                                        <InputAdornment position="start">
-                                                            <Iconify icon="eva:search-fill" sx={{ ml: 1, color: 'text.disabled' }} />
-                                                        </InputAdornment>
-                                                    ),
-                                                    endAdornment: (
-                                                        <>
-                                                            {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                                                            {params.InputProps.endAdornment}
-                                                        </>
-                                                    ),
-                                                }}
-                                            />
-                                        )}
-                                    />
-                                </Stack>
-
-                                {/* Dynamic Email Fields */}
-                                {showEmailFields && fields.map((field, index) => (
-                                    <Stack key={field.id} direction="row" alignItems="center" spacing={2} mt={3}>
-                                        <TextField
-                                            fullWidth
-                                            label={`Affiliated Account Email ${index + 1}`}
-                                            {...register(`affiliatedEmails.${index}.email`)}
-                                            error={!!mainFormMethods.formState.errors.affiliatedEmails?.[index]?.email}
-                                            helperText={mainFormMethods.formState.errors.affiliatedEmails?.[index]?.email?.message}
-                                        />
-                                        <IconButton color="error" onClick={() => remove(index)} disabled={fields.length === 1}>
-                                            <Iconify icon="solar:trash-bin-trash-bold" />
-                                        </IconButton>
-                                    </Stack>
-                                ))}
-
-                                <Button
-                                    variant="outlined"
-                                    onClick={() => {
-                                        setShowEmailFields(true);
-                                        append({ email: '' });
+                                {/* Shelter Autocomplete */}
+                                <Autocomplete
+                                    sx={{ flexGrow: 1 }}
+                                    options={shelterResults || []}
+                                    loading={loading}
+                                    autoHighlight
+                                    getOptionLabel={(option) => `${option.name} (${option.city}, ${option.state}, ${option.account_id})`}
+                                    renderOption={(props, option) => (
+                                        <li {...props}>
+                                            <Stack>
+                                                <Typography variant="body1">{option.name}</Typography>
+                                                <Typography variant="body2" color="textSecondary">
+                                                    {`${option.city}, ${option.state} - ID: ${option.account_id}`}
+                                                </Typography>
+                                            </Stack>
+                                        </li>
+                                    )}
+                                    onInputChange={(_, newValue) => onInputChange(_, newValue)}
+                                    onChange={(event, newValue) => {
+                                        setSelectedShelter(newValue);
                                     }}
-                                    sx={{ mt: 2 }}
-                                    disabled={!selectedShelter}
-                                >
-                                    Assign User
-                                </Button>
+                                    noOptionsText="No Results"
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            placeholder="Type to find an organization..."
+                                            InputProps={{
+                                                ...params.InputProps,
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Iconify icon="eva:search-fill" sx={{ ml: 1, color: 'text.disabled' }} />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <>
+                                                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                                        {params.InputProps.endAdornment}
+                                                    </>
+                                                ),
+                                            }}
+                                        />
+                                    )}
+                                />
+
+                                <TextField
+                                    label="Email"
+                                    fullWidth
+                                    {...register('email')}
+                                    error={!!errors.email}
+                                    helperText={errors.email?.message}
+                                />
                             </Stack>
 
                             <Grid xs={12}>
@@ -300,8 +249,8 @@ export default function ShelterForm({ currentJob }) {
                                     <LoadingButton
                                         size="large"
                                         variant="contained"
-                                        loading={isMainSubmitting}
                                         type="submit"
+                                        loading={submitLoading} // Bind the loading state to the button
                                     >
                                         Submit
                                     </LoadingButton>
@@ -309,22 +258,14 @@ export default function ShelterForm({ currentJob }) {
                             </Grid>
                         </form>
                     </RHFormProvider>
-
-                    {accountId && (
-                        <Grid xs={12}>
-                            <Alert severity="success">
-                                Organization created successfully! Account ID: {accountId}
-                            </Alert>
-                        </Grid>
-                    )}
                 </Card>
             </Grid>
 
-            {/* Dialog Form */}
+            {/* Dialog for New Organization Form */}
             <Dialog open={dialogOpen} onClose={handleDialogClose}>
                 <DialogTitle>Add New Organization</DialogTitle>
-                <RHFormProvider {...dialogFormMethods}>
-                    <form onSubmit={handleDialogFormSubmit}>
+                <RHFormProvider {...newOrgFormMethods}>
+                    <form onSubmit={handleNewOrgFormSubmit}>
                         <DialogContent>
                             <DialogContentText>
                                 Please fill in the following information.
@@ -333,30 +274,30 @@ export default function ShelterForm({ currentJob }) {
                                 <TextField
                                     label="Organization Name"
                                     fullWidth
-                                    {...dialogRegister('shelterName')}
-                                    error={!!dialogErrors.shelterName}
-                                    helperText={dialogErrors.shelterName?.message}
+                                    {...orgRegister('shelterName')}
+                                    error={!!orgErrors.shelterName}
+                                    helperText={orgErrors.shelterName?.message}
                                 />
                                 <TextField
                                     label="Email"
                                     fullWidth
-                                    {...dialogRegister('email')}
-                                    error={!!dialogErrors.email}
-                                    helperText={dialogErrors.email?.message}
+                                    {...orgRegister('email')}
+                                    error={!!orgErrors.email}
+                                    helperText={orgErrors.email?.message}
                                 />
                                 <TextField
                                     label="City"
                                     fullWidth
-                                    {...dialogRegister('city')}
-                                    error={!!dialogErrors.city}
-                                    helperText={dialogErrors.city?.message}
+                                    {...orgRegister('city')}
+                                    error={!!orgErrors.city}
+                                    helperText={orgErrors.city?.message}
                                 />
                                 <TextField
                                     label="State"
                                     fullWidth
-                                    {...dialogRegister('state')}
-                                    error={!!dialogErrors.state}
-                                    helperText={dialogErrors.state?.message}
+                                    {...orgRegister('state')}
+                                    error={!!orgErrors.state}
+                                    helperText={orgErrors.state?.message}
                                 />
                             </Stack>
                         </DialogContent>
@@ -365,8 +306,8 @@ export default function ShelterForm({ currentJob }) {
                             <Button onClick={handleDialogClose}>Cancel</Button>
                             <LoadingButton
                                 type="submit"
-                                loading={isDialogSubmitting}
                                 variant="contained"
+                                loading={loading}
                             >
                                 Submit
                             </LoadingButton>
@@ -374,6 +315,15 @@ export default function ShelterForm({ currentJob }) {
                     </form>
                 </RHFormProvider>
             </Dialog>
+
+            {/* Success message for account ID */}
+            {accountId && (
+                <Grid xs={12}>
+                    <Alert severity="success">
+                        Organization created successfully! Account ID: {accountId}
+                    </Alert>
+                </Grid>
+            )}
         </Grid>
     );
 }
