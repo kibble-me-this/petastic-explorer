@@ -58,6 +58,7 @@ export default function OrganizationTableToolbar({
                     }}
                 >
                     <TextField
+                        disabled
                         select
                         label="Account ID"
                         value={accountId || ''}
@@ -76,6 +77,7 @@ export default function OrganizationTableToolbar({
                 {/* Search by Organization Name */}
                 <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
                     <TextField
+                        disabled
                         fullWidth
                         value={filters.name || ''}
                         onChange={handleFilterName}

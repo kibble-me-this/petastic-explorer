@@ -1,6 +1,6 @@
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -11,11 +11,9 @@ import { RouterLink } from 'src/routes/components';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 // auth
-import { RoleBasedGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 // _mock
 import {
-  _jobs,
   _roles,
   JOB_SORT_OPTIONS,
   JOB_BENEFIT_OPTIONS,
@@ -23,7 +21,7 @@ import {
   JOB_EMPLOYMENT_TYPE_OPTIONS,
 } from 'src/_mock';
 
-import { useGetOrganizations, getShelterAccountId, useGetAffiliations } from 'src/api/organization';
+import { useGetOrganizations, useGetAffiliations } from 'src/api/organization';
 // assets
 import { countries } from 'src/assets/data';
 // components
@@ -54,41 +52,37 @@ export default function OrganizationListView() {
   const settings = useSettingsContext();
 
   const { user } = useAuthContext();
+
+  // Fetch affiliations based on user PID
   const { affiliates, isLoading: isAffiliatesLoading } = useGetAffiliations(user?.pid || null);
-  const accountIds = affiliates.map(aff => aff.shelterId);
+
+  // State to manage the filters, sorting, and pagination
+  const [sortBy, setSortBy] = useState('latest');
+  const [page, setPage] = useState(1);
+  const [pageSize] = useState(12); // Fixed page size
+
+  // State for search query and filters
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState(defaultFilters);
 
   const openFilters = useBoolean();
 
-  const [sortBy, setSortBy] = useState('latest');
-  const [page, setPage] = useState(1);
-  const [pageSize] = useState(12); // Define pageSize
+  // Only call useGetOrganizations after affiliates are loaded
+  const accountIds = !isAffiliatesLoading ? affiliates.map(aff => aff.shelterId) : [];
 
-  const { organizations, totalCount, isLoading: isOrgLoading, error: orgError, isValidating } = useGetOrganizations(accountIds, page, pageSize);
+  // Fetch organizations based on account IDs, page, and pageSize
+  const { organizations, totalCount, isLoading: isOrgLoading, error: orgError, isValidating } =
+    useGetOrganizations(accountIds.length > 0 ? accountIds : [], page, pageSize);
 
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const [search, setSearch] = useState({
-    query: '',
-    results: [],
-  });
-
-  const [filters, setFilters] = useState(defaultFilters);
-
+  // Filtered data after applying filters and search
   const dataFiltered = applyFilter({
     inputData: organizations,
     filters,
     sortBy,
-    searchQuery, // Include search query in filter application
+    searchQuery,
   });
 
-  // const dataFiltered = applyFilter({
-  //   inputData: organizations,
-  //   filters,
-  //   sortBy,
-  // });
-
   const canReset = !isEqual(defaultFilters, filters);
-
   const notFound = !dataFiltered.length && canReset;
 
   const handleFilters = useCallback((name, value) => {
@@ -102,39 +96,9 @@ export default function OrganizationListView() {
     setSortBy(newValue);
   }, []);
 
-  // const handleSearch = useCallback(
-  //   (inputValue) => {
-  //     setSearch((prevState) => ({
-  //       ...prevState,
-  //       query: inputValue,
-  //     }));
-
-  //     if (inputValue) {
-  //       const results = organizations
-  //         ? organizations.filter(
-  //           (org) => org.primary_account?.shelter_details?.shelter_name_common &&
-  //             org.primary_account.shelter_details.shelter_name_common
-  //               .toLowerCase()
-  //               .includes(inputValue.toLowerCase())
-  //         )
-  //         : [];
-
-  //       setSearch((prevState) => ({
-  //         ...prevState,
-  //         results,
-  //       }));
-  //     }
-  //   },
-  //   [organizations]
-  // );
-
-  const handleSearch = useCallback(
-    (inputValue) => {
-      setSearchQuery(inputValue);  // Update the search query in state
-    },
-    []
-  );
-
+  const handleSearch = useCallback((inputValue) => {
+    setSearchQuery(inputValue);  // Update the search query in state
+  }, []);
 
   const handleResetFilters = useCallback(() => {
     setFilters(defaultFilters);
@@ -144,85 +108,14 @@ export default function OrganizationListView() {
     setPage(value);
   }, []);
 
-  const renderFilters = (
-    <Stack
-      spacing={3}
-      justifyContent="space-between"
-      alignItems={{ xs: 'flex-end', sm: 'center' }}
-      direction={{ xs: 'column', sm: 'row' }}
-    >
-      {/* <OrganizationSearch
-        query={search.query}
-        results={search.results}
-        onSearch={handleSearch}
-        hrefItem={(id) => paths.dashboard.job.details(id)}
-      /> */}
-
-      <OrganizationSearch
-        query={searchQuery}              // Pass the current search query
-        onSearch={handleSearch}           // Pass the search handler correctly
-        accountIds={accountIds}           // Pass the relevant account IDs
-        hrefItem={(id) => `/organization/${id}`}  // Navigation path
-      />
-
-      <Stack direction="row" spacing={1} flexShrink={0}>
-        <OrganizationFilters
-          open={openFilters.value}
-          onOpen={openFilters.onTrue}
-          onClose={openFilters.onFalse}
-          //
-          filters={filters}
-          onFilters={handleFilters}
-          //
-          canReset={canReset}
-          onResetFilters={handleResetFilters}
-          //
-          locationOptions={countries}
-          roleOptions={_roles}
-          benefitOptions={JOB_BENEFIT_OPTIONS.map((option) => option.label)}
-          experienceOptions={['all', ...JOB_EXPERIENCE_OPTIONS.map((option) => option.label)]}
-          employmentTypeOptions={JOB_EMPLOYMENT_TYPE_OPTIONS.map((option) => option.label)}
-        />
-
-        <OrganizationSort sort={sortBy} onSort={handleSortBy} sortOptions={JOB_SORT_OPTIONS} />
-      </Stack>
-    </Stack>
-  );
-
-  const renderResults = (
-    <OrganizationFiltersResult
-      filters={filters}
-      onResetFilters={handleResetFilters}
-      //
-      canReset={canReset}
-      onFilters={handleFilters}
-      //
-      results={dataFiltered.length}
-    />
-  );
-
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
         heading="List"
         links={[
-          // { name: 'Dashboard', href: paths.dashboard.root },
-          {
-            name: 'Organization',
-            // href: paths.dashboard.org.root,
-          },
+          { name: 'Organization' },
           { name: 'List' },
         ]}
-        // action={
-        //   <Button
-        //     component={RouterLink}
-        //     href={paths.dashboard.org.new}
-        //     variant="contained"
-        //     startIcon={<Iconify icon="mingcute:add-line" />}
-        //   >
-        //     New Organization
-        //   </Button>
-        // }
         sx={{
           mb: { xs: 3, md: 5 },
         }}
@@ -234,16 +127,57 @@ export default function OrganizationListView() {
           mb: { xs: 3, md: 5 },
         }}
       >
-        {renderFilters}
+        {/* Render filters and search */}
+        <Stack
+          spacing={3}
+          justifyContent="space-between"
+          alignItems={{ xs: 'flex-end', sm: 'center' }}
+          direction={{ xs: 'column', sm: 'row' }}
+        >
+          <OrganizationSearch
+            query={searchQuery}              // Pass the current search query
+            onSearch={handleSearch}           // Pass the search handler
+            accountIds={accountIds}           // Pass the relevant account IDs
+            hrefItem={(id) => `/organization/${id}`}  // Navigation path
+          />
 
-        {canReset && renderResults}
+          <Stack direction="row" spacing={1} flexShrink={0}>
+            <OrganizationFilters
+              open={openFilters.value}
+              onOpen={openFilters.onTrue}
+              onClose={openFilters.onFalse}
+              filters={filters}
+              onFilters={handleFilters}
+              canReset={canReset}
+              onResetFilters={handleResetFilters}
+              locationOptions={countries}
+              roleOptions={_roles}
+              benefitOptions={JOB_BENEFIT_OPTIONS.map((option) => option.label)}
+              experienceOptions={['all', ...JOB_EXPERIENCE_OPTIONS.map((option) => option.label)]}
+              employmentTypeOptions={JOB_EMPLOYMENT_TYPE_OPTIONS.map((option) => option.label)}
+            />
+
+            <OrganizationSort sort={sortBy} onSort={handleSortBy} sortOptions={JOB_SORT_OPTIONS} />
+          </Stack>
+        </Stack>
+
+        {canReset && (
+          <OrganizationFiltersResult
+            filters={filters}
+            onResetFilters={handleResetFilters}
+            canReset={canReset}
+            onFilters={handleFilters}
+            results={dataFiltered.length}
+          />
+        )}
       </Stack>
 
       {notFound && <EmptyContent filled title="No Data" sx={{ py: 10 }} />}
 
+      {/* Render organizations */}
       <OrganizationList
         orgs={dataFiltered}
-        isApiLoading={isOrgLoading}
+        isApiLoading={isOrgLoading || isAffiliatesLoading} // Account for both loading states
         page={page}
         onPageChange={handlePageChange}
         totalCount={totalCount}
@@ -309,4 +243,3 @@ const applyFilter = ({ inputData, filters, sortBy, searchQuery }) => {
 
   return filteredData;
 };
-

@@ -30,12 +30,14 @@ export default function OrganizationTableRow({
     onViewRow,
 }) {
     const {
-        shelter_name_common: name,
-        createdAt,
-        shelter_logo_url: logoUrl,
+        primary_account: {
+            shelter_details: { shelter_name_common: name, shelter_logo_url: logoUrl } = {},
+            created_at: createdAt,
+            contact_info: { city, state } = {},
+        },
         role,
-        location,
         isActive,
+        petCount,
     } = row;
 
     const confirm = useBoolean();
@@ -45,12 +47,14 @@ export default function OrganizationTableRow({
     const createdDate = new Date(createdAt);
     const isValidCreatedAt = !Number.isNaN(createdDate.getTime());
 
+    // Limit the number of characters for shelter_name_common to 30
+    const truncatedName = name && name.length > 30 ? `${name.slice(0, 30)}...` : name;
 
     return (
         <>
             <TableRow hover selected={selected}>
                 <TableCell padding="checkbox">
-                    <Checkbox checked={selected} onClick={onSelectRow} />
+                    <Checkbox disabled checked={selected} onClick={onSelectRow} />
                 </TableCell>
 
                 <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
@@ -58,7 +62,7 @@ export default function OrganizationTableRow({
                         alt={name}
                         src={logoUrl}
                         variant="rounded"
-                        sx={{ width: 64, height: 64, mr: 2 }}
+                        sx={{ width: 32, height: 32, mr: 2 }}
                     />
                     <ListItemText
                         disableTypography
@@ -70,14 +74,14 @@ export default function OrganizationTableRow({
                                 onClick={onViewRow}
                                 sx={{ cursor: 'pointer' }}
                             >
-                                {name}
+                                {truncatedName}  {/* Display truncated name */}
                             </Link>
                         }
-                        secondary={
-                            <Box component="div" sx={{ typography: 'body2', color: 'text.disabled' }}>
-                                {role}
-                            </Box>
-                        }
+                    // secondary={
+                    //     <Box component="div" sx={{ typography: 'body2', color: 'text.disabled' }}>
+                    //         {role}
+                    //     </Box>
+                    // }
                     />
                 </TableCell>
 
@@ -108,8 +112,10 @@ export default function OrganizationTableRow({
                 </TableCell>
 
                 <TableCell>
-                    {location}
+                    {city}, {state}
                 </TableCell>
+
+                <TableCell>{petCount}</TableCell>
 
                 <TableCell>
                     <Label variant="soft" color={isActive ? 'success' : 'default'}>
@@ -131,6 +137,7 @@ export default function OrganizationTableRow({
                 sx={{ width: 140 }}
             >
                 <MenuItem
+                    disabled
                     onClick={() => {
                         onViewRow();
                         popover.onClose();
@@ -141,6 +148,7 @@ export default function OrganizationTableRow({
                 </MenuItem>
 
                 <MenuItem
+                    disabled
                     onClick={() => {
                         onEditRow();
                         popover.onClose();
@@ -151,6 +159,7 @@ export default function OrganizationTableRow({
                 </MenuItem>
 
                 <MenuItem
+                    disabled
                     onClick={() => {
                         confirm.onTrue();
                         popover.onClose();

@@ -3,46 +3,49 @@ import { useState, useEffect, useCallback } from 'react';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 // routes
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 // components
-import { useTable, getComparator, emptyRows, TableNoData, TableSkeleton, TableHeadCustom, TablePaginationCustom } from 'src/components/table';
+import { useTable, getComparator, TableNoData, TableSkeleton, TableHeadCustom, TablePaginationCustom } from 'src/components/table';
 import Scrollbar from 'src/components/scrollbar';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
-import { ConfirmDialog } from 'src/components/custom-dialog';
 import Iconify from 'src/components/iconify';
+
 // hooks
-import { useAuthContext } from 'src/auth/hooks';
-import { useGetOrganizations, useGetAffiliations } from 'src/api/organization';
+import { useGetOrganizations } from 'src/api/organization';
 // local components
-import OrganizationTableRow from './organization-table-row'; // create this
-import OrganizationTableToolbar from './organization-table-toolbar'; // create this
-import OrganizationTableFiltersResult from './organization-table-filters-result'; // create this
+import OrganizationTableRow from './organization-table-row';
+import OrganizationTableToolbar from './organization-table-toolbar';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Organization' },
   { id: 'createdAt', label: 'Created At', width: 160 },
-  { id: 'role', label: 'Role', width: 160 },
-  { id: 'location', label: 'Location', width: 140 },
+  { id: 'location', label: 'Location', width: 160 },
+  { id: 'petCount', label: 'PetCount', width: 140 },
+  { id: 'status', label: 'Status', width: 100 },
   { id: '', width: 88 },
 ];
 
 export default function OrganizationListView() {
-  const { user } = useAuthContext();
   const table = useTable();
-  const [tableData, setTableData] = useState([]);
+
+  // Track the current page and rows per page
+  const [page, setPage] = useState(0); // Page is zero-indexed
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // Set the default filters
   const [filters, setFilters] = useState({ query: '', roles: [], locations: [] });
-  const { affiliates } = useGetAffiliations(user.id);
-  const accountIds = affiliates.map((aff) => aff.shelterId);
-  const { organizations, isLoading, error } = useGetOrganizations(accountIds);
+
+  // Fetch organizations with pagination
+  const { organizations, totalCount, isLoading, error } = useGetOrganizations([], page + 1, rowsPerPage);
+
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     if (organizations) {
@@ -50,39 +53,43 @@ export default function OrganizationListView() {
     }
   }, [organizations]);
 
-  const dataFiltered = applyFilter({
-    inputData: tableData,
-    comparator: getComparator(table.order, table.orderBy),
-    filters,
-  });
+  const dataFiltered = tableData;
 
   const dataInPage = dataFiltered.slice(
-    table.page * table.rowsPerPage,
-    table.page * table.rowsPerPage + table.rowsPerPage
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
   );
 
   const denseHeight = table.dense ? 60 : 80;
-  const notFound = !dataFiltered.length;
+  const notFound = !dataFiltered.length && !isLoading;
 
   const handleFilters = useCallback(
     (name, value) => {
-      table.onResetPage();
+      setPage(0); // Reset to first page on filter change
       setFilters((prevState) => ({ ...prevState, [name]: value }));
     },
-    [table]
+    []
   );
 
   const handleResetFilters = useCallback(() => {
     setFilters({ query: '', roles: [], locations: [] });
   }, []);
 
-  // Define the handleEditRow and handleDeleteRow functions
   const handleEditRow = (id) => {
     console.log(`Edit row with ID: ${id}`);
   };
 
   const handleDeleteRow = (id) => {
     console.log(`Delete row with ID: ${id}`);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page on rows per page change
   };
 
   return (
@@ -93,6 +100,7 @@ export default function OrganizationListView() {
           links={[{ name: 'Organization' }, { name: 'List' }]}
           action={
             <Button
+              disabled
               component={RouterLink}
               href={paths.dashboard.org.admin.new}
               variant="contained"
@@ -117,19 +125,27 @@ export default function OrganizationListView() {
                   order={table.order}
                   orderBy={table.orderBy}
                   headLabel={TABLE_HEAD}
+                  rowCount={tableData.length}
+                  numSelected={table.selected.length}
                   onSort={table.onSort}
+                  onSelectAllRows={(checked) =>
+                    table.onSelectAllRows(
+                      checked,
+                      tableData.map((row) => row.id)
+                    )
+                  }
                 />
                 <TableBody>
                   {isLoading
-                    ? [...Array(table.rowsPerPage)].map((_, index) => (
+                    ? [...Array(rowsPerPage)].map((_, index) => (
                       <TableSkeleton key={index} sx={{ height: denseHeight }} />
                     ))
                     : dataInPage.map((row) => (
                       <OrganizationTableRow
-                        key={row.id}
+                        key={row._id}
                         row={row}
-                        onEdit={() => handleEditRow(row.id)}
-                        onDelete={() => handleDeleteRow(row.id)}
+                        onEdit={() => handleEditRow(row._id)}
+                        onDelete={() => handleDeleteRow(row._id)}
                       />
                     ))}
 
@@ -140,48 +156,14 @@ export default function OrganizationListView() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
-            page={table.page}
-            rowsPerPage={table.rowsPerPage}
-            onPageChange={table.onChangePage}
-            onRowsPerPageChange={table.onChangeRowsPerPage}
+            count={totalCount}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
       </Container>
     </>
   );
-}
-
-// ----------------------------------------------------------------------
-
-function applyFilter({ inputData, comparator, filters }) {
-  const { query, roles, locations } = filters;
-  const stabilizedData = inputData.map((el, index) => [el, index]);
-
-  stabilizedData.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  let filteredData = stabilizedData.map((el) => el[0]);
-
-  // Apply filters (query, roles, locations, etc.)
-  if (query) {
-    filteredData = filteredData.filter((org) =>
-      org.name.toLowerCase().includes(query.toLowerCase())
-    );
-  }
-
-  if (roles.length) {
-    filteredData = filteredData.filter((org) => roles.includes(org.role));
-  }
-
-  if (locations.length) {
-    filteredData = filteredData.filter((org) =>
-      org.location.some((location) => locations.includes(location))
-    );
-  }
-
-  return filteredData;
 }

@@ -4,7 +4,7 @@ import { useEffect, useReducer, useCallback, useMemo, useState } from 'react';
 import { Magic } from 'magic-sdk';
 import { NearExtension } from '@magic-ext/near';
 import { OAuthExtension } from '@magic-ext/oauth';
-import { axiosInstance, fetcherANYML, endpoints } from 'src/utils/axios'; // Use fetcherANYML directly
+import { axiosInstance, endpoints } from 'src/utils/axios'; // Removed fetcherANYML as it's no longer needed
 //
 import { AuthContext } from './auth-context';
 import { isValidToken, setSession } from './utils';
@@ -60,13 +60,27 @@ export function AuthProvider({ children }) {
 
   const fetchUserByEmail = async (email) => {
     try {
-      const response = await fetcherANYML(`${endpoints.user.list}?email=${email}`);
-      return response.users && response.users.length > 0 ? response.users[0] : null;
+      const response = await fetch(`https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/handleGetUsers?email=${encodeURIComponent(email)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching user: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      // Assuming the response contains a "user" field with the user data
+      return data.user ? data.user : null;
     } catch (error) {
       console.error('Error fetching user by email:', error);
       return null;
     }
   };
+
 
   const initialize = useCallback(async () => {
     try {
@@ -86,8 +100,7 @@ export function AuthProvider({ children }) {
             // Get the pid from the returned users data
             user.pid = dbUser.pid;
           } else {
-            // Default/fallback pid
-            user.pid = "5ee2fd93bccd3286db09da9a";
+            throw new Error('User not found in database');
           }
 
           // Dispatch the updated user object
@@ -159,8 +172,7 @@ export function AuthProvider({ children }) {
               // Get the pid from the returned users data
               user.pid = dbUser.pid;
             } else {
-              // Default/fallback pid
-              user.pid = "5ee2fd93bccd3286db09da9a";
+              throw new Error('User not found in database');
             }
 
             // Dispatch the updated user object
