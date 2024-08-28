@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import Tab from '@mui/material/Tab';
@@ -17,14 +17,13 @@ import { useRouter } from 'src/routes/hooks';
 // _mock
 import { ORDER_STATUS_OPTIONS } from 'src/_mock';
 import { useGetOrders } from 'src/api/order';
-import { getShelterAccountId } from 'src/api/organization';
+import { useGetAffiliations } from 'src/api/organization';
 
 // utils
 import { fTimestamp } from 'src/utils/format-time';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useAuthContext } from 'src/auth/hooks';
-
 
 // components
 import Label from 'src/components/label';
@@ -72,32 +71,39 @@ const defaultFilters = {
 // ----------------------------------------------------------------------
 
 export default function OrderListView() {
-  const table = useTable({ defaultOrderBy: 'createdAt', defaultOrder: 'desc' }); // Updated line
+  const table = useTable({ defaultOrderBy: 'createdAt', defaultOrder: 'desc' });
 
   const settings = useSettingsContext();
-
   const router = useRouter();
-
   const confirm = useBoolean();
-
   const { user } = useAuthContext();
 
+  const { affiliates, isLoading: isAffiliatesLoading } = useGetAffiliations(user?.pid || null);
+
   const [accountId, setAccountId] = useState('');
+  const [tableData, setTableData] = useState([]);
+  const [filters, setFilters] = useState(defaultFilters);
+  const [accountIds, setAccountIds] = useState([]); // Defined accountIds
+
+  // Update accountId when affiliates change
+  useEffect(() => {
+    if (affiliates && affiliates.length > 0) {
+      setAccountId(affiliates[0].shelterId); // Default to the first affiliate if accountId is not set
+    }
+  }, [affiliates]);
+
+  // Update accountIds based on affiliates
+  useEffect(() => {
+    const updatedAccountIds = affiliates
+      ? affiliates.map(affiliation => ({
+        value: affiliation.shelterId,
+        label: affiliation.shelterName,
+      }))
+      : [];
+    setAccountIds(updatedAccountIds);
+  }, [affiliates]);
 
   const { orders, isLoading, error } = useGetOrders(accountId, { enabled: !!accountId });
-
-  const [tableData, setTableData] = useState([]);
-
-  const [filters, setFilters] = useState(defaultFilters);
-
-  const { affiliations } = getShelterAccountId(user);
-
-  const _accountIds = affiliations ? affiliations.map(affiliation => ({
-    value: affiliation.shelterId,
-    label: affiliation.shelterName,
-  })) : [];
-
-  const [accountIds, setAccountIds] = useState(_accountIds);
 
   useEffect(() => {
     if (orders) {
@@ -107,17 +113,12 @@ export default function OrderListView() {
     }
   }, [orders]);
 
-  const dateError =
-    filters.startDate && filters.endDate
-      ? filters.startDate.getTime() > filters.endDate.getTime()
-      : false;
-
-  const dataFiltered = applyFilter({
+  // Memoize filtered data
+  const dataFiltered = useMemo(() => applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
     filters,
-    dateError,
-  });
+  }), [tableData, table.order, table.orderBy, filters]);
 
   const dataInPage = dataFiltered.slice(
     table.page * table.rowsPerPage,
@@ -157,7 +158,7 @@ export default function OrderListView() {
     setTableData(deleteRows);
 
     table.onUpdatePageDeleteRows({
-      totalRows: tableData.length,
+      totalRows: deleteRows.length,
       totalRowsInPage: dataInPage.length,
       totalRowsFiltered: dataFiltered.length,
     });
@@ -188,16 +189,18 @@ export default function OrderListView() {
     []
   );
 
+  // Error handling for orders fetching
+  if (error) {
+    console.error("Failed to fetch orders:", error);
+    return <div>Error loading orders. Please try again later.</div>;
+  }
+
   return (
     <>
       <Container maxWidth={settings.themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
           heading="List"
           links={[
-            // {
-            //   name: 'Dashboard',
-            //   href: paths.dashboard.root,
-            // },
             {
               name: 'Order',
               href: paths.dashboard.order.root,
@@ -380,7 +383,7 @@ export default function OrderListView() {
 
 // ----------------------------------------------------------------------
 
-function applyFilter({ inputData, comparator, filters, dateError }) {
+function applyFilter({ inputData, comparator, filters }) {
   const { status, name, startDate, endDate } = filters;
 
   const stabilizedThis = inputData.map((el, index) => [el, index]);
@@ -411,14 +414,12 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
     inputData = inputData.filter((order) => order.status === status);
   }
 
-  if (!dateError) {
-    if (startDate && endDate) {
-      inputData = inputData.filter(
-        (order) =>
-          fTimestamp(order.createdAt) >= fTimestamp(startDate) &&
-          fTimestamp(order.createdAt) <= fTimestamp(endDate)
-      );
-    }
+  if (startDate && endDate) {
+    inputData = inputData.filter(
+      (order) =>
+        fTimestamp(order.createdAt) >= fTimestamp(startDate) &&
+        fTimestamp(order.createdAt) <= fTimestamp(endDate)
+    );
   }
 
   return inputData;

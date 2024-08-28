@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 // @mui
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
@@ -18,9 +18,9 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { useAuthContext } from 'src/auth/hooks';
 // _mock
 import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
-import { getShelterAccountId } from 'src/api/organization';
 // api
-import { useGetProducts } from 'src/api/product';
+import { useGetProductDetails } from 'src/api/product';
+import { useGetAffiliations } from 'src/api/organization';
 // components
 import { useSettingsContext } from 'src/components/settings';
 import {
@@ -69,31 +69,41 @@ const defaultFilters = {
 
 export default function ProductListView() {
   const router = useRouter();
-
   const { user } = useAuthContext();
-
   const table = useTable();
-
   const settings = useSettingsContext();
+  const confirm = useBoolean();
 
   const [tableData, setTableData] = useState([]);
-
   const [filters, setFilters] = useState(defaultFilters);
-
-  const { affiliations } = getShelterAccountId(user);
-
-  const _accountIds = affiliations ? affiliations.map(affiliation => ({
-    value: affiliation.shelterId,
-    label: affiliation.shelterName,
-  })) : [];
-
-  const [accountIds, setAccountIds] = useState(_accountIds);
-
   const [accountId, setAccountId] = useState('');
+  const [accountIds, setAccountIds] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit] = useState(10);
 
-  const { products, productsLoading, productsEmpty } = useGetProducts(accountId);
+  // Fetch affiliations based on the user
+  const { affiliates, isLoading: isAffiliatesLoading } = useGetAffiliations(user?.pid || null);
 
-  const confirm = useBoolean();
+  // Update accountId when affiliates change
+  useEffect(() => {
+    if (affiliates && affiliates.length > 0) {
+      setAccountId(affiliates[0].shelterId); // Default to the first affiliate if accountId is not set
+    }
+  }, [affiliates]);
+
+  // Update accountIds based on affiliates
+  useEffect(() => {
+    const updatedAccountIds = affiliates
+      ? affiliates.map(affiliation => ({
+        value: affiliation.shelterId,
+        label: affiliation.shelterName,
+      }))
+      : [];
+    setAccountIds(updatedAccountIds);
+  }, [affiliates]);
+
+  // Fetch product details based on selected accountId and pagination
+  const { products, productsLoading, productsEmpty, totalPages } = useGetProductDetails(accountId, currentPage, limit);
 
   useEffect(() => {
     if (products && products.length) {
@@ -101,11 +111,12 @@ export default function ProductListView() {
     }
   }, [products]);
 
-  const dataFiltered = applyFilter({
+  // Memoized data filtering
+  const dataFiltered = useMemo(() => applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
     filters,
-  });
+  }), [tableData, table.order, table.orderBy, filters]);
 
   const dataInPage = dataFiltered.slice(
     table.page * table.rowsPerPage,
@@ -115,7 +126,6 @@ export default function ProductListView() {
   const denseHeight = table.dense ? 60 : 80;
 
   const canReset = !isEqual(defaultFilters, filters);
-
   const notFound = (!dataFiltered.length && canReset) || productsEmpty;
 
   const handleFilters = useCallback(
@@ -168,9 +178,13 @@ export default function ProductListView() {
     setFilters(defaultFilters);
   }, []);
 
-  const handleAccountIdChange = (newAccountId) => {
+  const handleAccountIdChange = useCallback((newAccountId) => {
     setAccountId(newAccountId);
-  };
+  }, []);
+
+  const handlePageChange = useCallback((newPage) => {
+    setCurrentPage(newPage);
+  }, []);
 
   return (
     <>
@@ -178,7 +192,6 @@ export default function ProductListView() {
         <CustomBreadcrumbs
           heading="List"
           links={[
-            // { name: 'Dashboard', href: paths.dashboard.root },
             {
               name: 'Product',
               href: paths.dashboard.product.root,
@@ -296,7 +309,7 @@ export default function ProductListView() {
             count={dataFiltered.length}
             page={table.page}
             rowsPerPage={table.rowsPerPage}
-            onPageChange={table.onChangePage}
+            onPageChange={handlePageChange}
             onRowsPerPageChange={table.onChangeRowsPerPage}
             dense={table.dense}
             onChangeDense={table.onChangeDense}

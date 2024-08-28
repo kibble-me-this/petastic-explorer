@@ -89,19 +89,19 @@ export function useGetAffiliations(pid) {
 
 // ----------------------------------------------------------------------
 
-export function getShelterAccountId(user) {
-  if (!user || !user.email) {
-    return { affiliations: [] };
-  }
+// export function getShelterAccountId(user) {
+//   if (!user || !user.email) {
+//     return { affiliations: [] };
+//   }
 
-  const userObject = useMockUser.find((u) => u.email === user.email);
+//   const userObject = useMockUser.find((u) => u.email === user.email);
 
-  if (userObject) {
-    return { affiliations: userObject.affiliations };
-  }
+//   if (userObject) {
+//     return { affiliations: userObject.affiliations };
+//   }
 
-  return { affiliations: [] };
-}
+//   return { affiliations: [] };
+// }
 
 // ----------------------------------------------------------------------
 

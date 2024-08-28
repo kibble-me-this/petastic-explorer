@@ -52,7 +52,7 @@ export default function OrganizationList({ orgs, isApiLoading, page, onPageChang
       >
         {isApiLoading
           ? // Render skeleton placeholders while loading
-          Array.from({ length: 9 }).map((_, index) => (
+          Array.from({ length: 12 }).map((_, index) => (
             <Card key={index}>
               <Stack sx={{ p: 3, pb: 2 }}>
                 <Skeleton variant="rounded" width={48} height={48} />

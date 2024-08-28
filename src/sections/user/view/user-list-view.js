@@ -69,46 +69,42 @@ export default function UserListView() {
   const table = useTable();
 
   const settings = useSettingsContext();
-
   const router = useRouter();
-
   const confirm = useBoolean();
 
-  // Set default page and pageSize
+  // Pagination state
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(25);  // Set the default page size here
+  const [rowsPerPage, setRowsPerPage] = useState(25);
 
-  const { users, statusCounts, totalCount, isLoading, isError } = useGetUsers(page + 1, rowsPerPage);
+  // Filters state
+  const [filters, setFilters] = useState(defaultFilters);
+
+  // Fetch users based on current pagination and filters
+  const { users, statusCounts, totalCount, isLoading, isError } = useGetUsers({ page: page + 1, pageSize: rowsPerPage });
 
   const [tableData, setTableData] = useState([]);
-
-  const [filters, setFilters] = useState(defaultFilters);
 
   useEffect(() => {
     if (!isLoading && users.length) {
       setTableData(users);
     } else if (isError) {
-      setTableData([]); // Or handle errors more gracefully
+      setTableData([]); // Handle errors more gracefully if necessary
     }
   }, [isLoading, users, isError]);
 
+  // Apply filters and sorting
   const dataFiltered = useMemo(() => applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
     filters,
   }), [tableData, table.order, table.orderBy, filters]);
 
-  const dataInPage = dataFiltered.slice(
-    table.page * table.rowsPerPage,
-    table.page * table.rowsPerPage + table.rowsPerPage
-  );
-
   const denseHeight = table.dense ? 52 : 72;
 
   const canReset = !isEqual(defaultFilters, filters);
-
   const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
 
+  // Handlers
   const handleFilters = useCallback(
     (name, value) => {
       table.onResetPage();
@@ -125,9 +121,9 @@ export default function UserListView() {
       const deleteRow = tableData.filter((row) => row.id !== id);
       setTableData(deleteRow);
 
-      table.onUpdatePageDeleteRow(dataInPage.length);
+      table.onUpdatePageDeleteRow(dataFiltered.length);
     },
-    [dataInPage.length, table, tableData]
+    [dataFiltered.length, table, tableData]
   );
 
   const handleDeleteRows = useCallback(() => {
@@ -136,10 +132,10 @@ export default function UserListView() {
 
     table.onUpdatePageDeleteRows({
       totalRows: tableData.length,
-      totalRowsInPage: dataInPage.length,
+      totalRowsInPage: dataFiltered.length,
       totalRowsFiltered: dataFiltered.length,
     });
-  }, [dataFiltered.length, dataInPage.length, table, tableData]);
+  }, [dataFiltered.length, table, tableData]);
 
   const handleEditRow = useCallback(
     (id) => {
@@ -165,7 +161,7 @@ export default function UserListView() {
 
   const handleChangeRowsPerPage = useCallback((event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(0); // Reset to the first page whenever the rows per page change
   }, []);
 
   return (
@@ -175,10 +171,7 @@ export default function UserListView() {
           heading="List"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
-            {
-              name: 'User',
-              //  href: paths.dashboard.user.root 
-            },
+            { name: 'User' },
             { name: 'List' },
           ]}
           action={
@@ -239,7 +232,6 @@ export default function UserListView() {
           <UserTableToolbar
             filters={filters}
             onFilters={handleFilters}
-            //
             roleOptions={_roles}
           />
 
@@ -247,9 +239,7 @@ export default function UserListView() {
             <UserTableFiltersResult
               filters={filters}
               onFilters={handleFilters}
-              //
               onResetFilters={handleResetFilters}
-              //
               results={dataFiltered.length}
               sx={{ p: 2.5, pt: 0 }}
             />
@@ -326,7 +316,6 @@ export default function UserListView() {
             rowsPerPage={rowsPerPage}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            //
             dense={table.dense}
             onChangeDense={table.onChangeDense}
           />
@@ -388,4 +377,3 @@ function applyFilter({ inputData, comparator, filters }) {
 
   return filteredData;
 }
-

@@ -1,26 +1,22 @@
-import axios from 'axios';
+// axios_zinc.js
 
-// config
-import { HOST_API } from 'src/config-global';
+import axios from 'axios';
+import { config } from './config';
 
 // ----------------------------------------------------------------------
 
-const ZINC_API = 'https://api.zinc.io';
-const zincApiKey = '494887CF5BB27A2600581C3A';
-const ZINC_CALLBACK = 'https://uot4ttu72a.execute-api.us-east-1.amazonaws.com/default/handleEditOrderTracking';
-
-const axiosInstance = axios.create({ baseURL: ZINC_API });
+const axiosInstance = axios.create({ baseURL: config.zincApiUrl });
 
 axiosInstance.interceptors.response.use(
   (res) => res,
-  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
+  (error) => Promise.reject((error.response?.data) || 'Something went wrong')
 );
 
 export default axiosInstance;
 
 // ----------------------------------------------------------------------
 
-const orderData = {
+const realOrderData = {
   retailer: 'amazon',
   billing_address: {
     first_name: 'Carlos',
@@ -43,99 +39,112 @@ const orderData = {
   },
 };
 
-// ----------------------------------------------------------------------
-
-export const fetcher = async (args) => {
-  const [url, config] = Array.isArray(args) ? args : [args];
-
-  const res = await axiosInstance.get(url, { ...config });
-
-  return res.data;
+const mockOrderData = {
+  retailer: 'amazon',
+  billing_address: {
+    first_name: 'Carlos',
+    last_name: 'Herrera',
+    address_line1: '360 NW 27th St',
+    zip_code: '33127',
+    city: 'Miami',
+    state: 'FL',
+    country: 'US',
+    phone_number: '3108808673',
+  },
+  payment_method: {
+    use_account_payment_defaults: true,
+    use_gift: false,
+  },
+  retailer_credentials: {
+    email: 'carlos@sn2020a.com',
+    password: 'ai61GrQ2F6',
+    totp_2fa_key: 'KKCE 4OQK 4EHE 43KH OV6W BM2G D2P2 VOAJ V7B4 M2H4 Y4NP 2OFE QJPQ',
+  },
 };
 
 // ----------------------------------------------------------------------
 
-export const fetcherProduct = async (productIds) => {
-  const zincAPIClientToken = '494887CF5BB27A2600581C3A';
-  const headers = new Headers({
-    Authorization: `Basic ${btoa(`${zincAPIClientToken}:`)}`,
-  });
+// Utility functions
+const calculateMaxPrice = (subTotal) => subTotal * 100 * 1.15 + 3000;
 
-  try {
-    const dataPromises = productIds.map(async (productId) => {
-      const url = `https://api.zinc.io/v1/products/${productId}?retailer=amazon`;
-      const response = await fetch(url, { headers });
+const buildShippingAddress = (shippingAddress) => ({
+  first_name: shippingAddress.name ?? 'N/A',
+  last_name: '',
+  address_line1: shippingAddress.address ?? 'N/A',
+  address_line2: '',
+  zip_code: shippingAddress.zip ?? '00000',
+  city: shippingAddress.city ?? 'N/A',
+  state: shippingAddress.state ?? 'N/A',
+  country: shippingAddress.country ?? 'N/A',
+  phone_number: shippingAddress.phone ?? '0000000000',
+});
 
-      if (!response.ok) {
-        throw new Error(`Error fetching data for ${productId}: ${response.statusText}`);
-      }
+const buildWebhooks = (webhooks) => ({
+  request_succeeded: `${config.zincCallbackUrl}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_succeeded`,
+  request_failed: `${config.zincCallbackUrl}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_failed`,
+  tracking_obtained: `${config.zincCallbackUrl}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=tracking_obtained`,
+  status_updated: `${config.zincCallbackUrl}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=status_updated`,
+});
 
-      const productData = await response.json();
-      return productData;
-    });
+// Main function
+const dispatchZincOrder = async (args, products, shippingAddress, subTotal, webhooks, useMockData = false) => {
+  const [data, headers, url, requestConfig] = Array.isArray(args) ? args : [args]; // Renamed config to requestConfig
 
-    const dataArray = await Promise.all(dataPromises);
-    return dataArray;
-  } catch (error) {
-    throw (error.response && error.response.data) || 'Something went wrong';
-  }
-};
-
-// ----------------------------------------------------------------------
-
-export const dispatchZincOrder = async (args, products, shippingAddress, subTotal, webhooks) => {
-  const [data, headers, url, config] = Array.isArray(args) ? args : [args];
-
-  const maxPrice = subTotal * 100 * 1.15 + 3000;
+  const maxPrice = calculateMaxPrice(subTotal);
+  const orderData = useMockData ? mockOrderData : realOrderData;
 
   const updatedOrderData = {
     ...orderData,
     max_price: maxPrice,
     products,
-    shipping_address: {
-      first_name: shippingAddress.name,
-      last_name: '',
-      address_line1: shippingAddress.address,
-      address_line2: '',
-      zip_code: shippingAddress.zip,
-      city: shippingAddress.city,
-      state: shippingAddress.state,
-      country: shippingAddress.country,
-      phone_number: shippingAddress.phone,
-    },
+    shipping_address: buildShippingAddress(shippingAddress),
     take_buybox_offers: true,
     is_gift: true,
     gift_message: "Petastic! The pet's network.",
     shipping: {
       order_by: "price",
       max_days: 25,
-      max_price: 15000
+      max_price: 15000,
     },
-    webhooks: {
-      request_succeeded: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_succeeded`,
-      request_failed: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=request_failed`,
-      tracking_obtained: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=tracking_obtained`,
-      status_updated: `${ZINC_CALLBACK}?shelter_id=${webhooks.account_id}&order_id=${webhooks.order_id}&status=status_updated`
-    }
+    webhooks: buildWebhooks(webhooks),
   };
 
   try {
     const response = await axiosInstance.post('/v1/orders', updatedOrderData, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${btoa(`${zincApiKey}:`)}`,
+        Authorization: `Basic ${btoa(`${config.zincApiKey}:`)}`, // config is the import
       },
+      ...requestConfig, // Applying requestConfig instead of the previously shadowed config variable
     });
 
     return response.data;
   } catch (error) {
-    throw (error.response && error.response.data) || 'Something went wrong';
+    console.error("Error in dispatchZincOrder:", error);
+    throw (error.response?.data) || 'Something went wrong';
   }
 };
 
 // ----------------------------------------------------------------------
 
-export const endpoints = {
+// fetcherProduct Implementation Example
+const fetcherProduct = async (productIds) => {
+  try {
+    const dataPromises = productIds.map((productId) =>
+      axiosInstance.get(`/v1/products/${productId}?retailer=amazon`)
+    );
+
+    const productsData = await Promise.all(dataPromises);
+    return productsData.map((response) => response.data);
+  } catch (error) {
+    console.error("Error in fetcherProduct:", error);
+    throw (error.response?.data) || 'Something went wrong';
+  }
+};
+
+// ----------------------------------------------------------------------
+
+const endpoints = {
   chat: '/api/chat',
   kanban: '/api/kanban',
   calendar: '/api/calendar',
@@ -161,3 +170,5 @@ export const endpoints = {
     search: '/api/product/search',
   },
 };
+
+export { fetcherProduct, dispatchZincOrder, endpoints };

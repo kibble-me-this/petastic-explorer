@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 // @mui
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
@@ -18,9 +18,9 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { useAuthContext } from 'src/auth/hooks';
 // _mock
 import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
-import { getShelterAccountId } from 'src/api/organization';
 // api
 import { useGetProducts } from 'src/api/product';
+import { useGetAffiliations } from 'src/api/organization';
 // components
 import { useSettingsContext } from 'src/components/settings';
 import {
@@ -67,7 +67,7 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function ProductListView() {
+export default function ProductListAdminView() {
   const router = useRouter();
 
   const { user } = useAuthContext();
@@ -76,24 +76,32 @@ export default function ProductListView() {
 
   const settings = useSettingsContext();
 
+  const confirm = useBoolean();
+
   const [tableData, setTableData] = useState([]);
-
   const [filters, setFilters] = useState(defaultFilters);
-
-  const { affiliations } = getShelterAccountId(user);
-
-  const _accountIds = affiliations ? affiliations.map(affiliation => ({
-    value: affiliation.shelterId,
-    label: affiliation.shelterName,
-  })) : [];
-
-  const [accountIds, setAccountIds] = useState(_accountIds);
-
   const [accountId, setAccountId] = useState('');
 
-  const { products, productsLoading, productsEmpty } = useGetProducts(accountId);
+  // Fetch affiliations using the useGetAffiliations hook
+  const { affiliates, isLoading: isAffiliatesLoading } = useGetAffiliations(user?.pid || null);
 
-  const confirm = useBoolean();
+  const accountIds = useMemo(() =>
+    affiliates ? affiliates.map(affiliation => ({
+      value: affiliation.shelterId,
+      label: affiliation.shelterName,
+    })) : [],
+    [affiliates]
+  );
+
+  // Set the first available accountId by default
+  useEffect(() => {
+    if (accountIds.length > 0 && !accountId) {
+      setAccountId(accountIds[0].value);
+    }
+  }, [accountIds, accountId]);
+
+  // Fetch products based on selected accountId
+  const { products, productsLoading, productsEmpty } = useGetProducts(accountId);
 
   useEffect(() => {
     if (products && products.length) {
@@ -101,11 +109,11 @@ export default function ProductListView() {
     }
   }, [products]);
 
-  const dataFiltered = applyFilter({
+  const dataFiltered = useMemo(() => applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
     filters,
-  });
+  }), [tableData, table.order, table.orderBy, filters]);
 
   const dataInPage = dataFiltered.slice(
     table.page * table.rowsPerPage,
@@ -168,9 +176,9 @@ export default function ProductListView() {
     setFilters(defaultFilters);
   }, []);
 
-  const handleAccountIdChange = (newAccountId) => {
+  const handleAccountIdChange = useCallback((newAccountId) => {
     setAccountId(newAccountId);
-  };
+  }, []);
 
   return (
     <>
@@ -178,7 +186,6 @@ export default function ProductListView() {
         <CustomBreadcrumbs
           heading="List"
           links={[
-            // { name: 'Dashboard', href: paths.dashboard.root },
             {
               name: 'Product',
               href: paths.dashboard.product.root,
@@ -335,29 +342,27 @@ export default function ProductListView() {
 function applyFilter({ inputData, comparator, filters }) {
   const { name, stock, publish } = filters;
 
-  const stabilizedThis = inputData.map((el, index) => [el, index]);
+  let filteredData = [...inputData];
 
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
+  // Apply comparator for sorting
+  filteredData.sort(comparator);
 
-  inputData = stabilizedThis.map((el) => el[0]);
-
+  // Apply filters by name
   if (name) {
-    inputData = inputData.filter(
+    filteredData = filteredData.filter(
       (product) => product.name.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 
+  // Apply stock filter
   if (stock.length) {
-    inputData = inputData.filter((product) => stock.includes(product.inventoryType));
+    filteredData = filteredData.filter((product) => stock.includes(product.inventoryType));
   }
 
+  // Apply publish filter
   if (publish.length) {
-    inputData = inputData.filter((product) => publish.includes(product.publish));
+    filteredData = filteredData.filter((product) => publish.includes(product.publish));
   }
 
-  return inputData;
+  return filteredData;
 }

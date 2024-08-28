@@ -24,10 +24,9 @@ import { paths } from 'src/routes/paths';
 // hooks
 import { useAuthContext } from 'src/auth/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
-// _mock
-import { getShelterAccountId } from 'src/api/organization';
 // api
 import { createProduct } from 'src/api/product';
+import { useGetAffiliations } from 'src/api/organization';
 // components
 import { useSnackbar } from 'src/components/snackbar';
 import { useRouter } from 'src/routes/hooks';
@@ -46,14 +45,16 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { affiliations } = getShelterAccountId(user);
+  // Fetch affiliations using the useGetAffiliations hook
+  const { affiliates } = useGetAffiliations(user?.pid || null);
 
-  const _accountIds = affiliations ? affiliations.map(affiliation => ({
-    value: affiliation.shelterId,
-    label: affiliation.shelterName,
-  })) : [];
-
-  const [accountIds, setAccountIds] = useState(_accountIds);
+  const accountIds = useMemo(() =>
+    affiliates ? affiliates.map(affiliation => ({
+      value: affiliation.shelterId,
+      label: affiliation.shelterName,
+    })) : [],
+    [affiliates]
+  );
 
   const NewProductSchema = Yup.object().shape({
     iban: Yup.string().required('IBAN is required'),
@@ -90,7 +91,6 @@ export default function ProductNewEditForm({ currentProduct }) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      // Ensure products array is defined
       const products = data.iban.split(/\s*,\s*|\n/).filter(Boolean).map(asin => ({
         id: asin,
         createdAt: new Date().toISOString(),
@@ -106,7 +106,6 @@ export default function ProductNewEditForm({ currentProduct }) {
       reset();
       enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
       router.push(paths.dashboard.product.root);
-      console.info('DATA', data);
     } catch (error) {
       console.error(error);
     }
