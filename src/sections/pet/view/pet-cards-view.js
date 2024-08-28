@@ -11,7 +11,6 @@ import EmptyContent from 'src/components/empty-content';
 // auth
 import { useAuthContext } from 'src/auth/hooks';
 import PetCardList from '../pet-card-list';
-import { getShelterAccountId } from '../../../api/organization';
 import { getPetsByAccountId } from '../../../api/petastic-api';
 
 export default function PetCardsView() {
