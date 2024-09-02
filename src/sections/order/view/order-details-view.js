@@ -81,7 +81,7 @@ export default function OrderDetailsView({ accountId, id }) {
                 customer={currentOrder.customer}
                 delivery={currentOrder.delivery || {}}
                 payment={safeGet(currentOrder, 'payment', {})}
-                shippingAddress={currentOrder.shippingAddress}
+                shippingAddress={currentOrder.shippingAddress || {}}  // Ensure this is at least an empty object
                 trackingObtained={trackingObtained}
               />
             </Grid>

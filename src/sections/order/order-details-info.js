@@ -6,17 +6,15 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+
 // components
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function OrderDetailsInfo({ customer, delivery, payment, shippingAddress, trackingObtained }) {
-
-
+export default function OrderDetailsInfo({ customer, delivery, payment, shippingAddress = {}, trackingObtained = [] }) {
   const allTracking = trackingObtained.flatMap(item => item.tracking || []);
   const latestTracking = allTracking[allTracking.length - 1];
 
@@ -24,28 +22,20 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
     <>
       <CardHeader
         title="Customer Info"
-      // action={
-      //   <IconButton disabled>
-      //     <Iconify icon="solar:pen-bold" />
-      //   </IconButton>
-      // }
       />
       <Stack direction="row" sx={{ p: 3 }}>
         <Avatar
-          alt={customer.name}
-          src={customer.avatarUrl}
+          alt={customer?.name || 'N/A'}
+          src={customer?.avatarUrl}
           sx={{ width: 48, height: 48, mr: 2 }}
         />
-
         <Stack spacing={0.5} alignItems="flex-start" sx={{ typography: 'body2' }}>
-          <Typography variant="subtitle2">{customer.name}</Typography>
-
-          <Box sx={{ color: 'text.secondary' }}>{customer.email}</Box>
-
+          <Typography variant="subtitle2">{customer?.name || 'N/A'}</Typography>
+          <Box sx={{ color: 'text.secondary' }}>{customer?.email || 'N/A'}</Box>
           <Box>
             IP Address:
             <Box component="span" sx={{ color: 'text.secondary', ml: 0.25 }}>
-              {customer.ipAddress}
+              {customer?.ipAddress || 'N/A'}
             </Box>
           </Box>
         </Stack>
@@ -55,26 +45,19 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
 
   const renderDelivery = (
     <>
-      <CardHeader
-        title="Delivery"
-      // action={
-      //   <IconButton disabled>
-      //     <Iconify icon="solar:pen-bold" />
-      //   </IconButton>
-      // }
-      />
+      <CardHeader title="Delivery" />
       <Stack spacing={1.5} sx={{ p: 3, typography: 'body2' }}>
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             Ship by
           </Box>
-          {delivery.shipBy}
+          {delivery?.shipBy || 'N/A'}
         </Stack>
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             Speed
           </Box>
-          {delivery.speedy}
+          {delivery?.speedy || 'N/A'}
         </Stack>
         <Stack direction="row" alignItems="flex-start">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
@@ -94,14 +77,14 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
               </Link>
             ) : (
               <Link
-                href={delivery.trackingNumber}
+                href={delivery?.trackingNumber || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
                 underline="always"
                 color="inherit"
                 sx={{ display: 'block' }}
               >
-                {delivery.trackingNumber}
+                {delivery?.trackingNumber || 'N/A'}
               </Link>
             )}
           </Box>
@@ -110,29 +93,21 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
     </>
   );
 
-
   const renderShipping = (
     <>
-      <CardHeader
-        title="Shipping"
-      // action={
-      //   <IconButton disabled>
-      //     <Iconify icon="solar:pen-bold" />
-      //   </IconButton>
-      // }
-      />
+      <CardHeader title="Shipping" />
       <Stack spacing={1.5} sx={{ p: 3, typography: 'body2' }}>
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             Address
           </Box>
-          {shippingAddress.fullAddress}
+          {shippingAddress?.fullAddress || 'N/A'}
         </Stack>
         <Stack direction="row" alignItems="center">
           <Box component="span" sx={{ color: 'text.secondary', width: 120, flexShrink: 0 }}>
             Phone number
           </Box>
-          {shippingAddress.phoneNumber}
+          {shippingAddress?.phoneNumber || 'N/A'}
         </Stack>
       </Stack>
     </>
@@ -140,19 +115,12 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
 
   const renderPayment = (
     <>
-      <CardHeader
-        title="Payment"
-      // action={
-      //   <IconButton disabled>
-      //     <Iconify icon="solar:pen-bold" />
-      //   </IconButton>
-      // }
-      />
+      <CardHeader title="Payment" />
       <Stack direction="row" alignItems="center" sx={{ p: 3, typography: 'body2' }}>
         <Box component="span" sx={{ color: 'text.secondary', flexGrow: 1 }}>
           Account number
         </Box>
-        {payment.cardNumber}
+        {payment?.cardNumber || 'N/A'}
       </Stack>
     </>
   );

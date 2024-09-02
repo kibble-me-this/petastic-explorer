@@ -15,10 +15,10 @@ const options = {
 
 // ----------------------------------------------------------------------
 
-export function useGetOrders(account_id, { enabled = true } = {}) {
+export function useGetOrders(account_id, { page = 1, limit = 200, enabled = true } = {}) {
     const { data, isLoading, error } = useSWR(
-        enabled && account_id ? [URL, { account_id }] : null,
-        () => fetcherANYML([URL.list, { account_id }]),
+        enabled && account_id ? [URL, { account_id, page, limit }] : null,
+        () => fetcherANYML([URL.list, { account_id, page, limit }]),
         options
     );
 
@@ -26,6 +26,7 @@ export function useGetOrders(account_id, { enabled = true } = {}) {
         orders: data?.orders || [],
         isLoading,
         error,
+        pagination: data?.pagination || {},
         isEmpty: !isLoading && !data?.orders?.length,
     }), [data, error, isLoading]);
 
