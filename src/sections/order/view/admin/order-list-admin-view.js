@@ -170,7 +170,7 @@ export default function OrderListAdminView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.order.details(accountId, id)); // Pass accountId and id to the URL
+      router.push(paths.admin.order.details(accountId, id)); // Update to use the admin order details path
     },
     [router, accountId]
   );
@@ -203,7 +203,7 @@ export default function OrderListAdminView() {
           links={[
             {
               name: 'Order',
-              href: paths.dashboard.order.root,
+              href: paths.admin.order.root,
             },
             { name: 'List' },
           ]}

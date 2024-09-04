@@ -236,4 +236,28 @@ export const paths = {
       },
     },
   },
+
+  // ADMIN section for orders and orgs
+  admin: {
+    order: {
+      root: `${ROOTS.DASHBOARD}/admin/order/list`,
+      details: (accountId, id) => `${ROOTS.DASHBOARD}/admin/order/${accountId}/${id}`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/admin/order/${MOCK_ID}`,
+      },
+      edit: (accountId, id) => `${ROOTS.DASHBOARD}/admin/order/${accountId}/${id}/edit`,
+      delete: (accountId, id) => `${ROOTS.DASHBOARD}/admin/order/${accountId}/${id}/delete`,
+    },
+    org: {
+      root: `${ROOTS.DASHBOARD}/admin/org`,
+      list: `${ROOTS.DASHBOARD}/admin/org/list`,
+      new: `${ROOTS.DASHBOARD}/admin/org/new`,
+      details: (id) => `${ROOTS.DASHBOARD}/admin/org/${id}`,
+      edit: (id) => `${ROOTS.DASHBOARD}/admin/org/${id}/edit`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/admin/org/${MOCK_ID}`,
+        edit: `${ROOTS.DASHBOARD}/admin/org/${MOCK_ID}/edit`,
+      },
+    },
+  },
 };

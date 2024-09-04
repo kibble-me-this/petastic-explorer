@@ -38,7 +38,7 @@ const OrderDetailsPage = lazy(() => import('src/pages/dashboard/order/details'))
 
 // ORDER ADMIN
 const OrderListAdminPage = lazy(() => import('src/pages/dashboard/order/admin/list'));
-
+const OrderDetailsAdminPage = lazy(() => import('src/pages/dashboard/order/admin/details'));
 
 // INVOICE
 const InvoiceListPage = lazy(() => import('src/pages/dashboard/invoice/list'));
@@ -133,6 +133,29 @@ export const dashboardRoutes = [
     children: [
       { element: <IndexPage />, index: true },
       { path: 'banking', element: <OverviewBankingPage /> },
+
+      // Admin-specific routes
+      {
+        path: 'admin',
+        children: [
+          {
+            path: 'order',
+            children: [
+              { path: 'list', element: <OrderListAdminPage /> },
+              { path: ':accountId/:id', element: <OrderDetailsAdminPage /> }, // Admin order details route
+            ],
+          },
+          {
+            path: 'org',
+            children: [
+              { path: 'list', element: <OrganizationListAdminPage /> },
+              { path: 'new', element: <OrganizationCreateAdminPage /> },
+            ],
+          },
+        ],
+      },
+
+      // Regular routes (non-admin)
       {
         path: 'user',
         children: [
@@ -178,7 +201,8 @@ export const dashboardRoutes = [
           { path: ':accountId/:id', element: <OrderDetailsPage /> },
 
           // admin
-          { path: 'admin/list', element: <OrderListAdminPage /> },
+          // { path: 'admin/list', element: <OrderListAdminPage /> },
+          // { path: 'admin/:accountId/:id', element: <OrderDetailsPage /> },
         ],
       },
       {

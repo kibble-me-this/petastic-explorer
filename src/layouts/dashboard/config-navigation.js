@@ -435,10 +435,10 @@ export function useNavData() {
           {
             roles: ['ecosystem_admin'], // Ensure this is set correctly
             title: t('orders'),
-            path: paths.dashboard.order.root,
+            path: paths.admin.order.root,
             icon: ICONS.order,
             children: [
-              { title: t('list'), path: paths.dashboard.order.root },
+              { title: t('list'), path: paths.admin.order.root },
               {
                 title: t('details'), path: paths.dashboard.order.demo.details, disabled: true,
               },

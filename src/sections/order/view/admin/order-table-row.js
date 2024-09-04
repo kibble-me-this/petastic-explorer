@@ -206,6 +206,16 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
           <Iconify icon="solar:eye-bold" />
           View
         </MenuItem>
+        <MenuItem
+
+          onClick={() => {
+            onViewRow();
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="solar:restart-bold" />
+          Retry
+        </MenuItem>
       </CustomPopover>
 
       <ConfirmDialog
