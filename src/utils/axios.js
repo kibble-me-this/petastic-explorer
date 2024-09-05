@@ -267,5 +267,6 @@ export const endpoints = {
     update: '/api/orders/update/{id}', // Endpoint to update a specific order
     delete: '/api/orders/delete/{id}', // Endpoint to delete a specific order
     byCustomer: '/api/orders/by-customer/{customerId}', // Endpoint to get orders by customer ID
+    retry: '/default/handleRetryOrder',
   },
 };

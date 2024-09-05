@@ -16,7 +16,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 // _mock
 import { ORDER_STATUS_OPTIONS } from 'src/_mock';
-import { useGetOrders } from 'src/api/order';
+import { useGetOrders, retryOrder } from 'src/api/order';
 import { useGetAffiliations } from 'src/api/organization';
 
 // utils
@@ -103,7 +103,7 @@ export default function OrderListAdminView() {
     setAccountIds(updatedAccountIds);
   }, [affiliates]);
 
-  const { orders, isLoading, error } = useGetOrders(accountId, { enabled: !!accountId });
+  const { orders, order_account_id, isLoading, error: ordersError } = useGetOrders(accountId, { enabled: !!accountId });
 
   useEffect(() => {
     if (orders) {
@@ -189,9 +189,18 @@ export default function OrderListAdminView() {
     []
   );
 
+  const handleRetryOrder = async (orderId) => {
+    try {
+      await retryOrder(order_account_id, orderId);
+      console.log(`Order ${orderId} retried successfully`);
+    } catch (error) {
+      console.error('Error retrying order:', error);
+    }
+  };
+
   // Error handling for orders fetching
-  if (error) {
-    console.error("Failed to fetch orders:", error);
+  if (ordersError) {
+    console.error("Failed to fetch orders:", ordersError);
     return <div>Error loading orders. Please try again later.</div>;
   }
 
@@ -324,6 +333,7 @@ export default function OrderListAdminView() {
                       <OrderTableRow
                         key={row.id}
                         row={row}
+                        onRetryOrder={handleRetryOrder}
                         selected={table.selected.includes(row.id)}
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onDeleteRow={() => handleDeleteRow(row.id)}

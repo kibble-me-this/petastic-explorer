@@ -25,8 +25,8 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow }) {
-  const { items, status, orderNumber, createdAt, customer, totalQuantity, subTotal } = row;
+export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, onDeleteRow, onRetryOrder }) {
+  const { items, status, id, orderNumber, createdAt, customer, totalQuantity, subTotal, v2 } = row;
 
   const confirm = useBoolean();
 
@@ -41,6 +41,17 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
       </TableCell>
 
       <TableCell>
+        <Box
+          onClick={onViewRow}
+          sx={{
+            cursor: 'pointer',
+            '&:hover': {
+              textDecoration: 'underline',
+            },
+          }}
+        >
+          {id}
+        </Box>
         <Box
           onClick={onViewRow}
           sx={{
@@ -83,7 +94,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
       <TableCell align="center"> {totalQuantity} </TableCell>
 
-      <TableCell> {fCurrency((subTotal)) || '-'} </TableCell>
+      <TableCell> {fCurrency(subTotal) || '-'} </TableCell>
 
       <TableCell>
         <Label
@@ -98,6 +109,19 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
         >
           {status}
         </Label>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {v2 ? (
+            <>
+              <Label variant="soft" color="success">V2</Label>
+            </>
+          ) : (
+            <>
+              <Label variant="soft" color="error">V1</Label>
+            </>
+          )}
+        </Box>
       </TableCell>
 
       <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
@@ -163,7 +187,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
 
                 <Box>x{item.quantity}</Box>
 
-                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency((item.price))}</Box>
+                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box>
               </Stack>
             ))}
           </Stack>
@@ -206,10 +230,12 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
           <Iconify icon="solar:eye-bold" />
           View
         </MenuItem>
-        <MenuItem
 
+        <MenuItem
           onClick={() => {
-            onViewRow();
+            if (onRetryOrder) {
+              onRetryOrder(row.id, row.shelter_id); // Call retry order handler
+            }
             popover.onClose();
           }}
         >
@@ -222,7 +248,7 @@ export default function OrderTableRow({ row, selected, onViewRow, onSelectRow, o
         open={confirm.value}
         onClose={confirm.onFalse}
         title="Delete"
-        content="Are you sure want to delete?"
+        content="Are you sure you want to delete?"
         action={
           <Button variant="contained" color="error" onClick={onDeleteRow}>
             Delete
@@ -237,6 +263,7 @@ OrderTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
   onSelectRow: PropTypes.func,
   onViewRow: PropTypes.func,
+  onRetryOrder: PropTypes.func, // Added onRetryOrder prop
   row: PropTypes.object,
   selected: PropTypes.bool,
 };

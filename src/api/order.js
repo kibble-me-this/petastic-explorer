@@ -24,6 +24,7 @@ export function useGetOrders(account_id, { page = 1, limit = 200, enabled = true
 
     const memoizedValue = useMemo(() => ({
         orders: data?.orders || [],
+        order_account_id: data?.account_id || '',
         isLoading,
         error,
         pagination: data?.pagination || {},
@@ -265,3 +266,35 @@ export async function deleteOrder(eventId) {
         false
     );
 }
+
+
+// ----------------------------------------------------------------------
+
+export async function retryOrder(shelterId, orderId) {
+
+    const orderData = {
+        shelter_id: shelterId,
+        order_id: orderId,
+    };
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    try {
+        // Make the POST request to retry the order
+        const response = await postRequestANYML(URL.retry, orderData, config);
+
+        // Update the order list cache after the retry
+        await mutate([URL.list, {}]);
+
+        // Return the response
+        return response;
+    } catch (error) {
+        console.error('Error retrying order:', error);
+        throw error;
+    }
+}
+
