@@ -46,6 +46,15 @@
     }
   },
   "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true, // Allow devDependencies
+        "optionalDependencies": false,
+        "peerDependencies": true,
+        "packageDir": "./" // Check the root directory for package.json
+      }
+    ],
     "no-alert": 0,
     "camelcase": 0,
     "no-console": 0,

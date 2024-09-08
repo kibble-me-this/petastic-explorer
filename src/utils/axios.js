@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 import axios from 'axios';
 // config
 import {
@@ -7,57 +5,72 @@ import {
   ANYML_HOST_API,
   ANYML_HOST_API_LOCAL,
   ZINC_HOST_API,
-  ZINC_HOST_API_KEY
+  PAYMENT_API_KEY_DEV,
+  PAYMENT_HOST_API
 } from 'src/config-global';
 
 // ----------------------------------------------------------------------
+// Create axios instances for different APIs
 
+// General API requests (MINIMAL API)
 const axiosInstance = axios.create({ baseURL: HOST_API });
+
+// ANYML-related API requests
 const axiosInstanceANYML = axios.create({
-  baseURL: process.env.REACT_APP_ENVIRONMENT === 'local' ? ANYML_HOST_API_LOCAL : ANYML_HOST_API_LOCAL
+  baseURL: process.env.REACT_APP_ENVIRONMENT === 'local' ? ANYML_HOST_API_LOCAL : ANYML_HOST_API,
 });
+
+// ZINC API requests
 const axiosInstanceZINC = axios.create({ baseURL: ZINC_HOST_API });
 
+// Payment API requests
+const axiosInstancePayment = axios.create({ baseURL: 'https://1vz3xrtde5.execute-api.us-east-1.amazonaws.com' });
+
+// ----------------------------------------------------------------------
+// --- Add interceptors for MINIMAL API, ANYML API, and Payment API ---
+
+// MINIMAL API interceptors (general API requests)
 axiosInstance.interceptors.response.use(
-  (res) => res,
-  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrongs')
+  (response) => response,
+  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
 );
 
-// export default axiosInstance;
-export { axiosInstance, axiosInstanceANYML, axiosInstanceZINC };
+// ANYML API interceptors
+axiosInstanceANYML.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
+);
+
+// ZINC API interceptors
+axiosInstanceZINC.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
+);
+
+// Payment API interceptors
+axiosInstancePayment.interceptors.request.use(
+  (config) => {
+    // Add the payment API key to every request
+    config.headers['x-api-key'] = 'JpAhKqiM498kGOEASeJyqPeDcX45JH086RIHTlYh';
+    config.headers['Content-Type'] = 'application/json'; // Set content type to JSON
+    console.log('Final Config:', config);  // Add this line for debugging
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+axiosInstancePayment.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
+);
+
+// ----------------------------------------------------------------------
+// Export axios instances for various APIs
+export { axiosInstance, axiosInstanceANYML, axiosInstanceZINC, axiosInstancePayment };
+
 
 
 // ----------------------------------------------------------------------
-
-// const orderData = {
-//   retailer: 'amazon',
-//   billing_address: {
-//     first_name: 'Carlos',
-//     last_name: 'Herrera',
-//     address_line1: '360 NW 27th St',
-//     zip_code: '33127',
-//     city: 'Miami',
-//     state: 'FL',
-//     country: 'US',
-//     phone_number: '3108808673',
-//   },
-//   payment_method: {
-//     use_account_payment_defaults: true,
-//     use_gift: false,
-//   },
-//   retailer_credentials: {
-//     email: 'carlos@petastic.com',
-//     password: 'd7Tll7Xj43Zy',
-//     totp_2fa_key: 'SPA3 X4TI APGV IMLE BYUV 3HI7 SDS5 6DYM TWEP HY77 Q5BW CY7Q LGIA',
-//   },
-//   // is_gift: false,
-//   // gift_message: '',
-//   // shipping: {
-//   //   order_by: 'price',
-//   //   max_days: 5,
-//   //   max_price: 1000,
-//   // },
-// };
 
 // ====================
 // MINIMAL API
@@ -135,76 +148,28 @@ export const patchRequestANYML = async (url, data, config = {}) => {
   }
 };
 
-
-
-
 // ====================
-// ZINC API
+// Payment API Functions
 // ====================
 
-// export const fetcherProduct = async (productIds) => {
-//   const headers = new Headers({
-//     Authorization: `Basic ${btoa(`${ZINC_HOST_API_KEY}:`)}`,
-//   });
+export const fetcherPayment = async (url, params = {}, config = {}) => {
+  const response = await axiosInstancePayment.get(url, {
+    params,
+    ...config,
+  });
+  return response.data;
+};
 
-//   try {
-//     const dataPromises = productIds.map(async (productId) => {
-//       const url = `${ZINC_HOST_API}/v1/products/${productId}?retailer=amazon`;
-//       const response = await fetch(url, { headers });
-
-//       if (!response.ok) {
-//         throw new Error(`Error fetching data for ${productId}: ${response.statusText}`);
-//       }
-
-//       const productData = await response.json();
-//       return productData;
-//     });
-
-//     const dataArray = await Promise.all(dataPromises);
-//     return dataArray;
-//   } catch (error) {
-//     throw (error.response && error.response.data) || 'Something went wrong';
-//   }
-// };
-// const zincApiKey = '494887CF5BB27A2600581C3A';
-
-// export const fetcherOrder = async (args, products, shippingAddress, subTotal) => {
-//   const [data, headers, url, config] = Array.isArray(args) ? args : [args];
-
-//   const maxPrice = subTotal * 1.15;
-//   const maxPriceInCents = Math.ceil(maxPrice * 100);
-
-//   // Update orderData with productData and billingAddressData
-//   const updatedOrderData = {
-//     ...orderData,
-//     max_price: maxPriceInCents,
-//     products,
-//     shipping_address: {
-//       first_name: shippingAddress.name,
-//       last_name: '',
-//       address_line1: shippingAddress.address,
-//       address_line2: '',
-//       zip_code: shippingAddress.zip,
-//       city: shippingAddress.city,
-//       state: shippingAddress.state,
-//       country: shippingAddress.country,
-//       phone_number: '', // Add the phone number if required
-//     },
-//   };
-
-//   try {
-//     const response = await axiosInstance.post('/v1/orders', updatedOrderData, {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Basic ${btoa(`${ZINC_HOST_API_KEY}:`)}`,
-//       },
-//     });
-
-//     return response.data;
-//   } catch (error) {
-//     throw (error.response && error.response.data) || 'Something went wrong';
-//   }
-// };
+export const postRequestPayment = async (url, data, config = {}) => {
+  try {
+    const response = await axiosInstancePayment.post(url, data, {
+      ...config,
+    });
+    return response.data;
+  } catch (error) {
+    throw (error.response && error.response.data) || 'Something went wrong';
+  }
+};
 
 // ----------------------------------------------------------------------
 
@@ -269,4 +234,7 @@ export const endpoints = {
     byCustomer: '/api/orders/by-customer/{customerId}', // Endpoint to get orders by customer ID
     retry: '/default/handleRetryOrder',
   },
+  payment: {
+    createPaymentMethod: 'dev/handleCreatePaymentMethod'
+  }
 };

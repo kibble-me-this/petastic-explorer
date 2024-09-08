@@ -1,3 +1,7 @@
+import { useState } from 'react';  // Make sure this is imported
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
 import PropTypes from 'prop-types';
 // @mui
 import Box from '@mui/material/Box';
@@ -9,14 +13,31 @@ import CardHeader from '@mui/material/CardHeader';
 import { useBoolean } from 'src/hooks/use-boolean';
 // components
 import Iconify from 'src/components/iconify';
-//
 import PaymentCardItem from '../payment/payment-card-item';
 import PaymentNewCardDialog from '../payment/payment-new-card-dialog';
+
+// Load Stripe publishable key from environment variable
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY_TEST);
 
 // ----------------------------------------------------------------------
 
 export default function AccountBillingPayment({ cards }) {
-  const newCard = useBoolean();
+  const newCardState = useBoolean();
+  const [savedCards, setSavedCards] = useState(cards);
+
+  const handleCardAdded = (paymentMethod) => {
+    const newCard = {
+      id: paymentMethod.id,
+      cardType: paymentMethod.card.brand,   // Brand (Visa, Mastercard)
+      cardNumber: `**** **** **** ${paymentMethod.card.last4}`, // Last 4 digits
+      expiryMonth: paymentMethod.card.exp_month,
+      expiryYear: paymentMethod.card.exp_year,
+      primary: false,  // You can set this as default if necessary
+    };
+
+    setSavedCards([...savedCards, newCard]); // Add the newly added card to the list
+  };
+
 
   return (
     <>
@@ -28,7 +49,7 @@ export default function AccountBillingPayment({ cards }) {
               size="small"
               color="primary"
               startIcon={<Iconify icon="mingcute:add-line" />}
-              onClick={newCard.onTrue}
+              onClick={newCardState.onTrue}
             >
               New Card
             </Button>
@@ -45,13 +66,20 @@ export default function AccountBillingPayment({ cards }) {
           }}
           sx={{ p: 3 }}
         >
-          {cards.map((card) => (
+          {savedCards.map((card) => (
             <PaymentCardItem key={card.id} card={card} />
           ))}
         </Box>
       </Card>
 
-      <PaymentNewCardDialog open={newCard.value} onClose={newCard.onFalse} />
+      {/* Wrap the PaymentNewCardDialog in the Elements provider */}
+      <Elements stripe={stripePromise}>
+        <PaymentNewCardDialog
+          open={newCardState.value}
+          onClose={newCardState.onFalse}
+          onCardAdded={handleCardAdded}
+        />
+      </Elements>
     </>
   );
 }
