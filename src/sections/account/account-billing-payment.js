@@ -1,4 +1,4 @@
-import { useState } from 'react';  // Make sure this is imported
+import { useState, useEffect } from 'react';  // Add useEffect for handling side effects
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -11,6 +11,8 @@ import CardHeader from '@mui/material/CardHeader';
 
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useGetPaymentMethods } from 'src/api/payment'; // Import the hook
+import { useAuthContext } from 'src/auth/hooks'; // Assume you have an auth context for getting userId
 // components
 import Iconify from 'src/components/iconify';
 import PaymentCardItem from '../payment/payment-card-item';
@@ -21,9 +23,30 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY_TE
 
 // ----------------------------------------------------------------------
 
-export default function AccountBillingPayment({ cards }) {
+export default function AccountBillingPayment() {
   const newCardState = useBoolean();
-  const [savedCards, setSavedCards] = useState(cards);
+  const { user } = useAuthContext(); // Assuming user context provides userId
+
+  // Use the useGetPaymentMethods hook to get the user's payment methods
+  const { paymentMethods, isLoading, error } = useGetPaymentMethods({ userId: user?.pid });
+
+  const [savedCards, setSavedCards] = useState([]);
+
+  // Whenever the paymentMethods data changes, update the savedCards state
+  useEffect(() => {
+    if (paymentMethods.length) {
+      const formattedCards = paymentMethods.map((method) => ({
+        id: method.paymentMethodId,
+        cardType: method.cardBrand,
+        cardNumber: `**** **** **** ${method.last4}`,
+        expiryMonth: method.expiryMonth,
+        expiryYear: method.expiryYear,
+        primary: false,  // Adjust logic to determine if the card is primary
+      }));
+
+      setSavedCards(formattedCards);
+    }
+  }, [paymentMethods]);
 
   const handleCardAdded = (paymentMethod) => {
     const newCard = {
@@ -38,6 +61,13 @@ export default function AccountBillingPayment({ cards }) {
     setSavedCards([...savedCards, newCard]); // Add the newly added card to the list
   };
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error loading payment methods: {error.message}</p>;
+  }
 
   return (
     <>
@@ -84,6 +114,6 @@ export default function AccountBillingPayment({ cards }) {
   );
 }
 
-AccountBillingPayment.propTypes = {
-  cards: PropTypes.array,
-};
+// AccountBillingPayment.propTypes = {
+//   cards: PropTypes.array,
+// };

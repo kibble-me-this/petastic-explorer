@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import useSWR, { mutate } from 'swr';
-import { fetcherANYML, patchRequestANYML, postRequestPayment, endpoints } from 'src/utils/axios';
+import { fetcherPayment, patchRequestANYML, postRequestPayment, endpoints } from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -13,12 +13,13 @@ const options = {
 };
 
 // ----------------------------------------------------------------------
-// Hook to retrieve payment methods
 
 export function useGetPaymentMethods({ userId }) {
-    const queryParams = { userId };
-
-    const { data, error } = useSWR([`${URL.list}`, queryParams], fetcherANYML, options);
+    const { data, error } = useSWR(
+        userId ? `${URL.list}?userId=${userId}` : null,
+        fetcherPayment,
+        options
+    );
 
     const memoizedValue = useMemo(() => ({
         paymentMethods: data?.paymentMethods || [],
@@ -31,7 +32,6 @@ export function useGetPaymentMethods({ userId }) {
 }
 
 // ----------------------------------------------------------------------
-// Function to create a new payment method
 
 export async function createPaymentMethod(userId, paymentMethodData) {
     const url = `${URL.createPaymentMethod}`;
@@ -50,7 +50,6 @@ export async function createPaymentMethod(userId, paymentMethodData) {
 
 
 // ----------------------------------------------------------------------
-// Function to update an existing payment method
 
 export async function updatePaymentMethod(paymentMethodId, updateFields) {
     const url = `${URL.updatePaymentMethod}?paymentMethodId=${paymentMethodId}`;

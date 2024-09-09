@@ -17,8 +17,8 @@ export const ZINC_HOST_API_KEY = process.env.ZINC_HOST_API_KEY;
 export const LOCAL_SERVER_URL = 'http://localhost:3080/';
 
 // Payment API
-export const PAYMENT_API_KEY_DEV = process.env.PAYMENT_API_KEY_DEV;
-export const PAYMENT_HOST_API = process.env.PAYMENT_HOST_API;
+export const PAYMENT_API_KEY_DEV = process.env.REACT_APP_PAYMENT_API_KEY_DEV;
+export const PAYMENT_HOST_API = process.env.REACT_APP_PAYMENT_HOST_API;
 
 export const FIREBASE_API = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

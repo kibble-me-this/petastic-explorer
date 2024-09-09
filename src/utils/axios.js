@@ -24,7 +24,7 @@ const axiosInstanceANYML = axios.create({
 const axiosInstanceZINC = axios.create({ baseURL: ZINC_HOST_API });
 
 // Payment API requests
-const axiosInstancePayment = axios.create({ baseURL: 'https://1vz3xrtde5.execute-api.us-east-1.amazonaws.com' });
+const axiosInstancePayment = axios.create({ baseURL: PAYMENT_HOST_API });
 
 // ----------------------------------------------------------------------
 // --- Add interceptors for MINIMAL API, ANYML API, and Payment API ---
@@ -50,14 +50,14 @@ axiosInstanceZINC.interceptors.response.use(
 // Payment API interceptors
 axiosInstancePayment.interceptors.request.use(
   (config) => {
-    // Add the payment API key to every request
-    config.headers['x-api-key'] = 'JpAhKqiM498kGOEASeJyqPeDcX45JH086RIHTlYh';
-    config.headers['Content-Type'] = 'application/json'; // Set content type to JSON
-    console.log('Final Config:', config);  // Add this line for debugging
+    config.headers['x-api-key'] = PAYMENT_API_KEY_DEV;
+    config.headers['Content-Type'] = 'application/json';
+    console.log('Final Config:', config);
     return config;
   },
   (error) => Promise.reject(error)
 );
+
 
 axiosInstancePayment.interceptors.response.use(
   (response) => response,
@@ -153,12 +153,19 @@ export const patchRequestANYML = async (url, data, config = {}) => {
 // ====================
 
 export const fetcherPayment = async (url, params = {}, config = {}) => {
-  const response = await axiosInstancePayment.get(url, {
-    params,
-    ...config,
-  });
-  return response.data;
+  try {
+    const response = await axiosInstancePayment.get(url, {
+      params,
+      ...config,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error in fetcherPayment:", error.response || error.message || error);
+    throw error; // Ensure the error is passed up to the calling function
+  }
 };
+
+
 
 export const postRequestPayment = async (url, data, config = {}) => {
   try {
@@ -235,6 +242,7 @@ export const endpoints = {
     retry: '/default/handleRetryOrder',
   },
   payment: {
-    createPaymentMethod: 'dev/handleCreatePaymentMethod'
-  }
+    createPaymentMethod: 'dev/handleCreatePaymentMethod',
+    list: 'dev/handleGetPaymentMethods',  // Make sure this is correct
+  },
 };
