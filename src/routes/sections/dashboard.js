@@ -13,6 +13,8 @@ import FostersTab from 'src/sections/organization/view/tabs/fosters-tab';
 import ShopTab from 'src/sections/organization/view/tabs/shop-tab';
 import OrdersTab from 'src/sections/organization/view/tabs/orders-tab';
 
+// Add isMaintenanceMode
+const isMaintenanceMode = process.env.REACT_APP_MAINTENANCE === 'true';
 
 const JobDetailsView = lazy(() => import('src/sections/organization/view/org-details-view'));
 
@@ -123,11 +125,16 @@ export const dashboardRoutes = [
     path: 'dashboard',
     element: (
       <AuthGuard>
-        <DashboardLayout>
-          <Suspense fallback={<LoadingScreen />}>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
+        {/* Maintenance Mode Check */}
+        {isMaintenanceMode ? (
+          <Navigate to="/maintenance" replace />
+        ) : (
+          <DashboardLayout>
+            <Suspense fallback={<LoadingScreen />}>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        )}
       </AuthGuard>
     ),
     children: [

@@ -236,6 +236,7 @@ export const endpoints = {
     updateTracking: '/default/updateOrderTracking',
     details: '/api/orders/{id}',   // Endpoint to get details of a specific order
     create: '/default/handleCreateOrder',  // Endpoint to create a new order
+    createOrderV2: '/default/handleCreateOrderV2',  // Endpoint to create a new order
     update: '/api/orders/update/{id}', // Endpoint to update a specific order
     delete: '/api/orders/delete/{id}', // Endpoint to delete a specific order
     byCustomer: '/api/orders/by-customer/{customerId}', // Endpoint to get orders by customer ID

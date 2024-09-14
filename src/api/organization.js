@@ -20,17 +20,15 @@ const postFetcher = async (url, data) => postRequestANYML(url, data);
 // ----------------------------------------------------------------------
 
 export function useGetOrganizations(accountIds = [], page = 1, pageSize = 10) {
-  // Build the SWR key for caching
   const swrKey = accountIds.length ? [endpoints.organization.list, accountIds, page, pageSize] : null;
 
-  // SWR hook to fetch data using postFetcher
   const { data, isLoading, error, isValidating } = useSWR(
     swrKey,
     ([url, ids, pg, pgSize]) =>
       postFetcher(url, {
-        account_ids: ids,    // Pass account IDs as array
-        page: pg,            // Pagination page
-        pageSize: pgSize,    // Number of items per page
+        account_ids: ids,
+        page: pg,
+        pageSize: pgSize,
       }),
     {
       revalidateIfStale: false,
@@ -39,10 +37,9 @@ export function useGetOrganizations(accountIds = [], page = 1, pageSize = 10) {
     }
   );
 
-  // Memoize the result to avoid unnecessary re-renders
   const memoizedValue = useMemo(() => ({
-    organizations: data?.results || [],     // Use the `results` from Lambda response
-    totalCount: data?.totalCount || 0,      // Use the `totalCount` from Lambda response
+    organizations: data?.results || [],
+    totalCount: data?.totalCount || 0,
     isLoading,
     error,
     isValidating,
@@ -62,7 +59,6 @@ export function useGetAffiliations(pid) {
   const memoizedValue = useMemo(() => {
     let parsedData;
     if (data && typeof data.body === 'string') {
-      // Parse the body if it's a JSON string (as it would be from AWS API Gateway)
       try {
         parsedData = JSON.parse(data.body);
       } catch (err) {
@@ -73,10 +69,10 @@ export function useGetAffiliations(pid) {
       parsedData = data;
     }
 
-    const affiliations = parsedData?.affiliations || []; // Extract the affiliations array
+    const affiliations = parsedData?.affiliations || [];
 
     return {
-      affiliates: affiliations, // Pass the correct array to affiliates
+      affiliates: affiliations,
       isLoading,
       error,
       isEmpty: !isLoading && affiliations.length === 0,
@@ -86,30 +82,11 @@ export function useGetAffiliations(pid) {
   return memoizedValue;
 }
 
-
-// ----------------------------------------------------------------------
-
-// export function getShelterAccountId(user) {
-//   if (!user || !user.email) {
-//     return { affiliations: [] };
-//   }
-
-//   const userObject = useMockUser.find((u) => u.email === user.email);
-
-//   if (userObject) {
-//     return { affiliations: userObject.affiliations };
-//   }
-
-//   return { affiliations: [] };
-// }
-
 // ----------------------------------------------------------------------
 
 export function useSearchOrganizations(query, accountIds) {
-  // Use `useGetOrganizations` to get the organization data, which will be cached by SWR
   const { organizations, isLoading, error } = useGetOrganizations(accountIds);
 
-  // Filter organizations based on the search query
   const searchResults = useMemo(() => {
     if (!query) return organizations;
 
@@ -120,7 +97,6 @@ export function useSearchOrganizations(query, accountIds) {
     );
   }, [query, organizations]);
 
-  // Return the filtered search results
   return {
     searchResults,
     searchLoading: isLoading,

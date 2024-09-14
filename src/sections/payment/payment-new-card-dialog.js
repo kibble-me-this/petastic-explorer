@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+// import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'; // Comment out Stripe hooks
 import { createPaymentMethod } from 'src/api/payment'; // Import your function to create the payment method
 // @mui
 import Stack from '@mui/material/Stack';
@@ -17,30 +17,30 @@ import { useAuthContext } from 'src/auth/hooks';
 import Iconify from 'src/components/iconify';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
-// Styling for Stripe's CardElement
-const cardElementOptions = {
-  style: {
-    base: {
-      fontSize: '16px',
-      color: '#424770',
-      letterSpacing: '0.025em',
-      fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-      '::placeholder': {
-        color: '#aab7c4',
-      },
-    },
-    invalid: {
-      color: '#9e2146',
-    },
-  },
-};
+// Styling for Stripe's CardElement (commented out)
+// const cardElementOptions = {
+//   style: {
+//     base: {
+//       fontSize: '16px',
+//       color: '#424770',
+//       letterSpacing: '0.025em',
+//       fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+//       '::placeholder': {
+//         color: '#aab7c4',
+//       },
+//     },
+//     invalid: {
+//       color: '#9e2146',
+//     },
+//   },
+// };
 
 // ----------------------------------------------------------------------
 
 export default function PaymentNewCardDialog({ onClose, onCardAdded, ...other }) {
   const popover = usePopover();
-  const stripe = useStripe();
-  const elements = useElements();
+  // const stripe = useStripe(); // Comment out Stripe hook
+  // const elements = useElements(); // Comment out Stripe hook
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -49,12 +49,13 @@ export default function PaymentNewCardDialog({ onClose, onCardAdded, ...other })
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements) return;
+    // Comment out Stripe-related logic
+    // if (!stripe || !elements) return;
 
     setLoading(true);
     setErrorMessage(null);
 
-    const cardElement = elements.getElement(CardElement);
+    // const cardElement = elements.getElement(CardElement);
 
     const billingDetails = {
       name: event.target.cardHolderName.value,
@@ -67,43 +68,44 @@ export default function PaymentNewCardDialog({ onClose, onCardAdded, ...other })
       },
     };
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-      billing_details: billingDetails,
-    });
+    // Comment out Stripe payment method creation
+    // const { error, paymentMethod } = await stripe.createPaymentMethod({
+    //   type: 'card',
+    //   card: cardElement,
+    //   billing_details: billingDetails,
+    // });
 
-    if (error) {
-      setErrorMessage(error.message);
+    // if (error) {
+    //   setErrorMessage(error.message);
+    //   setLoading(false);
+    // } else {
+    try {
+      // Optimistically add the card to the UI using the prop onCardAdded
+      // onCardAdded(paymentMethod);
+
+      // Simulate API call to save the payment method (without Stripe)
+      const response = await createPaymentMethod(user?.pid, {
+        // Use dummy data in place of Stripe's payment method
+        paymentMethodId: 'dummy-id',
+        cardBrand: 'Visa',
+        last4: '4242',
+        expiryMonth: 12,
+        expiryYear: 2024,
+        billingDetails,
+      });
+
       setLoading(false);
-    } else {
-      try {
-        // Optimistically add the card to the UI using the prop onCardAdded
-        onCardAdded(paymentMethod);
 
-        // Call the API to save the payment method
-        const response = await createPaymentMethod(user?.pid, {
-          paymentMethodId: paymentMethod.id,
-          cardBrand: paymentMethod.card.brand,
-          last4: paymentMethod.card.last4,
-          expiryMonth: paymentMethod.card.exp_month,
-          expiryYear: paymentMethod.card.exp_year,
-          billingDetails,
-        });
-
-        setLoading(false);
-
-        if (response.success) {
-          onClose(); // Close the dialog
-        } else {
-          setErrorMessage(response.error || 'Failed to save payment method.');
-        }
-      } catch (apiError) {
-        setErrorMessage(apiError.message || 'Failed to save payment method.');
-        setLoading(false);
+      if (response.success) {
+        onClose(); // Close the dialog
+      } else {
+        setErrorMessage(response.error || 'Failed to save payment method.');
       }
+    } catch (apiError) {
+      setErrorMessage(apiError.message || 'Failed to save payment method.');
+      setLoading(false);
     }
-
+    // }
   };
 
   return (
@@ -114,10 +116,10 @@ export default function PaymentNewCardDialog({ onClose, onCardAdded, ...other })
         <form onSubmit={handleSubmit}>
           <DialogContent sx={{ overflow: 'unset' }}>
             <Stack spacing={2.5}>
-              {/* Card Element */}
-              <div style={{ padding: '12px 14px', border: '1px solid #c4c4c4', borderRadius: '4px' }}>
+              {/* Comment out Stripe's Card Element */}
+              {/* <div style={{ padding: '12px 14px', border: '1px solid #c4c4c4', borderRadius: '4px' }}>
                 <CardElement options={cardElementOptions} />
-              </div>
+              </div> */}
 
               {/* Cardholder Name */}
               <TextField
@@ -178,7 +180,7 @@ export default function PaymentNewCardDialog({ onClose, onCardAdded, ...other })
               Cancel
             </Button>
 
-            <Button variant="contained" type="submit" disabled={!stripe || loading}>
+            <Button variant="contained" type="submit" disabled={loading}>
               {loading ? <CircularProgress size={24} /> : 'Add'}
             </Button>
           </DialogActions>

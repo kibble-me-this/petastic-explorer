@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';  // Add useEffect for handling side effects
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // @mui
 import Box from '@mui/material/Box';
@@ -16,10 +13,14 @@ import { useAuthContext } from 'src/auth/hooks'; // Assume you have an auth cont
 // components
 import Iconify from 'src/components/iconify';
 import PaymentCardItem from '../payment/payment-card-item';
-import PaymentNewCardDialog from '../payment/payment-new-card-dialog';
+// import PaymentNewCardDialog from '../payment/payment-new-card-dialog'; // Comment out Stripe-related components
 
-// Load Stripe publishable key from environment variable
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY_TEST);
+// Comment out Stripe-related imports and configuration
+// import { Elements } from '@stripe/react-stripe-js';
+// import { loadStripe } from '@stripe/stripe-js';
+
+// Comment out Stripe publishable key
+// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY_TEST);
 
 // ----------------------------------------------------------------------
 
@@ -102,14 +103,14 @@ export default function AccountBillingPayment() {
         </Box>
       </Card>
 
-      {/* Wrap the PaymentNewCardDialog in the Elements provider */}
-      <Elements stripe={stripePromise}>
+      {/* Commented out Stripe-related dialog */}
+      {/* <Elements stripe={stripePromise}>
         <PaymentNewCardDialog
           open={newCardState.value}
           onClose={newCardState.onFalse}
           onCardAdded={handleCardAdded}
         />
-      </Elements>
+      </Elements> */}
     </>
   );
 }

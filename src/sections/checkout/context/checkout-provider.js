@@ -49,9 +49,10 @@ export function CheckoutProvider({ children }) {
     update('subTotal', subTotal);
     update('totalItems', totalItems);
     update('billing', state.activeStep === 1 ? null : state.billing);
-    update('discount', state.items.length ? subTotal * .05 : 0);
+    update('discount', Number(state.items.length ? subTotal * 0.05 : 0));
     update('shipping', state.items.length ? state.shipping : 0);
-    update('total', state.subTotal + state.shipping);
+    update('total', Number(state.subTotal) + Number(state.shipping));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     state.accountID,

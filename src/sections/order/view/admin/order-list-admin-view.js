@@ -83,16 +83,14 @@ export default function OrderListAdminView() {
   const [accountId, setAccountId] = useState('');
   const [tableData, setTableData] = useState([]);
   const [filters, setFilters] = useState(defaultFilters);
-  const [accountIds, setAccountIds] = useState([]); // Defined accountIds
+  const [accountIds, setAccountIds] = useState([]);
 
-  // Update accountId when affiliates change
   useEffect(() => {
     if (affiliates && affiliates.length > 0) {
-      setAccountId(affiliates[0].shelterId); // Default to the first affiliate if accountId is not set
+      setAccountId(affiliates[0].shelterId);
     }
   }, [affiliates]);
 
-  // Update accountIds based on affiliates
   useEffect(() => {
     const updatedAccountIds = affiliates
       ? affiliates.map(affiliation => ({
@@ -170,7 +168,7 @@ export default function OrderListAdminView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.admin.order.details(accountId, id)); // Update to use the admin order details path
+      router.push(paths.admin.order.details(accountId, id));
     },
     [router, accountId]
   );
@@ -198,7 +196,6 @@ export default function OrderListAdminView() {
     }
   };
 
-  // Error handling for orders fetching
   if (ordersError) {
     console.error("Failed to fetch orders:", ordersError);
     return <div>Error loading orders. Please try again later.</div>;
