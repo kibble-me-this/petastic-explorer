@@ -206,6 +206,7 @@ export const endpoints = {
     details: '/default/getZincProductDetails',
     variants: 'details/getZincProductDetailsByID',
     search: '/api/product/search',
+    update: 'default/handleEditProduct'
   },
   // fosters: '/default/handleGetFosters',
   organization: {

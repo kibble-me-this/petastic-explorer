@@ -159,6 +159,15 @@ export const dashboardRoutes = [
               { path: 'new', element: <OrganizationCreateAdminPage /> },
             ],
           },
+          // Add Product Admin Routes
+          {
+            path: 'product',
+            children: [
+              { path: 'list', element: <ProductListAdminPage /> }, // Product list for admin
+              { path: ':accountId/:id', element: <ProductDetailsPage /> }, // Product details for admin
+              { path: ':accountId/:id/edit', element: <ProductEditPage /> }, // Edit product for admin
+            ],
+          },
         ],
       },
 
@@ -197,7 +206,7 @@ export const dashboardRoutes = [
           { path: ':id/edit', element: <ProductEditPage /> },
 
           // admin
-          { path: 'admin/list', element: <ProductListAdminPage /> },
+          // { path: 'admin/list', element: <ProductListAdminPage /> },
         ],
       },
       {

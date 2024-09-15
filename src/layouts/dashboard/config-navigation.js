@@ -411,21 +411,21 @@ export function useNavData() {
           {
             roles: ['ecosystem_admin'], // Ensure this is set correctly
             title: t('products'),
-            path: paths.dashboard.product.root,
+            path: paths.admin.product.root,
             icon: ICONS.product,
             children: [
-              { title: t('list'), path: paths.dashboard.product.root },
-              {
-                title: t('details'),
-                path: paths.dashboard.product.demo.details, disabled: true,
+              { title: t('list'), path: paths.admin.product.root },
+              // {
+              //   title: t('details'),
+              //   path: paths.dashboard.product.demo.details, disabled: true,
 
-              },
+              // },
               {
                 title: t('create'), path: paths.dashboard.product.new, disabled: false,
               },
-              {
-                title: t('edit'), path: paths.dashboard.product.demo.edit, disabled: true,
-              },
+              // {
+              //   title: t('edit'), path: paths.dashboard.product.demo.edit, disabled: true,
+              // },
             ],
           },
 

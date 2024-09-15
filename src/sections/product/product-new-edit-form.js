@@ -105,7 +105,7 @@ export default function ProductNewEditForm({ currentProduct }) {
       await createProduct(eventData);
       reset();
       enqueueSnackbar(currentProduct ? 'Update success!' : 'Create success!');
-      router.push(paths.dashboard.product.root);
+      router.push(paths.admin.product.root);
     } catch (error) {
       console.error(error);
     }

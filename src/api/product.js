@@ -3,7 +3,7 @@ import { useMemo, useCallback, useState, useEffect } from 'react';
 import isEqual from 'lodash/isEqual'; // Import isEqual from lodash
 
 // utils
-import { fetcher, fetcherANYML, postRequestANYML, endpoints } from 'src/utils/axios';
+import { fetcher, fetcherANYML, postRequestANYML, patchRequestANYML, endpoints } from 'src/utils/axios';
 import { getStorage, removeStorage, setStorage, useLocalStorage, useProductCache } from 'src/hooks/use-local-storage';
 import { useGetZincProducts } from './zinc';
 import uuidv4 from '../utils/uuidv4';
@@ -210,11 +210,12 @@ export async function createProduct(eventData) {
   const { products, account_id } = eventData;
 
   try {
-    const formattedProducts = products.map(product => formatProduct(product));
+    // Since we only need the product IDs, map over the products to extract the IDs
+    const productIds = products.map(product => product.id);
 
     const requestData = {
       shelter_id: account_id,
-      new_products: formattedProducts,
+      product_ids: productIds, // Send only the product IDs as an array
     };
 
     await postRequestANYML(PRODUCTS_URL.createProduct, requestData, config);
@@ -278,4 +279,36 @@ export function useSearchProducts(query, accountId) {
     searchError: productsError,
     searchEmpty: !productsLoading && searchResults.length === 0,
   };
+}
+
+// ----------------------------------------------------------------------
+
+export async function updateProduct(productId, accountId, updateFields) {
+  // Construct the URL with the correct product ID in the query string
+  const url = `${URL.update}?product_id=${productId}`;
+
+  // Prepare the payload, including the account ID and update fields
+  const requestData = {
+    account_id: accountId,  // Keep the account ID in the body
+    ...updateFields         // Spread the update fields
+  };
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    // Make the PATCH request with the correct URL and body
+    const response = await patchRequestANYML(url, requestData, config);
+
+    // After the product is updated, revalidate the SWR cache to reflect the changes
+    await mutate([URL.list, { account_id: accountId }]);
+
+    return response;
+  } catch (error) {
+    console.error('Error updating product:', error);
+    throw error;
+  }
 }

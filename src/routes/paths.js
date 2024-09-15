@@ -259,5 +259,14 @@ export const paths = {
         edit: `${ROOTS.DASHBOARD}/admin/org/${MOCK_ID}/edit`,
       },
     },
+    product: {
+      root: `${ROOTS.DASHBOARD}/admin/product/list`,
+      details: (accountId, id) => `${ROOTS.DASHBOARD}/admin/product/${accountId}/${id}`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/admin/product/${MOCK_ID}`,
+      },
+      edit: (accountId, id) => `${ROOTS.DASHBOARD}/admin/product/${accountId}/${id}/edit`,
+      delete: (accountId, id) => `${ROOTS.DASHBOARD}/admin/product/${accountId}/${id}/delete`,
+    },
   },
 };

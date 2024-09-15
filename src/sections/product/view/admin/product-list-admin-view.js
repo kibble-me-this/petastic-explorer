@@ -16,24 +16,14 @@ import { RouterLink } from 'src/routes/components';
 // hooks
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useAuthContext } from 'src/auth/hooks';
+import { useTable, getComparator, emptyRows, TableNoData, TableSkeleton, TableEmptyRows, TableHeadCustom, TableSelectedAction, TablePaginationCustom } from 'src/components/table';
 // _mock
 import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
 // api
-import { useGetProducts } from 'src/api/product';
+import { useGetProductDetails, updateProduct } from 'src/api/product';
 import { useGetAffiliations } from 'src/api/organization';
 // components
 import { useSettingsContext } from 'src/components/settings';
-import {
-  useTable,
-  getComparator,
-  emptyRows,
-  TableNoData,
-  TableSkeleton,
-  TableEmptyRows,
-  TableHeadCustom,
-  TableSelectedAction,
-  TablePaginationCustom,
-} from 'src/components/table';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/custom-dialog';
@@ -42,6 +32,7 @@ import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import ProductTableRow from '../../product-table-row';
 import ProductTableToolbar from '../../product-table-toolbar';
 import ProductTableFiltersResult from '../../product-table-filters-result';
+
 
 // ----------------------------------------------------------------------
 
@@ -93,15 +84,15 @@ export default function ProductListAdminView() {
     [affiliates]
   );
 
-  // Set the first available accountId by default
-  useEffect(() => {
-    if (accountIds.length > 0 && !accountId) {
-      setAccountId(accountIds[0].value);
-    }
-  }, [accountIds, accountId]);
+  // Fetch products based on selected accountId (only if accountId is selected)
+  const { products, productsLoading, productsEmpty } = useGetProductDetails(accountId);
 
-  // Fetch products based on selected accountId
-  const { products, productsLoading, productsEmpty } = useGetProducts(accountId);
+  // Clear previous data and load new products when accountId changes
+  useEffect(() => {
+    if (accountId) {
+      setTableData([]);  // Clear previous table data
+    }
+  }, [accountId]);
 
   useEffect(() => {
     if (products && products.length) {
@@ -137,15 +128,45 @@ export default function ProductListAdminView() {
     [table]
   );
 
-  const handleDeleteRow = useCallback(
-    (id) => {
-      const deleteRow = tableData.filter((row) => row.id !== id);
-      setTableData(deleteRow);
+  const handleEnableProduct = useCallback(
+    async (productId, currentEnabled) => {
+      try {
+        // Toggle the enabled state
+        const newEnabled = !currentEnabled;
 
-      table.onUpdatePageDeleteRow(dataInPage.length);
+        // Assuming you already have access to `accountId` and you want to enable/disable the product
+        await updateProduct(productId, accountId, { enabled: newEnabled });
+
+        // Optionally, update the local table data or refetch the updated products
+        const updatedData = tableData.map((row) =>
+          row.product_id === productId ? { ...row, enabled: newEnabled } : row
+        );
+        setTableData(updatedData);
+      } catch (error) {
+        console.error(`Error toggling enabled state for product ${productId}:`, error);
+      }
     },
-    [dataInPage.length, table, tableData]
+    [accountId, tableData]
   );
+
+  const handleDeleteRow = useCallback(
+    async (productId) => {
+      try {
+        // Assuming you already have access to `account_id`
+        await updateProduct(accountId, productId);
+
+        // Filter the table data to remove the deleted product
+        const deleteRow = tableData.filter((row) => row.product_id !== productId);
+        setTableData(deleteRow);
+
+        table.onUpdatePageDeleteRow(dataInPage.length);
+      } catch (error) {
+        console.error(`Error deleting product ${productId}:`, error);
+      }
+    },
+    [dataInPage.length, accountId, table, tableData]
+  );
+
 
   const handleDeleteRows = useCallback(() => {
     const deleteRows = tableData.filter((row) => !table.selected.includes(row.id));
@@ -177,8 +198,9 @@ export default function ProductListAdminView() {
   }, []);
 
   const handleAccountIdChange = useCallback((newAccountId) => {
-    setAccountId(newAccountId);
-  }, []);
+    setAccountId(newAccountId); // Only set when user chooses an account
+    table.onResetPage(); // Reset the table pagination
+  }, [table]);
 
   return (
     <>
@@ -215,99 +237,105 @@ export default function ProductListAdminView() {
             accountIds={accountIds}
           />
 
-          {canReset && (
-            <ProductTableFiltersResult
-              filters={filters}
-              onFilters={handleFilters}
-              onResetFilters={handleResetFilters}
-              results={dataFiltered.length}
-              sx={{ p: 2.5, pt: 0 }}
-            />
-          )}
+          {/* Only render the table if an accountId is selected */}
+          {accountId && (
+            <>
+              {canReset && (
+                <ProductTableFiltersResult
+                  filters={filters}
+                  onFilters={handleFilters}
+                  onResetFilters={handleResetFilters}
+                  results={dataFiltered.length}
+                  sx={{ p: 2.5, pt: 0 }}
+                />
+              )}
 
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
-            <TableSelectedAction
-              dense={table.dense}
-              numSelected={table.selected.length}
-              rowCount={tableData.length}
-              onSelectAllRows={(checked) =>
-                table.onSelectAllRows(
-                  checked,
-                  tableData.map((row) => row.id)
-                )
-              }
-              action={
-                <Tooltip title="Delete">
-                  <IconButton color="primary" onClick={confirm.onTrue}>
-                    <Iconify icon="solar:trash-bin-trash-bold" />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-
-            <Scrollbar>
-              <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-                <TableHeadCustom
-                  order={table.order}
-                  orderBy={table.orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={tableData.length}
+              <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+                <TableSelectedAction
+                  dense={table.dense}
                   numSelected={table.selected.length}
-                  onSort={table.onSort}
+                  rowCount={tableData.length}
                   onSelectAllRows={(checked) =>
                     table.onSelectAllRows(
                       checked,
                       tableData.map((row) => row.id)
                     )
                   }
+                  action={
+                    <Tooltip title="Delete">
+                      <IconButton color="primary" onClick={confirm.onTrue}>
+                        <Iconify icon="solar:trash-bin-trash-bold" />
+                      </IconButton>
+                    </Tooltip>
+                  }
                 />
 
-                <TableBody>
-                  {productsLoading ? (
-                    [...Array(table.rowsPerPage)].map((_, index) => (
-                      <TableSkeleton key={index} sx={{ height: denseHeight }} />
-                    ))
-                  ) : (
-                    <>
-                      {dataFiltered
-                        .slice(
-                          table.page * table.rowsPerPage,
-                          table.page * table.rowsPerPage + table.rowsPerPage
+                <Scrollbar>
+                  <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+                    <TableHeadCustom
+                      order={table.order}
+                      orderBy={table.orderBy}
+                      headLabel={TABLE_HEAD}
+                      rowCount={tableData.length}
+                      numSelected={table.selected.length}
+                      onSort={table.onSort}
+                      onSelectAllRows={(checked) =>
+                        table.onSelectAllRows(
+                          checked,
+                          tableData.map((row) => row.id)
                         )
-                        .map((row) => (
-                          <ProductTableRow
-                            key={row.id}
-                            row={row}
-                            selected={table.selected.includes(row.id)}
-                            onSelectRow={() => table.onSelectRow(row.id)}
-                            onDeleteRow={() => handleDeleteRow(row.id)}
-                            onEditRow={() => handleEditRow(row.id)}
-                            onViewRow={() => handleViewRow(row.id)}
-                          />
-                        ))}
-                    </>
-                  )}
+                      }
+                    />
 
-                  <TableEmptyRows
-                    height={denseHeight}
-                    emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
-                  />
+                    <TableBody>
+                      {productsLoading ? (
+                        [...Array(table.rowsPerPage)].map((_, index) => (
+                          <TableSkeleton key={index} sx={{ height: denseHeight }} />
+                        ))
+                      ) : (
+                        <>
+                          {dataFiltered
+                            .slice(
+                              table.page * table.rowsPerPage,
+                              table.page * table.rowsPerPage + table.rowsPerPage
+                            )
+                            .map((row) => (
+                              <ProductTableRow
+                                key={row.id}
+                                row={row}
+                                selected={table.selected.includes(row.id)}
+                                onSelectRow={() => table.onSelectRow(row.id)}
+                                onDeleteRow={() => handleDeleteRow(row.product_id)}
+                                onEditRow={() => handleEditRow(row.id)}
+                                onEnableRow={() => handleEnableProduct(row.product_id, row.enabled)}
+                                onViewRow={() => handleViewRow(row.id)}
+                              />
+                            ))}
+                        </>
+                      )}
 
-                  <TableNoData notFound={notFound} />
-                </TableBody>
-              </Table>
-            </Scrollbar>
-          </TableContainer>
+                      <TableEmptyRows
+                        height={denseHeight}
+                        emptyRows={emptyRows(table.page, table.rowsPerPage, tableData.length)}
+                      />
 
-          <TablePaginationCustom
-            count={dataFiltered.length}
-            page={table.page}
-            rowsPerPage={table.rowsPerPage}
-            onPageChange={table.onChangePage}
-            onRowsPerPageChange={table.onChangeRowsPerPage}
-            dense={table.dense}
-            onChangeDense={table.onChangeDense}
-          />
+                      <TableNoData notFound={notFound} />
+                    </TableBody>
+                  </Table>
+                </Scrollbar>
+              </TableContainer>
+
+              <TablePaginationCustom
+                count={dataFiltered.length}
+                page={table.page}
+                rowsPerPage={table.rowsPerPage}
+                onPageChange={table.onChangePage}
+                onRowsPerPageChange={table.onChangeRowsPerPage}
+                dense={table.dense}
+                onChangeDense={table.onChangeDense}
+              />
+            </>
+          )}
         </Card>
       </Container>
 

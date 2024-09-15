@@ -33,32 +33,38 @@ export default function ProductTableRow({
   onDeleteRow,
   onEditRow,
   onViewRow,
+  onEnableRow,
 }) {
   const {
     title: name,
     price,
     publish,
     main_image: coverUrl,
-    asin: category,
+    product_id,
     quantity,
-    createdAt,
+    created_at,
     available,
     inventoryType,
+    enabled, // This should be coming in correctly from the parent component
   } = row;
 
-  const confirm = useBoolean();
+  console.log('Row enabled status:', enabled, 'for product:', product_id); // Debugging log
 
+  const confirm = useBoolean();
   const popover = usePopover();
 
-  // Validate createdAt
-  const createdDate = new Date(createdAt);
-  const isValidCreatedAt = isValidDate(createdDate);
+  // Validate created_at
+  const createdDate = new Date(created_at);
+  const isValidcreated_at = isValidDate(createdDate);
+
+  // Add conditional style for disabled state
+  const rowStyle = enabled ? {} : { opacity: 0.5 }; // Dims the row but doesn't disable the popover
 
   return (
     <>
-      <TableRow hover selected={selected}>
+      <TableRow hover selected={selected} style={rowStyle}>
         <TableCell padding="checkbox">
-          <Checkbox disabled checked={selected} onClick={onSelectRow} />
+          <Checkbox disabled={!enabled} checked={selected} onClick={onSelectRow} />
         </TableCell>
 
         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
@@ -76,22 +82,22 @@ export default function ProductTableRow({
                 noWrap
                 color="inherit"
                 variant="subtitle2"
-                onClick={onViewRow}
-                sx={{ cursor: 'pointer' }}
+                onClick={enabled ? onViewRow : undefined}
+                sx={{ cursor: enabled ? 'pointer' : 'not-allowed' }}
               >
                 {truncateText(name, 20)}
               </Link>
             }
             secondary={
               <Box component="div" sx={{ typography: 'body2', color: 'text.disabled' }}>
-                {category}
+                {product_id}
               </Box>
             }
           />
         </TableCell>
 
         <TableCell>
-          {isValidCreatedAt ? (
+          {isValidcreated_at ? (
             <ListItemText
               primary={format(createdDate, 'dd MMM yyyy')}
               secondary={format(createdDate, 'p')}
@@ -152,37 +158,13 @@ export default function ProductTableRow({
         sx={{ width: 140 }}
       >
         <MenuItem
-          disabled
           onClick={() => {
-            onViewRow();
+            onEnableRow();
             popover.onClose();
           }}
         >
-          <Iconify icon="solar:eye-bold" />
-          View
-        </MenuItem>
-
-        <MenuItem
-          disabled
-          onClick={() => {
-            onEditRow();
-            popover.onClose();
-          }}
-        >
-          <Iconify icon="solar:pen-bold" />
-          Edit
-        </MenuItem>
-
-        <MenuItem
-          disabled
-          onClick={() => {
-            confirm.onTrue();
-            popover.onClose();
-          }}
-          sx={{ color: 'error.main' }}
-        >
-          <Iconify icon="solar:trash-bin-trash-bold" />
-          Delete
+          <Iconify icon={enabled ? 'eva:toggle-right-outline' : 'eva:toggle-left-outline'} />
+          {enabled ? 'Disable' : 'Enable'}
         </MenuItem>
       </CustomPopover>
 
@@ -190,9 +172,16 @@ export default function ProductTableRow({
         open={confirm.value}
         onClose={confirm.onFalse}
         title="Delete"
-        content="Are you sure want to delete?"
+        content="Are you sure you want to delete?"
         action={
-          <Button variant="contained" color="error" onClick={onDeleteRow}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              onDeleteRow(product_id);
+              confirm.onFalse();
+            }}
+          >
             Delete
           </Button>
         }
@@ -201,11 +190,13 @@ export default function ProductTableRow({
   );
 }
 
+
 ProductTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
   onEditRow: PropTypes.func,
   onSelectRow: PropTypes.func,
   onViewRow: PropTypes.func,
+  onEnableRow: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
 };
