@@ -125,16 +125,16 @@ export const dashboardRoutes = [
     path: 'dashboard',
     element: (
       <AuthGuard>
-        {/* Maintenance Mode Check
+        {/* Maintenance Mode Check */}
         {isMaintenanceMode ? (
           <Navigate to="/maintenance" replace />
-        ) : ( */}
-        <DashboardLayout>
-          <Suspense fallback={<LoadingScreen />}>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
-        {/* )} */}
+        ) : (
+          <DashboardLayout>
+            <Suspense fallback={<LoadingScreen />}>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        )}
       </AuthGuard>
     ),
     children: [
