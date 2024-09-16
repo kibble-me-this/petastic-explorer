@@ -132,6 +132,9 @@ export default function CheckoutPayment() {
       const totalPrice = products.reduce((acc, item) => acc + (item.price * item.quantity), 0);
       const max_price = (totalPrice * 1.35) * 100; // Apply the 1.35 multiplier
 
+      // Get order_type from environment variables
+      const orderType = process.env.REACT_APP_ORDER_TYPE || 'test'; // Default to 'test' if not set
+
       // Prepare orderData with fallbacks applied
       const orderData = {
         shelter_id: checkout.accountID,  // Shelter ID
@@ -153,7 +156,7 @@ export default function CheckoutPayment() {
         },
         products,
         max_price,  // Add max_price calculated above
-        order_type: "test"  // Specify the order type (can be "real" or "test")
+        order_type: orderType  // Use the environment variable here
       };
 
       // Call your order creation function (createOrderV2)
@@ -169,6 +172,7 @@ export default function CheckoutPayment() {
       console.error('Error placing order(s):', error);
     }
   });
+
 
 
 
