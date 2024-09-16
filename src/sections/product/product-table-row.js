@@ -36,17 +36,36 @@ export default function ProductTableRow({
   onEnableRow,
 }) {
   const {
+    id,
     title: name,
     price,
     publish,
-    main_image: coverUrl,
+    images,  // Access the entire images array
     product_id,
     quantity,
     created_at,
     available,
     inventoryType,
-    enabled, // This should be coming in correctly from the parent component
+    enabled,
+    stars,
+    review_count,
+    num_sales,
+    brand,
+    categories,
+    variant_specifics,
+    fresh,
+    pantry,
+    handmade,
+    customizable,
+    digital,
+    digital_subscription,
+    all_variants,
+    last_fetched_at,
+    main_view,
+    last_update,
   } = row;
+
+  const coverUrl = images && images.length > 0 ? images[0] : '';  // Access the first image
 
   console.log('Row enabled status:', enabled, 'for product:', product_id); // Debugging log
 
@@ -139,10 +158,21 @@ export default function ProductTableRow({
         <TableCell>{fCurrency(penniesToDollars(price))}</TableCell>
 
         <TableCell>
-          <Label variant="soft" color={(publish === 'published' && 'info') || 'default'}>
-            {publish}
+          <Label
+            variant="soft"
+            color={fresh || pantry || handmade || customizable || digital || digital_subscription ? 'error' : 'info'}
+          >
+            {/* Default to 'PRIME', but add other tags if they are true */}
+            PRIME
+            {fresh && ', FRESH'}
+            {pantry && ', PANTRY'}
+            {handmade && ', HANDMADE'}
+            {customizable && ', CUSTOMIZABLE'}
+            {digital && ', DIGITAL'}
+            {digital_subscription && ', DIGITAL SUBSCRIPTION'}
           </Label>
         </TableCell>
+
 
         <TableCell align="right">
           <IconButton color={popover.open ? 'primary' : 'default'} onClick={popover.onOpen}>

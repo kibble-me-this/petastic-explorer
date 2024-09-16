@@ -30,15 +30,33 @@ import { useCheckoutContext } from '../checkout/context';
 // ----------------------------------------------------------------------
 
 export default function ProductItem({ product }) {
+  // Destructure the product prop
+  const {
+    product_id,
+    title,
+    price,
+    brand,
+    review_count,
+    stars,
+    all_variants, // Assuming this holds the variants array
+    images, // Images array
+    variant_specifics, // Specific variant details
+  } = product;
+
+  const main_image = images?.[0] || '';
+
+
   const { onAddToCart } = useCheckoutContext();
-  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]?.product_id || ''); // Initially set to the first product's variant if available
-  const [coverUrlState, setCoverUrlState] = useState(product.main_image);
-  const [titleState, setTitleState] = useState(product.title);
-  const [priceSaleState, setPriceSaleState] = useState(product.price / 100); // Initially the product's price
-  const [productIdState, setProductIdState] = useState(product.product_id);
-  const [availableValueState, setAvailableValueState] = useState(product?.price);
-  const [totalRatings, setTotalRatings] = useState(product.stars);
-  const [totalReviews, setTotalReviews] = useState(product.review_count);
+  const [selectedVariant, setSelectedVariant] = useState(
+    all_variants?.length > 0 ? all_variants[0].product_id : ''
+  );
+  const [coverUrlState, setCoverUrlState] = useState(main_image);
+  const [titleState, setTitleState] = useState(title);
+  const [priceSaleState, setPriceSaleState] = useState(price / 100); // Initially the product's price
+  const [productIdState, setProductIdState] = useState(product_id);
+  const [availableValueState, setAvailableValueState] = useState(price);
+  const [totalRatings, setTotalRatings] = useState(stars);
+  const [totalReviews, setTotalReviews] = useState(review_count);
   const [loading, setLoading] = useState(false); // Loading state for variant details
   const [variantSize, setVariantSize] = useState('UNKNOWN'); // Define variantSize state
 
@@ -71,9 +89,9 @@ export default function ProductItem({ product }) {
     if (variantDetails) {
       // Update the item's display with fetched attributes
       setSelectedVariant(variantId);
-      setCoverUrlState(variantDetails.main_image || product.main_image); // Update image
+      setCoverUrlState(variantDetails.main_image || main_image); // Update image
       setProductIdState(variantDetails.product_id || variantId);
-      setTitleState(variantDetails.title || product.title); // Update title if variant has a different title
+      setTitleState(variantDetails.title || title); // Update title if variant has a different title
       setPriceSaleState(variantDetails.price / 100 || priceSaleState); // Update price once fetched
       setTotalRatings(variantDetails.stars || totalRatings);
       setTotalReviews(variantDetails.review_count || totalReviews);
@@ -93,11 +111,11 @@ export default function ProductItem({ product }) {
   const handleAddCart = async () => {
     const newProduct = {
       id: selectedVariant || productIdState, // Use the selected variant's product ID, fallback to productIdState
-      brand: product.brand,
+      brand,
       title: titleState, // Add the title to the product object
       originalCoverUrl: coverUrlState, // Use the variant-specific image if available
       available: availableValueState, // Use the variant's availability (price) status
-      price: priceSaleState || product.price / 100, // Use the selected variant's price or fallback to the product's price
+      price: priceSaleState || price / 100, // Use the selected variant's price or fallback to the product's price
       quantity: 1, // Default to 1
       size: variantSize || 'UNKNOWN', // Pass the selected variant size to the cart
     };
@@ -186,14 +204,14 @@ export default function ProductItem({ product }) {
     <Stack spacing={2.5} sx={{ p: 3, pt: 2 }}>
       <Link
         component={RouterLink}
-        href={paths.product.details(product.product_id)}
+        href={paths.product.details(product_id)}
         color="inherit"
         variant="subtitle2"
         noWrap
         sx={{ textDecoration: 'none', color: 'inherit', pointerEvents: 'none', cursor: 'default' }}
       >
         <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'uppercase' }}>
-          {product.brand || 'Unknown Brand'}
+          {brand || 'Unknown Brand'}
         </Typography>
         <Typography sx={{ whiteSpace: 'break-spaces' }}>{titleState}</Typography>
         {renderRating}
@@ -225,17 +243,13 @@ export default function ProductItem({ product }) {
         </Stack>
       </Stack>
       {/* Show dropdown only if the product has more than 1 variant */}
-      {product.variants && product.variants.length > 1 && (
+      {all_variants && all_variants.length > 1 && (
         <Stack direction="column" alignItems="center" spacing={2}>
-          <Select
-            value={selectedVariant}
-            onChange={handleChange}
-            sx={{ width: '100%' }}
-          >
-            {product.variants.map((variant) => (
+          <Select value={selectedVariant} onChange={handleChange} sx={{ width: '100%' }}>
+            {all_variants.map((variant) => (
               <MenuItem key={variant.product_id} value={variant.product_id}>
                 {variant.variant_specifics
-                  ?.map((specific) => specific.value.toUpperCase()) // Convert each attribute to uppercase
+                  ?.map((specific) => specific.value.toUpperCase())
                   .join(' / ') || 'UNKNOWN VARIANT'}
               </MenuItem>
             ))}

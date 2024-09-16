@@ -20,7 +20,7 @@ import { useTable, getComparator, emptyRows, TableNoData, TableSkeleton, TableEm
 // _mock
 import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
 // api
-import { useGetProductDetails, updateProduct } from 'src/api/product';
+import { useGetProductsAdmin, updateProduct } from 'src/api/product';
 import { useGetAffiliations } from 'src/api/organization';
 // components
 import { useSettingsContext } from 'src/components/settings';
@@ -85,7 +85,8 @@ export default function ProductListAdminView() {
   );
 
   // Fetch products based on selected accountId (only if accountId is selected)
-  const { products, productsLoading, productsEmpty } = useGetProductDetails(accountId);
+  const { products, productsLoading, productsEmpty } = useGetProductsAdmin(accountId);
+
 
   // Clear previous data and load new products when accountId changes
   useEffect(() => {

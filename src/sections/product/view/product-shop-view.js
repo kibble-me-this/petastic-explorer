@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 // @mui
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -20,7 +20,7 @@ import {
   PRODUCT_CATEGORY_OPTIONS,
 } from 'src/_mock';
 // api
-import { useGetProducts, useSearchProducts, useGetProductDetails } from 'src/api/product';
+import { useGetProducts, useSearchProducts } from 'src/api/product';
 // components
 import EmptyContent from 'src/components/empty-content';
 import { useSettingsContext } from 'src/components/settings';
@@ -49,15 +49,18 @@ export default function ProductShopView({ userId }) {
   const settings = useSettingsContext();
   const checkout = useCheckoutContext();
 
+  // Add blinkCount with a default value to avoid prop errors
+  const blinkCount = checkout?.blinkCount || 0;
+
+  // Ensure the effect only runs when the userId changes
   useEffect(() => {
     if (userId) {
       checkout.onUpdateAccountID(userId);
     }
-  }, [userId, checkout]);
+  }, [userId, checkout]); // Add `checkout` to the dependency array
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(9);
-  const [loadedPages, setLoadedPages] = useState({}); // Store already loaded pages
+  const [limit] = useState(9); // Products per page
   const [selectedProductId, setSelectedProductId] = useState(null); // Track selected product from search
 
   const openFilters = useBoolean();
@@ -73,37 +76,19 @@ export default function ProductShopView({ userId }) {
     productsLoading,
     productsError,
     productsEmpty,
-    totalPages,
-  } = useGetProductDetails(userId, currentPage, limit);
+    totalPages, // Get totalPages from the hook
+  } = useGetProducts(userId, currentPage, limit); // Now handles pagination locally
 
   const { searchResults, searchLoading, searchError } = useSearchProducts('', userId); // Use search without query to access all products
 
-  useEffect(() => {
-    if (products && products.length > 0) {
-      const startIndex = (currentPage - 1) * limit;
-      const endIndex = startIndex + limit;
-
-      setLoadedPages((prev) => ({
-        ...prev,
-        [currentPage]: products.slice(startIndex, endIndex), // Correctly slice products for the current page
-      }));
-    }
-  }, [products, currentPage, limit]);
-
-  const handleFilters = useCallback((name, value) => {
-    setFilters((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }, []);
-
-  const dataFiltered = applyFilter({
-    inputData: loadedPages[currentPage] || [],
+  // Memoize filtered data to prevent recalculations on every render
+  const dataFiltered = useMemo(() => applyFilter({
+    inputData: products || [],
     filters,
     sortBy,
-    selectedProductId, // Pass selectedProductId to applyFilter
-    searchResults, // Pass all products to applyFilter for fetching single product
-  });
+    selectedProductId,
+    searchResults,
+  }), [products, filters, sortBy, selectedProductId, searchResults]);
 
   const canReset = !isEqual(defaultFilters, filters);
   const notFound = !dataFiltered.length && canReset;
@@ -130,6 +115,19 @@ export default function ProductShopView({ userId }) {
     setFilters(defaultFilters); // Optionally reset filters when selecting a product
   }, []);
 
+  const handleFilters = useCallback((name, value) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }, []); // Make sure handleFilters is defined
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   const renderFilters = (
     <Stack spacing={3} justifyContent="space-between" alignItems={{ xs: 'flex-end', sm: 'center' }} direction={{ xs: 'column', sm: 'row' }}>
       <ProductSearch
@@ -140,14 +138,14 @@ export default function ProductShopView({ userId }) {
         loading={searchLoading}
         hrefItem={(id) => paths.product.details(id)}
       />
-
       <Stack direction="row" spacing={1} flexShrink={0}>
+
         <ProductFilters
           open={openFilters.value}
           onOpen={openFilters.onTrue}
           onClose={openFilters.onFalse}
           filters={filters}
-          onFilters={handleFilters}
+          onFilters={handleFilters} // Use handleFilters here
           canReset={canReset}
           onResetFilters={handleResetFilters}
           colorOptions={PRODUCT_COLOR_OPTIONS}
@@ -166,15 +164,9 @@ export default function ProductShopView({ userId }) {
 
   const renderNotFound = <EmptyContent filled title="No Data" sx={{ py: 10 }} />;
 
-  const handlePageChange = (newPage) => {
-    if (newPage > 0 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'} sx={{ mb: 15 }}>
-      <CartIcon totalItems={checkout.totalItems} />
+      <CartIcon totalItems={checkout.totalItems} blinkCount={blinkCount} /> {/* Pass blinkCount */}
       <Typography variant="h4" sx={{ my: { xs: 3, md: 5 } }}>Shop</Typography>
 
       <Stack spacing={2.5} sx={{ mb: { xs: 3, md: 5 } }}>
@@ -186,8 +178,8 @@ export default function ProductShopView({ userId }) {
 
       <ProductList
         key={`page-${currentPage}-${selectedProductId}`}  // Add selectedProductId to force re-render
-        products={dataFiltered} // Handle either single or multiple products
-        loading={productsLoading && !loadedPages[currentPage]}
+        products={dataFiltered} // Use the filtered data from API response
+        loading={productsLoading}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
@@ -203,6 +195,7 @@ ProductShopView.propTypes = {
 
 // ----------------------------------------------------------------------
 
+// Function to apply filters and sorting to the product list
 function applyFilter({ inputData, filters, sortBy, selectedProductId, searchResults }) {
   let filteredData = inputData;
 

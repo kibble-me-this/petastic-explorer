@@ -19,7 +19,7 @@ import { useAuthContext } from 'src/auth/hooks';
 // _mock
 import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
 // api
-import { useGetProductDetails } from 'src/api/product';
+import { useGetProducts } from 'src/api/product';
 import { useGetAffiliations } from 'src/api/organization';
 // components
 import { useSettingsContext } from 'src/components/settings';
@@ -103,7 +103,7 @@ export default function ProductListView() {
   }, [affiliates]);
 
   // Fetch product details based on selected accountId and pagination
-  const { products, productsLoading, productsEmpty, totalPages } = useGetProductDetails(accountId, currentPage, limit);
+  const { products, productsLoading, productsEmpty, totalPages } = useGetProducts(accountId, currentPage, limit);
 
   useEffect(() => {
     if (products && products.length) {

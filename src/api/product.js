@@ -42,113 +42,115 @@ export function useGetProduct(productId) {
 
 // ----------------------------------------------------------------------
 
-export function useGetProducts(account_id, { enabled = true } = {}) {
+export function useGetProductsAdmin(account_id, { enabled = true } = {}) {
   const { data, isLoading, error, isValidating } = useSWR(
     enabled && account_id ? [PRODUCTS_URL, { account_id }] : null,
     () => fetcherANYML([PRODUCTS_URL.list, { account_id }]),
     options
   );
 
-  const [productIds, setProductIds] = useState([]);
-  const [version, setVersion] = useState(null);
+  const memoizedValue = useMemo(() => ({
+    products: data?.products || [],
+    productsLoading: isLoading,
+    productsError: error,
+    productsValidating: isValidating,
+    productsEmpty: !isLoading && !data?.products?.length,
+  }), [data, isLoading, error, isValidating]);
 
-  useEffect(() => {
-    if (data) {
-      const newProductIds = data.products.map(product => product.id);
-      console.log("Fetched product IDs:", newProductIds);
-
-      if (!isEqual(productIds, newProductIds)) {
-        console.log("Updating product IDs");
-        setProductIds(newProductIds);
-      } else {
-        console.log("Product IDs unchanged");
-      }
-
-      const localVersion = getVersionKey(account_id);
-      if (data.version_products !== version) {
-        setVersion(data.version_products);
-        if (!localVersion) {
-          setVersionKey(account_id, data.version_products);
-        }
-      }
-    }
-  }, [data, productIds, version, account_id]);
-
-  const zincProducts = useGetZincProducts(account_id, productIds, version);
-
-  const combinedState = useMemo(() => ({
-    products: zincProducts.products,
-    productsLoading: isLoading || zincProducts.productsLoading,
-    productsError: error || zincProducts.productsError,
-    productsValidating: isValidating || zincProducts.productsValidating,
-    productsEmpty: !isLoading && !zincProducts.productsLoading && zincProducts.productsEmpty,
-    version,
-  }), [zincProducts, isLoading, error, isValidating, version]);
-
-  return combinedState;
+  return memoizedValue;
 }
+
+export function useGetProducts(account_id, currentPage = 1, limit = 9) {
+  const { data, isLoading, error, isValidating } = useSWR(
+    account_id ? [PRODUCTS_URL, { account_id }] : null,
+    () => fetcherANYML([PRODUCTS_URL.list, { account_id }]),
+    options
+  );
+
+  const memoizedValue = useMemo(() => {
+    const allProducts = data?.products || [];
+    const totalProducts = allProducts.length;
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    // Paginate locally by slicing the products array based on currentPage and limit
+    const paginatedProducts = allProducts.slice((currentPage - 1) * limit, currentPage * limit);
+
+    return {
+      products: paginatedProducts, // Return only the paginated products
+      totalProducts, // Return total number of products
+      totalPages, // Return total pages for pagination
+      productsLoading: isLoading,
+      productsError: error,
+      productsValidating: isValidating,
+      productsEmpty: !isLoading && allProducts.length === 0,
+    };
+  }, [data, isLoading, error, isValidating, currentPage, limit]);
+
+  return memoizedValue;
+}
+
 
 // ----------------------------------------------------------------------
 
-export function useGetProductDetails(accountId, page = 1, limit = 10) {
-  const isValidAccountId = Boolean(accountId);
+// export function useGetProductDetails(accountId, page = 1, limit = 10) {
+//   const isValidAccountId = Boolean(accountId);
 
-  const { cache, updateProductCache, isCacheValid } = useProductCache(accountId); // Use the custom hook
+//   const { cache, updateProductCache, isCacheValid } = useProductCache(accountId);
 
-  const { data, isLoading, error: swrError, isValidating } = useSWR(
-    isValidAccountId && !isCacheValid() ? [URL.details, accountId, page, limit] : null,
-    async ([url, account_id, currentPage, pageLimit]) => {
-      try {
-        const response = await postRequestANYML(url, { account_id, page: currentPage, limit: pageLimit });
+//   const { data, isLoading, error: swrError, isValidating } = useSWR(
+//     isValidAccountId && !isCacheValid() ? [URL.details, accountId, page, limit] : null,
+//     async ([url, account_id, currentPage, pageLimit]) => {
+//       try {
+//         const response = await postRequestANYML(url, { account_id, page: currentPage, limit: pageLimit });
 
-        let responseBody = response?.body;
-        if (typeof responseBody === 'string') {
-          responseBody = JSON.parse(responseBody);
-        }
+//         let responseBody = response?.body;
+//         if (typeof responseBody === 'string') {
+//           responseBody = JSON.parse(responseBody);
+//         }
 
-        if (responseBody.products && responseBody.products.length > 0) {
-          console.log('Fetched products:', responseBody.products);
+//         if (responseBody.products && responseBody.products.length > 0) {
+//           console.log('Fetched products:', responseBody.products);
 
-          // Update the product cache with the new data, including brand and categories
-          updateProductCache({
-            products: responseBody.products.map(product => ({
-              ...product,
-              brand: product.brand, // Add the brand attribute to each product
-              categories: product.categories, // Add the categories attribute to each product
-            })),
-            currentPage: responseBody.currentPage,
-            totalProducts: responseBody.totalProducts,
-            totalPages: responseBody.totalPages,
-            lastFetched: Date.now(),
-          });
-        } else {
-          console.warn('No products found, cache will not be updated.');
-        }
-      } catch (fetchError) {
-        console.error('Error fetching products:', fetchError);
-      }
-    },
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
+//           // Update the product cache with the new data, including brand and categories
+//           updateProductCache({
+//             products: responseBody.products.map(product => ({
+//               ...product,
+//               brand: product.brand, // Add the brand attribute to each product
+//               categories: product.categories, // Add the categories attribute to each product
+//             })),
+//             currentPage: responseBody.currentPage,
+//             totalProducts: responseBody.totalProducts,
+//             totalPages: responseBody.totalPages,
+//             lastFetched: Date.now(),
+//           });
+//         } else {
+//           console.warn('No products found, cache will not be updated.');
+//         }
+//       } catch (fetchError) {
+//         console.error('Error fetching products:', fetchError);
+//       }
+//     },
+//     {
+//       revalidateIfStale: false,
+//       revalidateOnFocus: false,
+//       revalidateOnReconnect: false,
+//     }
+//   );
 
-  // Extract the final products from the cache or the API response
-  const finalProducts = useMemo(() => isCacheValid() ? cache.products : (data?.body?.products || []), [cache.products, data, isCacheValid]);
+//   // Extract the final products from the cache or the API response
+//   const finalProducts = useMemo(() => isCacheValid() ? cache.products : (data?.body?.products || []), [cache.products, data, isCacheValid]);
 
-  return useMemo(() => ({
-    products: finalProducts,
-    currentPage: isCacheValid() ? cache.currentPage : (data?.body?.currentPage || page),
-    totalProducts: isCacheValid() ? cache.totalProducts : (data?.body?.totalProducts || 0),
-    totalPages: isCacheValid() ? cache.totalPages : (data?.body?.totalPages || 1),
-    productsLoading: isLoading,
-    productsError: swrError,
-    productsValidating: isValidating,
-    productsEmpty: !isLoading && finalProducts.length === 0,
-  }), [finalProducts, cache, data, swrError, isLoading, isValidating, page, isCacheValid]);
-}
+//   return useMemo(() => ({
+//     products: finalProducts,
+//     currentPage: isCacheValid() ? cache.currentPage : (data?.body?.currentPage || page),
+//     totalProducts: isCacheValid() ? cache.totalProducts : (data?.body?.totalProducts || 0),
+//     totalPages: isCacheValid() ? cache.totalPages : (data?.body?.totalPages || 1),
+//     productsLoading: isLoading,
+//     productsError: swrError,
+//     productsValidating: isValidating,
+//     productsEmpty: !isLoading && finalProducts.length === 0,
+//   }), [finalProducts, cache, data, swrError, isLoading, isValidating, page, isCacheValid]);
+// }
 
 
 // ----------------------------------------------------------------------
@@ -259,7 +261,7 @@ function formatProduct(productData) {
 
 export function useSearchProducts(query, accountId) {
   // Use `useGetProductDetails` to get the product data, which will be cached by SWR
-  const { products, productsLoading, productsError } = useGetProductDetails(accountId);
+  const { products, productsLoading, productsError } = useGetProducts(accountId);
 
   // Filter products based on the search query
   const searchResults = useMemo(() => {
