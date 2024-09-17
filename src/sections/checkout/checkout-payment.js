@@ -10,7 +10,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Iconify from 'src/components/iconify';
 import FormProvider from 'src/components/hook-form';
 //
-// import { createOrder } from 'src/api/order';
 import { createOrderV2 } from 'src/api/order';
 import { useAuthContext } from 'src/auth/hooks';
 import { fCurrency } from 'src/utils/format-number';
@@ -22,6 +21,7 @@ import CheckoutPaymentMethods from './checkout-payment-methods';
 
 // ----------------------------------------------------------------------
 
+// Reintroduce DELIVERY_OPTIONS
 const DELIVERY_OPTIONS = [
   {
     value: 0,
@@ -35,6 +35,7 @@ const DELIVERY_OPTIONS = [
   },
 ];
 
+// Reintroduce CARDS_OPTIONS (even if not used, to prevent errors)
 const CARDS_OPTIONS = [
   { value: 'ViSa1', label: '**** **** **** 1212 - Jimmy Holland' },
   { value: 'ViSa2', label: '**** **** **** 2424 - Shawn Stokes' },
@@ -50,11 +51,6 @@ export default function CheckoutPayment() {
   }
 
   const PAYMENT_OPTIONS = [
-    // {
-    //   value: 'credit',
-    //   label: 'Credit / Debit Card',
-    //   description: 'We support Mastercard, Visa, Discover and Stripe.',
-    // },
     {
       value: 'token',
       label: 'Pay with \u24C0ibble Cash',
@@ -81,89 +77,61 @@ export default function CheckoutPayment() {
 
   const {
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting },  // Use isSubmitting to manage form submission state
   } = methods;
 
-  // const onSubmit = handleSubmit(async (data) => {
-  //   try {
-  //     console.log('CheckoutPayment :: onSubmit');
-
-  //     const orderData = {
-  //       ...checkout,
-  //       userEmail: user.email,
-  //       anymalTokenBalance: user.anymalTokenBalance,
-  //     };
-
-  //     const result = await createOrder(orderData);
-
-  //     console.log('handlePlaceOrder result: ', result);
-
-  //     await checkout.onUpdateOrderNumber(result.id);
-  //     checkout.onNextStep();
-  //     checkout.onReset();
-  //     console.info('DATA', data);
-  //   } catch (error) {
-  //     console.error('Error placing order(s):', error);
-  //   }
-  // });
-
   const onSubmit = handleSubmit(async (data) => {
+    if (isSubmitting) return;  // Prevent double submission
+
     try {
-      // Destructure and add fallback values for missing data from checkout.billing
       const {
         name = "Default Name",
-        firstName = "Default First Name",  // Fallback if firstName is missing
-        lastName = "Default Last Name",    // Fallback if lastName is missing
-        fullAddress = "Unknown Address",   // Fallback if fullAddress is missing
-        phoneNumber = "5551234567",        // Fallback if phoneNumber is missing
-        city = "Unknown City",             // Fallback if city is missing
-        state = "Unknown State",           // Fallback if state is missing
-        zip = "00000"                      // Fallback if zip_code is missing
+        firstName = "Default First Name",
+        lastName = "Default Last Name",
+        fullAddress = "Unknown Address",
+        phoneNumber = "5551234567",
+        city = "Unknown City",
+        state = "Unknown State",
+        zip = "00000",
       } = checkout.billing;
 
-      // Fallback for product price if missing
       const products = checkout.items.map(item => ({
         product_id: item.id,
         quantity: item.quantity,
-        price: item.price || 0  // Fallback if price is missing
+        price: item.price || 0,
       }));
 
-      // Calculate the total price on the client-side and apply the multiplier
       const totalPrice = products.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-      const max_price = (totalPrice * 1.35) * 100; // Apply the 1.35 multiplier
+      const max_price = (totalPrice * 1.35) * 100;
 
-      // Get order_type from environment variables
-      const orderType = process.env.REACT_APP_ORDER_TYPE || 'test'; // Default to 'test' if not set
+      const orderType = process.env.REACT_APP_ORDER_TYPE || 'test';
 
-      // Prepare orderData with fallbacks applied
       const orderData = {
-        shelter_id: checkout.accountID,  // Shelter ID
+        shelter_id: checkout.accountID,
         customer: {
-          firstName: name.split(" ")[0],
-          lastName: name.split(" ")[1],
+          firstName: name.split(" ")[0] || firstName,
+          lastName: name.split(" ")[1] || lastName,
           email: user.email,
-          phoneNumber  // Ensure this is passed
+          phoneNumber,
         },
         shipping_address: {
-          firstName: name.split(" ")[0],
-          lastName: name.split(" ")[1],
-          address_line1: fullAddress.split(",")[0], // Split the address string to get address_line1
-          city,                   // Send city
-          state,                 // Send state
-          zip_code: zip,           // Send zip_code
+          firstName: name.split(" ")[0] || firstName,
+          lastName: name.split(" ")[1] || lastName,
+          address_line1: fullAddress.split(",")[0],
+          city,
+          state,
+          zip_code: zip,
           country: "US",
-          phone_number: phoneNumber     // Send phone number
+          phone_number: phoneNumber,
         },
         products,
-        max_price,  // Add max_price calculated above
-        order_type: orderType  // Use the environment variable here
+        max_price,
+        order_type: orderType,
       };
 
-      // Call your order creation function (createOrderV2)
       const result = await createOrderV2(orderData);
       console.log('handlePlaceOrder result: ', result);
 
-      // Update the order number and proceed to the next step in checkout
       await checkout.onUpdateOrderNumber(result.id);
       checkout.onNextStep();
       checkout.onReset();
@@ -172,13 +140,6 @@ export default function CheckoutPayment() {
       console.error('Error placing order(s):', error);
     }
   });
-
-
-
-
-
-
-
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -222,6 +183,7 @@ export default function CheckoutPayment() {
             type="submit"
             variant="contained"
             loading={isSubmitting}
+            disabled={isSubmitting}  // Disable the button during submission
           >
             Complete Order
           </LoadingButton>
