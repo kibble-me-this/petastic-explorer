@@ -23,12 +23,12 @@ export function useGetOrders(account_id, { page = 1, limit = 200, enabled = true
     );
 
     const memoizedValue = useMemo(() => ({
-        orders: data?.orders || [],
+        orders: data?.orders_v2 || [],
         order_account_id: data?.account_id || '',
         isLoading,
         error,
         pagination: data?.pagination || {},
-        isEmpty: !isLoading && !data?.orders?.length,
+        isEmpty: !isLoading && !data?.orders_v2?.length,
     }), [data, error, isLoading]);
 
     return memoizedValue;

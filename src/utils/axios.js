@@ -234,7 +234,8 @@ export const endpoints = {
     createProduct: '/default/handleCreateProduct', // Endpoint to get a list of fosters
   },
   orders: {
-    list: '/default/handleGetOrders', // '/api/orders/list',      // Endpoint to list all orders
+    // list: '/default/handleGetOrders', // '/api/orders/list',
+    list: '/default/handleGetOrdersV2', // '/api/orders/list',
     updateTracking: '/default/updateOrderTracking',
     details: '/api/orders/{id}',   // Endpoint to get details of a specific order
     create: '/default/handleCreateOrder',  // Endpoint to create a new order

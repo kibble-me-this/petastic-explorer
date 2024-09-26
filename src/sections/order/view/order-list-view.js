@@ -170,7 +170,7 @@ export default function OrderListView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.order.details(accountId, id)); // Pass accountId and id to the URL
+      router.push(paths.dashboard.order.details(accountId, id));
     },
     [router, accountId]
   );
@@ -213,7 +213,7 @@ export default function OrderListView() {
         />
 
         <Card>
-          <Tabs
+          {/* <Tabs
             value={filters.status}
             onChange={handleFilterStatus}
             sx={{
@@ -255,7 +255,7 @@ export default function OrderListView() {
                 }
               />
             ))}
-          </Tabs>
+          </Tabs> */}
 
           <OrderTableToolbar
             filters={filters}
@@ -396,11 +396,12 @@ function applyFilter({ inputData, comparator, filters }) {
 
   inputData = stabilizedThis.map((el) => el[0]);
 
+  // Search filter by customer name, email, or order number
   if (name) {
     inputData = inputData.filter((order) => {
-      const orderNumber = order.orderNumber || '';
-      const customerName = order.customer?.name || '';
-      const customerEmail = order.customer?.email || '';
+      const orderNumber = order.id || ''; // Assuming `id` is the order number
+      const customerName = order.attempts[0]?.customer?.name || ''; // Access first attempt's customer name
+      const customerEmail = order.attempts[0]?.customer?.email || ''; // Access first attempt's customer email
 
       return (
         orderNumber.toLowerCase().includes(name.toLowerCase()) ||
@@ -410,17 +411,35 @@ function applyFilter({ inputData, comparator, filters }) {
     });
   }
 
+  // Status filter
   if (status !== 'all') {
     inputData = inputData.filter((order) => order.status === status);
   }
 
-  if (startDate && endDate) {
-    inputData = inputData.filter(
-      (order) =>
-        fTimestamp(order.createdAt) >= fTimestamp(startDate) &&
-        fTimestamp(order.createdAt) <= fTimestamp(endDate)
-    );
+  // Handle date range filter (use timestamps for comparison)
+  if (startDate || endDate) {
+    const startTimestamp = startDate ? new Date(startDate).getTime() : null;
+    const endTimestamp = endDate ? new Date(endDate).getTime() : null;
+
+    inputData = inputData.filter((order) => {
+      const orderCreatedAtTimestamp = new Date(order.createdAt).getTime();
+      console.log(`Order date: ${orderCreatedAtTimestamp}, Start: ${startTimestamp}, End: ${endTimestamp}`);
+
+      if (startTimestamp && endTimestamp) {
+        return orderCreatedAtTimestamp >= startTimestamp && orderCreatedAtTimestamp <= endTimestamp;
+      }
+      if (startTimestamp) {
+        return orderCreatedAtTimestamp >= startTimestamp;
+      }
+      if (endTimestamp) {
+        return orderCreatedAtTimestamp <= endTimestamp;
+      }
+      return true; // No filtering if no dates are provided
+    });
   }
 
   return inputData;
 }
+
+
+

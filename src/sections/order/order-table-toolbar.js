@@ -16,7 +16,7 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 export default function OrderTableToolbar({
   filters,
-  onFilters,
+  onFilters,  // Ensure this is passed from the parent as a prop
   //
   canReset,
   onResetFilters,
@@ -47,12 +47,11 @@ export default function OrderTableToolbar({
     [onFilters]
   );
 
-  // Auto-load the single account ID if there is only one account ID in the list
   useEffect(() => {
-    if (accountIds.length === 1) {
+    if (accountIds.length === 1 && accountId !== accountIds[0].value) {
       onAccountIdChange({ target: { value: accountIds[0].value } });
     }
-  }, [accountIds, onAccountIdChange]);
+  }, [accountIds, accountId, onAccountIdChange]);
 
   return (
     <>
@@ -81,7 +80,7 @@ export default function OrderTableToolbar({
             </MenuItem>
           ))}
         </TextField>
-        <DatePicker
+        {/* <DatePicker
           label="Start date"
           value={filters.startDate}
           onChange={handleFilterStartDate}
@@ -103,7 +102,7 @@ export default function OrderTableToolbar({
           sx={{
             maxWidth: { md: 200 },
           }}
-        />
+        /> */}
 
         <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
           <TextField
@@ -172,7 +171,7 @@ export default function OrderTableToolbar({
 OrderTableToolbar.propTypes = {
   canReset: PropTypes.bool,
   filters: PropTypes.object,
-  onFilters: PropTypes.func,
+  onFilters: PropTypes.func,  // Ensure onFilters is passed in as a prop
   onResetFilters: PropTypes.func,
   accountId: PropTypes.string,
   onAccountIdChange: PropTypes.func,
