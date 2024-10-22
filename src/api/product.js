@@ -69,20 +69,24 @@ export function useGetProducts(account_id, currentPage = 1, limit = 9) {
 
   const memoizedValue = useMemo(() => {
     const allProducts = data?.products || [];
-    const totalProducts = allProducts.length;
+
+    // Filter out products that are not enabled
+    const enabledProducts = allProducts.filter(product => product.enabled);
+
+    const totalProducts = enabledProducts.length;
     const totalPages = Math.ceil(totalProducts / limit);
 
     // Paginate locally by slicing the products array based on currentPage and limit
-    const paginatedProducts = allProducts.slice((currentPage - 1) * limit, currentPage * limit);
+    const paginatedProducts = enabledProducts.slice((currentPage - 1) * limit, currentPage * limit);
 
     return {
       products: paginatedProducts, // Return only the paginated products
-      totalProducts, // Return total number of products
+      totalProducts, // Return total number of enabled products
       totalPages, // Return total pages for pagination
       productsLoading: isLoading,
       productsError: error,
       productsValidating: isValidating,
-      productsEmpty: !isLoading && allProducts.length === 0,
+      productsEmpty: !isLoading && enabledProducts.length === 0, // Check if there are no enabled products
     };
   }, [data, isLoading, error, isValidating, currentPage, limit]);
 

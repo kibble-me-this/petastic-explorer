@@ -195,11 +195,9 @@ ProductShopView.propTypes = {
 
 // ----------------------------------------------------------------------
 
+// Function to apply filters and sorting to the product list
 function applyFilter({ inputData, filters, sortBy, selectedProductId, searchResults }) {
   let filteredData = inputData;
-
-  // Filter out products that do not have enabled: true
-  filteredData = filteredData.filter((product) => product.enabled);
 
   // Check if a specific product has been selected by product_id
   if (selectedProductId) {
