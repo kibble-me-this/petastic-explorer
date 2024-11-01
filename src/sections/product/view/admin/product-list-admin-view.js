@@ -131,24 +131,32 @@ export default function ProductListAdminView() {
 
   const handleEnableProduct = useCallback(
     async (productId, currentEnabled) => {
-      try {
-        // Toggle the enabled state
-        const newEnabled = !currentEnabled;
+      const newEnabled = !currentEnabled;
 
-        // Assuming you already have access to `accountId` and you want to enable/disable the product
-        await updateProduct(productId, accountId, { enabled: newEnabled });
-
-        // Optionally, update the local table data or refetch the updated products
-        const updatedData = tableData.map((row) =>
+      // Optimistically update the state
+      setTableData((prevData) =>
+        prevData.map((row) =>
           row.product_id === productId ? { ...row, enabled: newEnabled } : row
-        );
-        setTableData(updatedData);
+        )
+      );
+
+      try {
+        // Update the server
+        await updateProduct(productId, accountId, { enabled: newEnabled });
       } catch (error) {
         console.error(`Error toggling enabled state for product ${productId}:`, error);
+
+        // Revert to previous state if the API call fails
+        setTableData((prevData) =>
+          prevData.map((row) =>
+            row.product_id === productId ? { ...row, enabled: currentEnabled } : row
+          )
+        );
       }
     },
-    [accountId, tableData]
+    [accountId]
   );
+
 
   const handleDeleteRow = useCallback(
     async (productId) => {

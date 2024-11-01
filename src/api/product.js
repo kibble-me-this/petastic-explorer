@@ -293,10 +293,11 @@ export async function updateProduct(productId, accountId, updateFields) {
   // Construct the URL with the correct product ID in the query string
   const url = `${URL.update}?product_id=${productId}`;
 
-  // Prepare the payload, including the account ID and update fields
+  // Ensure `enabled` has a default value if it’s not defined in `updateFields`
   const requestData = {
-    account_id: accountId,  // Keep the account ID in the body
-    ...updateFields         // Spread the update fields
+    account_id: accountId,
+    enabled: updateFields.enabled !== undefined ? updateFields.enabled : false,
+    ...updateFields,
   };
 
   const config = {
@@ -306,15 +307,39 @@ export async function updateProduct(productId, accountId, updateFields) {
   };
 
   try {
+    // Optimistically update the SWR cache before the API call
+    await mutate(
+      [URL.list, { account_id: accountId }],
+      (currentData) => {
+        if (!currentData) return currentData; // Ensure it returns even if currentData is null/undefined
+
+        // Update the specific product in the cache
+        return {
+          ...currentData,
+          products: currentData.products.map((product) =>
+            product.id === productId
+              ? { ...product, ...updateFields }
+              : product
+          ),
+        };
+      },
+      false // Do not revalidate immediately
+    );
+
     // Make the PATCH request with the correct URL and body
     const response = await patchRequestANYML(url, requestData, config);
 
-    // After the product is updated, revalidate the SWR cache to reflect the changes
+    // Optionally, revalidate the SWR cache after successful update
     await mutate([URL.list, { account_id: accountId }]);
 
     return response;
   } catch (error) {
     console.error('Error updating product:', error);
+
+    // Revert cache if the API request fails
+    await mutate([URL.list, { account_id: accountId }]);
+
     throw error;
   }
 }
+
