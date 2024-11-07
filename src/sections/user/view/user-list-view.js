@@ -1166,6 +1166,7 @@ export default function UserListView() {
             <>
               {/* Render the App components here */}
               <Grid container spacing={3} mb={2}>
+                {/*
                 <Grid xs={12} sm={6} md={3}>
                   <AnalyticsWidgetSummary
                     title="Total Sales"
@@ -1248,7 +1249,7 @@ export default function UserListView() {
                       ],
                     }}
                   />
-                </Grid>
+                </Grid> */}
                 <Grid xs={12} md={4}>
                   <AppWidgetSummary
                     title="Total Pets"
