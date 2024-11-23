@@ -13,11 +13,11 @@ export default function MaintenanceView() {
   return (
     <Stack sx={{ alignItems: 'center', mt: 50 }}>
       <Typography variant="h3" sx={{ mb: 2 }}>
-        Petastic currently under maintenance
+        Thank you Petastic Alpha Testers!
       </Typography>
 
       <Typography sx={{ color: 'text.secondary' }}>
-        We&apos;ll be bark on Monday!
+        We&apos;ll be bark on better than ever!
       </Typography>
 
       <MaintenanceIllustration sx={{ my: 10, height: 240 }} />
