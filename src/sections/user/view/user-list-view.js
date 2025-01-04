@@ -266,6 +266,7 @@ export default function UserListView() {
     1218600, // sep
     1334205, // oct
     1430381, // nov
+    1529011, // 98630
     totalMaxPets,
   ];
 
@@ -494,7 +495,7 @@ export default function UserListView() {
                     percent={((totalMaxPets - 1218600) / 1218600) * 100}
                     total={totalMaxPets}
                     chart={{
-                      series: [90665, 72238, 83335, 89259, 84701, 92401],
+                      series: [90665, 72238, 83335, 89259, 84701, 92401, 98630],
                     }}
                     loading={loadingMaxValues}
                   />
@@ -507,7 +508,7 @@ export default function UserListView() {
                     total={totalMaxDogs}
                     chart={{
                       colors: [theme2.palette.info.light, theme2.palette.info.main],
-                      series: [52664, 35193, 45355, 51107, 59366, 59373],
+                      series: [52664, 35193, 45355, 51107, 59366, 59373, 58192],
                     }}
                     loading={loadingMaxValues}
                   />
@@ -520,7 +521,7 @@ export default function UserListView() {
                     total={totalMaxCats}
                     chart={{
                       colors: [theme2.palette.warning.light, theme2.palette.warning.main],
-                      series: [38001, 37045, 37980, 38152, 30637, 39827],
+                      series: [38001, 37045, 37980, 38152, 30637, 39827, 40438],
                     }}
                     loading={loadingMaxValues}
                   />
@@ -555,7 +556,8 @@ export default function UserListView() {
                         'Sep',
                         'Oct',
                         'Nov',
-                        'Dec24',
+                        'Dec',
+                        'Jan25'
                       ],
                       series: [
                         {
