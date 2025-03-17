@@ -266,7 +266,9 @@ export default function UserListView() {
     1218600, // sep
     1334205, // oct
     1430381, // nov
-    1529011, // 98630
+    1529011, // dec
+    1649801,
+    totalMaxPets,
     totalMaxPets,
   ];
 
@@ -533,7 +535,7 @@ export default function UserListView() {
                     subheader={subheader}
                     chart={{
                       categories: [
-                        'Jan23',
+                        'Jan',
                         'Feb',
                         'Mar',
                         'Apr',
@@ -545,7 +547,7 @@ export default function UserListView() {
                         'Oct',
                         'Nov',
                         'Dec',
-                        'Jan24',
+                        'Jan',
                         'Feb',
                         'Mar',
                         'Apr',
@@ -557,7 +559,9 @@ export default function UserListView() {
                         'Oct',
                         'Nov',
                         'Dec',
-                        'Jan25'
+                        'Jan',
+                        'Feb',
+                        'Mar25'
                       ],
                       series: [
                         {
